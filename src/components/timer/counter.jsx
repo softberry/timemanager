@@ -1,8 +1,7 @@
 import React from "react";
-import styles from './counter.module.css'
-function twoDigit(n) {
-  return `0${n}`.slice(-2);
-}
+import styles from "./counter.module.css";
+
+import { twoDigit } from "../../lib/counter.helpers";
 
 export default function Counter({ hour, minute, second }) {
   return (

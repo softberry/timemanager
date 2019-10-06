@@ -1,5 +1,13 @@
+function twoDigit(n = 0) {
+  const input = Math.max(parseInt(n, 10), 0);
+  if (input > 99 || isNaN(input)) {
+    throw new TypeError();
+  }
 
-export default function timediff(start) {
+  return `0${input}`.slice(-2);
+}
+
+function timeDiff(start) {
   let diff = Date.now() - start;
 
   const [s, m, h] = [1000, 60 * 1000, 60 * 60 * 1000];
@@ -21,3 +29,5 @@ export default function timediff(start) {
   }
   return { hour, minute, second };
 }
+
+export { twoDigit, timeDiff };
