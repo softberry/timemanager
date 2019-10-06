@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { makeStyles } from "@material-ui/core";
 
-import timeDiff from "./timediff";
+import { timeDiff } from "../../lib/counter.helpers";
 import Counter from "./counter";
 
 const types = {
@@ -118,19 +118,17 @@ export default function Timer() {
   useEffect(() => {
     let i;
     if (timer.delaying) {
-      
-        i=setTimeout(() => {
-          const v = delayingValue + 1;
+      i = setTimeout(() => {
+        const v = delayingValue + 1;
 
-          if (v > 100) {
-            clearTimeout(i);
-            startTimer();
-            return;
-          }
+        if (v > 100) {
+          clearTimeout(i);
+          startTimer();
+          return;
+        }
 
-          setDelayingvalue(v);
-        }, 3000 / 100)
-      
+        setDelayingvalue(v);
+      }, 3000 / 100);
     } else {
       setDelayingvalue(0);
     }
@@ -169,12 +167,7 @@ export default function Timer() {
         >
           <Counter {...timer.diff} />
         </Typography>
-        <Delay
-          delay="3000"
-          show={timer.delaying}
-          done={startTimer}
-          value={delayingValue}
-        />
+        <Delay show={timer.delaying} value={delayingValue} />
       </CardContent>
 
       <CardActions className={classes.footer} disableSpacing>
