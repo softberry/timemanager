@@ -1,11 +1,15 @@
 import React from "react";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CssBaseline from "@material-ui/core/CssBaseline"
+import "./index.css";
 import Home from "./pages/home";
 function App() {
+  document.oncontextmenu = function() {
+    return false;
+  };
+
   return (
     <Router>
-      <CssBaseline />
       <Switch>
         <Route exact path="/" component={Home} />
       </Switch>
