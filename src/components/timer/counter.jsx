@@ -3,11 +3,17 @@ import styles from "./counter.module.css";
 
 import { twoDigit } from "../../lib/counter.helpers";
 
-export default function Counter({ hour, minute, second }) {
+export default function Counter({ hour, minute, counting = false }) {
+  const beatClass = [styles.Beats];
+  console.log(counting);
+  counting && beatClass.push(styles.beat);
+  const containerOpacity = { opacity: counting ? 1 : 0.05 };
   return (
-    <div>
-      <span>{twoDigit(hour)}</span>:<span>{twoDigit(minute)}</span>&nbsp;
-      <span className={styles.Second}>{twoDigit(second)}</span>
+    <div className={styles.Container} style={containerOpacity}>
+      <span className={styles.Hour}>{twoDigit(hour)}</span>
+      <span className={beatClass.join(" ")}>:</span>
+      <span className={styles.Minute}>{twoDigit(minute)}</span>
+      {/* <span className={styles.Second}>{twoDigit(second)}</span>*/}
     </div>
   );
 }

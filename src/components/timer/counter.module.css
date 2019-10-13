@@ -1,5 +1,41 @@
-.Hour{}
-.Minute{}
-.Second{
-    font-size: 50%;
+.Container {
+  font-size: 20vw;
+  opacity: 0.5;
+  display: flex;
+  transition: opacity 300ms;
+}
+
+.Hour {
+  width: 45vw;
+  display: inline-block;
+  text-align: right;
+}
+.Minute {
+  width: 45vw;
+  display: inline-block;
+}
+
+.Beats {
+  display: inline-block;
+  width: 10vh;
+  text-align: center;
+  font-size: 18vw;
+}
+
+.beat {
+  animation: bt 1s linear infinite;
+}
+@keyframes bt {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
