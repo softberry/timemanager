@@ -5,6 +5,7 @@ import Counter from "./counter";
 import StartStopButton from "../startStopButton";
 
 import styles from "./timer.module.css";
+let timerID;
 const types = {
   TIMER_START: "TIMER_START",
   TIMER_STOP: "TIMER_STOP",
@@ -35,6 +36,7 @@ function reducer(state, action) {
         active: !!0,
         start: 0
       };
+      clearTimeout(timerID);
       break;
     }
     case types.TIMER_UPDATE: {
@@ -51,7 +53,7 @@ function reducer(state, action) {
   return newState;
 }
 export default function Timer() {
-  let [timer, dispatch] = useReducer(reducer, {
+  const [timer, dispatch] = useReducer(reducer, {
     delaying: false,
     active: false,
     start: 0,
@@ -66,10 +68,10 @@ export default function Timer() {
     if (!timer.active) {
       return;
     }
-    setTimeout(() => {
+    timerID = setTimeout(() => {
       dispatch({ type: types.TIMER_UPDATE });
     }, 10000);
-  });
+  }, [timer.active]);
 
   if (timer.active) {
     return (
@@ -86,7 +88,7 @@ export default function Timer() {
   }
   return (
     <div className={styles.Page}>
-      <Counter {...timer.diff} counting={false}/>
+      <Counter {...timer.diff} counting={false} />
       <StartStopButton
         buttonLabel={{ inactive: "START", active: "WAIT" }}
         onComplete={() => {

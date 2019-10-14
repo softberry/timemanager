@@ -3,21 +3,22 @@
   opacity: 0.5;
   display: flex;
   transition: opacity 300ms;
+  width: 100%;
 }
 
 .Hour {
-  width: 45vw;
+  width: 50%;
   display: inline-block;
   text-align: right;
 }
 .Minute {
-  width: 45vw;
+  width: 50%;
   display: inline-block;
+  text-align: left;
 }
 
 .Beats {
   display: inline-block;
-  width: 10vh;
   text-align: center;
   font-size: 18vw;
 }

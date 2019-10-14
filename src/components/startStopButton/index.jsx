@@ -41,26 +41,28 @@ export default function StartStopButton({
     ? styles.Button
     : [styles.Button, styles.active].join(" ");
   return (
-    <div
-      className={styles.Container}
-      onMouseDown={e => {
-        setActive(true);
-      }}
-      onMouseUp={e => {
-        setActive(false);
-      }}
-      onTouchStart={e => {
-        setActive(true);
-      }}
-      onTouchEnd={e => {
-        setActive(false);
-      }}
-    >
-      {active && <div className={styles.PressAndHoldInfo}>{infoText}</div>}
-      <div className={stateClass}>
-        {active && <div className={styles.CountDown}>{strCountDown}</div>}
-        {label}
+    <>
+      <div
+        className={styles.Container}
+        onMouseDown={e => {
+          setActive(true);
+        }}
+        onMouseUp={e => {
+          setActive(false);
+        }}
+        onTouchStart={e => {
+          setActive(true);
+        }}
+        onTouchEnd={e => {
+          setActive(false);
+        }}
+      >
+        {active && <div className={styles.PressAndHoldInfo}>{infoText}</div>}
+        <div className={stateClass}>
+          {active && <div className={styles.CountDown}>{strCountDown}</div>}
+          {label}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
