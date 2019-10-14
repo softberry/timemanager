@@ -2,7 +2,7 @@ import React, { useReducer, useEffect } from "react";
 
 import { timeDiff } from "../../lib/counter.helpers";
 import Counter from "./counter";
-import StartStopButton from "../startStopButton";
+import StartStopButton from "../../__ui/buttons/startStopButton";
 
 import styles from "./timer.module.css";
 let timerID;

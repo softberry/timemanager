@@ -5,7 +5,6 @@ import { twoDigit } from "../../lib/counter.helpers";
 
 export default function Counter({ hour, minute, counting = false }) {
   const beatClass = [styles.Beats];
-  console.log(counting);
   counting && beatClass.push(styles.beat);
   const containerOpacity = { opacity: counting ? 1 : 0.05 };
   return (
@@ -13,7 +12,6 @@ export default function Counter({ hour, minute, counting = false }) {
       <span className={styles.Hour}>{twoDigit(hour)}</span>
       <span className={beatClass.join(" ")}>:</span>
       <span className={styles.Minute}>{twoDigit(minute)}</span>
-      {/* <span className={styles.Second}>{twoDigit(second)}</span>*/}
     </div>
   );
 }
