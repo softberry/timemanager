@@ -1,5 +1,5 @@
 .Container {
-  font-size: 20vw;
+  font-size: 7rem;
   opacity: 0.5;
   display: flex;
   transition: opacity 300ms;
@@ -20,7 +20,8 @@
 .Beats {
   display: inline-block;
   text-align: center;
-  font-size: 18vw;
+  line-height: 1;
+
 }
 
 .beat {

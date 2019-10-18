@@ -4,7 +4,7 @@ import { timeDiff } from "../../lib/counter.helpers";
 import Counter from "./counter";
 import StartStopButton from "../../__ui/buttons/startStopButton";
 
-import styles from "./timer.module.css";
+import styles from "./timer.module.scss";
 let timerID;
 const types = {
   TIMER_START: "TIMER_START",

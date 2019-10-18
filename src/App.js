@@ -1,7 +1,7 @@
 import React from "react";
-
+import Typography from './__ui/typography';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./index.css";
+import "./index.scss";
 import Home from "./pages/home";
 function App() {
   document.oncontextmenu = function() {
@@ -10,9 +10,12 @@ function App() {
 
   return (
     <Router>
+      <Typography >
       <Switch>
         <Route exact path="/" component={Home} />
       </Switch>
+      
+      </Typography>
     </Router>
   );
 }

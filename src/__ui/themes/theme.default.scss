@@ -1,0 +1,25 @@
+// TYPOGRAPHY
+$font: 'font-family: "Exo", sans-serif;';
+$font-size: 14px;
+
+$primary-layer-bg-color: #3d4346;
+$primary-layer-color: #eeeeee;
+
+$secondary-layer-bg-color: #e5f3ff;
+$secondary-layer-color: #242848;
+
+$primary-layer: (
+  "background": $primary-layer-bg-color,
+  "color": $primary-layer-color
+);
+$secondary-layer: (
+  "background": $secondary-layer-bg-color,
+  "color": $secondary-layer-color
+);
+
+$break-points: (
+  "small": 480px,
+  "medium": 720px,
+  "large": 960px,
+  "xlarge": 1200px
+);
