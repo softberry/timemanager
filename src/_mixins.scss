@@ -1,0 +1,24 @@
+@import "./__ui/themes/theme.default.scss";
+// @import "./__ui/themes/theme.ocean.scss";
+
+@mixin layer-bg($type) {
+  @if $type == "primary" {
+    background-color: map-get($primary-layer, "background");
+  } @else if $type == "seondary" {
+    background-color: map-get($seondary-layer, "background");
+  }
+}
+
+@mixin layer-color($type) {
+  @if $type == "primary" {
+    color: map-get($primary-layer, "color");
+  } @else if $type == "seondary" {
+    color: map-get($seondary-layer, "color");
+  }
+}
+
+@mixin Up($break) {
+  @media screen and (min-width: map-get($break-points,$break)) {
+    @content;
+  }
+}

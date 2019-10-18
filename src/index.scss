@@ -1,0 +1,10 @@
+@import "./mixins";
+html,
+body {
+  font-family: "Exo", sans-serif;
+  margin: 0;
+}
+
+body * {
+  user-select: none;
+}

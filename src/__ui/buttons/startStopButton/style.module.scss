@@ -1,18 +1,22 @@
+@import "../../../mixins";
+
 .Button {
+  @include layer-color("primary");
   border: transparent 12px ridge;
-  color: #eeeeee;
-  width: 100px;
-  height: 100px;
+  width: 6rem;
+  height: 6rem;
   border-radius: 50%;
   line-height: 100px;
   text-align: center;
-  font-size: 25px;
+  font-size: 1.5rem;
   position: relative;
-  box-shadow: #111111 0 0 12px 2px, inset #333333 0 0 12px 2px;
+  box-shadow: darken($primary-layer-bg-color, 50%) 0 0 12px 2px,
+    inset lighten($primary-layer-bg-color, 10%) 0 0 12px 2px;
 }
 
 .active {
-  box-shadow: inset #111111 0 0 12px 2px, #333333 0 0 12px 2px;
+  box-shadow: lighten($primary-layer-bg-color, 10%) 0 0 12px 2px,
+    inset darken($primary-layer-bg-color, 50%) 0 0 12px 2px;
   color: #aaaaaa;
 }
 
@@ -25,19 +29,18 @@
   text-align: center;
 
   transform-origin: center center;
-  font-size: 15vh;
+  font-size: 5em;
   animation: ct 1s linear infinite;
-  
 }
 
 .PressAndHoldInfo {
   position: absolute;
-  top:0;
+  top: 1rem;
   left: 0;
-  font-size: 12px;
-  line-height: 20px;
+  font-size: 0.75rem;
+  line-height: 1;
   flex-basis: 100%;
-  width: 100vw;
+  width: 100%;
   text-align: center;
 }
 

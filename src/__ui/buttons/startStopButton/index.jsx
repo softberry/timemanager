@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import styles from "./style.module.css";
+import styles from "./style.module.scss";
 
 export default function StartStopButton({
   onComplete,
