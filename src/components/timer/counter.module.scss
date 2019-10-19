@@ -1,27 +1,32 @@
+@import "../../mixins";
 .Container {
   font-size: 7rem;
   opacity: 0.5;
   display: flex;
   transition: opacity 300ms;
   width: 100%;
+  justify-content: space-around;
+
+  @include Up("small") {
+    font-size: 12rem;
+  }
 }
 
 .Hour {
-  width: 50%;
   display: inline-block;
   text-align: right;
+  flex-basis: calc(50% - 1rem);
 }
 .Minute {
-  width: 50%;
   display: inline-block;
   text-align: left;
+  flex-basis: calc(50% - 1rem);
 }
 
 .Beats {
   display: inline-block;
   text-align: center;
   line-height: 1;
-
 }
 
 .beat {

@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-
+import { nSQL } from "@nano-sql/core";
 import { timeDiff } from "../../lib/counter.helpers";
 import Counter from "./counter";
 import StartStopButton from "../../__ui/buttons/startStopButton";
@@ -14,37 +14,28 @@ const types = {
 
 function reducer(state, action) {
   let newState = state;
+
   switch (action.type) {
     case types.TIMER_START: {
-      const now = Date.now();
+      //      const now = Date.now();
       newState = {
         ...state,
-        active: !0,
-        delaying: false,
-        start: now,
-        diff: {
-          hour: 0,
-          minute: 0,
-          second: 0
-        }
+        ...action.current
       };
       break;
     }
     case types.TIMER_STOP: {
       newState = {
         ...state,
-        active: !!0,
-        start: 0
+        ...action.current
       };
-      clearTimeout(timerID);
       break;
     }
     case types.TIMER_UPDATE: {
       newState = {
         ...state,
-        diff: timeDiff(state.start)
+        ...action.current
       };
-
       break;
     }
     default:
@@ -54,9 +45,11 @@ function reducer(state, action) {
 }
 export default function Timer() {
   const [timer, dispatch] = useReducer(reducer, {
+    id: "active-counter-0",
     delaying: false,
     active: false,
     start: 0,
+    current: Date.now(),
     diff: {
       hour: 0,
       minute: 0,
@@ -68,10 +61,20 @@ export default function Timer() {
     if (!timer.active) {
       return;
     }
+
     timerID = setTimeout(() => {
-      dispatch({ type: types.TIMER_UPDATE });
-    }, 10000);
-  }, [timer.active]);
+      nSQL("counters")
+        .query("upsert", {
+          id: "active-counter-0",
+          active: true,
+          diff: timeDiff(timer.start)
+        })
+        .exec()
+        .then(current => {
+          dispatch({ type: types.TIMER_UPDATE, current: current[0] });
+        });
+    }, 1000);
+  }, [timer.active, timer.start, timer.diff]);
 
   if (timer.active) {
     return (
@@ -80,7 +83,16 @@ export default function Timer() {
         <StartStopButton
           buttonLabel={{ inactive: "STOP", active: "WAIT" }}
           onComplete={() => {
-            dispatch({ type: types.TIMER_STOP });
+            clearTimeout(timerID);
+            nSQL("counters")
+              .query("upsert", {
+                id: "active-counter-0",
+                active: false
+              })
+              .exec()
+              .then(current => {
+                dispatch({ type: types.TIMER_STOP, current: current[0] });
+              });
           }}
         />
       </div>
@@ -92,7 +104,23 @@ export default function Timer() {
       <StartStopButton
         buttonLabel={{ inactive: "START", active: "WAIT" }}
         onComplete={() => {
-          dispatch({ type: types.TIMER_START });
+          nSQL("counters")
+            .query("upsert", {
+              id: "active-counter-0",
+              delaying: false,
+              active: true,
+              start: Date.now(),
+              current: Date.now(),
+              diff: {
+                hour: 0,
+                minute: 0,
+                second: 0
+              }
+            })
+            .exec()
+            .then(current => {
+              dispatch({ type: types.TIMER_START, current: current[0] });
+            });
         }}
       />
     </div>
