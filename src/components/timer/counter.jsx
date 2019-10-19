@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./counter.module.css";
+import styles from "./counter.module.scss";
 
 import { twoDigit } from "../../lib/counter.helpers";
 
