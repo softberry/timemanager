@@ -1,0 +1,35 @@
+@import "../../mixins";
+
+.Footer {
+  @include layer-bg("secondary");
+  @include layer-color("secondary");
+  @include zIndex("footer");
+  box-shadow: -2px 0 4px 2px darken($primary-layer-color, 20);
+  grid-area: ui-components-footer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  a,
+  a:hover,
+  a:active,
+  a:link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &Button {
+    width: 10%;
+    text-align: center;
+    &:active {
+      background-color: darken($primary-layer-color, 10);
+      color: lighten($primary-layer-color, 10);
+      border-radius: 4px;
+    }
+    &ActiveLink {
+      background-color: darken($primary-layer-color, 10);
+      color: lighten($primary-layer-color, 10);
+      border-radius: 4px;
+    }
+  }
+}

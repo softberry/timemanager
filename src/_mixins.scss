@@ -1,24 +1,48 @@
+@import "./__ui/themes/variables.default.scss";
 @import "./__ui/themes/theme.default.scss";
 // @import "./__ui/themes/theme.ocean.scss";
 
 @mixin layer-bg($type) {
   @if $type == "primary" {
     background-color: map-get($primary-layer, "background");
-  } @else if $type == "seondary" {
-    background-color: map-get($seondary-layer, "background");
+  } @else if $type == "secondary" {
+    background-color: map-get($secondary-layer, "background");
   }
 }
 
 @mixin layer-color($type) {
   @if $type == "primary" {
     color: map-get($primary-layer, "color");
-  } @else if $type == "seondary" {
-    color: map-get($seondary-layer, "color");
+  } @else if $type == "secondary" {
+    color: map-get($secondary-layer, "color");
   }
 }
 
-@mixin Up($break) {
+@mixin WidthUp($break) {
   @media screen and (min-width: map-get($break-points,$break)) {
     @content;
   }
+}
+
+@mixin HeightUp($break) {
+  @media screen and (min-height: map-get($break-points,$break)) {
+    @content;
+  }
+}
+
+@mixin view {
+  padding: 0 1rem;
+  margin: 0;
+  min-height: 100%;
+  @include WidthUp("medium") {
+  }
+}
+
+@mixin zIndex($item) {
+  $indexList: (
+    "main": 100,
+    "nav": 1000,
+    "footer": 1000
+  );
+  z-index: map-get($indexList, $item);
 }

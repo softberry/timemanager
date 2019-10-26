@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import styles from "./style.module.scss";
+import styles from "./button.module.scss";
 
 export default function StartStopButton({
   onComplete,
@@ -42,7 +42,8 @@ export default function StartStopButton({
     ? styles.Button
     : [styles.Button, styles.active].join(" ");
   return (
-    <div
+    
+    <div className={styles.ButtonWrapper}
       onMouseDown={e => {
         setActive(true);
       }}
@@ -59,7 +60,7 @@ export default function StartStopButton({
       {active && <div className={styles.PressAndHoldInfo}>{infoText}</div>}
       <div className={stateClass}>
         {active && <div className={styles.CountDown}>{strCountDown}</div>}
-        {label}
+        <div className={styles.ButtonText}>{label}</div>
       </div>
     </div>
   );

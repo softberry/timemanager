@@ -78,7 +78,7 @@ export default function Timer() {
 
   if (timer.active) {
     return (
-      <div className={styles.Page}>
+      <div className={styles.Timer}>
         <Counter {...timer.diff} counting={true} />
         <StartStopButton
           buttonLabel={{ inactive: "STOP", active: "WAIT" }}
@@ -99,7 +99,7 @@ export default function Timer() {
     );
   }
   return (
-    <div className={styles.Page}>
+    <div className={styles.Timer}>
       <Counter {...timer.diff} counting={false} />
       <StartStopButton
         buttonLabel={{ inactive: "START", active: "WAIT" }}

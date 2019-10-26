@@ -1,0 +1,21 @@
+@import "../mixins";
+
+.Layout {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-areas:
+    "ui-components-nav"
+    "ui-components-main"
+    "ui-components-footer";
+  grid-template-rows: 2rem 1fr 2rem;
+  grid-template-columns: 1fr;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.Main {
+  grid-area: ui-components-main;
+  overflow-y: scroll;
+  @include zIndex("main");
+}

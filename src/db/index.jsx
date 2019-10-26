@@ -1,18 +1,30 @@
 import React from "react";
 import { nSQL } from "@nano-sql/core";
 // Table Models
-import userTable from "./models/user.model";
-import counterTable from "./models/counter.model";
-//////////////////
-export default function NanoDatabase() {
+import counterModelTables from "./models/counter.model";
+
+// Dummy Tables
+import createRandomContacts from "../db/_dummy/customers.dev";
+
+function loadDummyTables() {
+  if (process.env.NODE_ENV !== "development") {
+    return {};
+  }
+  const customers = createRandomContacts(10);
+  return {
+    customers
+  };
+}
+
+/////////////////
+export default function NanoDatabase({ onDbReady, onDbError }) {
   nSQL()
     .createDatabase({
       id: "shoplist_local", // can be anything that's a string
       mode: "PERM", // save changes to IndexedDB, WebSQL or SnapDB!
       tables: [
         // tables can be created as part of createDatabase or created later with create table queries
-        userTable,
-        counterTable
+        ...counterModelTables
       ],
       version: 3, // current schema/database version
       onVersionUpdate: prevVersion => {
@@ -37,10 +49,13 @@ export default function NanoDatabase() {
     })
     .then(() => {
       // ready to query!
+      const { customers } = loadDummyTables();
+      nSQL("customersTable")
+        .query("upsert", customers)
+        .exec();
     })
     .catch(() => {
       // ran into a problem
     });
-
   return <></>;
 }

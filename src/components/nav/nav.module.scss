@@ -1,0 +1,9 @@
+@import "../../mixins";
+
+.Nav {
+  @include layer-bg("primary");
+  @include layer-color("primary");
+  @include zIndex("nav");
+  grid-area: ui-components-nav;
+  
+}
