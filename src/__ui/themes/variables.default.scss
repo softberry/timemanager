@@ -1,13 +1,15 @@
 // TYPOGRAPHY
-$font-default: '"Exo", sans-serif;';
-$font-numbers: '"Exo", sans-serif;';
-$font-size: 12px;
+$font-default: "Exo", sans-serif;
+$font-numbers: "Allerta Stencil", sans-serif;
+$font-size: 14px;
+$font-weight-normal: 300;
+$font-weight-bold: 600;
 
-$primary-layer-bg-color:#528ca7;
-$primary-layer-color: #c2f3d5;
+$primary-layer-bg-color: #3d4346;
+$primary-layer-color: #eeeeee;
 
-$secondary-layer-bg-color: #9ac6ec;
-$secondary-layer-color: #244846;
+$secondary-layer-bg-color: #efebe9;
+$secondary-layer-color: #242848;
 
 $primary-layer: (
   "background": $primary-layer-bg-color,
@@ -19,6 +21,7 @@ $secondary-layer: (
 );
 
 $break-points: (
+  "x-small": 320px,
   "small": 480px,
   "medium": 720px,
   "large": 960px,

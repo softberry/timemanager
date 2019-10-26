@@ -1,43 +1,46 @@
 @import "../../../mixins";
 
 .Button {
-  @include layer-color("primary");
-  border: transparent 12px ridge;
-  width: 6rem;
-  height: 6rem;
+  box-sizing: content-box;
+  border: transparent 0.75rem ridge;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
-  line-height: 6rem;
-  text-align: center;
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  box-shadow: darken($primary-layer-bg-color, 50%) 0 0 12px 2px,
-    inset lighten($primary-layer-bg-color, 10%) 0 0 12px 2px;
+  box-shadow: darken($primary-layer-bg-color, 50%) 0 0 1rem 2px,
+    inset lighten($primary-layer-bg-color, 10%) 0 0 1rem 2px;
+  font-size: 1.25rem;
 }
 
 .active {
-  box-shadow: lighten($primary-layer-bg-color, 10%) 0 0 12px 2px,
-    inset darken($primary-layer-bg-color, 50%) 0 0 12px 2px;
-  color: #aaaaaa;
+  box-shadow: lighten($primary-layer-bg-color, 10%) 0 0 1rem 1rem / 6,
+    inset darken($primary-layer-bg-color, 50%) 0 0 1rem 1rem / 6;
 }
 
 .CountDown {
   display: block;
   position: absolute;
+  font-family: $font-numbers;
   left: 0%;
   top: 0%;
   width: 100%;
   text-align: center;
 
   transform-origin: center center;
-  font-size: 5em;
+  font-size: 3em;
+  font-weight: 600;
   animation: ct 1s linear infinite;
 }
 
 .PressAndHoldInfo {
   position: absolute;
-  top: 1rem;
+  top: 2rem;
   left: 0;
-  font-size: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 1;
   flex-basis: 100%;
   width: 100%;

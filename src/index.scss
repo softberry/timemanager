@@ -1,10 +1,14 @@
+@import "./__ui/themes/variables.default.scss";
+@import "./__ui/themes/theme.default.scss";
 @import "./mixins";
+
 html,
 body {
-  font-family: "Exo", sans-serif;
+  font-family: $font-default;
   margin: 0;
 }
 
 body * {
   user-select: none;
+  box-sizing: border-box;
 }
