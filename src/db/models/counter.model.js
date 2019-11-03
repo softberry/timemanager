@@ -22,14 +22,16 @@ const counterTable = {
   name: "counters",
   model: {
     "id:uuid": { pk: true },
-    "delaying:boolean": false,
-    "active:boolean": false,
-    "start:int": 0,
-    current: 0,
-    diff: {
-      "hour:int": 0,
-      "minute:int": 0,
-      "second:int": 0
+    "delaying:boolean": { default: false },
+    "active:boolean": { default: false },
+    "start:int": { default: 0 },
+    "current:int": 0,
+    "diff:obj": {
+      model: {
+        "hour:int": { default: 0 },
+        "minute:int": { default: 0 },
+        "second:int": { default: 0 }
+      }
     }
   }
 };
@@ -41,14 +43,14 @@ const customerTable = {
   name: "customersTable",
   model: {
     "id:uuid": { pk: true },
-    "name:string": "",
-    "surname:string": "",
-    "street:string": "",
-    "zip:string": "",
-    "city:string": "",
-    "tel:array": [],
-    "mobile:array": [],
-    "mail:array": []
+    "name:string": {},
+    "surname:string": {},
+    "street:string": {},
+    "zip:string": {},
+    "city:string": {},
+    "tel:string[]": {},
+    "mobile:string[]": {},
+    "mail:string[]": {}
   }
 };
 
@@ -58,8 +60,8 @@ const workTable = {
   name: "workTable",
   model: {
     "id:uuid": { pk: true },
-    "customerId:string": "",
-    "description:string": ""
+    "customerId:string": {},
+    "description:string": {}
   }
 };
 
@@ -69,10 +71,10 @@ const workDurationTable = {
   name: "workDurationTable",
   model: {
     "id:uuid": { pk: true },
-    "workId:string": "",
-    "timeStampStart:string": "",
-    "timeStampEnd:string": "",
-    "description:string": ""
+    "workId:string": {},
+    "timeStart:date": { notNull: true },
+    "timeEnd:date": { notNull: true },
+    "description:string": {}
   }
 };
 
@@ -83,10 +85,10 @@ const materialItemTable = {
   name: "materialItemTable",
   model: {
     "id:uuid": { pk: true },
-    "name:string": "",
+    "name:string": { notNull: true },
     "description:string": "",
-    "price:string": "",
-    "unit:string": ""
+    "price:float": {},
+    "unit:string": { default: "n/a" }
   }
 };
 
@@ -97,11 +99,11 @@ const materialListTable = {
   name: "materialListTable",
   model: {
     "id:uuid": { pk: true },
-    "workId:string": "",
-    "materialItemId:string": "",
-    "amount:string": "",
-    "price:string": "",
-    "notes:string": ""
+    "workId:string": {},
+    "materialItemId:string": {},
+    "amount:float": {},
+    "price:float": {},
+    "notes:string": {}
   }
 };
 

@@ -1,6 +1,6 @@
 @import "../../mixins";
 
-.History {
+.WorkLogs {
   @include layer-bg("secondary");
   @include layer-color("secondary");
   @include view;

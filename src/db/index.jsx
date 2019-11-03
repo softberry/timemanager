@@ -8,13 +8,15 @@ import createRandomContacts from "../db/_dummy/customers.dev";
 
 function loadDummyTables() {
   if (process.env.NODE_ENV !== "development") {
-    return {};
+    return { customers: [] };
   }
-  const customers = createRandomContacts(10);
+  const customers = createRandomContacts(50);
   return {
     customers
   };
 }
+
+
 
 /////////////////
 export default function NanoDatabase({ onDbReady, onDbError }) {

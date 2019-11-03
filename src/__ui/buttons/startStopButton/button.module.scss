@@ -23,15 +23,15 @@
 .CountDown {
   display: block;
   position: absolute;
-  font-family: $font-numbers;
+  // font-family: $font-numbers;
   left: 0%;
   top: 0%;
   width: 100%;
   text-align: center;
-
-  transform-origin: center center;
-  font-size: 3em;
-  font-weight: 600;
+  opacity: 0;
+  transform-origin: 50% 200%;
+  font-size: 6em;
+  font-weight: $font-weight-bold;
   animation: ct 1s linear infinite;
 }
 
@@ -53,11 +53,11 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(2);
+    transform: scale(1.5);
     opacity: 1;
   }
-  100% {
+  90% {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(1.5);
   }
 }

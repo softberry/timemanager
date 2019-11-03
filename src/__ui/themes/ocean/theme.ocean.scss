@@ -58,14 +58,37 @@ p {
 
 input[type="date"],
 input[type="text"],
+input[type="phone"],
+input[type="mail"],
 input[type="number"] {
   font-family: $font-default;
   border: none;
   font-size: $font-size;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   line-height: 1;
-  height: 100%;
+  height: 3rem;
+  width: 100%;
   display: inline-block;
+  color: inherit;
+  transition: background-color 300ms;
+  &::selection {
+    background-color: $primary-selected-text;
+  }
+  &:focus,
+  &:active {
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+label {
+  position: relative;
+}
+a,
+button {
+  &:focus,
+  &:active {
+    outline: none;
+  }
 }
 
 h1,
@@ -77,4 +100,12 @@ h6,
 p {
   margin: 0;
   line-height: 1.5rem;
+}
+
+a,
+a:hover,
+a:link,
+a:visited {
+  text-decoration: none;
+  color: inherit;
 }

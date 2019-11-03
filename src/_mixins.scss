@@ -1,6 +1,7 @@
-@import "./__ui/themes/variables.default.scss";
-@import "./__ui/themes/theme.default.scss";
-// @import "./__ui/themes/theme.ocean.scss";
+$theme: "default";
+
+@import "./__ui/themes/default/entry.scss";
+// @import "./__ui/themes/ocean/entry.scss";
 
 @mixin layer-bg($type) {
   @if $type == "primary" {
@@ -31,7 +32,7 @@
 }
 
 @mixin view {
-  padding: 0 1rem;
+  padding: 1rem;
   margin: 0;
   min-height: 100%;
   @include WidthUp("medium") {
@@ -45,4 +46,24 @@
     "footer": 1000
   );
   z-index: map-get($indexList, $item);
+}
+
+@function get-param($variantName, $param) {
+  $variant: (
+    "primary": $primary-layer,
+    "secondary": $secondary-layer
+  );
+  @if variantName == "primary" {
+    $variant: $primary-layer;
+  } @else if variantName == "secondary" {
+    $variant: $secondary-layer;
+  }
+
+  @if $param == "background-color" {
+    @return map-get(map-get($variant, $variantName), "background");
+  } @else if $param == "color" {
+    @return map-get(map-get($variant, $variantName), "color");
+  } @else {
+    @return "";
+  }
 }

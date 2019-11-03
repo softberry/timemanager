@@ -5,5 +5,20 @@
   @include layer-color("primary");
   @include zIndex("nav");
   grid-area: ui-components-nav;
-  
+  display: grid;
+  grid-template-areas: "history suggestion";
+  grid-template-columns: auto min-content;
+  align-content: center;
+  padding: 0 1rem;
+}
+
+.HistoryNav {
+  grid-area: history;
+  display: flex;
+  &Back,
+  &Forward {
+    &Disabled {
+      opacity: 0.1;
+    }
+  }
 }

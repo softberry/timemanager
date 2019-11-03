@@ -1,0 +1,47 @@
+@import "../../mixins";
+.AutoComplete {
+  grid-area: suggestion;
+  display: flex;
+  flex-wrap: nowrap;
+  vertical-align: middle;
+  position: relative;
+  width: 15rem;
+
+  @mixin Input($variant: "primary") {
+    $BG: get-param($variant, "background-color");
+    $C: get-param($variant, "color");
+
+    border: none;
+    margin: 0;
+    font-size: inherit;
+    line-height: 1rem;
+    border-radius: 0.75rem;
+
+    outline: none;
+    padding: 0 2rem 0 1rem;
+    transition: background-color 300ms;
+    background-color: invert($C, 55%);
+    box-shadow: inset 0 0 2px 0 $BG;
+    color: $C;
+
+    &:focus {
+      background-color: invert($BG, 25%);
+      box-shadow: inset 0 0 2px 0 invert($C, 25%);
+    }
+
+    &SearchIcon {
+      display: flex;
+      transform: translateX(-125%);
+      color: darken($BG, 25%);
+      margin: auto 0;
+    }
+  }
+
+  &PrimaryInput {
+    @include Input("primary");
+  }
+
+  &SecondaryInput {
+    @include Input("secondary");
+  }
+}

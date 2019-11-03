@@ -1,6 +1,10 @@
 @import "../../mixins";
-.Contacts {
+.Edit {
   @include layer-bg("secondary");
   @include layer-color("secondary");
   @include view;
+
+  span {
+      display: block;
+  }
 }

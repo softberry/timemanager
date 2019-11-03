@@ -1,31 +1,49 @@
 import React from "react";
+import { timeDiff, twoDigit } from "../../lib/counter.helpers";
 import styles from "./list.module.scss";
+import { Link } from "react-router-dom";
 
 function workHistoryList({ list }) {
   return (
     <>
-      {list.map((item, key) => (
-        <div key={key} className={styles.ListItem}>
-          <div className={styles.ListItemCustomer}>{item.customer}</div>
-          <div className={styles.ListItemDate}>
-          {item.date}
-          </div>
-          <div className={styles.ListItemDuration}>{item.duration}</div>
-        </div>
-      ))}
+      {list.map((item, key) => {
+        const diffData = {
+          start: new Date(item.timeStart).getTime(),
+          end: new Date(item.timeEnd).getTime()
+        };
+        const diff = timeDiff(diffData.start, diffData.end);
+        return (
+          <Link
+            to={`/edit/worklog/${item.id}`}
+            key={key}
+            className={styles.ListItem}
+          >
+            <div className={styles.ListItemCustomer}>{item.customer}</div>
+            <div className={styles.ListItemDate}>{twoDigit(diff.hour)}</div>
+            <div className={styles.ListItemDuration}>
+              {twoDigit(diff.minute)}
+            </div>
+          </Link>
+        );
+      })}
     </>
   );
 }
 
 function customersList({ list }) {
-  
   return (
     <>
       {list.map((item, key) => (
-        <div key={key} className={styles.ListItem}>
-          <div className={styles.ListItemCustomer}>{item.name} {item.surname}</div>
+        <Link
+          to={`/edit/customer/${item.id}`}
+          key={key}
+          className={styles.ListItem}
+        >
+          <div className={styles.ListItemCustomer}>
+            {item.name} {item.surname}
+          </div>
           <div>{item.id}</div>
-        </div>
+        </Link>
       ))}
     </>
   );
