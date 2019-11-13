@@ -1,14 +1,19 @@
-@import "./__ui/themes/variables.default.scss";
-@import "./__ui/themes/theme.default.scss";
 @import "./mixins";
 
 html,
 body {
   font-family: $font-default;
   margin: 0;
+  background-color:#3d4346;
 }
 
 body * {
   user-select: none;
+  -webkit-user-select: none;
   box-sizing: border-box;
+}
+
+input {
+  user-select: text;
+  -webkit-user-select: text;
 }

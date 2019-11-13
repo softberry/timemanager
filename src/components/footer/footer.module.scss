@@ -17,6 +17,9 @@
     text-decoration: none;
     color: inherit;
   }
+  a:focus {
+    border: 1px solid rgba(0,0,0,.2);
+  }
 
   &Button {
     width: 10%;

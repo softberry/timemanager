@@ -27,13 +27,15 @@ export default function StartStopButton({
       }, 1000);
 
       if (countdown === waitForSeconds) {
+        clearInterval(intervalId);
         setActive(false);
       }
     }
     return () => {
       if (countdown === waitForSeconds) {
+        
         clearInterval(intervalId);
-        onComplete();
+        setTimeout(onComplete,500);
       }
     };
   }, [active, countdown, onComplete, waitForSeconds]);
@@ -42,8 +44,8 @@ export default function StartStopButton({
     ? styles.Button
     : [styles.Button, styles.active].join(" ");
   return (
-    
-    <div className={styles.ButtonWrapper}
+    <div
+      className={styles.ButtonWrapper}
       onMouseDown={e => {
         setActive(true);
       }}

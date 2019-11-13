@@ -1,9 +1,10 @@
 import React, { useReducer, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { nSQL } from "@nano-sql/core";
 import { timeDiff } from "../../lib/counter.helpers";
 import Counter from "./counter";
 import StartStopButton from "../../__ui/buttons/startStopButton";
-
+import { createWorkLogFromCurrentCounter } from "../../lib/worklog.helpers";
 import styles from "./timer.module.scss";
 let timerID;
 const types = {
@@ -17,7 +18,6 @@ function reducer(state, action) {
 
   switch (action.type) {
     case types.TIMER_START: {
-      //      const now = Date.now();
       newState = {
         ...state,
         ...action.current
@@ -43,7 +43,7 @@ function reducer(state, action) {
   }
   return newState;
 }
-export default function Timer() {
+function Timer({ history }) {
   const [timer, dispatch] = useReducer(reducer, {
     id: "active-counter-0",
     delaying: false,
@@ -56,24 +56,40 @@ export default function Timer() {
       second: 0
     }
   });
-
+  nSQL("counters")
+    .query("select")
+    .where(["id", "=", "active-counter-0"])
+    .exec()
+    .then(item => {
+      const current = item[0];
+      if (current.active === true && timer.active === false) {
+        dispatch({ type: types.TIMER_UPDATE, current: current });
+      }
+    })
+    .catch(err => {});
   useEffect(() => {
     if (!timer.active) {
       return;
     }
 
     timerID = setTimeout(() => {
+      const now = Date.now();
+
       nSQL("counters")
         .query("upsert", {
           id: "active-counter-0",
           active: true,
-          diff: timeDiff(timer.start)
+          current: now,
+          diff: timeDiff(timer.start, now)
         })
         .exec()
         .then(current => {
           dispatch({ type: types.TIMER_UPDATE, current: current[0] });
         });
     }, 1000);
+    return () => {
+      clearTimeout(timerID);
+    };
   }, [timer.active, timer.start, timer.diff]);
 
   if (timer.active) {
@@ -92,6 +108,11 @@ export default function Timer() {
               .exec()
               .then(current => {
                 dispatch({ type: types.TIMER_STOP, current: current[0] });
+                createWorkLogFromCurrentCounter()
+                  .then(() => {
+                    history.push("/history");
+                  })
+                  .catch(err => console.log(err));
               });
           }}
         />
@@ -126,3 +147,5 @@ export default function Timer() {
     </div>
   );
 }
+
+export default withRouter(Timer);

@@ -9,8 +9,8 @@ function twoDigit(n = 0) {
   return `0${input}`.slice(-2);
 }
 
-function timeDiff(start) {
-  let diff = Date.now() - start;
+function timeDiff(start,end = Date.now()) {
+  let diff = end - start;
 
   const [s, m, h] = [1000, 60 * 1000, 60 * 60 * 1000];
   let [second, minute, hour] = [0, 0, 0];
@@ -29,6 +29,7 @@ function timeDiff(start) {
     second = (diff - (diff % s)) / s;
     diff = diff % s;
   }
+  
   return { hour, minute, second };
 }
 

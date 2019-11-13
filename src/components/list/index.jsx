@@ -1,37 +1,55 @@
 import React from "react";
+import { timeDiff, twoDigit } from "../../lib/counter.helpers";
 import styles from "./list.module.scss";
+import { Link } from "react-router-dom";
 
 function workHistoryList({ list }) {
   return (
     <>
-      {list.map((item, key) => (
-        <div key={key} className={styles.ListItem}>
-          <div className={styles.ListItemCustomer}>{item.customer}</div>
-          <div className={styles.ListItemDate}>
-          {item.date}
+      {list.map((item, key) => {
+        const diffData = {
+          start: new Date(item.start).getTime(),
+          end: new Date(item.finish).getTime()
+        };
+        const diff = timeDiff(diffData.start, diffData.end);
+        return (
+          <div
+            to={`/edit/worklog/${item.id}`}
+            key={key}
+            className={styles.ListItem}
+          >
+            <div className={styles.ListItemCustomer}>{item.customer} - </div>
+            <div className={styles.ListItemDuration}>
+              {twoDigit(diff.hour)}:{twoDigit(diff.minute)}:
+              {twoDigit(diff.second)}
+            </div>
+            
           </div>
-          <div className={styles.ListItemDuration}>{item.duration}</div>
-        </div>
-      ))}
+        );
+      })}
     </>
   );
 }
 
 function customersList({ list }) {
-  
   return (
     <>
       {list.map((item, key) => (
-        <div key={key} className={styles.ListItem}>
-          <div className={styles.ListItemCustomer}>{item.name} {item.surname}</div>
-          <div>{item.id}</div>
-        </div>
+        <Link
+          to={`/edit/customer/${item.id}`}
+          key={key}
+          className={styles.ListItem}
+        >
+          <div className={styles.ListItemCustomer}>
+            {item.name} {item.surname}
+          </div>
+        </Link>
       ))}
     </>
   );
 }
 
-export default function List({ title, type, list = [] }) {
+export default function List({ title, type, list = [], hasTableHead = false }) {
   return (
     <>
       <section className={styles.List}>
@@ -44,17 +62,3 @@ export default function List({ title, type, list = [] }) {
     </>
   );
 }
-/**
- * Time elapsed : 09 Hours, 59 Minutes, 59 Seconds
- * Date         : DD/MM/YYYY
- * Customer     : Surname, Name [...]
- *
- * History:
- *  - Date - Duration
- *    ...     ...
- *    ...     ...
- *    ...     ...
- *    ...     ...
- * - Add Another Work [+]
- *
- */

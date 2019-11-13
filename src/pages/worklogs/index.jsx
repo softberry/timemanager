@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from "react";
-import styles from "./contacts.module.scss";
+import styles from "./worklogs.module.scss";
 import List from "../../components/list";
 import DefaultLayout from "../../layout/layout.default";
 import { nSQL } from "@nano-sql/core";
@@ -24,7 +24,7 @@ function reducer(state, action) {
         };
       }
 
-      nSQL("customersTable")
+      nSQL("workDurationTable")
         .query("select")
         .exec()
         .then(list => {
@@ -58,27 +58,28 @@ function reducer(state, action) {
     }
   }
 }
-export default function Contacts() {
-  const [contacts, dispatch] = useReducer(reducer, {
+export default function WorkLogs() {
+  const [worklog, dispatch] = useReducer(reducer, {
     connected: "FALSE",
-    title: "Customers",
-    type: "CUSTOMERS_LIST",
+    title: "Worked Hours",
+    type: "WORK_HISTORY",
     list: []
   });
+
   useEffect(() => {
-    if (contacts.connected === "FALSE") {
+    if (worklog.connected === "FALSE") {
       dispatch({ type: types.CONNECT, dispatch });
       return;
     }
-    if (contacts.connected === "TRYING") {
+    if (worklog.connected === "TRYING") {
       return;
     }
-  }, [contacts.connected]);
+  }, [worklog.connected]);
 
   return (
     <DefaultLayout>
-      <div className={styles.Contacts}>
-        <List {...contacts} />
+      <div className={styles.WorkLogs}>
+        <List {...worklog} />
       </div>
     </DefaultLayout>
   );

@@ -1,12 +1,13 @@
 import React from "react";
 import Typography from "./__ui/typography";
 import NanoDataBase from "./db";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
 import "./index.scss";
 import Home from "./pages/home";
-import History from "./pages/history";
-import Contacts from "./pages/contacts";
+import WorkLog from "./pages/worklogs";
+import Customers from "./pages/customers";
 import Settings from "./pages/settings";
+import Edit from "./pages/edit";
 
 function App() {
   document.oncontextmenu = function() {
@@ -16,13 +17,15 @@ function App() {
   return (
     <Router>
       <Typography>
-        <NanoDataBase />
+        <NanoDataBase>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/contacts" component={Contacts} />
-          <Route exact path="/history" component={History} />
+          <Route exact path="/customers" component={Customers} />
+          <Route exact path="/history" component={WorkLog} />
           <Route exact path="/settings" component={Settings} />
+          <Route exact path="/edit/:type/:id" component={Edit} />
         </Switch>
+        </NanoDataBase>
       </Typography>
     </Router>
   );
