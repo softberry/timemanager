@@ -4,9 +4,10 @@ import styles from "./input.module.scss";
 import { getTypeFromFieldName } from "../../lib/input.helpers";
 
 function Input(props) {
-  const { name, value } = props;
+  const { id, name, value } = props;
 
   const [val, setVal] = useState(value);
+  const type=getTypeFromFieldName(name)
   const [labelPosition, setLabelPosition] = useState(
     val === "" ? "PLACEHOLDER" : "LABEL"
   );
@@ -31,9 +32,12 @@ function Input(props) {
 
   return (
     <div className={styles.Input}>
-      <label className={styles[labelPosition]}>{name}</label>
+      <label htmlFor={id} className={styles[labelPosition]}>
+        {name}
+      </label>
       <input
-        type={getTypeFromFieldName(name)}
+        id={id}
+        type={type}
         value={val}
         onChange={onChange}
         onFocus={onFocus}

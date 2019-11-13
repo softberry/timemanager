@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+
 import DefaultLayout from "../../layout/layout.default";
 import { nSQL } from "@nano-sql/core";
 import styles from "./edit.module.scss";
 
-import Input from "../../__ui/input";
+import CustomerDetails from "./customers";
 
 /**
  * Renders editable form from given values in given table
@@ -13,12 +14,9 @@ import Input from "../../__ui/input";
 export default function Edit(props) {
   const [table, setTable] = useState({ id: null });
   const [queryState, setQueryState] = useState("INITIAL");
-  const availableTables = {
-    customer: "customersTable",
-    worklog: "workDurationTable"
-  };
+
   function getSelectedData() {
-    return nSQL(tableName)
+    return nSQL("customersTable")
       .query("select")
       .where(["id", "=", props.match.params.id])
       .exec()
@@ -28,16 +26,17 @@ export default function Edit(props) {
       })
       .catch(err => {
         if (queryState === "INITIAL") {
+          if (queryState === "RETRYING") {
+            setQueryState("ERRORED");
+          }
           setQueryState("RETRYING");
           setTimeout(() => {
             getSelectedData();
           }, 300);
         }
-        //TODO: add error handler for second try prompt to user
       });
   }
 
-  const tableName = availableTables[props.match.params.type];
   useEffect(() => {
     if (queryState === "INITIAL") {
       getSelectedData();
@@ -46,22 +45,14 @@ export default function Edit(props) {
     if (queryState !== "READY") return;
   });
   // {props.match.params.type}:{props.match.params.id}
+
   return (
     <DefaultLayout>
+      {queryState === "ERRORED" && (
+        <div>Error reading Customers Data Table!</div>
+      )}
       <section className={styles.Edit}>
-        <div>
-          {Object.keys(table).map((item, key) => {
-            const field = {
-              name: item,
-              value: table[item]
-            };
-            return (
-              <div key={key}>
-                <Input {...field} />
-              </div>
-            );
-          })}
-        </div>
+        <CustomerDetails customer={table} />
       </section>
     </DefaultLayout>
   );

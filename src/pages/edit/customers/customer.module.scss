@@ -1,0 +1,112 @@
+@import "../../../mixins";
+
+.Title {
+  display: grid;
+  grid-template-areas: "lock fullname";
+  grid-template-columns: min-content 1fr;
+  grid-column-gap: 1rem;
+
+  &Lock {
+    grid-area: lock;
+  }
+
+  &FullName {
+    grid-area: fullname;
+  }
+}
+
+.ReadOnly {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin-bottom: 1rem;
+}
+
+@mixin itemBox($area) {
+  @include WidthUp("small") {
+    padding: 0.5rem 1rem;
+  }
+  text-align: left;
+  padding: 0.5rem;
+  line-height: 1.5;
+  grid-area: $area;
+}
+.WorkLogs {
+  @include WidthUp("small") {
+    margin-bottom: 1rem;
+  }
+  display: grid;
+  grid-template-columns: 1fr max-content max-content min-content;
+
+  margin-bottom: 0.5rem;
+  background-color: white;
+
+  grid-template-areas:
+    "name time material icon"
+    "form form form form";
+
+  &Title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &Name {
+    @include itemBox(name);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &Time {
+    @include itemBox(time);
+  }
+  &Icon {
+    @include itemBox(icon);
+  }
+  &Material {
+    @include itemBox(material);
+    text-align: center;
+  }
+
+  &EditForm {
+    @include itemBox(form);
+    @include WidthUp("small") {
+      grid-template-areas:
+        "form-name form-name"
+        "form-description form-description"
+        "form-times form-materials";
+    }
+    overflow: hidden;
+    animation: showFormContent 300ms;
+    box-shadow: inset 0 4px 4px -4px #ccc;
+    display: grid;
+    grid-template-areas:
+      "form-name"
+      "form-description"
+      "form-times"
+      "form-materials";
+
+    &Name {
+      grid-area: form-name;
+    }
+    &Description {
+      grid-area: form-description;
+    }
+    &Times {
+      grid-area: form-times;
+    }
+    &Materials {
+      grid-area: form-materials;
+    }
+  }
+}
+
+@keyframes showFormContent {
+  0% {
+    height: 1px;
+  }
+
+  100% {
+    height: auto;
+    overflow: auto;
+  }
+}

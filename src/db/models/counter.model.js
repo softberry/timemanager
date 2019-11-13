@@ -50,8 +50,37 @@ const customerTable = {
     "city:string": {},
     "tel:string[]": {},
     "mobile:string[]": {},
-    "mail:string[]": {}
-  }
+    "mail:string[]": {},
+    "works:string[]": {} // workTable
+  },
+  queries: [
+    {
+      name: "addNewWork",
+      args: {
+        "id:uuid": {},
+        "workID:uuid": {},
+        "works:string[]": {}
+      },
+      call: (db, args) => {
+        return db
+          .query("upsert", { works: args.works.push(args.workID) })
+          .where(["id", "=", args.id])
+          .emit();
+      }
+    },
+    {
+      name: "getWorksArray",
+      args: {
+        "id:uuid": {}
+      },
+      call: (db, args) => {
+        return db
+          .query("select", ["works"])
+          .where(["id", "=", args.id])
+          .emit();
+      }
+    }
+  ]
 };
 
 // Work-Table
@@ -60,9 +89,42 @@ const workTable = {
   name: "workTable",
   model: {
     "id:uuid": { pk: true },
-    "customerId:string": {},
+    "customerID:string": { notNull: true },
+    "name:string": {},
+    "labour:string[]": {}, // workDurationTable
+    "materials:string[]": {}, // materialItemTable
     "description:string": {}
-  }
+  },
+  queries: [
+    {
+      name: "createNewWorkLogForCustomer",
+      args: {
+        "customerID:uuid": {}
+      },
+      call: (db, args) => {
+        const work = {
+          name: "New Work Log",
+          customerID: args.customerID,
+          labour: [],
+          materials: [],
+          description: ""
+        };
+        return db.query("upsert", work).emit();
+      }
+    },
+    {
+      name: "getWorkLogsOfCustomer",
+      args: {
+        "customerID:uuid": {}
+      },
+      call: (db, args) => {
+        return db
+          .query("select")
+          .where(["customerID", "=", args.customerID])
+          .emit();
+      }
+    }
+  ]
 };
 
 //  Work-Duration-Table
@@ -71,10 +133,22 @@ const workDurationTable = {
   name: "workDurationTable",
   model: {
     "id:uuid": { pk: true },
-    "workId:string": {},
-    "timeStart:date": { notNull: true },
-    "timeEnd:date": { notNull: true },
-    "description:string": {}
+    "start:date": { notNull: true },
+    "finish:date": { notNull: true },
+    "description:string": {},
+    "workID:string": {}
+  }
+};
+
+//  Material-List-Table
+//  ID - WORKID - MATERIALID - AMOUNT - PRICE - NOTES
+
+const materialListTable = {
+  name: "materialListTable",
+  model: {
+    "id:uuid": { pk: true },
+    "items:materialItemTable[]": {},
+    "workID:string": {}
   }
 };
 
@@ -86,24 +160,26 @@ const materialItemTable = {
   model: {
     "id:uuid": { pk: true },
     "name:string": { notNull: true },
-    "description:string": "",
-    "price:float": {},
-    "unit:string": { default: "n/a" }
+    "description:string": {},
+    "price:string": {},
+    "amount:string": {},
+    "unit:string": { default: "n/a" },
+    "materialListID:string": {}
   }
 };
 
-//  Material-List-Table
-//  ID - WORKID - MATERIALID - AMOUNT - PRICE - NOTES
+// Material-Stocks-Table
 
-const materialListTable = {
-  name: "materialListTable",
+// ID - NAME - DESCRIPTION - PRICE - UNIT-NAME(kg, meter, litre etc.)
+
+const materialStockTable = {
+  name: "materialStockTable",
   model: {
     "id:uuid": { pk: true },
-    "workId:string": {},
-    "materialItemId:string": {},
-    "amount:float": {},
+    "amount:float": { notNull: true },
+    "description:string": "",
     "price:float": {},
-    "notes:string": {}
+    "unit:string": { default: "n/a" }
   }
 };
 
@@ -123,6 +199,7 @@ const counterModelTables = [
   workDurationTable,
   materialItemTable,
   materialListTable,
+  materialStockTable,
   unitEnumsTable
 ];
 

@@ -74,12 +74,12 @@ function Timer({ history }) {
 
     timerID = setTimeout(() => {
       const now = Date.now();
-      
+
       nSQL("counters")
         .query("upsert", {
           id: "active-counter-0",
           active: true,
-          current:now,
+          current: now,
           diff: timeDiff(timer.start, now)
         })
         .exec()
@@ -87,6 +87,9 @@ function Timer({ history }) {
           dispatch({ type: types.TIMER_UPDATE, current: current[0] });
         });
     }, 1000);
+    return () => {
+      clearTimeout(timerID);
+    };
   }, [timer.active, timer.start, timer.diff]);
 
   if (timer.active) {

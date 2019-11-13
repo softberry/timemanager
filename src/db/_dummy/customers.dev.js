@@ -1,13 +1,8 @@
 import faker from "faker";
 
-
-
-function createRandomContacts(num = 0) {
-  const contacts = new Array(num).fill('');
-
-  const results = contacts.map((contact, id) => {
+function createRandomCustomers(num = 0) {
+  function model() {
     return {
-      id: `dummy-data-${id}`,
       name: faker.name.firstName(),
       surname: faker.name.lastName(),
       street: `${faker.address.streetAddress()} ${faker.address.streetSuffix()}`,
@@ -15,13 +10,11 @@ function createRandomContacts(num = 0) {
       city: faker.address.city(),
       tel: [faker.phone.phoneNumber()],
       mobile: [faker.phone.phoneNumber()],
-      mail: [faker.internet.email()]
+      mail: [faker.internet.email()],
+      works: []
     };
-  });
-  
-  return results;
+  }
+  return new Array(num).fill("").map(() => model());
 }
 
-
-
-export default createRandomContacts;
+export { createRandomCustomers };

@@ -9,9 +9,9 @@ export default {
 export const primary = () => {
   return (
     <div className={styles.PrimaryView}>
-      <Input name="name" value="input Text" />
-      <Input name="Surname" value="input Text" />
-      <Input name="Address" value="input Text" />
+      <Input id="001" name="name" value="input Text" />
+      <Input id="002" name="Surname" value="input Text" />
+      <Input id="003" name="Address" value="input Text" />
     </div>
   );
 };
@@ -19,9 +19,9 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <div className={styles.SecondaryView}>
-      <Input name="name" value="input Text" />
-      <Input name="Surname" value="input Text" />
-      <Input name="Address" value="input Text" />
+      <Input id="004" name="name" value="input Text" />
+      <Input id="005" name="Surname" value="input Text" />
+      <Input id="006" name="Address" value="input Text" />
     </div>
   );
 };

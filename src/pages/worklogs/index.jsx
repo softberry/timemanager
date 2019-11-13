@@ -1,18 +1,3 @@
-/**
- * Time elapsed : 09 Hours, 59 Minutes, 59 Seconds
- * Date         : DD/MM/YYYY
- * Customer     : Surname, Name [...]
- *
- * History:
- *  - Date - Duration
- *    ...     ...
- *    ...     ...
- *    ...     ...
- *    ...     ...
- * - Add Another Work [+]
- *
- */
-
 import React, { useReducer, useEffect } from "react";
 import styles from "./worklogs.module.scss";
 import List from "../../components/list";
@@ -76,7 +61,7 @@ function reducer(state, action) {
 export default function WorkLogs() {
   const [worklog, dispatch] = useReducer(reducer, {
     connected: "FALSE",
-    title: "Work History",
+    title: "Worked Hours",
     type: "WORK_HISTORY",
     list: []
   });

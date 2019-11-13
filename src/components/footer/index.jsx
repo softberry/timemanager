@@ -14,7 +14,7 @@ export default function Footer() {
         <Icon>timer</Icon>
       </NavLink>
       <NavLink
-        to="/contacts"
+        to="/customers"
         className={styles.FooterButton}
         activeClassName={styles.FooterButtonActiveLink}
       >

@@ -9,12 +9,12 @@
   grid-template-areas: "history suggestion";
   grid-template-columns: auto min-content;
   align-content: center;
-  padding: 0 1rem;
 }
 
 .HistoryNav {
   grid-area: history;
   display: flex;
+  padding: 0 1rem;
   &Back,
   &Forward {
     &Disabled {

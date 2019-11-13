@@ -1,17 +1,17 @@
 import { nSQL } from "@nano-sql/core";
 
-function createWorkLog({ start, end, description = "" }) {
+function createWorkLog({ start, finish, description = "" }) {
   return new Promise((res, rej) => {
     const startISO = new Date(start);
-    const endISO = new Date(end);
+    const endISO = new Date(finish);
 
     if (endISO <= startISO) {
       rej({ msg: "Start must be before (smaller) than stop!" });
     }
 
     const WorkDurationEntry = {
-      timeStart: startISO,
-      timeEnd: endISO,
+      start: toISO(startISO),
+      finish: toISO(endISO),
       description
     };
     res(
@@ -23,14 +23,13 @@ function createWorkLog({ start, end, description = "" }) {
 }
 function toISO(time) {
   const isoString = new Date(time).toISOString();
-  
+
   return isoString;
 }
 function createWorkLogFromCurrentCounter(
   id = "active-counter-0",
   description = ""
 ) {
-  
   return new Promise((res, rej) => {
     nSQL("counters")
       .query("select")
@@ -38,8 +37,8 @@ function createWorkLogFromCurrentCounter(
       .exec()
       .then(item => {
         const data = {
-          start: toISO(item[0].start),
-          end: toISO(item[0].current),
+          start: item[0].start,
+          finish: item[0].current,
           description
         };
         res(createWorkLog(data));

@@ -8,22 +8,23 @@ function workHistoryList({ list }) {
     <>
       {list.map((item, key) => {
         const diffData = {
-          start: new Date(item.timeStart).getTime(),
-          end: new Date(item.timeEnd).getTime()
+          start: new Date(item.start).getTime(),
+          end: new Date(item.finish).getTime()
         };
         const diff = timeDiff(diffData.start, diffData.end);
         return (
-          <Link
+          <div
             to={`/edit/worklog/${item.id}`}
             key={key}
             className={styles.ListItem}
           >
-            <div className={styles.ListItemCustomer}>{item.customer}</div>
-            <div className={styles.ListItemDate}>{twoDigit(diff.hour)}</div>
+            <div className={styles.ListItemCustomer}>{item.customer} - </div>
             <div className={styles.ListItemDuration}>
-              {twoDigit(diff.minute)}
+              {twoDigit(diff.hour)}:{twoDigit(diff.minute)}:
+              {twoDigit(diff.second)}
             </div>
-          </Link>
+            
+          </div>
         );
       })}
     </>
@@ -42,14 +43,13 @@ function customersList({ list }) {
           <div className={styles.ListItemCustomer}>
             {item.name} {item.surname}
           </div>
-          <div>{item.id}</div>
         </Link>
       ))}
     </>
   );
 }
 
-export default function List({ title, type, list = [] }) {
+export default function List({ title, type, list = [], hasTableHead = false }) {
   return (
     <>
       <section className={styles.List}>
@@ -62,17 +62,3 @@ export default function List({ title, type, list = [] }) {
     </>
   );
 }
-/**
- * Time elapsed : 09 Hours, 59 Minutes, 59 Seconds
- * Date         : DD/MM/YYYY
- * Customer     : Surname, Name [...]
- *
- * History:
- *  - Date - Duration
- *    ...     ...
- *    ...     ...
- *    ...     ...
- *    ...     ...
- * - Add Another Work [+]
- *
- */

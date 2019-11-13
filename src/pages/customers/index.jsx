@@ -1,8 +1,10 @@
 import React, { useReducer, useEffect } from "react";
-import styles from "./contacts.module.scss";
+import styles from "./customers.module.scss";
 import List from "../../components/list";
 import DefaultLayout from "../../layout/layout.default";
 import { nSQL } from "@nano-sql/core";
+
+
 const types = {
   LIST_READY: "LIST_READY",
   CONNECT: "CONNECT",
@@ -26,6 +28,7 @@ function reducer(state, action) {
 
       nSQL("customersTable")
         .query("select")
+        .orderBy(["name ASC", "surname ASC"])
         .exec()
         .then(list => {
           action.dispatch({ type: types.LIST_READY, info: { list: list } });
@@ -58,27 +61,26 @@ function reducer(state, action) {
     }
   }
 }
-export default function Contacts() {
-  const [contacts, dispatch] = useReducer(reducer, {
+export default function Customers() {
+  const [customers, dispatch] = useReducer(reducer, {
     connected: "FALSE",
     title: "Customers",
     type: "CUSTOMERS_LIST",
     list: []
   });
   useEffect(() => {
-    if (contacts.connected === "FALSE") {
+    if (customers.connected === "FALSE") {
       dispatch({ type: types.CONNECT, dispatch });
       return;
     }
-    if (contacts.connected === "TRYING") {
+    if (customers.connected === "TRYING") {
       return;
     }
-  }, [contacts.connected]);
-
+  }, [customers.connected]);
   return (
     <DefaultLayout>
-      <div className={styles.Contacts}>
-        <List {...contacts} />
+      <div className={styles.Customers}>
+        <List {...customers} />
       </div>
     </DefaultLayout>
   );
