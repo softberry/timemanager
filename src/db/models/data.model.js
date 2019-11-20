@@ -39,7 +39,7 @@ const counterTable = {
 // export default counterTable;
 // Customer-Table
 // ID - NAME - SURNAME - STREET+NO - ZIP - CITY - TEL[+] - MOBILE[+] - MAIL[+]
-const customerTable = {
+const customersTable = {
   name: "customersTable",
   model: {
     "id:uuid": { pk: true },
@@ -194,7 +194,7 @@ const unitEnumsTable = {
 
 const counterModelTables = [
   counterTable,
-  customerTable,
+  customersTable,
   workTable,
   workDurationTable,
   materialItemTable,

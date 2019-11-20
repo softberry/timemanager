@@ -23,7 +23,6 @@ function workHistoryList({ list }) {
               {twoDigit(diff.hour)}:{twoDigit(diff.minute)}:
               {twoDigit(diff.second)}
             </div>
-            
           </div>
         );
       })}

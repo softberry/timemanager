@@ -110,7 +110,7 @@ function Timer({ history }) {
                 dispatch({ type: types.TIMER_STOP, current: current[0] });
                 createWorkLogFromCurrentCounter()
                   .then(() => {
-                    history.push("/history");
+                  //  history.push("/history");
                   })
                   .catch(err => console.log(err));
               });

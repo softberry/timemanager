@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { nSQL } from "@nano-sql/core";
+
+import nSQLEventListeners from "./actions";
 // Table Models
-import counterModelTables from "./models/counter.model";
+import counterModelTables from "./models/data.model";
 
 // Dummy Tables
 import { createRandomCustomers } from "../db/_dummy/customers.dev";
@@ -15,7 +17,7 @@ function dbExists(dbname = "shoplist_local") {
 }
 
 /////////////////
-export default function NanoDatabase({ children }) {
+function NanoDatabase({ children, onDataChange }) {
   const [ready, setReady] = useState("NOT_READY");
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export default function NanoDatabase({ children }) {
             });
           }
         })
-        .then(w => {
+        .then(() => {
           // ready to query!
           setReady("READY");
           return nSQL("customersTable")
@@ -75,12 +77,14 @@ export default function NanoDatabase({ children }) {
               .exec();
           }
         })
-        .then(c => {})
+        .then(() => {
+          nSQLEventListeners(nSQL, onDataChange);
+        })
         .catch(err => {
           console.warn(err);
         });
     }
-  }, [ready]);
+  }, [ready, onDataChange]);
 
   return (
     <>
@@ -89,3 +93,5 @@ export default function NanoDatabase({ children }) {
     </>
   );
 }
+
+export default NanoDatabase;

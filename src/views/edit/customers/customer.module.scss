@@ -85,6 +85,12 @@
       "form-times"
       "form-materials";
 
+    &Title {
+      display: grid;
+      grid-template-columns: 1fr 2rem;
+      font-weight: 600;
+    }
+
     &Name {
       grid-area: form-name;
     }
