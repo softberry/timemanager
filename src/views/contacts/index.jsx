@@ -1,8 +1,9 @@
 import React, { useReducer, useEffect } from "react";
-import styles from "./worklogs.module.scss";
+import styles from "./contacts.module.scss";
 import List from "../../components/list";
 import DefaultLayout from "../../layout/layout.default";
 import { nSQL } from "@nano-sql/core";
+
 const types = {
   LIST_READY: "LIST_READY",
   CONNECT: "CONNECT",
@@ -24,8 +25,9 @@ function reducer(state, action) {
         };
       }
 
-      nSQL("workDurationTable")
+      nSQL("customersTable")
         .query("select")
+        .orderBy(["name ASC", "surname ASC"])
         .exec()
         .then(list => {
           action.dispatch({ type: types.LIST_READY, info: { list: list } });
@@ -52,34 +54,31 @@ function reducer(state, action) {
     default: {
       return {
         state,
-        connected: "FALSE",
-        list: [{ name: "emres" }]
+        connected: "FALSE"
       };
     }
   }
 }
-export default function WorkLogs() {
-  const [worklog, dispatch] = useReducer(reducer, {
+export default function Customers() {
+  const [customers, dispatch] = useReducer(reducer, {
     connected: "FALSE",
-    title: "Worked Hours",
-    type: "WORK_HISTORY",
+    title: "Customers",
+    type: "CUSTOMERS_LIST",
     list: []
   });
-
   useEffect(() => {
-    if (worklog.connected === "FALSE") {
+    if (customers.connected === "FALSE") {
       dispatch({ type: types.CONNECT, dispatch });
       return;
     }
-    if (worklog.connected === "TRYING") {
+    if (customers.connected === "TRYING") {
       return;
     }
-  }, [worklog.connected]);
-
+  }, [customers.connected]);
   return (
     <DefaultLayout>
-      <div className={styles.WorkLogs}>
-        <List {...worklog} />
+      <div className={styles.Contacts}>
+        <List {...customers} />
       </div>
     </DefaultLayout>
   );

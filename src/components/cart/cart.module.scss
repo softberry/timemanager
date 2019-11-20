@@ -1,0 +1,44 @@
+@import "../../mixins";
+
+.Cart {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  padding: 3rem 0 1rem 0;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: map-get($primary-layer, "background");
+    opacity: 0.5;
+    transition: opacity 600ms;
+    z-index: -1;
+  }
+
+  &DatePickerWrapper {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    overflow: scroll;
+    padding: 1rem;
+  }
+
+  &Inline {
+    @include zIndex("cart-inline");
+  }
+  &Full {
+    @include zIndex("cart-full");
+  }
+}

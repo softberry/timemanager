@@ -80,7 +80,6 @@ function WorksList({ works }) {
 }
 
 function WorkListItemEditForm({ entry }) {
-  console.log(entry);
   const nameField = {
     id: `${entry.id}-name`,
     name: "name",
@@ -111,10 +110,13 @@ function WorkListItemEditForm({ entry }) {
 function WorkListTimeEntries({ entries }) {
   return (
     <>
-      <h4>
-        Time Logs
-        <Icon>add</Icon>
-      </h4>
+      <div className={styles.WorkLogsEditFormTitle}>
+        <div>Time Logs</div>
+        <div>
+          <Icon>add</Icon>
+        </div>
+      </div>
+
       <div>01/01/2019 - 10:30 - 03h 25m</div>
       <div>01/01/2019 - 10:30 - 03h 25m</div>
       <div>01/01/2019 - 10:30 - 03h 25m</div>

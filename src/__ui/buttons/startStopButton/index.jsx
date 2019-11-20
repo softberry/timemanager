@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import styles from "./button.module.scss";
 
 export default function StartStopButton({
@@ -9,7 +8,8 @@ export default function StartStopButton({
 }) {
   const [active, setActive] = useState(false);
   const [countdown, setCountDown] = useState(0);
-  let label = active ? buttonLabel.active : buttonLabel.inactive;
+
+  const [turnWheel, setTurnWheel] = useState(styles.TimerAnimation);
   let strCountDown = active === 0 ? "" : waitForSeconds - countdown;
 
   const infoText = `Press and hold the button for ${strCountDown} seconds`;
@@ -29,16 +29,27 @@ export default function StartStopButton({
       if (countdown === waitForSeconds) {
         clearInterval(intervalId);
         setActive(false);
+        if (buttonLabel.inactive === "START") {
+          setTurnWheel(`${styles.TimerAnimation} ${styles.TimerAnimationOn}`);
+        } else {
+          setTurnWheel(`${styles.TimerAnimation}`);
+        }
       }
     }
     return () => {
       if (countdown === waitForSeconds) {
-        
         clearInterval(intervalId);
-        setTimeout(onComplete,500);
+        setTimeout(onComplete, 500);
       }
     };
-  }, [active, countdown, onComplete, waitForSeconds]);
+  }, [
+    active,
+    countdown,
+    onComplete,
+    waitForSeconds,
+    turnWheel,
+    buttonLabel.inactive
+  ]);
 
   const stateClass = !active
     ? styles.Button
@@ -62,7 +73,7 @@ export default function StartStopButton({
       {active && <div className={styles.PressAndHoldInfo}>{infoText}</div>}
       <div className={stateClass}>
         {active && <div className={styles.CountDown}>{strCountDown}</div>}
-        <div className={styles.ButtonText}>{label}</div>
+        <div className={turnWheel}></div>
       </div>
     </div>
   );

@@ -1,0 +1,52 @@
+/* when user is selecting cells */
+$higlight: #bce8f1;
+
+/* default look for background events */
+$event: #8fdf82;
+
+/* default look for non-business-hours areas */
+/* will inherit .fc-bgevent's styles */
+$nonbusiness: #d7d7d7;
+$disabled-day: $nonbusiness;
+
+$event-box: #3788d8;
+$event-border: $event-box;
+$event-hover: #ffffff;
+$event-darken: #000000;
+
+$resizer: #ffffff;
+
+$now-indicator: #ff0000;
+
+$border-color: #dddddd;
+
+$popover-bg: #ffffff;
+$header-bg: #eeeeee;
+
+// bg - > color must have contrast
+$daygrid-bg: #f2f2f2;
+$daygrid-color: #808080;
+
+$white: #ffffff;
+$black: #000000;
+
+$text-color: $white;
+
+$today-bg: #fcf8e3;
+
+$button-bg: #212529;
+$button-hover-color: $button-bg;
+
+$button-primary-color: $white;
+$button-primary-bg: #2c3e50;
+$button-primary-border: #2c3e50;
+
+$button-primary-hover-color: $white;
+$button-primary-hover-bg: #1e2b37;
+$button-primary-hover-border: #1a252f;
+
+$button-primary-disabled-color: $white;
+$button-primary-disabled-bg: #2c3e50;
+$button-primary-disabled-border: #2c3e50;
+
+$list-item-bg:#f5f5f5;

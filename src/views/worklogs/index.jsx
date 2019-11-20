@@ -1,10 +1,10 @@
 import React, { useReducer, useEffect } from "react";
-import styles from "./customers.module.scss";
+import styles from "./worklogs.module.scss";
 import List from "../../components/list";
 import DefaultLayout from "../../layout/layout.default";
 import { nSQL } from "@nano-sql/core";
 
-
+import EventsCalender from "../../__ui/eventsCalendar";
 const types = {
   LIST_READY: "LIST_READY",
   CONNECT: "CONNECT",
@@ -26,9 +26,8 @@ function reducer(state, action) {
         };
       }
 
-      nSQL("customersTable")
+      nSQL("workDurationTable")
         .query("select")
-        .orderBy(["name ASC", "surname ASC"])
         .exec()
         .then(list => {
           action.dispatch({ type: types.LIST_READY, info: { list: list } });
@@ -61,26 +60,30 @@ function reducer(state, action) {
     }
   }
 }
-export default function Customers() {
-  const [customers, dispatch] = useReducer(reducer, {
+export default function WorkLogs() {
+  const [worklog, dispatch] = useReducer(reducer, {
     connected: "FALSE",
-    title: "Customers",
-    type: "CUSTOMERS_LIST",
+    title: "Worked Hours",
+    type: "WORK_HISTORY",
     list: []
   });
+
   useEffect(() => {
-    if (customers.connected === "FALSE") {
+    if (worklog.connected === "FALSE") {
       dispatch({ type: types.CONNECT, dispatch });
       return;
     }
-    if (customers.connected === "TRYING") {
+    if (worklog.connected === "TRYING") {
       return;
     }
-  }, [customers.connected]);
+  }, [worklog.connected]);
+
   return (
     <DefaultLayout>
-      <div className={styles.Customers}>
-        <List {...customers} />
+      <div className={styles.WorkLogs}>
+      <EventsCalender />
+      
+        <List {...worklog} />
       </div>
     </DefaultLayout>
   );
