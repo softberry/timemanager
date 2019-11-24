@@ -2,6 +2,7 @@ import React from "react";
 import { timeDiff, twoDigit } from "../../lib/counter.helpers";
 import styles from "./list.module.scss";
 import { Link } from "react-router-dom";
+import { Icon } from "@material-ui/core";
 
 function workHistoryList({ list }) {
   return (
@@ -33,6 +34,10 @@ function workHistoryList({ list }) {
 function customersList({ list }) {
   return (
     <>
+    <div className={styles.ListTitle}>
+    <h1 className={styles.ListTitleText}>title</h1>
+          <Icon>add</Icon>
+    </div>
       {list.map((item, key) => (
         <Link
           to={`/edit/customer/${item.id}`}
@@ -52,9 +57,7 @@ export default function List({ title, type, list = [], hasTableHead = false }) {
   return (
     <>
       <section className={styles.List}>
-        <div className={styles.ListTitle}>
-          <h1 className={styles.ListTitleText}>{title}</h1>
-        </div>
+        <div className={styles.ListTitle}></div>
         {type === "WORK_HISTORY" && workHistoryList({ list })}
         {type === "CUSTOMERS_LIST" && customersList({ list })}
       </section>
