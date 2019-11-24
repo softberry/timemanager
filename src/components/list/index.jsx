@@ -34,10 +34,12 @@ function workHistoryList({ list }) {
 function customersList({ list }) {
   return (
     <>
-    <div className={styles.ListTitle}>
-    <h1 className={styles.ListTitleText}>title</h1>
+      <div className={styles.ListTitle}>
+        <h1 className={styles.ListTitleText}>Customers</h1>
+        <div className={styles.ListTitleAddIcon}>
           <Icon>add</Icon>
-    </div>
+        </div>
+      </div>
       {list.map((item, key) => (
         <Link
           to={`/edit/customer/${item.id}`}

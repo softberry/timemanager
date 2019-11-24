@@ -55,6 +55,16 @@ const customersTable = {
   },
   queries: [
     {
+      name: "newTempUser",
+      args: {
+      },
+      call: (db, args) => {
+        return db
+          .query("upsert", {})
+          .emit();
+      }
+    },
+    {
       name: "addNewWork",
       args: {
         "id:uuid": {},
