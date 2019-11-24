@@ -20,9 +20,6 @@ function reducer(state, action) {
     case "CHANGE":
       break;
     case "UPSERT":
-      //target: workTable
-      // result: {id, ....}
-      console.log("..", action);
       appliedState.cart = { position: "inline", id: action.event.result.id };
       break;
     case "DELETE":
@@ -42,10 +39,7 @@ function Page() {
 
   location.state = location.state || {};
   const [appState, dispatch] = useReducer(reducer, {
-    ...location.state,
-    cart: {
-      position: ""
-    }
+    ...location.state
   });
 
   document.oncontextmenu = function() {
@@ -83,7 +77,6 @@ function Page() {
           <Route exact path="/settings" component={Settings} />
           <Route exact path="/edit/:type/:id" component={Edit} />
         </Switch>
-        {/* {<Cart state={location.state}></Cart>} */}
       </NanoDataBase>
     </Typography>
   );

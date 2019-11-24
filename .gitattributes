@@ -1,0 +1,3 @@
+.storybook/* linguist-vendored
+docs/* linguist-documentation
+public/* linguist-generated
