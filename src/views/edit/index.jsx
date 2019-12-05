@@ -8,6 +8,7 @@ import EditCustomer from "./edit.customer";
  */
 
 export default function Edit(props) {
+  props.location.state.toolbar = [];
   switch (props.match.params.type) {
     case "customer":
       return <EditCustomer {...props} />;

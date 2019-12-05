@@ -43,25 +43,22 @@ const customersTable = {
   name: "customersTable",
   model: {
     "id:uuid": { pk: true },
-    "name:string": {},
-    "surname:string": {},
-    "street:string": {},
-    "zip:string": {},
-    "city:string": {},
-    "tel:string[]": {},
-    "mobile:string[]": {},
-    "mail:string[]": {},
-    "works:string[]": {} // workTable
+    "name:string": { default: "" },
+    "surname:string": { default: "" },
+    "street:string": { default: "" },
+    "zip:string": { default: "" },
+    "city:string": { default: "" },
+    "tel:string[]": { default: [""] },
+    "mobile:string[]": { default: [""] },
+    "mail:string[]": { default: [""] },
+    "works:string[]": { default: [""] } // workTable
   },
   queries: [
     {
-      name: "newTempUser",
-      args: {
-      },
+      name: "createNewEmptyUserEntryForEdit",
+      args: {},
       call: (db, args) => {
-        return db
-          .query("upsert", {})
-          .emit();
+        return db.query("upsert", {}).emit();
       }
     },
     {

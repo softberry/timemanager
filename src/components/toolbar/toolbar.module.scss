@@ -1,0 +1,9 @@
+@import "../../mixins";
+
+.Toolbar {
+  display: flex;
+}
+
+.Button {
+  @include nav-button();
+}

@@ -1,27 +1,24 @@
 import React from "react";
 import AutoComplete from "../../__ui/autocomplete";
+import Toolbar from "../../components/toolbar";
 import Icon from "@material-ui/core/Icon";
 import { withRouter } from "react-router-dom";
 import styles from "./nav.module.scss";
 
 function NavBack({ index, goBack }) {
-  const stateClass =
-    index > 0 ? styles.HistoryNavBack : styles.HistoryNavBackDisabled;
+  const disabled = index > 0 ? null : "disabled";
 
   return (
-    <div className={stateClass}>
+    <div className={styles.HistoryNavArrow} disabled={disabled}>
       <Icon onClick={goBack}>arrow_back</Icon>
     </div>
   );
 }
 function NavForward({ index, length, goForward }) {
-  const stateClass =
-    length > index + 1
-      ? styles.HistoryNavForward
-      : styles.HistoryNavForwardDisabled;
+  const disabled = length > index + 1 ? null : "disabled";
 
   return (
-    <div className={stateClass}>
+    <div className={styles.HistoryNavArrow} disabled={disabled}>
       <Icon onClick={goForward}>arrow_forward</Icon>
     </div>
   );
@@ -34,7 +31,12 @@ function Nav({ history }) {
         <NavBack {...history} />
         <NavForward {...history} />
       </div>
-      <AutoComplete variant="primary" />
+      <div className={styles.ToolsNav}>
+        <Toolbar />
+      </div>
+      <div className={styles.SearchNav}>
+        <AutoComplete variant="primary" />
+      </div>
     </nav>
   );
 }

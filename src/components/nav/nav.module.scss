@@ -6,19 +6,34 @@
   @include zIndex("nav");
   grid-area: ui-components-nav;
   display: grid;
-  grid-template-areas: "history suggestion";
-  grid-template-columns: auto min-content;
+  grid-template-areas: "history toolsbar suggestion";
+  grid-template-columns: auto 1fr min-content;
   align-content: center;
+  padding: 0 0.5rem;
 }
-
+.HistoryNav,
+.ToolsNav,
+.SearchNav {
+  display: flex;
+}
+.ToolsNav {
+  grid-area: toolsbar;
+}
 .HistoryNav {
   grid-area: history;
   display: flex;
-  padding: 0 1rem;
-  &Back,
-  &Forward {
-    &Disabled {
-      opacity: 0.1;
+  align-items: center;
+
+  &Arrow {
+    @include nav-button();
+    border: none;
+    padding: 0;
+    &Icon {
+      @include materialIcon();
     }
   }
+}
+
+.SearchNav {
+  grid-area: suggestion;
 }
