@@ -3,11 +3,14 @@
 .List {
   height: 100%;
   &Title {
-    text-transform: capitalize;
+    display: flex;
 
     &Text {
       flex-grow: 1;
       font-weight: $font-weight-bold;
+      text-transform: capitalize;
+    }
+    &AddIcon {
     }
   }
 

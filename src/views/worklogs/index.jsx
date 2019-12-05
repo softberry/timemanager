@@ -60,7 +60,8 @@ function reducer(state, action) {
     }
   }
 }
-export default function WorkLogs() {
+export default function WorkLogs({ location }) {
+  location.state.toolbar = [];
   const [worklog, dispatch] = useReducer(reducer, {
     connected: "FALSE",
     title: "Worked Hours",
@@ -81,8 +82,8 @@ export default function WorkLogs() {
   return (
     <DefaultLayout>
       <div className={styles.WorkLogs}>
-      <EventsCalender />
-      
+        <EventsCalender />
+
         <List {...worklog} />
       </div>
     </DefaultLayout>

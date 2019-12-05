@@ -12,7 +12,8 @@ import Timer from "../../components/timer";
 //   { customer: "M. Jemand", date: "2018-01-05", duration: "02:315" }
 // ];
 // <List title="Test" content={history} />
-export default function Home(props) {
+export default function Home({ location }) {
+  location.state.toolbar = [];
   return (
     <DefaultLayout>
       <Timer />

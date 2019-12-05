@@ -3,31 +3,31 @@ import styles from "./input.module.scss";
 
 import { getTypeFromFieldName } from "../../lib/input.helpers";
 
-function Input(props) {
-  const { id, name, value } = props;
-
+function Input({ id, name, value }) {
   const [val, setVal] = useState(value);
-  const type=getTypeFromFieldName(name)
+  const type = getTypeFromFieldName(name);
   const [labelPosition, setLabelPosition] = useState(
     val === "" ? "PLACEHOLDER" : "LABEL"
   );
-  function onChange(e) {
+
+  function handleOnChange(e) {
     setVal(e.target.value);
     `${e.target.value}`.length === 0
       ? setLabelPosition("PLACEHOLDER")
       : setLabelPosition("LABEL");
   }
 
-  function onFocus(e) {
+  function handleOnFocus(e) {
     `${e.target.value}`.length === 0
       ? setLabelPosition("PLACEHOLDER")
       : setLabelPosition("LABEL");
   }
-  function onBlur(e) {
+  function handleOnBlur(e) {
     `${e.target.value}`.length === 0
       ? setLabelPosition("PLACEHOLDER")
       : setLabelPosition("LABEL");
   }
+
   if (val === null) return <></>;
 
   return (
@@ -39,9 +39,9 @@ function Input(props) {
         id={id}
         type={type}
         value={val}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
+        onChange={handleOnChange}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
       />
     </div>
   );

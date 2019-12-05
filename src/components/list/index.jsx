@@ -1,8 +1,10 @@
 import React from "react";
+import { nSQL } from "@nano-sql/core";
 import { timeDiff, twoDigit } from "../../lib/counter.helpers";
 import styles from "./list.module.scss";
 import { Link } from "react-router-dom";
 import { Icon } from "@material-ui/core";
+import { withRouter } from "react-router-dom";
 
 function workHistoryList({ list }) {
   return (
@@ -31,13 +33,29 @@ function workHistoryList({ list }) {
   );
 }
 
+function createNewCustomer({history}) {
+  nSQL("customersTable")
+    .presetQuery("createNewEmptyUserEntryForEdit")
+    .exec()
+    .then(entry => {
+      history.push(`/edit/customer/${entry.id}`);
+    })
+    .catch(err=>{
+      console.log(err);
+    });
+}
+const gotoNewCustomer = withRouter(createNewCustomer);
+
+
 function customersList({ list }) {
   return (
     <>
-    <div className={styles.ListTitle}>
-    <h1 className={styles.ListTitleText}>title</h1>
+      <div className={styles.ListTitle}>
+        <h1 className={styles.ListTitleText}>Customers</h1>
+        <div className={styles.ListTitleAddIcon} onClick={gotoNewCustomer}>
           <Icon>add</Icon>
-    </div>
+        </div>
+      </div>
       {list.map((item, key) => (
         <Link
           to={`/edit/customer/${item.id}`}

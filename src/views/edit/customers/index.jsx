@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import Icon from "@material-ui/core/Icon";
 import Input from "../../../__ui/input";
 
@@ -18,22 +19,30 @@ function ReadOnlyDeatils({ customer }) {
   );
 }
 
+function UpdateOnEdit({ item, customer }) {
+  // const [itemValue, setItemValue] = useState(customer[item]);
+
+  const field = {
+    id: `${customer.id}-${item}`,
+    name: item,
+    value: customer[item]
+  };
+  return (
+    <>
+      <Input {...field} />
+    </>
+  );
+}
 function EditableList({ customer }) {
   const nonRenderedItems = ["id", "works"];
+
   return (
     <div>
       {Object.keys(customer).map((item, key) => {
-        const field = {
-          id: `${customer.id}-${item}`,
-          name: item,
-          value: customer[item]
-        };
-        if (nonRenderedItems.includes(item)) {
-          return false;
-        }
+        const props = { item, customer };
         return (
           <div key={key}>
-            <Input {...field} />
+            {!nonRenderedItems.includes(item) && <UpdateOnEdit {...props} />}
           </div>
         );
       })}
@@ -134,7 +143,7 @@ function WorkListWorkEntries({ entries }) {
   );
 }
 
-export default function CustomerDetails({ customer }) {
+function CustomerDetails({ location, customer }) {
   const [locked, setLocked] = useState(true);
   const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
 
@@ -183,6 +192,7 @@ export default function CustomerDetails({ customer }) {
       </h1>
       {locked && <ReadOnlyDeatils customer={customer} />}
       {!locked && <EditableList customer={customer} />}
+      <hr />
       <h2 className={styles.WorkLogsTitle}>
         <div>Worklog</div>
         <div onClick={addNewWork}>
@@ -195,3 +205,9 @@ export default function CustomerDetails({ customer }) {
     </>
   );
 }
+export default withRouter(CustomerDetails);
+//TODO: 1- mail, phone etc. array type values should create inputs accordingly
+//TODO: 2- Edit form should have reset/revert/cancel options beside save option
+//TODO: 3- Add/Save/edit/cancel etc. buttons are generic and can be applied to all views.
+// So place such buttons in to the toolbar and
+// show/hide - enable/disable buttons according to state/route

@@ -59,13 +59,24 @@ function reducer(state, action) {
     }
   }
 }
-export default function Customers() {
+export default function Customers({ location }) {
   const [customers, dispatch] = useReducer(reducer, {
     connected: "FALSE",
     title: "Customers",
     type: "CUSTOMERS_LIST",
     list: []
   });
+  location.state.toolbar = [
+    {
+      type: "add",
+      disabled: false,
+      hidden: false
+    },{
+      type: "edit",
+      disabled: true,
+      hidden: false
+    }
+  ];
   useEffect(() => {
     if (customers.connected === "FALSE") {
       dispatch({ type: types.CONNECT, dispatch });
@@ -75,6 +86,7 @@ export default function Customers() {
       return;
     }
   }, [customers.connected]);
+
   return (
     <DefaultLayout>
       <div className={styles.Contacts}>
