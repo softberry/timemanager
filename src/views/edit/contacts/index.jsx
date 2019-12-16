@@ -174,14 +174,6 @@ function ContactDetails(props) {
     if (contact.id === "new-contact-to-edit") {
       setLocked(false);
       
-      history.location.state.toolbar = [
-        {
-          type: "save",
-          disabled: true,
-          hidden: false,
-          to: "/save/contact/new-contact-to-edit"
-        }
-      ];
     }
     if (fullName.length > 10) {
       const shortName = `${contact.name}`.slice(0, 1);
@@ -190,9 +182,7 @@ function ContactDetails(props) {
   }, [
     setFullName,
     fullName,
-    contact,
-    history.location.state.toolbar,
-    history.location.pathname
+    contact
   ]);
 
   useEffect(() => {

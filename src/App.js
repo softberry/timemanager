@@ -37,7 +37,6 @@ function reducer(state, action) {
 function Page() {
   const location = useLocation();
 
-  location.state = location.state || { toolbar: [] };
   const [appState, dispatch] = useReducer(reducer, {
     ...location.state
   });

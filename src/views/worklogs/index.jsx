@@ -60,8 +60,7 @@ function reducer(state, action) {
     }
   }
 }
-export default function WorkLogs({ location }) {
-  location.state.toolbar = [];
+export default function WorkLogs() {
   const [worklog, dispatch] = useReducer(reducer, {
     connected: "FALSE",
     title: "Worked Hours",

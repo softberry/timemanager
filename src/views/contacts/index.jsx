@@ -67,19 +67,7 @@ export default function Contacts({ location }) {
     type: "CONTACTS_LIST",
     list: []
   });
-  location.state.toolbar = [
-    {
-      type: "add",
-      disabled: false,
-      hidden: false,
-      to: "/edit/contact/new-contact-to-edit"
-    },
-    {
-      type: "edit",
-      disabled: true,
-      hidden: false
-    }
-  ];
+  
   useEffect(() => {
     if (contacts.connected === "FALSE") {
       dispatch({ type: types.CONNECT, dispatch });

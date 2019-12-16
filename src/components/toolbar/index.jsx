@@ -20,7 +20,7 @@ function ToolbarButton(props) {
 
 function Toolbar({ history }) {
   //TODO: Use nSQL to keep toolbar structure and use nSQL-customQuery to update Toolbar buttons;
-  const buttons = history.location.state.toolbar || [];
+  const buttons = [];
 
   return (
     <div className={styles.Toolbar}>

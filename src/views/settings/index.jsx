@@ -3,8 +3,7 @@ import React from "react";
 import styles from "./settings.module.scss";
 import DefaultLayout from "../../layout/layout.default";
 
-export default function Settings({ location }) {
-  location.state.toolbar = [];
+export default function Settings() {
   return (
     <DefaultLayout>
       <div className={styles.Settings}>
