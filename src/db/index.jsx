@@ -6,7 +6,7 @@ import nSQLEventListeners from "./actions";
 import counterModelTables from "./models/data.model";
 
 // Dummy Tables
-import { createRandomCustomers } from "../db/_dummy/customers.dev";
+import { createRandomContacts } from "../db/_dummy/contacts.dev";
 
 // const isDEV = process.env.NODE_ENV === "development";
 const isPROD = process.env.NODE_ENV === "production";
@@ -23,7 +23,7 @@ function NanoDatabase({ children, onDataChange }) {
   useEffect(() => {
     if (ready === "NOT_READY" && dbExists()) {
       setReady("GETTING_READY");
-      return nSQL("customersTable")
+      return nSQL("contactsTable")
         .query("select")
         .exec();
     } else if (ready === "NOT_READY") {
@@ -60,20 +60,20 @@ function NanoDatabase({ children, onDataChange }) {
         .then(() => {
           // ready to query!
           setReady("READY");
-          return nSQL("customersTable")
+          return nSQL("contactsTable")
             .query("select")
             .exec();
         })
         .then(items => {
           if (isPROD || items.length > 0) {
-            return nSQL("customersTable")
+            return nSQL("contactsTable")
               .query("select")
               .exec();
           } else {
-            const customers = createRandomCustomers(50);
+            const contacts = createRandomContacts(50);
 
-            return nSQL("customersTable")
-              .query("upsert", customers)
+            return nSQL("contactsTable")
+              .query("upsert", contacts)
               .exec();
           }
         })

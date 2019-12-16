@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import Icon from "@material-ui/core/Icon";
 import Input from "../../../__ui/input";
 
-import styles from "./customer.module.scss";
+import styles from "./contacts.module.scss";
 import { nSQL } from "@nano-sql/core";
 
-function ReadOnlyDeatils({ customer }) {
-  const { street, zip, city, tel, mobile } = customer;
+function ReadOnlyDeatils({ contact }) {
+  const { street, zip, city, tel, mobile } = contact;
   return (
     <div className={styles.ReadOnly}>
       <div>
@@ -19,13 +19,13 @@ function ReadOnlyDeatils({ customer }) {
   );
 }
 
-function UpdateOnEdit({ item, customer }) {
-  // const [itemValue, setItemValue] = useState(customer[item]);
+function UpdateOnEdit({ item, contact }) {
+  // const [itemValue, setItemValue] = useState(contact[item]);
 
   const field = {
-    id: `${customer.id}-${item}`,
+    id: `${contact.id}-${item}`,
     name: item,
-    value: customer[item]
+    value: contact[item]
   };
   return (
     <>
@@ -33,13 +33,14 @@ function UpdateOnEdit({ item, customer }) {
     </>
   );
 }
-function EditableList({ customer }) {
+
+function EditableList({ contact }) {
   const nonRenderedItems = ["id", "works"];
 
   return (
     <div>
-      {Object.keys(customer).map((item, key) => {
-        const props = { item, customer };
+      {Object.keys(contact).map((item, key) => {
+        const props = { item, contact };
         return (
           <div key={key}>
             {!nonRenderedItems.includes(item) && <UpdateOnEdit {...props} />}
@@ -143,13 +144,18 @@ function WorkListWorkEntries({ entries }) {
   );
 }
 
-function CustomerDetails({ location, customer }) {
+function ContactDetails(props) {
+  
+  const { contact } = props;
+  const history = useHistory();
+
   const [locked, setLocked] = useState(true);
   const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
 
   const [fullName, setFullName] = useState(
-    `${customer.name} ${customer.surname}`
+    `${contact.name} ${contact.surname}`
   );
+
 
   function toggleLock() {
     setLocked(!locked);
@@ -157,31 +163,49 @@ function CustomerDetails({ location, customer }) {
 
   function addNewWork() {
     nSQL("workTable")
-      .presetQuery("createNewWorkLogForCustomer", { customerID: customer.id })
+      .presetQuery("createNewWorkLogForContact", { contactID: contact.id })
       .exec()
       .then(logs => {
         setWorkLogs({ ...workLogs, state: "NEWDATA", data: logs });
       });
   }
   useEffect(() => {
-    if (customer.id === null) return;
-    if (fullName.length > 10) {
-      const shortName = `${customer.name}`.slice(0, 1);
-      setFullName(`${shortName}. ${customer.surname}`);
+    if (contact.id === null) return;
+    if (contact.id === "new-contact-to-edit") {
+      setLocked(false);
+      
+      history.location.state.toolbar = [
+        {
+          type: "save",
+          disabled: true,
+          hidden: false,
+          to: "/save/contact/new-contact-to-edit"
+        }
+      ];
     }
-  }, [setFullName, fullName, customer]);
+    if (fullName.length > 10) {
+      const shortName = `${contact.name}`.slice(0, 1);
+      setFullName(`${shortName}. ${contact.surname}`);
+    }
+  }, [
+    setFullName,
+    fullName,
+    contact,
+    history.location.state.toolbar,
+    history.location.pathname
+  ]);
 
   useEffect(() => {
-    if (customer.id === null) return;
+    if (contact.id === null) return;
     if (workLogs.state === "ACTIVE" || workLogs.state === "READY") return;
     setWorkLogs({ ...workLogs, state: "ACTIVE" });
     nSQL("workTable")
-      .presetQuery("getWorkLogsOfCustomer", { customerID: customer.id })
+      .presetQuery("getWorkLogsOfContact", { contactID: contact.id })
       .exec()
       .then(logs => {
         setWorkLogs({ ...workLogs, state: "READY", data: logs });
       });
-  }, [workLogs, customer]);
+  }, [workLogs, contact]);
   return (
     <>
       <h1 className={styles.Title}>
@@ -190,8 +214,8 @@ function CustomerDetails({ location, customer }) {
         </Icon>
         <div className={styles.FullName}>{fullName}</div>
       </h1>
-      {locked && <ReadOnlyDeatils customer={customer} />}
-      {!locked && <EditableList customer={customer} />}
+      {locked && <ReadOnlyDeatils contact={contact} />}
+      {!locked && <EditableList contact={contact} />}
       <hr />
       <h2 className={styles.WorkLogsTitle}>
         <div>Worklog</div>
@@ -205,9 +229,9 @@ function CustomerDetails({ location, customer }) {
     </>
   );
 }
-export default withRouter(CustomerDetails);
+export default withRouter(ContactDetails);
 //TODO: 1- mail, phone etc. array type values should create inputs accordingly
 //TODO: 2- Edit form should have reset/revert/cancel options beside save option
 //TODO: 3- Add/Save/edit/cancel etc. buttons are generic and can be applied to all views.
-// So place such buttons in to the toolbar and
-// show/hide - enable/disable buttons according to state/route
+//          So place such buttons in to the toolbar and
+//          show/hide - enable/disable buttons according to state/route

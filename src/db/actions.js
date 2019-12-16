@@ -1,5 +1,5 @@
 const tables = [
-  "customersTable",
+  "contactsTable",
   "workTable",
   "workDurationTable",
   "materialItemTable",

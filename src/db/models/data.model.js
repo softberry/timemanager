@@ -1,9 +1,9 @@
 /**
- * Customer-Table
+ * Contact-Table
  * ID - NAME - SURNAME - STREET+NO - ZIP - CITY - TEL[+] - MOBILE[+] - MAIL[+]
  * ***********************************************************************
  * Work-Table
- * ID - CUSTOMERID - DESCRIPTION
+ * ID - CONTACTID - DESCRIPTION
  * ***********************************************************************
  * Work-Duration-Table
  * ID - WORKID - START-TIMESTAMP - FINISHED-TIMESTAMP - DESCRIPTION
@@ -37,10 +37,10 @@ const counterTable = {
 };
 
 // export default counterTable;
-// Customer-Table
+// Contact-Table
 // ID - NAME - SURNAME - STREET+NO - ZIP - CITY - TEL[+] - MOBILE[+] - MAIL[+]
-const customersTable = {
-  name: "customersTable",
+const contactsTable = {
+  name: "contactsTable",
   model: {
     "id:uuid": { pk: true },
     "name:string": { default: "" },
@@ -58,7 +58,7 @@ const customersTable = {
       name: "createNewEmptyUserEntryForEdit",
       args: {},
       call: (db, args) => {
-        return db.query("upsert", {}).emit();
+        return db.query("upsert", { id: "new-contact-to-edit" }).emit();
       }
     },
     {
@@ -91,12 +91,12 @@ const customersTable = {
 };
 
 // Work-Table
-// ID - CUSTOMERID - DESCRIPTION
+// ID - CONTACTID - DESCRIPTION
 const workTable = {
   name: "workTable",
   model: {
     "id:uuid": { pk: true },
-    "customerID:string": { notNull: true },
+    "contactID:string": { notNull: true },
     "name:string": {},
     "labour:string[]": {}, // workDurationTable
     "materials:string[]": {}, // materialItemTable
@@ -104,14 +104,14 @@ const workTable = {
   },
   queries: [
     {
-      name: "createNewWorkLogForCustomer",
+      name: "createNewWorkLogForContact",
       args: {
-        "customerID:uuid": {}
+        "contactID:uuid": {}
       },
       call: (db, args) => {
         const work = {
           name: "New Work Log",
-          customerID: args.customerID,
+          contactID: args.contactID,
           labour: [],
           materials: [],
           description: ""
@@ -120,14 +120,14 @@ const workTable = {
       }
     },
     {
-      name: "getWorkLogsOfCustomer",
+      name: "getWorkLogsOfContact",
       args: {
-        "customerID:uuid": {}
+        "contactID:uuid": {}
       },
       call: (db, args) => {
         return db
           .query("select")
-          .where(["customerID", "=", args.customerID])
+          .where(["contactID", "=", args.contactID])
           .emit();
       }
     }
@@ -201,7 +201,7 @@ const unitEnumsTable = {
 
 const counterModelTables = [
   counterTable,
-  customersTable,
+  contactsTable,
   workTable,
   workDurationTable,
   materialItemTable,

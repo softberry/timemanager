@@ -25,8 +25,9 @@ function reducer(state, action) {
         };
       }
 
-      nSQL("customersTable")
+      nSQL("contactsTable")
         .query("select")
+        .where(["id", "!=", "new-contact-to-edit"])
         .orderBy(["name ASC", "surname ASC"])
         .exec()
         .then(list => {
@@ -59,38 +60,40 @@ function reducer(state, action) {
     }
   }
 }
-export default function Customers({ location }) {
-  const [customers, dispatch] = useReducer(reducer, {
+export default function Contacts({ location }) {
+  const [contacts, dispatch] = useReducer(reducer, {
     connected: "FALSE",
-    title: "Customers",
-    type: "CUSTOMERS_LIST",
+    title: "Contacts",
+    type: "CONTACTS_LIST",
     list: []
   });
   location.state.toolbar = [
     {
       type: "add",
       disabled: false,
-      hidden: false
-    },{
+      hidden: false,
+      to: "/edit/contact/new-contact-to-edit"
+    },
+    {
       type: "edit",
       disabled: true,
       hidden: false
     }
   ];
   useEffect(() => {
-    if (customers.connected === "FALSE") {
+    if (contacts.connected === "FALSE") {
       dispatch({ type: types.CONNECT, dispatch });
       return;
     }
-    if (customers.connected === "TRYING") {
+    if (contacts.connected === "TRYING") {
       return;
     }
-  }, [customers.connected]);
+  }, [contacts.connected]);
 
   return (
     <DefaultLayout>
       <div className={styles.Contacts}>
-        <List {...customers} />
+        <List {...contacts} />
       </div>
     </DefaultLayout>
   );

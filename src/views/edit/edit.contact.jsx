@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react";
-
 import DefaultLayout from "../../layout/layout.default";
 import { nSQL } from "@nano-sql/core";
 import styles from "./edit.module.scss";
 
-import CustomerDetails from "./customers";
+import ContactDetails from "./contacts";
 
 /**
  * Renders editable form from given values in given table
  * @param {Object} props
  */
-
-export default function EditCustomer(props) {
+export default function EditContacts(props) {
   const [table, setTable] = useState({ id: null });
   const [queryState, setQueryState] = useState("INITIAL");
 
   function getSelectedData() {
-    return nSQL("customersTable")
+    const edit = nSQL("contactsTable")
       .query("select")
-      .where(["id", "=", props.match.params.id])
+      .where(["id", "=", props.match.params.id]);
+      
+    const createBeforeEdit = nSQL("contactsTable").presetQuery(
+      "createNewEmptyUserEntryForEdit"
+    );
+
+    const sql = props.match.params.id === "new-contact-to-edit" ? createBeforeEdit : edit;
+    return sql
       .exec()
       .then(item => {
         setTable(item[0]);
@@ -48,12 +53,11 @@ export default function EditCustomer(props) {
   return (
     <DefaultLayout>
       {queryState === "ERRORED" && (
-        <div>Error reading Customers Data Table!</div>
+        <div>Error reading Contact's Data Table!</div>
       )}
       <section className={styles.Edit}>
-        <CustomerDetails customer={table} />
+        <ContactDetails contact={table} />
       </section>
     </DefaultLayout>
   );
 }
-

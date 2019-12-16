@@ -10,7 +10,7 @@ import {
 import "./index.scss";
 import Home from "./views/home";
 import WorkLog from "./views/worklogs";
-import Customers from "./views/contacts";
+import Contacts from "./views/contacts";
 import Settings from "./views/settings";
 import Edit from "./views/edit";
 
@@ -37,7 +37,7 @@ function reducer(state, action) {
 function Page() {
   const location = useLocation();
 
-  location.state = location.state || { toolbar: {} };
+  location.state = location.state || { toolbar: [] };
   const [appState, dispatch] = useReducer(reducer, {
     ...location.state
   });
@@ -72,7 +72,7 @@ function Page() {
       <NanoDataBase onDataChange={onDataChangeHandler}>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/customers" component={Customers} />
+          <Route exact path="/contacts" component={Contacts} />
           <Route exact path="/history" component={WorkLog} />
           <Route exact path="/settings" component={Settings} />
           <Route exact path="/edit/:type/:id" component={Edit} />

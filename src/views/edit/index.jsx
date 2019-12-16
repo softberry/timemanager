@@ -1,6 +1,6 @@
 import React from "react";
 
-import EditCustomer from "./edit.customer";
+import EditContact from "./edit.contact";
 
 /**
  * Renders editable form from given values in given table
@@ -8,10 +8,9 @@ import EditCustomer from "./edit.customer";
  */
 
 export default function Edit(props) {
-  props.location.state.toolbar = [];
   switch (props.match.params.type) {
-    case "customer":
-      return <EditCustomer {...props} />;
+    case "contact":
+      return <EditContact {...props} />;
     default:
       return <>Nothing renderable defined</>;
   }
