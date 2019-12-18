@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { nSQL } from "@nano-sql/core";
 
-import nSQLEventListeners from "./actions";
 // Table Models
 import counterModelTables from "./models/data.model";
 
@@ -17,7 +16,7 @@ function dbExists(dbname = "shoplist_local") {
 }
 
 /////////////////
-function NanoDatabase({ children, onDataChange }) {
+function NanoDatabase({ children }) {
   const [ready, setReady] = useState("NOT_READY");
 
   useEffect(() => {
@@ -59,37 +58,58 @@ function NanoDatabase({ children, onDataChange }) {
         })
         .then(() => {
           // ready to query!
-          setReady("READY");
-          return nSQL("contactsTable")
-            .query("select")
-            .exec();
+          nSQL().useDatabase("shoplist_local");
+          setReady("BEFORE_READY");
+          console.log(ready);
+          // return nSQL("contactsTable")
+          //   .query("select")
+          //   .exec();
         })
-        .then(items => {
-          if (isPROD || items.length > 0) {
-            return nSQL("contactsTable")
-              .query("select")
-              .exec();
-          } else {
-            const contacts = createRandomContacts(50);
+        // .then(items => {
+        //   if (isPROD || items.length > 0) {
+        //     return nSQL("contactsTable")
+        //       .query("select")
+        //       .exec();
+        //   } else {
+        //     const contacts = createRandomContacts(50);
 
-            return nSQL("contactsTable")
-              .query("upsert", contacts)
-              .exec();
-          }
-        })
-        .then(() => {
-          nSQLEventListeners(nSQL, onDataChange);
-        })
+        //     return nSQL("contactsTable")
+        //       .query("upsert", contacts)
+        //       .exec();
+        //   }
+        // })
         .catch(err => {
           console.warn(err);
         });
     }
-  }, [ready, onDataChange]);
+  }, [ready]);
+  useEffect(() => {
+    console.log(ready);
+    if (ready !== "BEFORE_READY") return;
+    nSQL("contactsTable")
+      .query("select")
+      .exec()
+      .then(items => {
+        console.log(isPROD)
+        if (isPROD || items.length > 0) {
+          setReady("READY");
+        } else {
+          const contacts = createRandomContacts(50);
+
+          nSQL("contactsTable")
+            .query("upsert", contacts)
+            .exec()
+            .then(() => {
+              setReady("READY");
+            });
+        }
+      });
+  });
 
   return (
     <>
-      {ready && <>{children}</>}
-      {!ready && <div>Loading</div>}
+      {ready === "READY" && <>{children}</>}
+      {ready !== "READY" && <div>Loading</div>}
     </>
   );
 }

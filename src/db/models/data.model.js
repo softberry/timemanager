@@ -36,6 +36,16 @@ const counterTable = {
   }
 };
 
+const toolbarButtonsTable = {
+  name: "toolbarButtonsTable",
+  model: {
+    "id:uuid": { pk: true },
+    "key:uuid": {},
+    "type:string": {},
+    "hidden:boolean": {},
+    "disabled:boolean": {}
+  }
+};
 // export default counterTable;
 // Contact-Table
 // ID - NAME - SURNAME - STREET+NO - ZIP - CITY - TEL[+] - MOBILE[+] - MAIL[+]
@@ -201,6 +211,7 @@ const unitEnumsTable = {
 
 const counterModelTables = [
   counterTable,
+  toolbarButtonsTable,
   contactsTable,
   workTable,
   workDurationTable,

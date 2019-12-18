@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withRouter, useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Icon from "@material-ui/core/Icon";
 import Input from "../../../__ui/input";
 
@@ -147,7 +147,7 @@ function WorkListWorkEntries({ entries }) {
 function ContactDetails(props) {
   
   const { contact } = props;
-  const history = useHistory();
+  
 
   const [locked, setLocked] = useState(true);
   const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
