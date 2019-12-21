@@ -4,6 +4,7 @@ import Nav from "../components/nav";
 import Footer from "../components/footer";
 
 export default function DefaultLayout({ children }) {
+
   return (
     <section className={styles.Layout}>
       <Nav />

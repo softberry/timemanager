@@ -145,9 +145,7 @@ function WorkListWorkEntries({ entries }) {
 }
 
 function ContactDetails(props) {
-  
   const { contact } = props;
-  
 
   const [locked, setLocked] = useState(true);
   const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
@@ -155,7 +153,6 @@ function ContactDetails(props) {
   const [fullName, setFullName] = useState(
     `${contact.name} ${contact.surname}`
   );
-
 
   function toggleLock() {
     setLocked(!locked);
@@ -173,17 +170,12 @@ function ContactDetails(props) {
     if (contact.id === null) return;
     if (contact.id === "new-contact-to-edit") {
       setLocked(false);
-      
     }
     if (fullName.length > 10) {
       const shortName = `${contact.name}`.slice(0, 1);
       setFullName(`${shortName}. ${contact.surname}`);
     }
-  }, [
-    setFullName,
-    fullName,
-    contact
-  ]);
+  }, [setFullName, fullName, contact]);
 
   useEffect(() => {
     if (contact.id === null) return;
@@ -220,8 +212,3 @@ function ContactDetails(props) {
   );
 }
 export default withRouter(ContactDetails);
-//TODO: 1- mail, phone etc. array type values should create inputs accordingly
-//TODO: 2- Edit form should have reset/revert/cancel options beside save option
-//TODO: 3- Add/Save/edit/cancel etc. buttons are generic and can be applied to all views.
-//          So place such buttons in to the toolbar and
-//          show/hide - enable/disable buttons according to state/route

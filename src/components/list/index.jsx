@@ -4,7 +4,6 @@ import { timeDiff, twoDigit } from "../../lib/counter.helpers";
 import styles from "./list.module.scss";
 import { Link } from "react-router-dom";
 
-
 function workHistoryList({ list }) {
   return (
     <>
@@ -53,7 +52,7 @@ function contactsList({ list }) {
   );
 }
 
-export default function List({ title, type, list = [], hasTableHead = false }) {
+export default function List({ type, list = [] }) {
   return (
     <>
       <section className={styles.List}>

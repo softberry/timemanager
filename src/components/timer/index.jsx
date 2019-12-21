@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { nSQL } from "@nano-sql/core";
+import { useSelector } from "react-redux";
 import { timeDiff } from "../../lib/counter.helpers";
 import Counter from "./counter";
 import StartStopButton from "../../__ui/buttons/startStopButton";
@@ -56,6 +56,12 @@ function Timer({ history }) {
       second: 0
     }
   });
+
+  const nSQL = useSelector(state => state.db.nSQL);
+
+  useEffect(() => {
+    if (typeof nSQL !== "function") return;
+  }, [nSQL]);
   nSQL("counters")
     .query("select")
     .where(["id", "=", "active-counter-0"])
@@ -90,7 +96,7 @@ function Timer({ history }) {
     return () => {
       clearTimeout(timerID);
     };
-  }, [timer.active, timer.start, timer.diff]);
+  }, [timer.active, timer.start, timer.diff, nSQL]);
 
   if (timer.active) {
     return (
@@ -108,9 +114,9 @@ function Timer({ history }) {
               .exec()
               .then(current => {
                 dispatch({ type: types.TIMER_STOP, current: current[0] });
-                createWorkLogFromCurrentCounter()
+                createWorkLogFromCurrentCounter(nSQL)
                   .then(() => {
-                  //  history.push("/history");
+                    //  history.push("/history");
                   })
                   .catch(err => console.log(err));
               });

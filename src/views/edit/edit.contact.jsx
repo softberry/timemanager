@@ -17,12 +17,13 @@ export default function EditContacts(props) {
     const edit = nSQL("contactsTable")
       .query("select")
       .where(["id", "=", props.match.params.id]);
-      
+
     const createBeforeEdit = nSQL("contactsTable").presetQuery(
       "createNewEmptyUserEntryForEdit"
     );
 
-    const sql = props.match.params.id === "new-contact-to-edit" ? createBeforeEdit : edit;
+    const sql =
+      props.match.params.id === "new-contact-to-edit" ? createBeforeEdit : edit;
     return sql
       .exec()
       .then(item => {

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import { db } from "../store/action-types";
+import Loading from "../components/loading";
 import { nSQL } from "@nano-sql/core";
 
 // Table Models
 import counterModelTables from "./models/data.model";
 
-// Dummy Tables
+// Dummy Tables: Feke content using fakersJS used during development
 import { createRandomContacts } from "../db/_dummy/contacts.dev";
 
 // const isDEV = process.env.NODE_ENV === "development";
@@ -18,6 +22,7 @@ function dbExists(dbname = "shoplist_local") {
 /////////////////
 function NanoDatabase({ children }) {
   const [ready, setReady] = useState("NOT_READY");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (ready === "NOT_READY" && dbExists()) {
@@ -60,38 +65,23 @@ function NanoDatabase({ children }) {
           // ready to query!
           nSQL().useDatabase("shoplist_local");
           setReady("BEFORE_READY");
-          console.log(ready);
-          // return nSQL("contactsTable")
-          //   .query("select")
-          //   .exec();
         })
-        // .then(items => {
-        //   if (isPROD || items.length > 0) {
-        //     return nSQL("contactsTable")
-        //       .query("select")
-        //       .exec();
-        //   } else {
-        //     const contacts = createRandomContacts(50);
-
-        //     return nSQL("contactsTable")
-        //       .query("upsert", contacts)
-        //       .exec();
-        //   }
-        // })
         .catch(err => {
           console.warn(err);
         });
     }
   }, [ready]);
   useEffect(() => {
-    console.log(ready);
     if (ready !== "BEFORE_READY") return;
     nSQL("contactsTable")
       .query("select")
       .exec()
       .then(items => {
-        console.log(isPROD)
         if (isPROD || items.length > 0) {
+          dispatch({
+            type: db.REGISTER_DATABASE,
+            nSQL:nSQL
+          });
           setReady("READY");
         } else {
           const contacts = createRandomContacts(50);
@@ -109,7 +99,7 @@ function NanoDatabase({ children }) {
   return (
     <>
       {ready === "READY" && <>{children}</>}
-      {ready !== "READY" && <div>Loading</div>}
+      {ready !== "READY" && <Loading />}
     </>
   );
 }
