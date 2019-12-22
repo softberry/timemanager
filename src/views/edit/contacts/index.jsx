@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Icon from "@material-ui/core/Icon";
 import Input from "../../../__ui/input";
+import TYPES from "../../../store/types";
 
 import styles from "./contacts.module.scss";
-import { nSQL } from "@nano-sql/core";
 
 function ReadOnlyDeatils({ contact }) {
   const { street, zip, city, tel, mobile } = contact;
@@ -146,6 +147,14 @@ function WorkListWorkEntries({ entries }) {
 
 function ContactDetails(props) {
   const { contact } = props;
+  const dispatch = useDispatch();
+
+  const nSQL = useSelector(state => state.db.nSQL);
+
+  useEffect(() => {
+    if (typeof nSQL !== "function") return;
+  }, [nSQL]);
+  dispatch({ type: TYPES.EDIT_CONTACT });
 
   const [locked, setLocked] = useState(true);
   const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
@@ -187,14 +196,14 @@ function ContactDetails(props) {
       .then(logs => {
         setWorkLogs({ ...workLogs, state: "READY", data: logs });
       });
-  }, [workLogs, contact]);
+  }, [workLogs, contact, nSQL]);
   return (
     <>
       <h1 className={styles.Title}>
         <Icon onClick={toggleLock} className={styles.TitleIcon}>
           {locked ? "lock" : "lock_open"}
         </Icon>
-        <div className={styles.FullName}>{fullName}</div>
+        {locked && <div className={styles.FullName}>{fullName}</div>}
       </h1>
       {locked && <ReadOnlyDeatils contact={contact} />}
       {!locked && <EditableList contact={contact} />}

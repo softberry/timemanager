@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import DefaultLayout from "../../layout/layout.default";
-import { nSQL } from "@nano-sql/core";
 import styles from "./edit.module.scss";
 
 import ContactDetails from "./contacts";
@@ -12,44 +13,32 @@ import ContactDetails from "./contacts";
 export default function EditContacts(props) {
   const [table, setTable] = useState({ id: null });
   const [queryState, setQueryState] = useState("INITIAL");
+  const nSQL = useSelector(state => state.db.nSQL);
 
-  function getSelectedData() {
-    const edit = nSQL("contactsTable")
+  useEffect(() => {
+    if (typeof nSQL === "undefined") return;
+  }, [nSQL]);
+
+  if (queryState === "INITIAL") {
+    setQueryState("TRYING");
+    nSQL("contactsTable")
       .query("select")
-      .where(["id", "=", props.match.params.id]);
-
-    const createBeforeEdit = nSQL("contactsTable").presetQuery(
-      "createNewEmptyUserEntryForEdit"
-    );
-
-    const sql =
-      props.match.params.id === "new-contact-to-edit" ? createBeforeEdit : edit;
-    return sql
+      .where(["id", "=", props.match.params.id])
       .exec()
       .then(item => {
         setTable(item[0]);
         setQueryState("READY");
       })
       .catch(err => {
-        if (queryState === "INITIAL") {
-          if (queryState === "RETRYING") {
-            setQueryState("ERRORED");
-          }
-          setQueryState("RETRYING");
-          setTimeout(() => {
-            getSelectedData();
-          }, 300);
-        }
+        setQueryState("ERRORED");
       });
   }
 
   useEffect(() => {
-    if (queryState === "INITIAL") {
-      getSelectedData();
+    if (queryState === "TRYING") {
       return;
     }
-    if (queryState !== "READY") return;
-  });
+  }, [queryState]);
   // {props.match.params.type}:{props.match.params.id}
   return (
     <DefaultLayout>

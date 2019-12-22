@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toolbar } from "../../store/action-types";
+import TYPES from "../../store/types";
 
 import styles from "./worklogs.module.scss";
 import List from "../../components/list";
@@ -27,7 +27,7 @@ export default function WorkLogs() {
   useEffect(() => {
     if (!ready) return;
   }, [ready]);
-  useDispatch()({ type: toolbar.CALENDAR });
+  useDispatch()({ type: TYPES.CALENDAR });
   return (
     <DefaultLayout>
       <div className={styles.WorkLogs}>

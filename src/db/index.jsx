@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { db } from "../store/action-types";
+import TYPES from "../store/types";
 import Loading from "../components/loading";
 import { nSQL } from "@nano-sql/core";
 
@@ -79,8 +79,8 @@ function NanoDatabase({ children }) {
       .then(items => {
         if (isPROD || items.length > 0) {
           dispatch({
-            type: db.REGISTER_DATABASE,
-            nSQL:nSQL
+            type: TYPES.REGISTER_DATABASE,
+            nSQL: nSQL
           });
           setReady("READY");
         } else {

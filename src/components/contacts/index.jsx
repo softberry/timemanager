@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import styles from "./contacts.module.scss";
 import List from "../../components/list";
 
-import { toolbar } from "../../store/action-types";
+import TYPES from "../../store/types";
 
 export default function ContactsList() {
   const nSQL = useSelector(state => state.db.nSQL);
@@ -29,7 +29,7 @@ export default function ContactsList() {
     if (!ready) return;
   }, [ready]);
 
-  useDispatch()({ type: toolbar.CONTACTS });
+  useDispatch()({ type: TYPES.CONTACTS });
 
   return <List title="Contacts" list={contacts} type="CONTACTS_LIST" />;
 }
