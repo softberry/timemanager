@@ -39,7 +39,7 @@ function ToolbarButton(props) {
       onClick={onClickHandler}
     >
       <Icon>{props.type}</Icon>
-      <span>{props.type}</span>
+      <span className={styles.ButtonText}>{props.label}</span>
     </div>
   );
 }

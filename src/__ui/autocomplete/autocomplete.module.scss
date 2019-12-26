@@ -22,6 +22,8 @@
     background-color: invert($C, 55%);
     box-shadow: inset 0 0 2px 0 $BG;
     color: $C;
+    max-width: 100%;
+    width: 8rem;
 
     &:focus {
       background-color: invert($BG, 25%);
@@ -30,7 +32,8 @@
 
     &SearchIcon {
       display: flex;
-      transform: translateX(-125%);
+      position: absolute;
+      right:.5rem;
       color: darken($BG, 25%);
       margin: auto 0;
     }

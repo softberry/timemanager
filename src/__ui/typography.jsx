@@ -5,7 +5,7 @@ import webfontloader from "webfontloader";
 import TYPES from "../store/types";
 
 export default function Typography({ theme, children }) {
-  const [fontsReady, setFontsReady] = useState(false);
+  const [fontsReady, setFontsReady] = useState("LOADING");
   const dispatch = useDispatch();
 
   const webFontsConfig = {
@@ -13,10 +13,10 @@ export default function Typography({ theme, children }) {
       families: ["Allerta Stencil:400", "Exo:300,600", "Material+Icons"]
     },
     active: () => {
-      setFontsReady(true);
+      setFontsReady("LOADED");
     },
     inactive: () => {
-      setFontsReady(false);
+      setFontsReady("ERRORED");
     },
     classes: false
   };
@@ -24,10 +24,10 @@ export default function Typography({ theme, children }) {
   webfontloader.load(webFontsConfig);
 
   useEffect(() => {
-    if (!fontsReady) return;
+    if (fontsReady === "LOADING") return;
   });
 
-  if (!fontsReady) {
+  if (fontsReady === "ERRORED") {
     dispatch({
       type: TYPES.MESSAGES_ERROR,
       caption: "Error loading Webfonts",
@@ -36,5 +36,5 @@ export default function Typography({ theme, children }) {
       closable: true
     });
   }
-  return fontsReady ? <>{children}</> : <div></div>;
+  return fontsReady === "LOADED" ? <>{children}</> : <div></div>;
 }

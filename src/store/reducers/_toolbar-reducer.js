@@ -4,6 +4,7 @@ const home = [];
 const contacts = [
   {
     type: "add",
+    label:"New Contact",
     disabled: false,
     hidden: false,
     clickAction: TYPES.ADD_NEW_CONTACT

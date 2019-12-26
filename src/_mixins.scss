@@ -112,4 +112,11 @@ $theme: "default";
   &[hidden] {
     display: none;
   }
+
+  &Text {
+    display: none;
+    @media screen and (min-width: map-get($break-points,"small")) {
+      display: initial;
+    }
+  }
 }

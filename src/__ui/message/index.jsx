@@ -38,10 +38,11 @@ export default function Message() {
           )}
           <div className={styles.Caption}>
             {caption}
-            <hr />
+            
           </div>
 
           <div className={styles.Text}>
+
             <div>
               {text}
               <br />
