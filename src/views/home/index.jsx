@@ -6,7 +6,7 @@ import DefaultLayout from "../../layout/layout.default";
 import Timer from "../../components/timer";
 
 export default function Home() {
-  useDispatch()({ type: TYPES.HOME });
+  useDispatch()({ type: TYPES.TOOLBAR_HOME });
 
   return (
     <DefaultLayout>

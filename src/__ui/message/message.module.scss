@@ -1,0 +1,65 @@
+.Message {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.01);
+}
+
+@mixin dialog {
+  position: absolute;
+  display: grid;
+  grid-template-areas:
+    "caption close"
+    "text text";
+  grid-template-columns: 1fr 1rem;
+  grid-template-rows: max-content max-content;
+  padding: 0.5rem 1rem;
+  width: 90vw;
+  max-width: 400px;
+  background-color: white;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 4px 1px;
+  border-radius: 3px;
+}
+.Dialog {
+  &__MESSAGES_INFO,
+  &__MESSAGES_WARNING,
+  &__MESSAGES_ERROR {
+    @include dialog();
+  }
+
+  &__MESSAGES_INFO {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  &__MESSAGES_WARNING {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  &__MESSAGES_ERROR {
+    background-color: rgba(255, 255, 255, 1);
+  }
+}
+
+.Caption {
+  grid-area: caption;
+  font-weight: 700;
+  padding: 0.5rem;
+}
+
+.Close {
+  grid-area: close;
+  width: 1rem;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.Text {
+  grid-area: text;
+  font-size: 0.75rem;
+  line-height: 1.5rem;
+  overflow-y: scroll;
+  max-height: 8rem;
+}

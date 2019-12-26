@@ -79,7 +79,7 @@ function NanoDatabase({ children }) {
       .then(items => {
         if (isPROD || items.length > 0) {
           dispatch({
-            type: TYPES.REGISTER_DATABASE,
+            type: TYPES.DATABASE_REGISTER_DATABASE,
             nSQL: nSQL
           });
           setReady("READY");

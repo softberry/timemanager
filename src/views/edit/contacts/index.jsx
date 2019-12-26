@@ -154,7 +154,7 @@ function ContactDetails(props) {
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
-  dispatch({ type: TYPES.EDIT_CONTACT });
+  dispatch({ type: TYPES.TOOLBAR_EDIT_CONTACT });
 
   const [locked, setLocked] = useState(true);
   const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });

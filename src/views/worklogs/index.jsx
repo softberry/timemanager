@@ -27,7 +27,7 @@ export default function WorkLogs() {
   useEffect(() => {
     if (!ready) return;
   }, [ready]);
-  useDispatch()({ type: TYPES.CALENDAR });
+  useDispatch()({ type: TYPES.TOOLBAR_CALENDAR });
   return (
     <DefaultLayout>
       <div className={styles.WorkLogs}>

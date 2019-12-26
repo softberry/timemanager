@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import rootReducer from "./store/reducers";
 
 import "./index.scss";
+
+import Message from "./__ui/message";
 import Home from "./views/home";
 import WorkLog from "./views/worklogs";
 import Contacts from "./views/contacts";
@@ -42,6 +44,7 @@ function App() {
   return (
     <Provider store={TimerAppStore}>
       <Page />
+      <Message />
     </Provider>
   );
 }

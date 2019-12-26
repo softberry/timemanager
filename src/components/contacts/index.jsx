@@ -29,7 +29,7 @@ export default function ContactsList() {
     if (!ready) return;
   }, [ready]);
 
-  useDispatch()({ type: TYPES.CONTACTS });
+  useDispatch()({ type: TYPES.TOOLBAR_CONTACTS });
 
   return <List title="Contacts" list={contacts} type="CONTACTS_LIST" />;
 }

@@ -24,7 +24,7 @@ function ToolbarButton(props) {
           });
 
         break;
-      case TYPES.SAVE_EDITED_CONTACT:
+      case TYPES.TOOLBAR_SAVE_EDITED_CONTACT:
         console.log("Validate and save form");
         break;
       default:
