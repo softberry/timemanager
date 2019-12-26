@@ -14,6 +14,10 @@ const TOOLBAR = {
   TOOLBAR_SAVE_EDITED_CONTACT: "TOOLBAR_SAVE_EDITED_CONTACT"
 };
 
+const EVENT = {
+  EVENT_EDIT_CONTACT: "EVENT_EDIT_CONTACT",
+  EVENT_SAVE_CONTACT: "EVENT_SAVE_CONTACT"
+};
 // Messages related action types
 const MESSAGES = {
   MESSAGES_INFO: "MESSAGES_INFO",
@@ -27,6 +31,7 @@ const MESSAGES = {
 const TYPES = {
   ...DATABASE,
   ...TOOLBAR,
+  ...EVENT,
   ...MESSAGES
 };
 

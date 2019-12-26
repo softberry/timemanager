@@ -1,56 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Icon from "@material-ui/core/Icon";
-import Input from "../../../__ui/input";
-import TYPES from "../../../store/types";
-
-import styles from "./contacts.module.scss";
-
-function ReadOnlyDeatils({ contact }) {
-  const { street, zip, city, tel, mobile } = contact;
-  return (
-    <div className={styles.ReadOnly}>
-      <div>
-        {street}, {zip} - {city}{" "}
-      </div>
-      <div>{tel}</div>
-      <div>{mobile}</div>
-    </div>
-  );
-}
-
-function UpdateOnEdit({ item, contact }) {
-  // const [itemValue, setItemValue] = useState(contact[item]);
-
-  const field = {
-    id: `${contact.id}-${item}`,
-    name: item,
-    value: contact[item]
-  };
-  return (
-    <>
-      <Input {...field} />
-    </>
-  );
-}
-
-function EditableList({ contact }) {
-  const nonRenderedItems = ["id", "works"];
-
-  return (
-    <div>
-      {Object.keys(contact).map((item, key) => {
-        const props = { item, contact };
-        return (
-          <div key={key}>
-            {!nonRenderedItems.includes(item) && <UpdateOnEdit {...props} />}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+import { useSelector } from "react-redux";
+import { Icon } from "@material-ui/core";
+import Input from "../../__ui/input";
+import styles from "./worklog.module.scss";
 
 function WorkListItem({ entry }) {
   const { name, labour, materials } = entry;
@@ -72,20 +24,6 @@ function WorkListItem({ entry }) {
         </div>
         {showDetails && <WorkListItemEditForm entry={entry} />}
       </div>
-    </>
-  );
-}
-
-function WorksList({ works }) {
-  return (
-    <>
-      {works.length > 0 && (
-        <>
-          {works.map((entry, key) => {
-            return <WorkListItem key={key} entry={entry} />;
-          })}
-        </>
-      )}
     </>
   );
 }
@@ -145,46 +83,14 @@ function WorkListWorkEntries({ entries }) {
   );
 }
 
-function ContactDetails(props) {
-  const { contact } = props;
-  const dispatch = useDispatch();
+export default function WorksLogs({ show, contact }) {
+  const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
 
   const nSQL = useSelector(state => state.db.nSQL);
 
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
-  dispatch({ type: TYPES.TOOLBAR_EDIT_CONTACT });
-
-  const [locked, setLocked] = useState(true);
-  const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
-
-  const [fullName, setFullName] = useState(
-    `${contact.name} ${contact.surname}`
-  );
-
-  function toggleLock() {
-    setLocked(!locked);
-  }
-
-  function addNewWork() {
-    nSQL("workTable")
-      .presetQuery("createNewWorkLogForContact", { contactID: contact.id })
-      .exec()
-      .then(logs => {
-        setWorkLogs({ ...workLogs, state: "NEWDATA", data: logs });
-      });
-  }
-  useEffect(() => {
-    if (contact.id === null) return;
-    if (contact.id === "new-contact-to-edit") {
-      setLocked(false);
-    }
-    if (fullName.length > 10) {
-      const shortName = `${contact.name}`.slice(0, 1);
-      setFullName(`${shortName}. ${contact.surname}`);
-    }
-  }, [setFullName, fullName, contact]);
 
   useEffect(() => {
     if (contact.id === null) return;
@@ -197,16 +103,22 @@ function ContactDetails(props) {
         setWorkLogs({ ...workLogs, state: "READY", data: logs });
       });
   }, [workLogs, contact, nSQL]);
-  return (
+
+  function addNewWork() {
+    nSQL("workTable")
+      .presetQuery("createNewWorkLogForContact", { contactID: contact.id })
+      .exec()
+      .then(logs => {
+        setWorkLogs({ ...workLogs, state: "NEWDATA", data: logs });
+      });
+  }
+
+  useEffect(() => {
+    if (!show) return;
+  }, [show]);
+
+  return show ? (
     <>
-      <h1 className={styles.Title}>
-        <Icon onClick={toggleLock} className={styles.TitleIcon}>
-          {locked ? "lock" : "lock_open"}
-        </Icon>
-        {locked && <div className={styles.FullName}>{fullName}</div>}
-      </h1>
-      {locked && <ReadOnlyDeatils contact={contact} />}
-      {!locked && <EditableList contact={contact} />}
       <hr />
       <h2 className={styles.WorkLogsTitle}>
         <div>Worklog</div>
@@ -214,10 +126,15 @@ function ContactDetails(props) {
           <Icon>add</Icon>
         </div>
       </h2>
-      {workLogs.state === "READY" && (
-        <WorksList works={workLogs.data} addNew={addNewWork} />
+      {workLogs.data.length > 0 && (
+        <>
+          {workLogs.data.map((entry, key) => {
+            return <WorkListItem key={key} entry={entry} />;
+          })}
+        </>
       )}
     </>
+  ) : (
+    <></>
   );
 }
-export default withRouter(ContactDetails);

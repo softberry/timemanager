@@ -4,7 +4,7 @@ const home = [];
 const contacts = [
   {
     type: "add",
-    label:"New Contact",
+    label: "New Contact",
     disabled: false,
     hidden: false,
     clickAction: TYPES.ADD_NEW_CONTACT
@@ -12,12 +12,23 @@ const contacts = [
   { type: "delete", disabled: true, hidden: true },
   { type: "edit", disabled: true, hidden: true }
 ];
-const editContact = [
+const saveContact = [
   {
     type: "save",
+    label: "Save Contact",
     disabled: true,
     hidden: false,
-    clickAction: TYPES.TOOLBAR_SAVE_EDITED_CONTACT
+    clickAction: TYPES.EVENT_SAVE_CONTACT
+  }
+];
+
+const editContact = [
+  {
+    type: "edit",
+    label: "Edit",
+    disabled: false,
+    hidden: false,
+    clickAction: TYPES.EVENT_EDIT_CONTACT
   }
 ];
 export default function toolBarReducer(state = { buttons: home }, action) {
@@ -35,7 +46,14 @@ export default function toolBarReducer(state = { buttons: home }, action) {
     case TYPES.TOOLBAR_EDIT_CONTACT:
       return {
         ...state,
-        buttons: editContact
+        buttons: editContact,
+        contact: action.contact
+      };
+    case TYPES.TOOLBAR_SAVE_EDITED_CONTACT:
+      return {
+        ...state,
+        buttons: saveContact,
+        contact: action.contact
       };
     default:
       return {

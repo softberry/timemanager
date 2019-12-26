@@ -15,7 +15,7 @@ function workHistoryList({ list }) {
         const diff = timeDiff(diffData.start, diffData.end);
         return (
           <div
-            to={`/edit/worklog/${item.id}`}
+            to={`/worklog/edit/${item.id}`}
             key={key}
             className={styles.ListItem}
           >
@@ -39,7 +39,7 @@ function contactsList({ list }) {
       </div>
       {list.map((item, key) => (
         <Link
-          to={`/edit/contact/${item.id}`}
+          to={`/contact/details/${item.id}`}
           key={key}
           className={styles.ListItem}
         >

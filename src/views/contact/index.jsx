@@ -4,13 +4,14 @@ import { useSelector } from "react-redux";
 import DefaultLayout from "../../layout/layout.default";
 import styles from "./edit.module.scss";
 
-import ContactDetails from "./contacts";
+import ContactDetails from "../contact/contact.details";
+
 
 /**
  * Renders editable form from given values in given table
  * @param {Object} props
  */
-export default function EditContacts(props) {
+export default function Contact(props) {
   const [table, setTable] = useState({ id: null });
   const [queryState, setQueryState] = useState("INITIAL");
   const nSQL = useSelector(state => state.db.nSQL);
@@ -40,13 +41,16 @@ export default function EditContacts(props) {
     }
   }, [queryState]);
   // {props.match.params.type}:{props.match.params.id}
+
   return (
     <DefaultLayout>
       {queryState === "ERRORED" && (
         <div>Error reading Contact's Data Table!</div>
       )}
       <section className={styles.Edit}>
-        <ContactDetails contact={table} />
+        {queryState === "READY" && (
+          <ContactDetails contact={table} type={props.match.params.type} />
+        )}
       </section>
     </DefaultLayout>
   );

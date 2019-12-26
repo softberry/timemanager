@@ -1,25 +1,4 @@
-@import "../../../mixins";
-
-.Title {
-  display: grid;
-  grid-template-areas: "lock fullname";
-  grid-template-columns: min-content 1fr;
-  grid-column-gap: 1rem;
-
-  &Lock {
-    grid-area: lock;
-  }
-
-  &FullName {
-    grid-area: fullname;
-  }
-}
-
-.ReadOnly {
-  font-size: 0.75rem;
-  line-height: 1rem;
-  margin-bottom: 1rem;
-}
+@import "../../mixins";
 
 @mixin itemBox($area) {
   @include WidthUp("small") {
@@ -30,6 +9,7 @@
   line-height: 1.5;
   grid-area: $area;
 }
+
 .WorkLogs {
   @include WidthUp("small") {
     margin-bottom: 1rem;
@@ -103,16 +83,5 @@
     &Materials {
       grid-area: form-materials;
     }
-  }
-}
-
-@keyframes showFormContent {
-  0% {
-    height: 1px;
-  }
-
-  100% {
-    height: auto;
-    overflow: auto;
   }
 }

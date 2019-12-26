@@ -14,7 +14,7 @@ import Home from "./views/home";
 import WorkLog from "./views/worklogs";
 import Contacts from "./views/contacts";
 import Settings from "./views/settings";
-import Edit from "./views/edit";
+import Contact from "./views/contact";
 
 const TimerAppStore = createStore(rootReducer);
 
@@ -32,7 +32,7 @@ function Page() {
             <Route exact path="/contacts" component={Contacts} />
             <Route exact path="/history" component={WorkLog} />
             <Route exact path="/settings" component={Settings} />
-            <Route exact path="/edit/:type/:id" component={Edit} />
+            <Route exact path="/contact/:type/:id" component={Contact} />
           </Switch>
         </NanoDataBase>
       </Typography>

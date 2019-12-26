@@ -20,14 +20,24 @@ function ToolbarButton(props) {
           .presetQuery("createNewEmptyUserEntryForEdit")
           .exec()
           .then(row => {
-            history.push("/edit/contact/new-contact-to-edit");
+            history.push("/contact/edit/new-contact-to-edit");
           });
 
         break;
-      case TYPES.TOOLBAR_SAVE_EDITED_CONTACT:
+      case TYPES.EVENT_SAVE_CONTACT:
+        if (props.disabled) {
+          return console.log("Button is disabled!");
+        }
         console.log("Validate and save form");
         break;
+      case TYPES.EVENT_EDIT_CONTACT:
+        history.push(`/contact/edit/${props.contact.id}`);
+        break;
       default:
+        console.log(
+          props.clickAction,
+          " is not assigned to any Clickhandler! "
+        );
     }
   };
 
@@ -46,6 +56,8 @@ function ToolbarButton(props) {
 
 function Toolbar() {
   const buttons = useSelector(state => state.toolbar.buttons);
+  const currentContact = useSelector(state => state.toolbar.contact);
+
   const nSQL = useSelector(state => state.db.nSQL);
 
   useEffect(() => {
@@ -55,7 +67,7 @@ function Toolbar() {
     <div className={styles.Toolbar}>
       {buttons.map((button, key) => {
         button.nSQL = nSQL;
-        return <ToolbarButton key={key} {...button} />;
+        return <ToolbarButton key={key} {...button} contact={currentContact} />;
       })}
     </div>
   );
