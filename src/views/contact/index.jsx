@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import DefaultLayout from "../../layout/layout.default";
-import { nSQL } from "@nano-sql/core";
 import styles from "./edit.module.scss";
 
-import CustomerDetails from "./customers";
+import ContactDetails from "../contact/contact.details";
+
 
 /**
  * Renders editable form from given values in given table
  * @param {Object} props
  */
-
-export default function EditCustomer(props) {
+export default function Contact(props) {
   const [table, setTable] = useState({ id: null });
   const [queryState, setQueryState] = useState("INITIAL");
+  const nSQL = useSelector(state => state.db.nSQL);
 
-  function getSelectedData() {
-    return nSQL("customersTable")
+  useEffect(() => {
+    if (typeof nSQL === "undefined") return;
+  }, [nSQL]);
+
+  if (queryState === "INITIAL") {
+    setQueryState("TRYING");
+    nSQL("contactsTable")
       .query("select")
       .where(["id", "=", props.match.params.id])
       .exec()
@@ -25,35 +31,27 @@ export default function EditCustomer(props) {
         setQueryState("READY");
       })
       .catch(err => {
-        if (queryState === "INITIAL") {
-          if (queryState === "RETRYING") {
-            setQueryState("ERRORED");
-          }
-          setQueryState("RETRYING");
-          setTimeout(() => {
-            getSelectedData();
-          }, 300);
-        }
+        setQueryState("ERRORED");
       });
   }
 
   useEffect(() => {
-    if (queryState === "INITIAL") {
-      getSelectedData();
+    if (queryState === "TRYING") {
       return;
     }
-    if (queryState !== "READY") return;
-  });
+  }, [queryState]);
   // {props.match.params.type}:{props.match.params.id}
+
   return (
     <DefaultLayout>
       {queryState === "ERRORED" && (
-        <div>Error reading Customers Data Table!</div>
+        <div>Error reading Contact's Data Table!</div>
       )}
       <section className={styles.Edit}>
-        <CustomerDetails customer={table} />
+        {queryState === "READY" && (
+          <ContactDetails contact={table} type={props.match.params.type} />
+        )}
       </section>
     </DefaultLayout>
   );
 }
-

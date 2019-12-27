@@ -2,7 +2,6 @@ function twoDigit(n = 0) {
   const input = Math.max(parseInt(n, 10), 0);
   
   if (input > 99 || isNaN(input)) {
-    debugger;
     throw new TypeError();
   }
 

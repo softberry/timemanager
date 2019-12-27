@@ -1,92 +1,51 @@
-import React, { useReducer, useEffect } from "react";
+import React from "react";
 import Typography from "./__ui/typography";
 import NanoDataBase from "./db";
-import {
-  MemoryRouter as Router,
-  Switch,
-  Route,
-  useLocation
-} from "react-router-dom";
+import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+
+import rootReducer from "./store/reducers";
+
 import "./index.scss";
+
+import Message from "./__ui/message";
 import Home from "./views/home";
 import WorkLog from "./views/worklogs";
-import Customers from "./views/contacts";
+import Contacts from "./views/contacts";
 import Settings from "./views/settings";
-import Edit from "./views/edit";
+import Contact from "./views/contact";
 
-function reducer(state, action) {
-  const appliedState = {};
-  switch (action.type) {
-    case "CHANGE":
-      break;
-    case "UPSERT":
-      appliedState.cart = { position: "inline", id: action.event.result.id };
-      break;
-    case "DELETE":
-      break;
-    case "ORIENTATION":
-      break;
-    default:
-  }
-  return {
-    ...state,
-    ...appliedState
-  };
-}
+const TimerAppStore = createStore(rootReducer);
 
 function Page() {
-  const location = useLocation();
-
-  location.state = location.state || { toolbar: {} };
-  const [appState, dispatch] = useReducer(reducer, {
-    ...location.state
-  });
-
   document.oncontextmenu = function() {
     return false;
   };
-  function getOrientation() {
-    const orientation =
-      window.innerWidth > window.innerHeight ? "landscape" : "portrait";
-    dispatch({ type: "ORIENTATION", orientation });
-  }
-  function onDataChangeHandler(action) {
-    dispatch(action);
-  }
-  useEffect(() => {
-    location.state = {
-      ...location.state,
-      ...appState
-    };
-  }, [appState, location.state]);
-
-  useEffect(() => {
-    window.addEventListener("resize", getOrientation);
-    return () => {
-      window.removeEventListener("resize", getOrientation);
-    };
-  });
 
   return (
-    <Typography>
-      <NanoDataBase onDataChange={onDataChangeHandler}>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/customers" component={Customers} />
-          <Route exact path="/history" component={WorkLog} />
-          <Route exact path="/settings" component={Settings} />
-          <Route exact path="/edit/:type/:id" component={Edit} />
-        </Switch>
-      </NanoDataBase>
-    </Typography>
+    <Router>
+      <Typography>
+        <NanoDataBase>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/contacts" component={Contacts} />
+            <Route exact path="/history" component={WorkLog} />
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/contact/:type/:id" component={Contact} />
+          </Switch>
+        </NanoDataBase>
+      </Typography>
+    </Router>
   );
 }
 
 function App() {
   return (
-    <Router>
+    <Provider store={TimerAppStore}>
       <Page />
-    </Router>
+      <Message></Message>
+    </Provider>
   );
 }
 export default App;

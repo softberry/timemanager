@@ -11,27 +11,28 @@
       text-transform: capitalize;
     }
     &AddIcon {
+      border: 1px solid;
     }
   }
 
   &Item {
     display: grid;
-    grid-template-areas: "list-item-customer";
+    grid-template-areas: "list-item-contact";
     grid-template-columns: auto;
     padding: 2px 0;
     background-color: rgba(#fff, 0.75);
     margin-bottom: 0;
     box-shadow: 1px 1px 1px 0px darken($secondary-layer-bg-color, 24%);
 
-    &Customer,
+    &Contact,
     &Duration {
       line-height: 2;
       padding: 0 1rem;
       box-sizing: border-box;
     }
 
-    &Customer {
-      grid-area: list-item-customer;
+    &Contact {
+      grid-area: list-item-contact;
       overflow: hidden;
       position: relative;
       padding: 0 1rem;

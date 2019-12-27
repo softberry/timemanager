@@ -1,10 +1,8 @@
 import React from "react";
-import { nSQL } from "@nano-sql/core";
+
 import { timeDiff, twoDigit } from "../../lib/counter.helpers";
 import styles from "./list.module.scss";
 import { Link } from "react-router-dom";
-import { Icon } from "@material-ui/core";
-import { withRouter } from "react-router-dom";
 
 function workHistoryList({ list }) {
   return (
@@ -17,11 +15,11 @@ function workHistoryList({ list }) {
         const diff = timeDiff(diffData.start, diffData.end);
         return (
           <div
-            to={`/edit/worklog/${item.id}`}
+            to={`/worklog/edit/${item.id}`}
             key={key}
             className={styles.ListItem}
           >
-            <div className={styles.ListItemCustomer}>{item.customer} - </div>
+            <div className={styles.ListItemContact}>{item.contact} - </div>
             <div className={styles.ListItemDuration}>
               {twoDigit(diff.hour)}:{twoDigit(diff.minute)}:
               {twoDigit(diff.second)}
@@ -33,36 +31,19 @@ function workHistoryList({ list }) {
   );
 }
 
-function createNewCustomer({history}) {
-  nSQL("customersTable")
-    .presetQuery("createNewEmptyUserEntryForEdit")
-    .exec()
-    .then(entry => {
-      history.push(`/edit/customer/${entry.id}`);
-    })
-    .catch(err=>{
-      console.log(err);
-    });
-}
-const gotoNewCustomer = withRouter(createNewCustomer);
-
-
-function customersList({ list }) {
+function contactsList({ list }) {
   return (
     <>
       <div className={styles.ListTitle}>
-        <h1 className={styles.ListTitleText}>Customers</h1>
-        <div className={styles.ListTitleAddIcon} onClick={gotoNewCustomer}>
-          <Icon>add</Icon>
-        </div>
+        <h1 className={styles.ListTitleText}>Contacts</h1>
       </div>
       {list.map((item, key) => (
         <Link
-          to={`/edit/customer/${item.id}`}
+          to={`/contact/details/${item.id}`}
           key={key}
           className={styles.ListItem}
         >
-          <div className={styles.ListItemCustomer}>
+          <div className={styles.ListItemContact}>
             {item.name} {item.surname}
           </div>
         </Link>
@@ -71,13 +52,13 @@ function customersList({ list }) {
   );
 }
 
-export default function List({ title, type, list = [], hasTableHead = false }) {
+export default function List({ type, list = [] }) {
   return (
     <>
       <section className={styles.List}>
         <div className={styles.ListTitle}></div>
         {type === "WORK_HISTORY" && workHistoryList({ list })}
-        {type === "CUSTOMERS_LIST" && customersList({ list })}
+        {type === "CONTACTS_LIST" && contactsList({ list })}
       </section>
     </>
   );

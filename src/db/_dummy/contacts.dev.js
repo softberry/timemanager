@@ -1,6 +1,6 @@
 import faker from "faker";
 
-function createRandomCustomers(num = 0) {
+function createRandomContacts(num = 0) {
   function model() {
     return {
       name: faker.name.firstName(),
@@ -17,4 +17,4 @@ function createRandomCustomers(num = 0) {
   return new Array(num).fill("").map(() => model());
 }
 
-export { createRandomCustomers };
+export { createRandomContacts };

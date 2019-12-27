@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import EventsCalender from "../../__ui/eventsCalendar";
+import EventsCalendar from "../../__ui/eventsCalendar";
 import styles from "./cart.module.scss";
 
 export default function Cart({ state }) {
@@ -23,7 +23,7 @@ export default function Cart({ state }) {
   return (
     <div className={css[position]}>
       <div className={styles.CartDatePickerWrapper}>
-      <EventsCalender />
+      <EventsCalendar />
       </div>
     </div>
   );

@@ -1,6 +1,4 @@
-import { nSQL } from "@nano-sql/core";
-
-function createWorkLog({ start, finish, description = "" }) {
+function createWorkLog({ nSQL, start, finish, description = "" }) {
   return new Promise((res, rej) => {
     const startISO = new Date(start);
     const endISO = new Date(finish);
@@ -27,6 +25,7 @@ function toISO(time) {
   return isoString;
 }
 function createWorkLogFromCurrentCounter(
+  nSQL,
   id = "active-counter-0",
   description = ""
 ) {
@@ -37,6 +36,7 @@ function createWorkLogFromCurrentCounter(
       .exec()
       .then(item => {
         const data = {
+          nSQL,
           start: item[0].start,
           finish: item[0].current,
           description
@@ -46,4 +46,4 @@ function createWorkLogFromCurrentCounter(
       .catch(err => rej(err));
   });
 }
-export { createWorkLog, createWorkLogFromCurrentCounter };
+export { createWorkLogFromCurrentCounter };

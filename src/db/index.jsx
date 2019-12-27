@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import TYPES from "../store/types";
+import Loading from "../components/loading";
 import { nSQL } from "@nano-sql/core";
 
-import nSQLEventListeners from "./actions";
 // Table Models
 import counterModelTables from "./models/data.model";
 
-// Dummy Tables
-import { createRandomCustomers } from "../db/_dummy/customers.dev";
+// Dummy Tables: Feke content using fakersJS used during development
+import { createRandomContacts } from "../db/_dummy/contacts.dev";
 
 // const isDEV = process.env.NODE_ENV === "development";
 const isPROD = process.env.NODE_ENV === "production";
@@ -17,13 +20,14 @@ function dbExists(dbname = "shoplist_local") {
 }
 
 /////////////////
-function NanoDatabase({ children, onDataChange }) {
+function NanoDatabase({ children }) {
   const [ready, setReady] = useState("NOT_READY");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (ready === "NOT_READY" && dbExists()) {
       setReady("GETTING_READY");
-      return nSQL("customersTable")
+      return nSQL("contactsTable")
         .query("select")
         .exec();
     } else if (ready === "NOT_READY") {
@@ -59,37 +63,43 @@ function NanoDatabase({ children, onDataChange }) {
         })
         .then(() => {
           // ready to query!
-          setReady("READY");
-          return nSQL("customersTable")
-            .query("select")
-            .exec();
-        })
-        .then(items => {
-          if (isPROD || items.length > 0) {
-            return nSQL("customersTable")
-              .query("select")
-              .exec();
-          } else {
-            const customers = createRandomCustomers(50);
-
-            return nSQL("customersTable")
-              .query("upsert", customers)
-              .exec();
-          }
-        })
-        .then(() => {
-          nSQLEventListeners(nSQL, onDataChange);
+          nSQL().useDatabase("shoplist_local");
+          setReady("BEFORE_READY");
         })
         .catch(err => {
           console.warn(err);
         });
     }
-  }, [ready, onDataChange]);
+  }, [ready]);
+  useEffect(() => {
+    if (ready !== "BEFORE_READY") return;
+    nSQL("contactsTable")
+      .query("select")
+      .exec()
+      .then(items => {
+        if (isPROD || items.length > 0) {
+          dispatch({
+            type: TYPES.DATABASE_REGISTER_DATABASE,
+            nSQL: nSQL
+          });
+          setReady("READY");
+        } else {
+          const contacts = createRandomContacts(50);
+
+          nSQL("contactsTable")
+            .query("upsert", contacts)
+            .exec()
+            .then(() => {
+              setReady("READY");
+            });
+        }
+      });
+  });
 
   return (
     <>
-      {ready && <>{children}</>}
-      {!ready && <div>Loading</div>}
+      {ready === "READY" && <>{children}</>}
+      {ready !== "READY" && <Loading />}
     </>
   );
 }
