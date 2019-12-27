@@ -60,6 +60,7 @@ function ContactDetails(props) {
 
   const nSQL = useSelector(state => state.db.nSQL);
 
+
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);

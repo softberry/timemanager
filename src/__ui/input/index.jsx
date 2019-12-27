@@ -29,7 +29,10 @@ function Input({ id, name, value }) {
   }
 
   if (val === null) return <></>;
-//TODO: https://github.com/softberry/timemanager/issues/13
+  /**
+   * TODO: Array type of inputs should be exploded before render #13
+   * https://github.com/softberry/timemanager/issues/13
+   */
   return (
     <div className={styles.Input}>
       <label htmlFor={id} className={styles[labelPosition]}>

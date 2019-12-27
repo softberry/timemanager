@@ -62,6 +62,7 @@ function Timer({ history }) {
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
+  
   nSQL("counters")
     .query("select")
     .where(["id", "=", "active-counter-0"])

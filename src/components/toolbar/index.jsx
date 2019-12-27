@@ -10,12 +10,12 @@ import TYPES from "../../store/types";
 
 function ToolbarButton(props) {
   // { type, disabled = true, hidden = false }
-  // types: add, edit, delete, save
+  // types: add, edit, delete, save , ...
   const history = useHistory();
   const dispatch = useDispatch();
   const onClickHandler = function() {
     switch (props.clickAction) {
-      case TYPES.ADD_NEW_CONTACT:
+      case TYPES.EVENT_CREATE_CONTACT:
         props
           .nSQL("contactsTable")
           .presetQuery("createNewEmptyUserEntryForEdit")
@@ -38,18 +38,7 @@ function ToolbarButton(props) {
         dispatch({
           type: TYPES.CONFIRM_DELETE_CONTACT,
           caption: "Want to delete?",
-          text: (
-            <p>
-              Are you sure to delete contact :{" "}
-              <strong>
-                {props.contact.name} {props.contact.surname}{" "}
-              </strong>
-              ?<br />
-              If length of saved works exists, add checkbox before delete:{" "}
-              {props.contact.works.length}
-              {/*TODO:  https://github.com/softberry/timemanager/issues/14 */}
-            </p>
-          ),
+          body: { contact: props.contact },
           closable: true
         });
 
@@ -84,6 +73,7 @@ function Toolbar() {
   useEffect(() => {
     if (!Array.isArray(buttons) || typeof nSQL !== "function") return;
   });
+
   return (
     <div className={styles.Toolbar}>
       {buttons.map((button, key) => {

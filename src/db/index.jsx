@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import TYPES from "../store/types";
 import Loading from "../components/loading";
@@ -22,7 +22,17 @@ function dbExists(dbname = "shoplist_local") {
 /////////////////
 function NanoDatabase({ children }) {
   const [ready, setReady] = useState("NOT_READY");
+  const _State = useSelector(state => state);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (typeof _State === "undefined") return;
+    if (typeof _State.db === "undefined") return;
+
+    if (typeof _State.db.nSQL === "function") {
+      setReady("READY");
+    }
+  }, [setReady, _State]);
 
   useEffect(() => {
     if (ready === "NOT_READY" && dbExists()) {
@@ -82,7 +92,6 @@ function NanoDatabase({ children }) {
             type: TYPES.DATABASE_REGISTER_DATABASE,
             nSQL: nSQL
           });
-          setReady("READY");
         } else {
           const contacts = createRandomContacts(50);
 
@@ -90,7 +99,10 @@ function NanoDatabase({ children }) {
             .query("upsert", contacts)
             .exec()
             .then(() => {
-              setReady("READY");
+              dispatch({
+                type: TYPES.DATABASE_REGISTER_DATABASE,
+                nSQL: nSQL
+              });
             });
         }
       });
