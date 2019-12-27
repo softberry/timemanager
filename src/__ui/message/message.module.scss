@@ -1,10 +1,13 @@
+@import "../../mixins";
+
 .Message {
+  @include zIndex("message");
   position: fixed;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.01);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 @mixin dialog {
@@ -28,7 +31,8 @@
 .Dialog {
   &__MESSAGES_INFO,
   &__MESSAGES_WARNING,
-  &__MESSAGES_ERROR {
+  &__MESSAGES_ERROR,
+  &__CONFIRM_DELETE_CONTACT {
     @include dialog();
   }
 

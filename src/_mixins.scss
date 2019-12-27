@@ -46,7 +46,8 @@ $theme: "default";
     "cart-inline": 900,
     "nav": 1000,
     "footer": 1000,
-    "cart-full": 1100
+    "cart-full": 1100,
+    "message":2000
   );
   z-index: map-get($indexList, $item);
 }

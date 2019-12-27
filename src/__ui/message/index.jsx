@@ -36,13 +36,9 @@ export default function Message() {
               &times;
             </div>
           )}
-          <div className={styles.Caption}>
-            {caption}
-            
-          </div>
+          <div className={styles.Caption}>{caption}</div>
 
           <div className={styles.Text}>
-
             <div>
               {text}
               <br />

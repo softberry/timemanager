@@ -29,6 +29,13 @@ const editContact = [
     disabled: false,
     hidden: false,
     clickAction: TYPES.EVENT_EDIT_CONTACT
+  },
+  {
+    type: "delete",
+    label: "Delete Contact",
+    disabled: false,
+    hidden: false,
+    clickAction: TYPES.EVENT_DELETE_CONTACT
   }
 ];
 export default function toolBarReducer(state = { buttons: home }, action) {
@@ -49,7 +56,7 @@ export default function toolBarReducer(state = { buttons: home }, action) {
         buttons: editContact,
         contact: action.contact
       };
-    case TYPES.TOOLBAR_SAVE_EDITED_CONTACT:
+    case TYPES.TOOLBAR_SAVE_CONTACT:
       return {
         ...state,
         buttons: saveContact,
@@ -57,8 +64,7 @@ export default function toolBarReducer(state = { buttons: home }, action) {
       };
     default:
       return {
-        ...state,
-        buttons: []
+        ...state
       };
   }
 }

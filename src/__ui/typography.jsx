@@ -7,7 +7,7 @@ import TYPES from "../store/types";
 export default function Typography({ theme, children }) {
   const [fontsReady, setFontsReady] = useState("LOADING");
   const dispatch = useDispatch();
-
+  //TODO: https://github.com/softberry/timemanager/issues/16
   const webFontsConfig = {
     google: {
       families: ["Allerta Stencil:400", "Exo:300,600", "Material+Icons"]

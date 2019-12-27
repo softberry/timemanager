@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Icon from "@material-ui/core/Icon";
 import { useHistory } from "react-router-dom";
@@ -11,7 +12,7 @@ function ToolbarButton(props) {
   // { type, disabled = true, hidden = false }
   // types: add, edit, delete, save
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const onClickHandler = function() {
     switch (props.clickAction) {
       case TYPES.ADD_NEW_CONTACT:
@@ -32,6 +33,26 @@ function ToolbarButton(props) {
         break;
       case TYPES.EVENT_EDIT_CONTACT:
         history.push(`/contact/edit/${props.contact.id}`);
+        break;
+      case TYPES.EVENT_DELETE_CONTACT:
+        dispatch({
+          type: TYPES.CONFIRM_DELETE_CONTACT,
+          caption: "Want to delete?",
+          text: (
+            <p>
+              Are you sure to delete contact :{" "}
+              <strong>
+                {props.contact.name} {props.contact.surname}{" "}
+              </strong>
+              ?<br />
+              If length of saved works exists, add checkbox before delete:{" "}
+              {props.contact.works.length}
+              {/*TODO:  https://github.com/softberry/timemanager/issues/14 */}
+            </p>
+          ),
+          closable: true
+        });
+
         break;
       default:
         console.log(

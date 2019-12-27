@@ -14,6 +14,7 @@ function getUniqueKeyfor(action, keys) {
 }
 
 export default function message(state = { messages: [] }, action) {
+  
   switch (action.type) {
     case TYPES.MESSAGES_INFO:
     case TYPES.MESSAGES_WARNING:
@@ -22,13 +23,20 @@ export default function message(state = { messages: [] }, action) {
         action,
         state.messages.map(({ key }) => key)
       );
-      const messages = [...state.messages, action];
 
       return {
         ...state,
-        messages
+        messages: [...state.messages, action]
       };
-      
+    case TYPES.CONFIRM_DELETE_CONTACT:
+      getUniqueKeyfor(
+        action,
+        state.messages.map(({ key }) => key)
+      );
+      return {
+        ...state,
+        messages: [...state.messages, action]
+      };
     case TYPES.MESSAGES_HIDE_MESSAGE:
       const messageToHide = state.messages.filter(
         message => message.key !== action.key

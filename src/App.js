@@ -44,7 +44,7 @@ function App() {
   return (
     <Provider store={TimerAppStore}>
       <Page />
-      <Message />
+      <Message></Message>
     </Provider>
   );
 }

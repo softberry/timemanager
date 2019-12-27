@@ -55,16 +55,17 @@ function ContactDetails(props) {
   const { contact, type } = props;
 
   const [locked, setLocked] = useState(true);
+  const [isNewContact, setIsNewContact] = useState(false);
   const dispatch = useDispatch();
 
   const nSQL = useSelector(state => state.db.nSQL);
-  
+
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
 
   locked && dispatch({ type: TYPES.TOOLBAR_EDIT_CONTACT, contact });
-  !locked && dispatch({ type: TYPES.TOOLBAR_SAVE_EDITED_CONTACT, contact });
+  !locked && dispatch({ type: TYPES.TOOLBAR_SAVE_CONTACT, contact });
 
   const [fullName, setFullName] = useState(
     `${contact.name} ${contact.surname}`
@@ -74,6 +75,7 @@ function ContactDetails(props) {
     if (contact.id === null) return;
     if (contact.id === "new-contact-to-edit") {
       setLocked(false);
+      setIsNewContact(true);
     } else {
       setLocked(type === "details");
     }
@@ -81,12 +83,14 @@ function ContactDetails(props) {
       const shortName = `${contact.name}`.slice(0, 1);
       setFullName(`${shortName}. ${contact.surname}`);
     }
-  }, [setFullName, fullName, contact, type]);
-  
+  }, [setFullName, setIsNewContact, fullName, contact, type]);
+
   return (
     <>
       {locked && <h1>{fullName}</h1>}
       {locked && <ReadOnlyDeatils contact={contact} />}
+      {!locked && !isNewContact && <h1>Edit Contact Deatils</h1>}
+      {!locked && isNewContact && <h1>Create New Contact</h1>}
       {!locked && <EditableList contact={contact} />}
       <Worklogs show={locked} contact={contact} />
     </>
