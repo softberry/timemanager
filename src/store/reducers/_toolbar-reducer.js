@@ -7,7 +7,7 @@ const contacts = [
     label: "New Contact",
     disabled: false,
     hidden: false,
-    clickAction: TYPES.ADD_NEW_CONTACT
+    clickAction: TYPES.EVENT_CREATE_CONTACT
   },
   { type: "delete", disabled: true, hidden: true },
   { type: "edit", disabled: true, hidden: true }

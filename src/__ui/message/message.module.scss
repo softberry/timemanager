@@ -14,9 +14,10 @@
   position: absolute;
   display: grid;
   grid-template-areas:
-    "caption close"
-    "text text";
-  grid-template-columns: 1fr 1rem;
+    "icon caption close"
+    "text text text"
+    ". . footer";
+  grid-template-columns: auto 1fr 1rem;
   grid-template-rows: max-content max-content;
   padding: 0.5rem 1rem;
   width: 90vw;
@@ -50,7 +51,13 @@
 .Caption {
   grid-area: caption;
   font-weight: 700;
-  padding: 0.5rem 0;
+  padding: 0.5rem;
+}
+
+.Icon {
+  grid-area: icon;
+  display: flex;
+  align-items: center;
 }
 
 .Close {
@@ -58,6 +65,8 @@
   width: 1rem;
   font-size: 1.5rem;
   line-height: 1;
+  display: flex;
+  align-items: center;
 }
 
 .Text {
@@ -66,6 +75,6 @@
   line-height: 1.5rem;
   overflow-y: scroll;
   max-height: 8rem;
-  border-top: 1px solid;
   padding-top: 0.5rem;
 }
+

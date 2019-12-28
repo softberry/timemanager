@@ -7,7 +7,11 @@ import TYPES from "../store/types";
 export default function Typography({ theme, children }) {
   const [fontsReady, setFontsReady] = useState("LOADING");
   const dispatch = useDispatch();
-  //TODO: https://github.com/softberry/timemanager/issues/16
+  /**
+   * TODO:
+   * Bundle Icons for offline experience #16
+   * https://github.com/softberry/timemanager/issues/16
+   */
   const webFontsConfig = {
     google: {
       families: ["Allerta Stencil:400", "Exo:300,600", "Material+Icons"]
@@ -31,8 +35,15 @@ export default function Typography({ theme, children }) {
     dispatch({
       type: TYPES.MESSAGES_ERROR,
       caption: "Error loading Webfonts",
-      text:
-        "WebFonts Could not be loaded. Please check your internet connection.",
+      body: (
+        <>
+          WebFonts Could not be loaded. Please check your internet connection.
+          <br />
+          <a href="/" target="_self">
+            <strong>Reload</strong>
+          </a>
+        </>
+      ),
       closable: true
     });
   }
