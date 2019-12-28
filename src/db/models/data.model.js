@@ -49,8 +49,7 @@ const contactsTable = {
     "city:string": { default: "" },
     "tel:string[]": { default: [""] },
     "mobile:string[]": { default: [""] },
-    "mail:string[]": { default: [""] },
-    "works:string[]": { default: [""] } // workTable
+    "mail:string[]": { default: [""] }
   },
   queries: [
     {
@@ -58,32 +57,6 @@ const contactsTable = {
       args: {},
       call: (db, args) => {
         return db.query("upsert", { id: "new-contact-to-edit" }).emit();
-      }
-    },
-    {
-      name: "addNewWork",
-      args: {
-        "id:uuid": {},
-        "workID:uuid": {},
-        "works:string[]": {}
-      },
-      call: (db, args) => {
-        return db
-          .query("upsert", { works: args.works.push(args.workID) })
-          .where(["id", "=", args.id])
-          .emit();
-      }
-    },
-    {
-      name: "getWorksArray",
-      args: {
-        "id:uuid": {}
-      },
-      call: (db, args) => {
-        return db
-          .query("select", ["works"])
-          .where(["id", "=", args.id])
-          .emit();
       }
     }
   ]

@@ -22,7 +22,7 @@ function ReadOnlyDeatils({ contact }) {
 }
 
 function EditableList({ contact }) {
-  const nonRenderedItems = ["id", "works"];
+  const nonRenderedItems = ["id"];
 
   return (
     <div>
@@ -59,7 +59,6 @@ function ContactDetails(props) {
   const dispatch = useDispatch();
 
   const nSQL = useSelector(state => state.db.nSQL);
-
 
   useEffect(() => {
     if (typeof nSQL !== "function") return;
