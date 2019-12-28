@@ -35,7 +35,7 @@ export default function Typography({ theme, children }) {
     dispatch({
       type: TYPES.MESSAGES_ERROR,
       caption: "Error loading Webfonts",
-      text: (
+      body: (
         <>
           WebFonts Could not be loaded. Please check your internet connection.
           <br />

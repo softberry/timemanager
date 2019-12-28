@@ -25,18 +25,17 @@ function Page() {
 
   return (
     <Router>
-      <Typography>
-        <NanoDataBase>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/contacts" component={Contacts} />
-            <Route exact path="/history" component={WorkLog} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/contact/:type/:id" component={Contact} />
-          </Switch>
-          <Message></Message>
-        </NanoDataBase>
-      </Typography>
+      <Typography />
+      <NanoDataBase>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/contacts" component={Contacts} />
+          <Route exact path="/history" component={WorkLog} />
+          <Route exact path="/settings" component={Settings} />
+          <Route exact path="/contact/:type/:id" component={Contact} />
+        </Switch>
+      </NanoDataBase>
+      <Message />
     </Router>
   );
 }
@@ -45,7 +44,6 @@ function App() {
   return (
     <Provider store={TimerAppStore}>
       <Page />
-      
     </Provider>
   );
 }

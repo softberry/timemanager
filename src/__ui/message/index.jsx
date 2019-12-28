@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "@material-ui/core/Icon";
 import ConfirmDeleteContact from "../confirm/delete.contact";
@@ -14,8 +14,11 @@ function DialogBody({ type, props }) {
           <ConfirmDeleteContact {...props} />
         </>
       );
+    case TYPES.MESSAGES_INFO:
+    case TYPES.MESSAGES_WARNING:
+    case TYPES.MESSAGES_ERROR:
+      return <>{props}</>;
     default:
-      debugger;
       return <div>{type}</div>;
   }
 }
@@ -33,6 +36,10 @@ export default function Message() {
       dialogId: this.dialogId
     });
   }
+
+  useEffect(() => {
+    if (!messages || messages.length === 0) return;
+  }, [messages]);
 
   if (!messages || messages.length === 0) return <></>;
 
@@ -68,10 +75,7 @@ export default function Message() {
 
           <div className={styles.Text}>
             <div>
-              <DialogBody
-                type={TYPES.CONFIRM_DELETE_CONTACT}
-                props={{ ...body, dialogId }}
-              />
+              <DialogBody type={type} props={{ ...body, dialogId }} />
             </div>
           </div>
         </div>
