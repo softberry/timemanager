@@ -10,8 +10,7 @@ function createRandomContacts(num = 0) {
       city: faker.address.city(),
       tel: [faker.phone.phoneNumber()],
       mobile: [faker.phone.phoneNumber()],
-      mail: [faker.internet.email()],
-      works: []
+      mail: [faker.internet.email()]
     };
   }
   return new Array(num).fill("").map(() => model());
