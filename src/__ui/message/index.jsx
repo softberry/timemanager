@@ -59,12 +59,8 @@ export default function Message() {
               className={styles.Close}
               onClick={hideMessage.bind({ dialogId })}
             >
-              <span>&times;</span>
-              {/**
-               * TODO:
-               * Bundle Icons for offline experience #16
-               * https://github.com/softberry/timemanager/issues/16
-               * <Icon>close</Icon> */}
+              <Icon>close</Icon>
+              
             </div>
           )}
           <div className={styles.Icon}>

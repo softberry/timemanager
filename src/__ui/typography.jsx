@@ -7,14 +7,10 @@ import TYPES from "../store/types";
 export default function Typography({ theme, children }) {
   const [fontsReady, setFontsReady] = useState("LOADING");
   const dispatch = useDispatch();
-  /**
-   * TODO:
-   * Bundle Icons for offline experience #16
-   * https://github.com/softberry/timemanager/issues/16
-   */
+
   const webFontsConfig = {
     google: {
-      families: ["Allerta Stencil:400", "Exo:300,600", "Material+Icons"]
+      families: ["Allerta Stencil:400", "Exo:300,600"]
     },
     active: () => {
       setFontsReady("LOADED");
