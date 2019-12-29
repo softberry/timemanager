@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import TYPES from "../../store/types";
-import Input from "../../__ui/input";
+import Input, { MultipleInput } from "../../__ui/input";
 import Worklogs from "../../components/worklogs";
 
 import styles from "./contact.module.scss";
@@ -44,9 +44,11 @@ function UpdateOnEdit({ item, contact }) {
     name: item,
     value: contact[item]
   };
+  
   return (
     <>
-      <Input {...field} />
+      {Array.isArray(field.value) && <MultipleInput {...field} />}
+      {!Array.isArray(field.value) && <Input {...field} />}
     </>
   );
 }
