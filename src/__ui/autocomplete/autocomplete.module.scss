@@ -1,6 +1,6 @@
 @import "../../mixins";
 .AutoComplete {
-  display: flex;
+  display: inline-flex;
   flex-wrap: nowrap;
   vertical-align: middle;
   position: relative;

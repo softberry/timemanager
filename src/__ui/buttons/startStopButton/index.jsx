@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import styles from "./button.module.scss";
 
 export default function StartStopButton({
@@ -78,3 +79,9 @@ export default function StartStopButton({
     </div>
   );
 }
+
+StartStopButton.protoTypes = {
+  onComplete: PropTypes.func,
+  waitForSeconds: PropTypes.number,
+  buttonLabel: PropTypes.object
+};

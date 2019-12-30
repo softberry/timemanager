@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 
 import styles from "./confirm.module.scss";
 import { useHistory } from "react-router-dom";
 import TYPES from "../../store/types";
 
+import { Checkbox } from "../../__ui/formElements";
 export default function ConfirmDeleteContact({ contact, dialogId }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -12,8 +14,8 @@ export default function ConfirmDeleteContact({ contact, dialogId }) {
   const nSQL = useSelector(state => state.db.nSQL);
   const [worklogsCount, setWorklogsCount] = useState(-1);
   const [deleteWorklogsToo, setDeleteWorklogsToo] = useState(false);
-  function checkBoxOnChangeHandler(e) {
-    setDeleteWorklogsToo(e.target.checked);
+  function checkBoxOnChangeHandler(checked) {
+    setDeleteWorklogsToo(checked);
   }
 
   function onDeleteButtonSubmit(id, e) {
@@ -46,15 +48,13 @@ export default function ConfirmDeleteContact({ contact, dialogId }) {
       .query("delete")
       .where(["id", "=", id])
       .exec()
-      .then(deletedItems => {
-        
+      .then(() => {
         history.push("/contacts");
       })
       .catch(err => {});
-
     dispatch({
       type: TYPES.MESSAGES_HIDE_MESSAGE,
-      dialogId: this.dialogId
+      dialogId: dialogId
     });
   }
 
@@ -78,15 +78,12 @@ export default function ConfirmDeleteContact({ contact, dialogId }) {
       </strong>
       ?
       <br />
-      {/*TODO:  Custom checkbox and radio elements
-              https://github.com/softberry/timemanager/issues/18 */}
       {worklogsCount > 0 && (
         <>
-          <input
-            type="checkbox"
+          <Checkbox
             onChange={checkBoxOnChangeHandler.bind(this)}
-          />{" "}
-          Delete also {worklogsCount} of saved works.
+            label={`Delete also ${worklogsCount} of saved works.`}
+          ></Checkbox>
         </>
       )}
       <div className={styles.Footer}>
@@ -99,3 +96,8 @@ export default function ConfirmDeleteContact({ contact, dialogId }) {
     </>
   );
 }
+
+ConfirmDeleteContact.protoTypes = {
+  contact: PropTypes.object,
+  dialogId: PropTypes.number
+};

@@ -1,33 +1,35 @@
 import React from "react";
 import StartStopButton from "../../__ui/buttons/startStopButton";
-import styles from "../default.module.scss";
+import StoryPage from "../story-page";
 
 export default {
-  title: "Start Stop Button"
+  title: "Start Stop Button",
+  component: StartStopButton
 };
 
 export const primary = () => {
   return (
-    <div className={styles.PrimaryView}>
+    <StoryPage viewType="PrimaryView">
       <StartStopButton
         buttonLabel={{ inactive: "STOP", active: "WAIT" }}
         onComplete={() => {
           console.log("OK!");
         }}
       />
-    </div>
+    </StoryPage>
   );
 };
 
 export const secondary = () => {
   return (
-    <div className={styles.SecondaryView}>
+    <StoryPage viewType="SecondaryView">
       <StartStopButton
         buttonLabel={{ inactive: "STOP", active: "WAIT" }}
         onComplete={() => {
           console.log("OK!");
         }}
       />
-    </div>
+    </StoryPage>
   );
 };
+

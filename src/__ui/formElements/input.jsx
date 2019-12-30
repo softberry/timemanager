@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+
+import PropTypes from "prop-types";
 import styles from "./input.module.scss";
 
 import { getTypeFromFieldName } from "../../lib/input.helpers";
-
-function Input({ id, name, value }) {
+/**
+ * Input element:
+ */
+export default function Input({ id, name, value }) {
   const [val, setVal] = useState(value);
   const type = getTypeFromFieldName(name);
   const [labelPosition, setLabelPosition] = useState(
@@ -46,4 +50,8 @@ function Input({ id, name, value }) {
   );
 }
 
-export default Input;
+Input.propTypes = {
+  id: PropTypes.number,
+  name: PropTypes.string,
+  value: PropTypes.string
+};
