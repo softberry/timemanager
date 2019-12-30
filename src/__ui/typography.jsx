@@ -12,6 +12,10 @@ export default function Typography({ theme, children }) {
     google: {
       families: ["Allerta Stencil:400", "Exo:300,600"]
     },
+    custom: {
+      families: ["Material+Icons"],
+      urls: [process.env.PUBLIC_URL + "/material-icons.css"]
+    },
     active: () => {
       setFontsReady("LOADED");
     },

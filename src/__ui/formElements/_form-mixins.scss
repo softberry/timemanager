@@ -1,0 +1,57 @@
+@mixin option-container($type: "check") {
+  display: grid;
+  grid-template-areas:
+    "icon label"
+    ". content";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-column-gap: 0.25em;
+  line-height: 1em;
+  margin-bottom: 0.25em;
+  padding: 0.25em;
+
+  &Label {
+    grid-area: label;
+    font-weight: 700;
+  }
+
+  &Content {
+    grid-area: content;
+    font-size: 0.75em;
+  }
+}
+
+@mixin option-icon($type: "check", $selected: false) {
+  grid-area: icon;
+  width: 1em;
+  height: 1em;
+  font-size: 1em;
+
+  @if $type == "check" {
+    box-shadow: inset 0 0 1px 1px;
+    border-radius: 2px;
+  }
+
+  @if $selected {
+    &:before {
+      @include materialIcon(inherit);
+
+      @if $type == "check" {
+        content: "done";
+      }
+      @if $type == "radio" {
+        content: "radio_button_checked";
+      }
+    }
+  } @else {
+    &:before {
+      @include materialIcon(inherit);
+      @if $type == "check" {
+        content: "";
+      }
+      @if $type == "radio" {
+        content: "radio_button_unchecked";
+      }
+    }
+  }
+}

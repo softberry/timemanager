@@ -1,25 +1,25 @@
 import React from "react";
+
 import Autocomplete from "../../__ui/autocomplete";
-import Typography from '../../__ui/typography';
-import styles from "../default.module.scss";
+
+import StoryPage from "../story-page";
 
 export default {
-  title: "Autocomplete"
+  title: "Autocomplete",
+  component: Autocomplete
 };
 
 export const primary = function() {
   return (
-    <div className={styles.PrimaryView}>
-      <Typography />
+    <StoryPage viewType="PrimaryView">
       <Autocomplete variant="primary" />
-    </div>
+    </StoryPage>
   );
 };
 export const secondary = function() {
   return (
-    <div className={styles.SecondaryView}>
-      <Typography />
+    <StoryPage viewType="SecondaryView">
       <Autocomplete variant="secondary" />
-    </div>
+    </StoryPage>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Icon } from "@material-ui/core";
-import Input from "../../__ui/input";
+import Input from "../../__ui/formElements";
 import styles from "./worklog.module.scss";
 
 function WorkListItem({ entry }) {

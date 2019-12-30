@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import TYPES from "../../store/types";
-import Input, { MultipleInput } from "../../__ui/input";
+import Input, { MultipleInput } from "../../__ui/formElements";
 import Worklogs from "../../components/worklogs";
 
 import styles from "./contact.module.scss";
