@@ -12,10 +12,11 @@ export default {
 };
 
 const radioGroup = (({ len }) => {
-  const seletcedIndex = random.number({ min: 0, max: len });
+  const seletcedIndex = random.number({ min: len, max: len + 2 });
   return new Array(len).fill("").map((chk, i) => {
     return (
       <Radio
+        key={i}
         checked={i === seletcedIndex}
         label={lorem.words(4)}
         value={`ABC-${i}`}
@@ -29,7 +30,21 @@ const radioGroup = (({ len }) => {
 export const primary = function() {
   return (
     <StoryPage viewType="PrimaryView">
-      <RadioGroup>{radioGroup}</RadioGroup>
+      <RadioGroup
+        onChange={val => {
+          console.log("PrimaryView RadioGroup[1] value", val);
+        }}
+      >
+        {radioGroup}
+      </RadioGroup>
+      <hr />
+      <RadioGroup
+        onChange={val => {
+          console.log("PrimaryView RadioGroup[2] value", val);
+        }}
+      >
+        {radioGroup}
+      </RadioGroup>
     </StoryPage>
   );
 };
@@ -37,7 +52,13 @@ export const primary = function() {
 export const secondary = function() {
   return (
     <StoryPage viewType="SecondaryView">
-      <RadioGroup>{radioGroup}</RadioGroup>
+      <RadioGroup
+        onChange={val => {
+          console.log("SecondaryView RadioGroup[1] value", val);
+        }}
+      >
+        {radioGroup}
+      </RadioGroup>
     </StoryPage>
   );
 };
