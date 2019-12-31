@@ -12,7 +12,7 @@ export default {
 };
 
 const radioGroup = (({ len }) => {
-  const seletcedIndex = random.number({ min: len, max: len + 2 });
+  const seletcedIndex = random.number({ min: 0, max: len });
   return new Array(len).fill("").map((chk, i) => {
     return (
       <Radio
