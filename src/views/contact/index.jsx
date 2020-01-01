@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import TYPES from "../../store/types";
 
 import DefaultLayout from "../../layout/layout.default";
-import styles from "./edit.module.scss";
 
-import ContactDetails from "../contact/contact.details";
-
+import ContactDetails from "../../components/contactDetails";
 
 /**
  * Renders editable form from given values in given table
  * @param {Object} props
  */
-export default function Contact(props) {
+export default function(props) {
   const [table, setTable] = useState({ id: null });
   const [queryState, setQueryState] = useState("INITIAL");
   const nSQL = useSelector(state => state.db.nSQL);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (typeof nSQL === "undefined") return;
   }, [nSQL]);
@@ -32,6 +31,12 @@ export default function Contact(props) {
       })
       .catch(err => {
         setQueryState("ERRORED");
+        dispatch({
+          type: TYPES.MESSAGES_ERROR,
+          caption: err.toString(),
+          body: <>{err.stack.toString()}</>,
+          closable: true
+        });
       });
   }
 
@@ -44,14 +49,13 @@ export default function Contact(props) {
 
   return (
     <DefaultLayout>
-      {queryState === "ERRORED" && (
-        <div>Error reading Contact's Data Table!</div>
+      {queryState === "READY" && (
+        <ContactDetails
+          view="secondary"
+          contact={table}
+          type={props.match.params.type}
+        />
       )}
-      <section className={styles.Edit}>
-        {queryState === "READY" && (
-          <ContactDetails contact={table} type={props.match.params.type} />
-        )}
-      </section>
     </DefaultLayout>
   );
 }

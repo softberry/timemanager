@@ -51,7 +51,7 @@ export default function Input({ id, name, value }) {
 }
 
 Input.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.any,
   name: PropTypes.string,
   value: PropTypes.string
 };

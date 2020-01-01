@@ -1,6 +1,0 @@
-@import "../../mixins";
-.Edit {
-  @include layer-bg("secondary");
-  @include layer-color("secondary");
-  @include view;
-}

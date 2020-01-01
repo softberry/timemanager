@@ -1,14 +1,12 @@
 import React from "react";
 
-import styles from "./settings.module.scss";
+import Settings from "../../components/settings";
 import DefaultLayout from "../../layout/layout.default";
 
-export default function Settings() {
+export default function() {
   return (
     <DefaultLayout>
-      <div className={styles.Settings}>
-        <p>Settings</p>
-      </div>
+      <Settings view="secondary" />
     </DefaultLayout>
   );
 }

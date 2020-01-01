@@ -1,13 +1,10 @@
 import React from "react";
-import styles from "./contacts.module.scss";
 import DefaultLayout from "../../layout/layout.default";
-import ContactsList from "../../components/contacts";
-export default function Contacts() {
+import ContactsList from "../../components/contactsList";
+export default function() {
   return (
     <DefaultLayout>
-      <div className={styles.Contacts}>
-        <ContactsList />
-      </div>
+      <ContactsList view="secondary" />
     </DefaultLayout>
   );
 }

@@ -32,12 +32,17 @@ const MESSAGES = {
 const CONFIRM = {
   CONFIRM_DELETE_CONTACT: "CONFIRM_DELETE_CONTACT"
 };
+
+const DESIGN = {
+  DESIGN_VIEW_SET: "DESIGN_VIEW_SET"
+};
 const TYPES = {
   ...DATABASE,
   ...TOOLBAR,
   ...EVENT,
   ...MESSAGES,
-  ...CONFIRM
+  ...CONFIRM,
+  ...DESIGN
 };
 
 export default TYPES;

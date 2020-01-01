@@ -56,9 +56,10 @@
         "form-times form-materials";
     }
     overflow: hidden;
-    animation: showFormContent 300ms;
+    animation: showFormContent 200ms linear;
     box-shadow: inset 0 4px 4px -4px #ccc;
     display: grid;
+
     grid-template-areas:
       "form-name"
       "form-description"
@@ -83,5 +84,16 @@
     &Materials {
       grid-area: form-materials;
     }
+  }
+}
+
+@keyframes showFormContent {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: auto;
+    overflow: auto;
   }
 }

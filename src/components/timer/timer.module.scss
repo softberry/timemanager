@@ -1,7 +1,6 @@
 @import "../../mixins";
-.Timer {
-  @include layer-bg("primary");
-  @include layer-color("primary");
+
+@mixin timer {
   @include view;
   width: 100%;
   height: 100%;
@@ -11,4 +10,18 @@
   justify-content: center;
   grid-area: ui-components-timer;
   overflow: hidden;
+}
+
+.Timer {
+  &-primary {
+    @include layer-bg("primary");
+    @include layer-color("primary");
+    @include timer();
+  }
+
+  &-secondary {
+    @include layer-bg("secondary");
+    @include layer-color("secondary");
+    @include timer();
+  }
 }
