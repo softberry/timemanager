@@ -1,0 +1,18 @@
+@import "../../mixins";
+@mixin contact-details() {
+  @include view;
+}
+
+.ContactDetails {
+  &-primary {
+    @include layer-bg("primary");
+    @include layer-color("primary");
+    @include contact-details();
+  }
+
+  &-secondary {
+    @include layer-bg("secondary");
+    @include layer-color("secondary");
+    @include contact-details();
+  }
+}

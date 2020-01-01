@@ -1,0 +1,20 @@
+@import "../../mixins";
+
+
+@mixin settings() {
+  @include view;
+}
+
+.Settings {
+  &-primary {
+    @include layer-bg("primary");
+    @include layer-color("primary");
+    @include settings();
+  }
+
+  &-secondary {
+    @include layer-bg("secondary");
+    @include layer-color("secondary");
+    @include settings();
+  }
+}

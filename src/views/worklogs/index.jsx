@@ -8,7 +8,7 @@ import DefaultLayout from "../../layout/layout.default";
 
 import EventsCalendar from "../../__ui/eventsCalendar";
 
-export default function WorkLogs() {
+export default function() {
   const [ready, setReady] = useState(false);
   const nSQL = useSelector(state => state.db.nSQL);
   const [worklog, setWorklog] = useState([]);

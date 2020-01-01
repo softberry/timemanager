@@ -5,12 +5,12 @@ import TYPES from "../../store/types";
 import DefaultLayout from "../../layout/layout.default";
 import Timer from "../../components/timer";
 
-export default function Home() {
+export default function() {
   useDispatch()({ type: TYPES.TOOLBAR_HOME });
 
   return (
     <DefaultLayout>
-      <Timer />
+      <Timer view="primary" />
     </DefaultLayout>
   );
 }

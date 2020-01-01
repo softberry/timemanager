@@ -43,7 +43,7 @@ function reducer(state, action) {
   }
   return newState;
 }
-function Timer({ history }) {
+function Timer({ view = "primary" }) {
   const [timer, dispatch] = useReducer(reducer, {
     id: "active-counter-0",
     delaying: false,
@@ -62,7 +62,7 @@ function Timer({ history }) {
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
-  
+
   nSQL("counters")
     .query("select")
     .where(["id", "=", "active-counter-0"])
@@ -99,9 +99,10 @@ function Timer({ history }) {
     };
   }, [timer.active, timer.start, timer.diff, nSQL]);
 
+  const timerClassName = styles[`Timer-${view}`];
   if (timer.active) {
     return (
-      <div className={styles.Timer}>
+      <div className={timerClassName}>
         <Counter {...timer.diff} counting={true} />
         <StartStopButton
           buttonLabel={{ inactive: "STOP", active: "WAIT" }}
@@ -127,7 +128,7 @@ function Timer({ history }) {
     );
   }
   return (
-    <div className={styles.Timer}>
+    <div className={timerClassName}>
       <Counter {...timer.diff} counting={false} />
       <StartStopButton
         buttonLabel={{ inactive: "START", active: "WAIT" }}

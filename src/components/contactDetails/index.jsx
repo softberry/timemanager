@@ -4,24 +4,24 @@ import { withRouter } from "react-router-dom";
 
 import TYPES from "../../store/types";
 import Input, { MultipleInput } from "../../__ui/formElements";
-import Worklogs from "../../components/worklogs";
+import Worklogs from "../worklogs";
 
 import styles from "./contact.module.scss";
 
 function ReadOnlyDeatils({ contact }) {
   const { street, zip, city, tel, mobile } = contact;
   return (
-    <div className={styles.ReadOnly}>
+    <>
       <div>
         {street}, {zip} - {city}{" "}
       </div>
       <div>{tel}</div>
       <div>{mobile}</div>
-    </div>
+    </>
   );
 }
 
-function EditableList({ contact }) {
+function EditableDetails({ contact }) {
   const nonRenderedItems = ["id"];
 
   return (
@@ -30,7 +30,7 @@ function EditableList({ contact }) {
         const props = { item, contact };
         return (
           <div key={key}>
-            {!nonRenderedItems.includes(item) && <UpdateOnEdit {...props} />}
+            {!nonRenderedItems.includes(item) && <EditableInput {...props} />}
           </div>
         );
       })}
@@ -38,13 +38,13 @@ function EditableList({ contact }) {
   );
 }
 
-function UpdateOnEdit({ item, contact }) {
+function EditableInput({ item, contact }) {
   const field = {
     id: `${contact.id}-${item}`,
     name: item,
     value: contact[item]
   };
-  
+
   return (
     <>
       {Array.isArray(field.value) && <MultipleInput {...field} />}
@@ -53,21 +53,20 @@ function UpdateOnEdit({ item, contact }) {
   );
 }
 
-function ContactDetails(props) {
-  const { contact, type } = props;
-
-  const [locked, setLocked] = useState(true);
+function ContactDetails({ contact, type, view }) {
+  const [isReadOnly, setIsReadOnly] = useState(true);
   const [isNewContact, setIsNewContact] = useState(false);
   const dispatch = useDispatch();
 
   const nSQL = useSelector(state => state.db.nSQL);
+  const viewClass = styles[`ContactDetails-${view}`];
 
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
 
-  locked && dispatch({ type: TYPES.TOOLBAR_EDIT_CONTACT, contact });
-  !locked && dispatch({ type: TYPES.TOOLBAR_SAVE_CONTACT, contact });
+  isReadOnly && dispatch({ type: TYPES.TOOLBAR_EDIT_CONTACT, contact });
+  !isReadOnly && dispatch({ type: TYPES.TOOLBAR_SAVE_CONTACT, contact });
 
   const [fullName, setFullName] = useState(
     `${contact.name} ${contact.surname}`
@@ -76,10 +75,10 @@ function ContactDetails(props) {
   useEffect(() => {
     if (contact.id === null) return;
     if (contact.id === "new-contact-to-edit") {
-      setLocked(false);
+      setIsReadOnly(false);
       setIsNewContact(true);
     } else {
-      setLocked(type === "details");
+      setIsReadOnly(type === "details");
     }
     if (fullName.length > 10) {
       const shortName = `${contact.name}`.slice(0, 1);
@@ -87,15 +86,24 @@ function ContactDetails(props) {
     }
   }, [setFullName, setIsNewContact, fullName, contact, type]);
 
+  if (isReadOnly) {
+    return (
+      <div className={viewClass}>
+        <h1>{fullName}</h1>
+        <ReadOnlyDeatils contact={contact} />
+        <Worklogs show={true} contact={contact} />
+      </div>
+    );
+  }
+  const EditableDetailTitle = isNewContact
+    ? "Create New Contact"
+    : "Edit Contact Deatils";
   return (
-    <>
-      {locked && <h1>{fullName}</h1>}
-      {locked && <ReadOnlyDeatils contact={contact} />}
-      {!locked && !isNewContact && <h1>Edit Contact Deatils</h1>}
-      {!locked && isNewContact && <h1>Create New Contact</h1>}
-      {!locked && <EditableList contact={contact} />}
-      <Worklogs show={locked} contact={contact} />
-    </>
+    <div className={viewClass}>
+      <h1>{EditableDetailTitle}</h1>
+      <EditableDetails contact={contact} />
+      <Worklogs show={false} contact={contact} />
+    </div>
   );
 }
 export default withRouter(ContactDetails);
