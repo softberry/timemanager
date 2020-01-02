@@ -1,9 +1,9 @@
 import React from "react";
-import Input from "../../__ui/formElements";
+import Input from "../../__ui/formElements/input/input";
 import StoryPage from "../story-page";
 
 export default {
-  title: "Form Text Input",
+  title: "Form Elements/Input",
   component: Input,
   parameters: {
     componentSubtitle: "Handy status label",

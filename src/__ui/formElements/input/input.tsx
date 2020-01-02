@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { getTypeFromFieldName } from "../../../lib/input.helpers";
 
 import styles from "./input.module.scss";
 
-import { getTypeFromFieldName } from "../../../lib/input.helpers";
 /**
  * Input element:
  */
@@ -21,12 +21,12 @@ export default function Input({ id, name, value }: IInputComponentProps) {
       : setLabelPosition("LABEL");
   }
 
-  function handleOnFocus(e:React.FocusEvent<HTMLInputElement>) {
+  function handleOnFocus(e: React.FocusEvent<HTMLInputElement>) {
     `${e.target.value}`.length === 0
       ? setLabelPosition("PLACEHOLDER")
       : setLabelPosition("LABEL");
   }
-  function handleOnBlur(e:React.FocusEvent<HTMLInputElement>) {
+  function handleOnBlur(e: React.FocusEvent<HTMLInputElement>) {
     `${e.target.value}`.length === 0
       ? setLabelPosition("PLACEHOLDER")
       : setLabelPosition("LABEL");

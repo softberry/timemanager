@@ -1,10 +1,10 @@
 import React from "react";
-import { Checkbox } from "../../__ui/formElements";
+import  Checkbox  from "../../__ui/formElements/checkbox/checkbox";
 import StoryPage from "../story-page";
 import { lorem, random } from "faker";
 
 export default {
-  title: "Checkbox",
+  title: "Form Elements/Checkbox",
   component: Checkbox,
   parameters: {
     componentSubtitle: "Handy status label"

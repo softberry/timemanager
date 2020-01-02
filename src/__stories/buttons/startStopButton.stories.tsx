@@ -3,7 +3,7 @@ import StartStopButton from "../../__ui/buttons/startStopButton";
 import StoryPage from "../story-page";
 
 export default {
-  title: "Start Stop Button",
+  title: "Buttons/Start Stop Button",
   component: StartStopButton
 };
 

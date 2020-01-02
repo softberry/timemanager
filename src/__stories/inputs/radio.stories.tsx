@@ -1,10 +1,11 @@
 import React from "react";
-import { RadioGroup, Radio } from "../../__ui/formElements";
+import RadioGroup from "../../__ui/formElements/radiogroup/radio-group";
+import Radio from "../../__ui/formElements/radiogroup/radio";
 import StoryPage from "../story-page";
 import { lorem, random } from "faker";
 
 export default {
-  title: "RadioGroup",
+  title: "Form Elements/Radio Group",
   component: RadioGroup,
   parameters: {
     componentSubtitle: "Custom Radio group component"
