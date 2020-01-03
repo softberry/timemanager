@@ -11,7 +11,7 @@ import "./index.scss";
 
 
 import Home from "./views/home";
-import WorkLog from "./views/worklogs";
+import Calendar from "./views/calendar";
 import Contacts from "./views/contacts";
 import Settings from "./views/settings";
 import Contact from "./views/contact";
@@ -31,7 +31,7 @@ function Page() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/contacts" component={Contacts} />
-          <Route exact path="/history" component={WorkLog} />
+          <Route exact path="/calendar" component={Calendar} />
           <Route exact path="/settings" component={Settings} />
           <Route exact path="/contact/:type/:id" component={Contact} />
         </Switch>

@@ -21,7 +21,7 @@ export default function Footer() {
         <Icon>contacts</Icon>
       </NavLink>
       <NavLink
-        to="/history"
+        to="/calendar"
         className={styles.FooterButton}
         activeClassName={styles.FooterButtonActiveLink}
       >

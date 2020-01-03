@@ -38,6 +38,8 @@ const editContact: IToolbarButton[] = [
     clickAction: TYPES.EVENT_DELETE_CONTACT
   }
 ];
+const calendar: IToolbarButton[] = [];
+const settings: IToolbarButton[] = [];
 export default function toolBarReducer(
   state = { buttons: home },
   action: IToolbarButtonState
@@ -64,6 +66,16 @@ export default function toolBarReducer(
         ...state,
         buttons: saveContact,
         contact: action.contact
+      };
+    case TYPES.TOOLBAR_CALENDAR:
+      return {
+        ...state,
+        buttons: calendar
+      };
+    case TYPES.TOOLBAR_SETTINGS:
+      return {
+        ...state,
+        buttons: settings
       };
     default:
       return {
