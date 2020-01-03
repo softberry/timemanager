@@ -1,6 +1,5 @@
-@import "../../../mixins";
-@import "../form-mixins";
 
+@import "../form-mixins";
 .Checkbox {
   @include option-container("check");
 

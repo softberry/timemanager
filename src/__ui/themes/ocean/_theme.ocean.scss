@@ -14,6 +14,13 @@ body {
   }
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
 h1 {
   font-size: 2.25rem;
   padding: 1rem 0;

@@ -1,7 +1,5 @@
-$theme: "default";
-
-@import "./__ui/themes/default/entry.scss";
-// @import "./__ui/themes/ocean/entry.scss";
+$theme:"ocean";
+@import "./__ui/themes/ocean/entry.scss";
 
 @mixin layer-bg($type) {
   @if $type == "primary" {

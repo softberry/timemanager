@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import styles from "./confirm.module.scss";
 import { useHistory } from "react-router-dom";
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../store/constant-enums";
+
 import TYPES from "../../store/action-types";
 
 import { Checkbox } from "../formElements";
@@ -12,6 +15,16 @@ export default function ConfirmDeleteContact({
 }: IConfirmDeleteContact) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const styles = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return themeOcean;
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return themeDefault;
+      default:
+        return themeDefault;
+    }
+  });
 
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const [worklogsCount, setWorklogsCount] = useState(-1);

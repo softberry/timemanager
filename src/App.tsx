@@ -9,7 +9,6 @@ import rootReducer from "./store/reducers";
 
 import "./index.scss";
 
-
 import Home from "./views/home";
 import Calendar from "./views/calendar";
 import Contacts from "./views/contacts";
@@ -26,17 +25,18 @@ function Page() {
 
   return (
     <Router>
-      <Typography theme="default" />
-      <NanoDataBase>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/contacts" component={Contacts} />
-          <Route exact path="/calendar" component={Calendar} />
-          <Route exact path="/settings" component={Settings} />
-          <Route exact path="/contact/:type/:id" component={Contact} />
-        </Switch>
-      </NanoDataBase>
-      <Message />
+      <Typography>
+        <NanoDataBase>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/contacts" component={Contacts} />
+            <Route exact path="/calendar" component={Calendar} />
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/contact/:type/:id" component={Contact} />
+          </Switch>
+        </NanoDataBase>
+        <Message />
+      </Typography>
     </Router>
   );
 }

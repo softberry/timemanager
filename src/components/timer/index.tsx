@@ -5,7 +5,11 @@ import { timeDiff } from "../../lib/counter.helpers";
 import Counter from "./counter";
 import StartStopButton from "../../__ui/buttons/startStopButton";
 import { createWorkLogFromCurrentCounter } from "../../lib/worklog.helpers";
-import styles from "./timer.module.scss";
+
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../store/constant-enums";
+
 let timerID: number;
 const types = {
   TIMER_START: "TIMER_START",
@@ -43,9 +47,7 @@ function reducer(state: any, action: { type: any; current: any }) {
   }
   return newState;
 }
-export default function Timer({
-  view = "primary"
-}: IDesignModel): JSX.Element {
+export default function Timer({ view = "primary" }: IDesignModel): JSX.Element {
   const [timer, dispatch] = useReducer(reducer, {
     id: "active-counter-0",
     delaying: false,
@@ -60,6 +62,17 @@ export default function Timer({
   });
 
   const nSQL = useSelector((state: any) => state.db.nSQL);
+
+  const styles = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return themeOcean;
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return themeDefault;
+      default:
+        return themeDefault;
+    }
+  });
 
   useEffect(() => {
     if (typeof nSQL !== "function") return;
@@ -105,7 +118,7 @@ export default function Timer({
   if (timer.active) {
     return (
       <div className={timerClassName}>
-        <Counter {...timer.diff} counting={true} />
+        <Counter {...timer.diff} counting={true} styles={styles} />
         <StartStopButton
           buttonLabel={{ inactive: "STOP", active: "WAIT" }}
           onComplete={() => {
@@ -131,7 +144,7 @@ export default function Timer({
   }
   return (
     <div className={timerClassName}>
-      <Counter {...timer.diff} counting={false} />
+      <Counter {...timer.diff} counting={false} styles={styles} />
       <StartStopButton
         buttonLabel={{ inactive: "START", active: "WAIT" }}
         onComplete={() => {

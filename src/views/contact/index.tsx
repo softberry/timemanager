@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TYPES from "../../store/action-types";
+import { VDESIGN } from "../../store/constant-enums";
 
 import DefaultLayout from "../../layout/layout.default";
 
@@ -64,7 +65,7 @@ const ContactView: FunctionComponent = ({ match }: ContactViewProps) => {
     <DefaultLayout>
       {queryState === "READY" && (
         <ContactDetails
-          view={TYPES.DESIGN_VIEW_SECONDARY}
+          view={VDESIGN.DESIGN_VIEW_SECONDARY}
           type={match.params.type}
           contact={table}
         />

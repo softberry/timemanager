@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import TYPES from"../../store/action-types";
+import TYPES from "../../store/action-types";
+import { VDESIGN } from "../../store/constant-enums";
 import DefaultLayout from "../../layout/layout.default";
 import Timer from "../../components/timer";
 
@@ -10,7 +11,7 @@ export default function() {
 
   return (
     <DefaultLayout>
-      <Timer view={TYPES.DESIGN_VIEW_PRIMARY} />
+      <Timer view={VDESIGN.DESIGN_VIEW_PRIMARY} />
     </DefaultLayout>
   );
 }

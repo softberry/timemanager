@@ -34,10 +34,10 @@ const CONFIRM = {
 };
 
 const DESIGN = {
-  DESIGN_VIEW_SET: "DESIGN_VIEW_SET",
-  DESIGN_VIEW_PRIMARY: "primary",
-  DESIGN_VIEW_SECONDARY: "secondary"
+  DESIGN_VIEW: "DESIGN_VIEW",
+  DESIGN_THEME: "DESIGN_THEME"
 };
+
 const TYPES = {
   ...DATABASE,
   ...TOOLBAR,

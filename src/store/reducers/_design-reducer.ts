@@ -1,14 +1,19 @@
-import TYPES from"../action-types";
+import TYPES from "../action-types";
 
 export default function designReducer(
   state = { view: "primary" },
-  payload: { type: any; view: any }
+  action: IDesignActionTypes
 ) {
-  switch (payload.type) {
-    case TYPES.DESIGN_VIEW_SET:
+  switch (action.type) {
+    case TYPES.DESIGN_THEME:
       return {
         ...state,
-        view: payload.view
+        theme: action.theme
+      };
+    case TYPES.DESIGN_VIEW:
+      return {
+        ...state,
+        view: action.view
       };
     default:
       return state;

@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "@material-ui/core/Icon";
 import ConfirmDeleteContact from "../confirm/delete.contact";
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../store/constant-enums";
 
-import styles from "./message.module.scss";
-
-
-import TYPES from"../../store/action-types";
+import TYPES from "../../store/action-types";
 
 type DialogBodyProp = {
   type: string;
@@ -33,6 +33,18 @@ export default function Message() {
   const messages: IMessage[] = useSelector(
     ({ messages }: any) => messages.messages
   );
+
+  const styles = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return themeOcean;
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return themeDefault;
+      default:
+        return themeDefault;
+    }
+  });
+
   const dispatch = useDispatch();
   /**
    * Dispatches dialogId of binded object(action) to be removed from

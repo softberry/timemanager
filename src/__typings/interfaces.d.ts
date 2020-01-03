@@ -2,6 +2,17 @@ interface IDesignModel {
   view?: string;
 }
 
+interface IDesignActionTypes {
+  type: string;
+  view?: string;
+  theme?: string;
+}
+
+interface ITypographyProps {
+  theme?: string;
+  children?: any;
+}
+
 interface IContactDetailsComponent extends IDesignModel {
   type: string;
   contact: IContactsTableModel;
@@ -66,6 +77,7 @@ interface IToolbarButton {
   disabled?: boolean;
   hidden?: boolean;
   clickAction?: string;
+  styles?: any;
 }
 
 interface IToolbarButtonAction extends IToolbarButton {
@@ -94,6 +106,7 @@ interface ICounterDiffTime {
   minute: number;
   second: number;
   counting?;
+  styles?: any;
 }
 
 interface ICounterDiff {

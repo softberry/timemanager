@@ -1,5 +1,9 @@
 import React from "react";
-import styles from "./radio.module.scss";
+import { useSelector } from "react-redux";
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../../store/constant-enums";
+
 /**
  * Radio Component
  *
@@ -12,6 +16,17 @@ export default function Radio({
   checked = false,
   value
 }: IRadioItemProps) {
+  const styles = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return themeOcean;
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return themeDefault;
+      default:
+        return themeDefault;
+    }
+  });
+
   return (
     <>
       <div

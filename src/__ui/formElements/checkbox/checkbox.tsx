@@ -1,6 +1,9 @@
 import React, { useState, useCallback } from "react";
+import { useSelector } from "react-redux";
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../../store/constant-enums";
 
-import styles from "./checkbox.module.scss";
 /**
  * Checkbox Component
  *
@@ -14,7 +17,16 @@ export default function Checkbox({
   if (typeof onChange !== "function") {
     console.error("Checkbox component must have onChange function.");
   }
-
+  const styles = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return themeOcean;
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return themeDefault;
+      default:
+        return themeDefault;
+    }
+  });
   const [isChecked, setIsChecked] = useState(checked);
   const memoizedChecked = useCallback(() => {
     onChange(isChecked);

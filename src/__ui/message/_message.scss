@@ -1,5 +1,3 @@
-@import "../../mixins";
-
 .Message {
   @include zIndex("message");
   position: fixed;

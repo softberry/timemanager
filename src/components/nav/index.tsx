@@ -3,10 +3,13 @@ import AutoComplete from "../../__ui/autocomplete";
 import Toolbar from "../toolbar";
 import Icon from "@material-ui/core/Icon";
 import { useHistory } from "react-router-dom";
-import styles from "./nav.module.scss";
-import { DESIGN } from "../../store/action-types";
 
-function NavBack({ index, goBack }: any) {
+import { useSelector } from "react-redux";
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../store/constant-enums";
+
+function NavBack({ index, goBack, styles }: any) {
   const disabled = !!(index === 0);
 
   return (
@@ -15,7 +18,7 @@ function NavBack({ index, goBack }: any) {
     </div>
   );
 }
-function NavForward({ index, length, goForward }: any) {
+function NavForward({ index, length, goForward, styles }: any) {
   const disabled = !!(index + 1 >= length);
 
   return (
@@ -27,17 +30,29 @@ function NavForward({ index, length, goForward }: any) {
 
 export default function Nav() {
   const history = useHistory();
+
+  const styles = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return themeOcean;
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return themeDefault;
+      default:
+        return themeDefault;
+    }
+  });
+
   return (
     <nav className={styles.Nav}>
       <div className={styles.HistoryNav}>
-        <NavBack {...history} />
-        <NavForward {...history} />
+        <NavBack {...history} styles={styles} />
+        <NavForward {...history} styles={styles} />
       </div>
       <div className={styles.ToolsNav}>
         <Toolbar />
       </div>
       <div className={styles.SearchNav}>
-        <AutoComplete variant={DESIGN.DESIGN_VIEW_PRIMARY} />
+        <AutoComplete variant={VDESIGN.DESIGN_VIEW_PRIMARY} />
       </div>
     </nav>
   );

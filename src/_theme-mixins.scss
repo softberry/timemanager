@@ -1,0 +1,120 @@
+
+@mixin layer-bg($type) {
+  @if $type == "primary" {
+    background-color: map-get($primary-layer, "background");
+  } @else if $type == "secondary" {
+    background-color: map-get($secondary-layer, "background");
+  }
+}
+
+@mixin layer-color($type) {
+  @if $type == "primary" {
+    color: map-get($primary-layer, "color");
+  } @else if $type == "secondary" {
+    color: map-get($secondary-layer, "color");
+  }
+}
+
+@mixin WidthUp($break) {
+  @media screen and (min-width: map-get($break-points,$break)) {
+    @content;
+  }
+}
+
+@mixin HeightUp($break) {
+  @media screen and (min-height: map-get($break-points,$break)) {
+    @content;
+  }
+}
+
+@mixin view {
+  padding: 0 0.5rem;
+  min-height: 100%;
+  overflow: auto;
+  @include WidthUp("small") {
+    padding: 0 1rem;
+  }
+}
+
+@mixin zIndex($item) {
+  $indexList: (
+    "main": 100,
+    "cart-inline": 900,
+    "nav": 1000,
+    "footer": 1000,
+    "cart-full": 1100,
+    "message":2000
+  );
+  z-index: map-get($indexList, $item);
+}
+
+@mixin materialIcon($size: 1rem) {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: $size;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: "liga";
+}
+
+@function get-param($variantName, $param) {
+  $variant: (
+    "primary": $primary-layer,
+    "secondary": $secondary-layer
+  );
+  @if variantName == "primary" {
+    $variant: $primary-layer;
+  } @else if variantName == "secondary" {
+    $variant: $secondary-layer;
+  }
+
+  @if $param == "background-color" {
+    @return map-get(map-get($variant, $variantName), "background");
+  } @else if $param == "color" {
+    @return map-get(map-get($variant, $variantName), "color");
+  } @else {
+    @return "";
+  }
+}
+
+@mixin nav-button() {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  margin: 0 0.25rem;
+  cursor: pointer;
+
+  &[data-disabled="true"] {
+    cursor: auto;
+    opacity: 0.25;
+  }
+  &[hidden] {
+    display: none;
+  }
+
+  &Text {
+    display: none;
+    @media screen and (min-width: map-get($break-points,"small")) {
+      display: initial;
+    }
+  }
+}
+

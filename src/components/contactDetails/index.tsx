@@ -5,7 +5,9 @@ import TYPES from "../../store/action-types";
 import Input, { MultipleInput } from "../../__ui/formElements";
 import Worklogs from "../worklogs";
 
-import styles from "./contact.module.scss";
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../store/constant-enums";
 
 function ReadOnlyDeatils({ contact }: any) {
   const { street, zip, city, tel, mobile } = contact;
@@ -61,7 +63,18 @@ export default function ContactDetails({
   const [isNewContact, setIsNewContact] = useState(false);
   const dispatch = useDispatch();
 
-  const nSQL = useSelector((state:any) => state.db.nSQL);
+  const styles = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return themeOcean;
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return themeDefault;
+      default:
+        return themeDefault;
+    }
+  });
+
+  const nSQL = useSelector((state: any) => state.db.nSQL);
   const viewClass = styles[`ContactDetails-${view}`];
 
   useEffect(() => {

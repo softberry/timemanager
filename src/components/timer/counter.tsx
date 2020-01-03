@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./counter.module.scss";
 
 import { twoDigit } from "../../lib/counter.helpers";
 
@@ -7,7 +6,8 @@ export default function Counter({
   hour,
   minute,
   second,
-  counting = false
+  counting = false,
+  styles
 }: ICounterDiffTime) {
   const beatClass = [styles.Beats];
   counting && beatClass.push(styles.beat);

@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 import Icon from "@material-ui/core/Icon";
 import { useHistory } from "react-router-dom";
 
-import styles from "./toolbar.module.scss";
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../store/constant-enums";
 
 import TYPES from "../../store/action-types";
 
@@ -55,20 +57,31 @@ function ToolbarButton(props: IToolbarButtonAction) {
     <div
       hidden={props.hidden}
       data-disabled={props.disabled}
-      className={styles.Button}
+      className={props.styles.Button}
       onClick={onClickHandler}
     >
       <Icon>{props.type}</Icon>
-      <span className={styles.ButtonText}>{props.label}</span>
+      <span className={props.styles.ButtonText}>{props.label}</span>
     </div>
   );
 }
 
-function Toolbar() {
+export default function Toolbar() {
   const buttons = useSelector((state: any) => state.toolbar.buttons);
   const currentContact = useSelector((state: any) => state.toolbar.contact);
 
   const nSQL = useSelector((state: any) => state.db.nSQL);
+
+  const styles = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return themeOcean;
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return themeDefault;
+      default:
+        return themeDefault;
+    }
+  });
 
   useEffect(() => {
     if (!Array.isArray(buttons) || typeof nSQL !== "function") return;
@@ -84,11 +97,10 @@ function Toolbar() {
             {...button}
             contact={currentContact}
             nSQL={nSQL}
+            styles={styles}
           />
         );
       })}
     </div>
   );
 }
-
-export default Toolbar;

@@ -1,19 +1,18 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
 
-import TYPES from"../store/action-types";
+import TYPES from "../store/action-types";
 
-type TypographyProps = {
-  theme?: string;
-  children?: any;
-};
-const Typography: FunctionComponent<TypographyProps> = ({
-  theme = "default",
-  children
-}) => {
+function Typography({ theme = "default", children }: ITypographyProps) {
+  const currentTheme = useSelector((state: any) => state.design.theme);
   const [fontsReady, setFontsReady] = useState<string>("LOADING");
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(currentTheme);
+    //TODO: theme should be apllied too!!!!
+  }, [currentTheme]);
 
   const webFontsConfig = {
     google: {
@@ -55,6 +54,6 @@ const Typography: FunctionComponent<TypographyProps> = ({
     });
   }
   return fontsReady === "LOADED" ? <>{children}</> : <div></div>;
-};
+}
 
 export default Typography;

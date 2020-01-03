@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Radio from "./radio";
-import styles from "./radio.module.scss";
+import { useSelector } from "react-redux";
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../../store/constant-enums";
 
 /**
  * Radio Component
@@ -12,6 +15,17 @@ export default function RadioGroup({ children, onChange }: IRadioGroupProps) {
   const [selectedItem, setSelectedItem] = useState("");
   const [initialised, setInitialised] = useState(false);
   const [isValid, setIsValid] = useState("__INITIAL__");
+
+  const styles = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return themeOcean;
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return themeDefault;
+      default:
+        return themeDefault;
+    }
+  });
 
   const radioGroupOnChangeCallback = useCallback(() => {
     if (typeof onChange === "function") {
@@ -48,7 +62,7 @@ export default function RadioGroup({ children, onChange }: IRadioGroupProps) {
 
   useEffect(() => {
     if (!initialised && radioItemsProps.length === 0 && children.length > 0) {
-      const propsList = children.map((child:any) => {
+      const propsList = children.map((child: any) => {
         const { children, label, checked, value } = child.props;
         if (checked) {
           setSelectedItem(value);
