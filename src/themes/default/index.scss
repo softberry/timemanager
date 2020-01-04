@@ -1,0 +1,23 @@
+@import "variables.default";
+@import "theme.default";
+
+html,
+body {
+  font-family: $font-default;
+  margin: 0;
+}
+
+body * {
+  user-select: none;
+  -webkit-user-select: none;
+  box-sizing: border-box;
+}
+
+input {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+#ddd{
+  color: #000;
+}

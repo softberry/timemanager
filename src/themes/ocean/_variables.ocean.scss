@@ -1,0 +1,35 @@
+$theme:"ocean";
+
+// TYPOGRAPHY
+$font-default: "Audiowide", sans-serif;
+$font-numbers: "Shadows Into Light", sans-serif;
+$font-size: 14px;
+$font-weight-normal: 300;
+$font-weight-bold: 600;
+
+// LAYERS / VIEWS
+$primary-layer-bg-color: #0e8ac7;
+$primary-layer-color: #bddaf3;
+$primary-selected-text:rgba(64, 11, 161,.25);
+
+$secondary-layer-bg-color: #e9efef;
+$secondary-layer-color: #6569f2;
+$secondary-selected-text: rgba(243, 169, 227, 0.75);
+
+$primary-layer: (
+  "background": $primary-layer-bg-color,
+  "color": $primary-layer-color
+);
+
+$secondary-layer: (
+  "background": $secondary-layer-bg-color,
+  "color": $secondary-layer-color
+);
+
+$break-points: (
+  "x-small": 320px,
+  "small": 480px,
+  "medium": 720px,
+  "large": 960px,
+  "xlarge": 1200px
+);
