@@ -58,20 +58,20 @@ function WorkListItemEditForm({ entry, styles, theme }: any) {
   };
   return (
     <div className={styles[`WorkLogs-${theme}-EditForm`]}>
-      <div className={styles[`WorkLogs-${theme}-EditFormName`]}>
+      <div className={styles[`WorkLogs-${theme}-EditForm-Name`]}>
         <Input {...nameField} />
       </div>
-      <div className={styles[`WorkLogs-${theme}-EditFormDescription`]}>
+      <div className={styles[`WorkLogs-${theme}-EditForm-Description`]}>
         <Input
           id={`${entry.id}-description`}
           name="description"
           value={entry.description}
         />
       </div>
-      <div className={styles[`WorkLogs-${theme}-EditFormTimes`]}>
-        <WorkListTimeEntries entries={entry} />
+      <div className={styles[`WorkLogs-${theme}-EditForm-Times`]}>
+        <WorkListTimeEntries entries={entry} styles={styles} theme={theme}/>
       </div>
-      <div className={styles[`WorkLogs-${theme}-EditFormMaterials`]}>
+      <div className={styles[`WorkLogs-${theme}-EditForm-Materials`]}>
         <WorkListWorkEntries entries={entry} styles={styles} theme={theme} />
       </div>
     </div>
@@ -81,7 +81,7 @@ function WorkListItemEditForm({ entry, styles, theme }: any) {
 function WorkListTimeEntries({ entries, styles, theme }: any) {
   return (
     <>
-      <div className={styles[`WorkLogs-${theme}-EditFormTitle`]}>
+      <div className={styles[`WorkLogs-${theme}-EditForm-Title`]}>
         <div>Time Logs</div>
         <div>
           <Icon>add</Icon>
@@ -91,7 +91,7 @@ function WorkListTimeEntries({ entries, styles, theme }: any) {
       <div>01/01/2019 - 10:30 - 03h 25m</div>
       <div>01/01/2019 - 10:30 - 03h 25m</div>
       <div>01/01/2019 - 10:30 - 03h 25m</div>
-      <input type="datetime-local" className="abcd" />
+      
     </>
   );
 }
@@ -144,7 +144,7 @@ export default function WorksLogs({ show, contact }: any) {
   return show ? (
     <>
       <hr />
-      <h2 className={styles[`WorkLogsTitle-${theme}`]}>
+      <h2 className={styles[`WorkLogs-${theme}-Title`]}>
         <div>Worklog</div>
         <div onClick={addNewWork}>
           <Icon>add</Icon>

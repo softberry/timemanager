@@ -8,7 +8,7 @@
   grid-area: $area;
 }
 
-.WorkLogs {
+.WorkLogs-#{$theme} {
   @include WidthUp("small") {
     margin-bottom: 1rem;
   }
@@ -22,30 +22,30 @@
     "name time material icon"
     "form form form form";
 
-  &Title {
+  &-Title {
     display: flex;
     justify-content: space-between;
   }
 
-  &Name {
+  &-Name {
     @include itemBox(name);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  &Time {
+  &-Time {
     @include itemBox(time);
   }
-  &Icon {
+  &-Icon {
     @include itemBox(icon);
   }
-  &Material {
+  &-Material {
     @include itemBox(material);
     text-align: center;
   }
 
-  &EditForm {
+  &-EditForm {
     @include itemBox(form);
     @include WidthUp("small") {
       grid-template-areas:
@@ -64,22 +64,22 @@
       "form-times"
       "form-materials";
 
-    &Title {
+    &-Title {
       display: grid;
       grid-template-columns: 1fr 2rem;
       font-weight: 600;
     }
 
-    &Name {
+    &-Name {
       grid-area: form-name;
     }
-    &Description {
+    &-Description {
       grid-area: form-description;
     }
-    &Times {
+    &-Times {
       grid-area: form-times;
     }
-    &Materials {
+    &-Materials {
       grid-area: form-materials;
     }
   }
