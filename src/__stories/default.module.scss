@@ -1,10 +1,11 @@
-@import "../index.scss";
-@import "../mixins";
+@import "../themes/default/variables.default";
+@import "../themes/mixins";
 
 .PrimaryView {
   @include layer-bg("primary");
   @include layer-color("primary");
   @include view;
+  font-family: $font-default;
   width: 100%;
   height: 100%;
   position: relative;
@@ -14,6 +15,7 @@
   @include layer-bg("secondary");
   @include layer-color("secondary");
   @include view;
+  font-family: $font-default;
   width: 100%;
   height: 100%;
   position: relative;

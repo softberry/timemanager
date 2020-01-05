@@ -1,22 +1,25 @@
 @import "../form-mixins";
 
-@mixin Input {
-    position: relative;
-    border: none;
-    margin-bottom: 0.5rem;
+.Input-#{$theme}{
+  position: relative;
+  border: none;
+  margin-bottom: 0.5rem;
+  label {
+    display: block;
+    position: absolute;
+    font-weight: $font-weight-bold;
+    font-size: 0.75rem;
+    margin: 0.25rem;
+    transition: all 300ms;
+    text-transform: capitalize;
+  }
+
+  input {
+    @include form-input();
+  }
 }
 
-@mixin label {
-  display: block;
-  position: absolute;
-  font-weight: $font-weight-bold;
-  font-size: 0.75rem;
-  margin: 0.25rem;
-  transition: all 300ms;
-  text-transform: capitalize;
-}
-
-@mixin TYPE-PLACEHOLDER {
+.TYPE_PLACEHOLDER-#{$theme} {  
   font-size: 1rem;
   transform: translateY(50%);
   font-weight: $font-weight-normal;
@@ -24,35 +27,15 @@
   opacity: 0.5;
   font-style: italic;
   text-shadow: 0 0px 1px currentColor;
+  
 }
-
-@mixin TYPE-LABEL {
+.TYPE_LABEL-#{$theme}{
+  
   display: block;
   position: absolute;
   font-weight: $font-weight-bold;
   margin: 0 0 0 0.25rem;
-}
-
-.Input {
-  &-#{$theme}{
-    @include label();
-  }
-}
-
-.label {
-  &-#{$theme}{
-    @include Input();
-  }
-}
-.TYPE_PLACEHOLDER {
-  &-#{$theme}{
-    @include TYPE-PLACEHOLDER();
-  }
-}
-.TYPE_LABEL {
-  &-#{$theme}{
-    @include TYPE-LABEL();
-  }
+  
 }
 
 .input {

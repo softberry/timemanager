@@ -3,6 +3,8 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import '@csstools/normalize.css';
 
+import "../index.scss";
+
 import Typography from "../__ui/typography";
 
 import rootReducer from "../store/reducers";

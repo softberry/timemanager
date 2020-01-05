@@ -13,9 +13,8 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <Input id="001" name="name" value="input Text" />
-      <Input id="002" name="Surname" value="input Text" />
-      <Input id="003" name="Address" value="input Text" />
+      <Input id="001" name="name" value="input Text" ></Input>
+      
     </StoryPage>
   );
 };

@@ -18,17 +18,18 @@ export default function Input({ id, name, value }: IInputComponentProps) {
   const type = getTypeFromFieldName(name); // input type (text, tel, mail etc...)
 
   const TYPE_PLACEHOLDER = "TYPE_PLACEHOLDER";
-  const TYPE_LABEL = "TYPE_PLACEHOLDER";
-
-  const [labelPosition, setLabelPosition] = useState(
-    val === "" ? TYPE_PLACEHOLDER : TYPE_LABEL
-  );
+  const TYPE_LABEL = "TYPE_LABEL";
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
+  const [labelPosition, setLabelPosition] = useState(
+    val.length === 0 ? `${TYPE_PLACEHOLDER}-${theme}` : `${TYPE_LABEL}-${theme}`
+  );
+
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const val: string = e.target.value;
+    console.log(val);
     setVal(val);
     `${val}`.length === 0
       ? setLabelPosition(`${TYPE_PLACEHOLDER}-${theme}`)
@@ -45,14 +46,11 @@ export default function Input({ id, name, value }: IInputComponentProps) {
       ? setLabelPosition(`${TYPE_PLACEHOLDER}-${theme}`)
       : setLabelPosition(`${TYPE_LABEL}-${theme}`);
   }
-
+  
   if (val === null) return <></>;
   return (
     <div className={styles[`Input-${theme}`]}>
-      <label
-        htmlFor={id}
-        className={`${styles[labelPosition]} ${styles[`label-${theme}`]}`}
-      >
+      <label htmlFor={id} className={styles[`${labelPosition}`]}>
         {name}
       </label>
       <input
