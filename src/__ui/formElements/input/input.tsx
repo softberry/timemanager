@@ -6,6 +6,11 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
 import { VDESIGN } from "../../../store/constant-enums";
 
+let inputId = 0;
+function getUniqueId() {
+  inputId++;
+  return `input-${inputId}`;
+}
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
@@ -13,7 +18,8 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 /**
  * Input element:
  */
-export default function Input({ id, name, value }: IInputComponentProps) {
+export default function Input({ name, value }: IInputComponentProps) {
+  const id = getUniqueId();
   const [val, setVal] = useState<string>(value);
   const type = getTypeFromFieldName(name); // input type (text, tel, mail etc...)
 
@@ -46,7 +52,7 @@ export default function Input({ id, name, value }: IInputComponentProps) {
       ? setLabelPosition(`${TYPE_PLACEHOLDER}-${theme}`)
       : setLabelPosition(`${TYPE_LABEL}-${theme}`);
   }
-  
+
   if (val === null) return <></>;
   return (
     <div className={styles[`Input-${theme}`]}>

@@ -30,7 +30,7 @@ function DialogBody({ type, props }: IDialogBodyProp) {
   }
 }
 
-export default function Message() {
+export default function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   const messages: IMessage[] = useSelector(
     ({ messages }: any) => messages.messages
   );
@@ -60,7 +60,7 @@ export default function Message() {
       return (
         <div
           key={index}
-          className={styles[`Dialog-${theme}__${type}`]}
+          className={styles[`Dialog-${theme}__${type}--${variant}`]}
           style={{
             marginLeft: `${index * 0.5}rem`,
             marginTop: `${index * 0.5}rem`

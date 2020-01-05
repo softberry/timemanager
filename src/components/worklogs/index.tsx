@@ -63,13 +63,12 @@ function WorkListItemEditForm({ entry, styles, theme }: any) {
       </div>
       <div className={styles[`WorkLogs-${theme}-EditForm-Description`]}>
         <Input
-          id={`${entry.id}-description`}
           name="description"
           value={entry.description}
         />
       </div>
       <div className={styles[`WorkLogs-${theme}-EditForm-Times`]}>
-        <WorkListTimeEntries entries={entry} styles={styles} theme={theme}/>
+        <WorkListTimeEntries entries={entry} styles={styles} theme={theme} />
       </div>
       <div className={styles[`WorkLogs-${theme}-EditForm-Materials`]}>
         <WorkListWorkEntries entries={entry} styles={styles} theme={theme} />
@@ -91,7 +90,6 @@ function WorkListTimeEntries({ entries, styles, theme }: any) {
       <div>01/01/2019 - 10:30 - 03h 25m</div>
       <div>01/01/2019 - 10:30 - 03h 25m</div>
       <div>01/01/2019 - 10:30 - 03h 25m</div>
-      
     </>
   );
 }

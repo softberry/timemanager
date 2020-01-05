@@ -10,10 +10,9 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function AllInputs({ id, name, value = [] }: IMultiInputProps): any {
+function AllInputs({ name, value = [] }: IMultiInputProps): any {
   return value.map((val, keyIndex) => {
     const field = {
-      id: `${id}-${keyIndex}`,
       name: `${name}`,
       value: val
     };

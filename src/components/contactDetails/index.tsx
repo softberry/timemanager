@@ -46,7 +46,6 @@ function EditableDetails({ contact }: any) {
 
 function EditableInput({ item, contact }: any) {
   const field = {
-    id: `${contact.id}-${item}`,
     name: item,
     value: contact[item]
   };

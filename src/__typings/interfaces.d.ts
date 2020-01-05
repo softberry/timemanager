@@ -44,7 +44,6 @@ interface IRadioGroupProps {
 }
 
 interface IInputComponentProps {
-  id: string;
   name: string;
   value: string;
 }
