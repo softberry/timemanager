@@ -1,18 +1,23 @@
 @import "../form-mixins";
 
 .RadioGroup {
-  display: flex;
-  flex-direction: column;
+  &-#{$theme} {
+    display: flex;
+    flex-direction: column;
+  }
+  
 }
 
 .Radio {
+  &-#{$theme} {
   @include option-container("radio");
 
-  &Icon {
+  &-Icon {
     @include option-icon("radio", false);
   }
 
-  &IconSelected {
+  &-IconSelected {
     @include option-icon("radio", true);
   }
+}
 }

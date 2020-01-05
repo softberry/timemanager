@@ -1,49 +1,54 @@
-@import "../../mixins";
-.AutoComplete {
+@mixin text-input($variant: "primary") {
+  $BG: get-param($variant, "background-color");
+  $C: get-param($variant, "color");
+
+  border: none;
+  margin: 0;
+  font-size: inherit;
+  line-height: 1rem;
+  border-radius: 0.75rem;
+  padding-left: .5rem;
+
+  outline: none;
+  transition: background-color 300ms;
+  background-color: darken($BG, 5%);
+  box-shadow: inset 0 0 2px 0 $BG;
+  color: $C;
+  max-width: 100%;
+  width: 8rem;
+
+  &:focus {
+    background-color: lighten($BG, 5%);
+    box-shadow: inset 0 0 2px 0 invert($C, 25%);
+  }
+
+  &SearchIcon {
+    display: flex;
+    position: absolute;
+    right:.5rem;
+    color: lighten($BG, 10%);
+    margin: auto 0;
+  }
+}
+
+@mixin auto-complete {
   display: inline-flex;
   flex-wrap: nowrap;
   vertical-align: middle;
   position: relative;
-  transition: width 300ms;
+  transition: width 300ms;  
+}
 
-  @mixin Input($variant: "primary") {
-    $BG: get-param($variant, "background-color");
-    $C: get-param($variant, "color");
+.AutoComplete-#{$theme} {
+  
+      @include  auto-complete ();
 
-    border: none;
-    margin: 0;
-    font-size: inherit;
-    line-height: 1rem;
-    border-radius: 0.75rem;
-    padding-left: .5rem;
-
-    outline: none;
-    transition: background-color 300ms;
-    background-color: invert($C, 55%);
-    box-shadow: inset 0 0 2px 0 $BG;
-    color: $C;
-    max-width: 100%;
-    width: 8rem;
-
-    &:focus {
-      background-color: invert($BG, 25%);
-      box-shadow: inset 0 0 2px 0 invert($C, 25%);
-    }
-
-    &SearchIcon {
-      display: flex;
-      position: absolute;
-      right:.5rem;
-      color: darken($BG, 25%);
-      margin: auto 0;
-    }
-  }
-
-  &PrimaryInput {
-    @include Input("primary");
-  }
-
-  &SecondaryInput {
-    @include Input("secondary");
-  }
+      &-primary-input {
+        @include text-input("primary");
+      }
+    
+      &-secondary-input {
+        @include text-input("secondary");
+      }
+  
 }

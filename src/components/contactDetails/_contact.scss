@@ -2,7 +2,7 @@
   @include view;
 }
 
-.ContactDetails {
+.ContactDetails-#{$theme} {
   &-primary {
     @include layer-bg("primary");
     @include layer-color("primary");

@@ -20,7 +20,6 @@ import { InanoSQLTableConfig } from "@nano-sql/core/lib/interfaces";
  * - NAME -
  */
 
-
 const counterTable: InanoSQLTableConfig = {
   name: "counterTable",
   model: {

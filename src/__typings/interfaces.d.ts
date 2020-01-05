@@ -18,6 +18,11 @@ interface IContactDetailsComponent extends IDesignModel {
   contact: IContactsTableModel;
 }
 
+interface IContactViewProps  {
+  match?: any;
+  children?: ReactNode;
+};
+
 interface ICheckBoxComponentProps {
   children?: any;
   checked?: boolean;
@@ -78,6 +83,7 @@ interface IToolbarButton {
   hidden?: boolean;
   clickAction?: string;
   styles?: any;
+  theme?: any;
 }
 
 interface IToolbarButtonAction extends IToolbarButton {
@@ -107,6 +113,7 @@ interface ICounterDiffTime {
   second: number;
   counting?;
   styles?: any;
+  theme?: any;
 }
 
 interface ICounterDiff {

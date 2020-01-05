@@ -1,13 +1,3 @@
-.Message {
-  @include zIndex("message");
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
 @mixin dialog {
   position: absolute;
   display: grid;
@@ -27,7 +17,20 @@
   box-shadow: 0 0 4px 1px;
   border-radius: 3px;
 }
-.Dialog {
+
+
+.Message-#{$theme} {
+  @include zIndex("message");
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+.Dialog-#{$theme} {
   &__MESSAGES_INFO,
   &__MESSAGES_WARNING,
   &__MESSAGES_ERROR,
@@ -46,19 +49,19 @@
   }
 }
 
-.Caption {
+.Caption-#{$theme} {
   grid-area: caption;
   font-weight: 700;
   padding: 0.5rem;
 }
 
-.Icon {
+.Icon-#{$theme} {
   grid-area: icon;
   display: flex;
   align-items: center;
 }
 
-.Close {
+.Close-#{$theme} {
   grid-area: close;
   width: 1rem;
   font-size: 1.5rem;
@@ -67,7 +70,7 @@
   align-items: center;
 }
 
-.Text {
+.Text-#{$theme} {
   grid-area: text;
   font-size: 0.75rem;
   line-height: 1.5rem;

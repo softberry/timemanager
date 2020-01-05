@@ -1,45 +1,46 @@
-.List {
+.List-#{$theme} {
   height: 100%;
-  &Title {
+  &-Title {
     display: flex;
 
-    &Text {
+    &-Text {
       flex-grow: 1;
       font-weight: $font-weight-bold;
       text-transform: capitalize;
     }
-    &AddIcon {
+    &-AddIcon {
       border: 1px solid;
     }
   }
 
-  &Item {
-    display: grid;
-    grid-template-areas: "list-item-contact";
-    grid-template-columns: auto;
-    padding: 2px 0;
-    background-color: rgba(#fff, 0.75);
-    margin-bottom: 0;
-    box-shadow: 1px 1px 1px 0px darken($secondary-layer-bg-color, 24%);
+}
 
-    &Contact,
-    &Duration {
-      line-height: 2;
-      padding: 0 1rem;
-      box-sizing: border-box;
-    }
+.ListItem-#{$theme} {
+  display: grid;
+  grid-template-areas: "list-item-contact";
+  grid-template-columns: auto;
+  padding: 2px 0;
+  background-color: rgba(#fff, 0.75);
+  margin-bottom: 0;
+  box-shadow: 1px 1px 1px 0px darken($secondary-layer-bg-color, 24%);
 
-    &Contact {
-      grid-area: list-item-contact;
-      overflow: hidden;
-      position: relative;
-      padding: 0 1rem;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
+  &-Contact,
+  &-Duration {
+    line-height: 2;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
 
-    &Duration {
-      grid-area: list-item-duration;
-    }
+  &-Contact {
+    grid-area: list-item-contact;
+    overflow: hidden;
+    position: relative;
+    padding: 0 1rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &-Duration {
+    grid-area: list-item-duration;
   }
 }

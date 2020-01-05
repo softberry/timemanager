@@ -7,18 +7,26 @@ export default function Counter({
   minute,
   second,
   counting = false,
-  styles
+  styles,
+  theme
 }: ICounterDiffTime) {
-  const beatClass = [styles.Beats];
-  counting && beatClass.push(styles.beat);
+  const beatClass = [styles[`Beats-${theme}`]];
+  counting && beatClass.push(styles[`beats-${theme}`]);
   const containerOpacity = { opacity: counting ? 1 : 0.05 };
+
   return (
-    <div className={styles.Container} style={containerOpacity}>
-      <span className={styles.Hour}>{twoDigit(hour.toString())}</span>
+    <div className={styles[`Counter-${theme}`]} style={containerOpacity}>
+      <span className={styles[`Hour-${theme}`]}>
+        {twoDigit(hour.toString())}
+      </span>
       <span className={beatClass.join(" ")}>:</span>
-      <span className={styles.Minute}>{twoDigit(minute.toString())}</span>
+      <span className={styles[`Minute-${theme}`]}>
+        {twoDigit(minute.toString())}
+      </span>
       {counting && (
-        <span className={styles.Second}>{twoDigit(second.toString())}</span>
+        <span className={styles[`Second-${theme}`]}>
+          {twoDigit(second.toString())}
+        </span>
       )}
     </div>
   );

@@ -1,4 +1,7 @@
 .MultipleInputContainer {
-  border: 1px solid;
-  margin: 2px;
+  &-#{$theme} {
+    border: 1px solid;
+    margin: 2px;
+  }
+  
 }

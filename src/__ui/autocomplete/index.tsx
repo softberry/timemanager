@@ -14,25 +14,26 @@ import themeOcean from "./theme-ocean.module.scss";
 export default function AutoComplete({
   variant = VDESIGN.DESIGN_VIEW_PRIMARY
 }: any) {
-  const InputItemClassName: any = {
-    primary: "AutoCompletePrimaryInput",
-    secondary: "AutoCompleteSecondaryInput"
-  };
+  let theme: string = VDESIGN.DESIGN_THEME_DEFAULT;
 
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
+        return themeOcean;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
+  
   return (
-    <div className={styles.AutoComplete}>
-      <input className={styles[InputItemClassName[variant]]} />
-      <div className={styles[`${InputItemClassName[variant]}SearchIcon`]}>
+    <div className={styles[`AutoComplete-${theme}`]}>
+      <input className={styles[`AutoComplete-${theme}-${variant}-input`]} />
+      <div className={styles[`AutoComplete-${theme}-${variant}-inputSearchIcon`]}>
         <Icon>search</Icon>
       </div>
     </div>

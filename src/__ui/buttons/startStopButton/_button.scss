@@ -1,6 +1,5 @@
-.Button {
-  // box-sizing: content-box;
-  border: transparent 0.75em ridge;
+.Button-#{$theme} {
+    border: transparent 0.75em ridge;
   width: 7.5rem;
   height: 7.5rem;
   border-radius: 50%;
@@ -13,9 +12,11 @@
   font-size: 1.25rem;
   transition: all 300ms;
   margin: 1rem;
-}
+  }
 
-.TimerAnimation {
+
+.TimerAnimation-#{$theme} {
+
   position: absolute;
   width: 100%;
   height: 100%;
@@ -30,7 +31,6 @@
     content: "brightness_7";
     transform: translate(-30%, 40%);
     position: absolute;
-    // 450%, -30%,40% - 300% 73%, 22%
   }
   &:after {
     @include materialIcon(300%);
@@ -50,14 +50,16 @@
       animation: activeGearSmall 1s linear infinite;
     }
   }
-}
-
-.active {
-  box-shadow: lighten($primary-layer-bg-color, 10%) 0 0 0.25em 4px,
+  }
+  
+  .active-#{$theme} {
+    box-shadow: lighten($primary-layer-bg-color, 10%) 0 0 0.25em 4px,
     inset darken($primary-layer-bg-color, 50%) 0 0 0.25em 4px;
-}
+  }
+  
 
-.CountDown {
+
+.CountDown-#{$theme} {
   display: block;
   position: absolute;
   left: 0%;
@@ -69,9 +71,10 @@
   font-size: 6em;
   font-weight: $font-weight-bold;
   animation: ct 1s linear infinite;
+  
 }
 
-.PressAndHoldInfo {
+.PressAndHoldInfo-#{$theme} {
   position: absolute;
   top: 2rem;
   transform: translateY(100%);
@@ -83,7 +86,6 @@
   width: 100%;
   text-align: center;
 }
-
 @keyframes ct {
   0% {
     opacity: 0;
@@ -116,3 +118,4 @@
     transform: translate(73%, 22%) rotate(-360deg);
   }
 }
+

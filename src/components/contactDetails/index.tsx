@@ -63,19 +63,23 @@ export default function ContactDetails({
   const [isNewContact, setIsNewContact] = useState(false);
   const dispatch = useDispatch();
 
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
 
   const nSQL = useSelector((state: any) => state.db.nSQL);
-  const viewClass = styles[`ContactDetails-${view}`];
+  const viewClass = styles[`ContactDetails-${theme}-${view}`];
 
   useEffect(() => {
     if (typeof nSQL !== "function") return;
@@ -101,6 +105,8 @@ export default function ContactDetails({
       setFullName(`${shortName}. ${contact.surname}`);
     }
   }, [setFullName, setIsNewContact, fullName, contact, type]);
+  
+  
 
   if (isReadOnly) {
     return (
@@ -114,6 +120,7 @@ export default function ContactDetails({
   const EditableDetailTitle = isNewContact
     ? "Create New Contact"
     : "Edit Contact Deatils";
+  
   return (
     <div className={viewClass}>
       <h1>{EditableDetailTitle}</h1>

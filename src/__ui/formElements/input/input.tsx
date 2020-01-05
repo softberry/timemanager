@@ -11,18 +11,27 @@ import { VDESIGN } from "../../../store/constant-enums";
  */
 export default function Input({ id, name, value }: IInputComponentProps) {
   const [val, setVal] = useState<string>(value);
-  const type = getTypeFromFieldName(name);
+  const type = getTypeFromFieldName(name); // input type (text, tel, mail etc...)
+
+  const TYPE_PLACEHOLDER = "TYPE_PLACEHOLDER";
+  const TYPE_LABEL = "TYPE_PLACEHOLDER";
+
   const [labelPosition, setLabelPosition] = useState(
-    val === "" ? "PLACEHOLDER" : "LABEL"
+    val === "" ? TYPE_PLACEHOLDER : TYPE_LABEL
   );
+
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
 
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
@@ -31,29 +40,33 @@ export default function Input({ id, name, value }: IInputComponentProps) {
     const val: string = e.target.value;
     setVal(val);
     `${val}`.length === 0
-      ? setLabelPosition("PLACEHOLDER")
-      : setLabelPosition("LABEL");
+      ? setLabelPosition(`${TYPE_PLACEHOLDER}-${theme}`)
+      : setLabelPosition(`${TYPE_LABEL}-${theme}`);
   }
 
   function handleOnFocus(e: React.FocusEvent<HTMLInputElement>) {
     `${e.target.value}`.length === 0
-      ? setLabelPosition("PLACEHOLDER")
-      : setLabelPosition("LABEL");
+      ? setLabelPosition(`${TYPE_PLACEHOLDER}-${theme}`)
+      : setLabelPosition(`${TYPE_LABEL}-${theme}`);
   }
   function handleOnBlur(e: React.FocusEvent<HTMLInputElement>) {
     `${e.target.value}`.length === 0
-      ? setLabelPosition("PLACEHOLDER")
-      : setLabelPosition("LABEL");
+      ? setLabelPosition(`${TYPE_PLACEHOLDER}-${theme}`)
+      : setLabelPosition(`${TYPE_LABEL}-${theme}`);
   }
 
   if (val === null) return <></>;
   return (
-    <div className={styles.Input}>
-      <label htmlFor={id} className={styles[labelPosition]}>
+    <div className={styles[`Input-${theme}`]}>
+      <label
+        htmlFor={id}
+        className={`${styles[labelPosition]} ${styles[`label-${theme}`]}`}
+      >
         {name}
       </label>
       <input
         id={id}
+        className={`${styles[`input-${theme}`]}`}
         type={type}
         value={val}
         onChange={handleOnChange}

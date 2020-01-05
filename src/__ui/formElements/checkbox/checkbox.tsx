@@ -17,13 +17,17 @@ export default function Checkbox({
   if (typeof onChange !== "function") {
     console.error("Checkbox component must have onChange function.");
   }
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
@@ -39,14 +43,19 @@ export default function Checkbox({
 
   return (
     <>
-      <div className={styles.Checkbox} onClick={checkOnChangeHandler}>
+      <div
+        className={styles[`Checkbox-${theme}`]}
+        onClick={checkOnChangeHandler}
+      >
         <div
           className={
-            isChecked ? styles.CheckboxIconSelected : styles.CheckboxIcon
+            isChecked
+              ? styles[`Checkbox-${theme}-IconSelected`]
+              : styles[`Checkbox-${theme}-Icon`]
           }
         ></div>
-        <div className={styles.CheckboxLabel}>{label}</div>
-        <div className={styles.CheckboxContent}>{children}</div>
+        <div className={styles[`Checkbox-${theme}-Label`]}>{label}</div>
+        <div className={styles[`Checkbox-${theme}-Content`]}>{children}</div>
       </div>
     </>
   );

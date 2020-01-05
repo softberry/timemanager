@@ -1,8 +1,8 @@
 @mixin settings() {
-  @include view;
+  @include view();
 }
 
-.Settings {
+.Settings-#{$theme} {
   &-primary {
     @include layer-bg("primary");
     @include layer-color("primary");

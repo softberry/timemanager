@@ -18,19 +18,23 @@ function AllInputs({ id, name, value = [] }: IMultiInputProps): any {
 }
 
 export default function MultipleInput(props: IMultiInputProps): any {
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
 
   return (
-    <div className={styles.MultipleInputContainer}>
+    <div className={styles[`MultipleInputContainer-${theme}`]}>
       <AllInputs {...props} />
     </div>
   );

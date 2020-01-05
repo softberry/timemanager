@@ -15,13 +15,18 @@ export default function ConfirmDeleteContact({
 }: IConfirmDeleteContact) {
   const dispatch = useDispatch();
   const history = useHistory();
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
+
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
@@ -100,7 +105,7 @@ export default function ConfirmDeleteContact({
           ></Checkbox>
         </>
       )}
-      <div className={styles.Footer}>
+      <div className={styles[`Footer-${theme}`]}>
         <button onClick={onDeleteButtonSubmit.bind({}, nSQL, contact.id)}>
           Delete
         </button>

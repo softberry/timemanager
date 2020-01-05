@@ -10,13 +10,13 @@ function Typography({ theme = "default", children }: ITypographyProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(currentTheme);
+    // console.log(currentTheme);
     //TODO: theme should be apllied too!!!!
   }, [currentTheme]);
 
   const webFontsConfig = {
     google: {
-      families: ["Allerta Stencil:400", "Exo:300,600"]
+      families: ["Allerta Stencil:400", "Exo:300,600", "Dosis", "Audiowide"]
     },
     custom: {
       families: ["Material+Icons"],

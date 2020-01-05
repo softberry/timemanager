@@ -8,18 +8,22 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
 export default function Settings({ view }: IDesignModel) {
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
 
-  const viewClass = styles[`Settings-${view}`];
+  const viewClass = styles[`Settings-${theme}-${view}`];
   const dispatch = useDispatch();
   const currentTheme = useSelector((state: any) => state.design.theme);
   return (

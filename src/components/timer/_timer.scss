@@ -11,7 +11,7 @@
   overflow: hidden;
 }
 
-.Timer {
+.Timer-#{$theme} {
   &-primary {
     @include layer-bg("primary");
     @include layer-color("primary");
@@ -26,7 +26,7 @@
 }
 
 
-.Container {
+.Counter-#{$theme} {
   font-size: 5rem;
   font-family: $font-numbers;
   opacity: 0.5;
@@ -44,29 +44,31 @@
   }
 }
 
-.Hour {
+.Hour-#{$theme} {
   display: inline-block;
   text-align: right;
   flex-basis: calc(50% - 1rem);
 }
-.Minute {
+
+.Minute-#{$theme} {
   display: inline-block;
   text-align: left;
   flex-basis: calc(50% - 1rem);
 }
 
-.Second {
+.Second-#{$theme} {
   font-size: 1rem;
   position: absolute;
   
 }
-.Beats {
+
+.Beats-#{$theme} {
   display: inline-block;
   text-align: center;
   line-height: 1;
 }
 
-.beat {
+.beat-#{$theme} {
   animation: bt 1s linear infinite;
 }
 @keyframes bt {

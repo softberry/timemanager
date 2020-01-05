@@ -1,4 +1,6 @@
 .Footer {
-  display: flex;
-  justify-content: flex-end;
+  &-#{$theme}{
+    display: flex;
+    justify-content: flex-end;
+  }
 }

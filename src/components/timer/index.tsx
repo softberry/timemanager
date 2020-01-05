@@ -63,13 +63,17 @@ export default function Timer({ view = "primary" }: IDesignModel): JSX.Element {
 
   const nSQL = useSelector((state: any) => state.db.nSQL);
 
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
@@ -114,11 +118,11 @@ export default function Timer({ view = "primary" }: IDesignModel): JSX.Element {
     };
   }, [timer.active, timer.start, timer.diff, nSQL]);
 
-  const timerClassName = styles[`Timer-${view}`];
+  const timerClassName = styles[`Timer-${theme}-${view}`];
   if (timer.active) {
     return (
       <div className={timerClassName}>
-        <Counter {...timer.diff} counting={true} styles={styles} />
+        <Counter {...timer.diff} counting={true} styles={styles} theme={theme} />
         <StartStopButton
           buttonLabel={{ inactive: "STOP", active: "WAIT" }}
           onComplete={() => {
@@ -142,9 +146,10 @@ export default function Timer({ view = "primary" }: IDesignModel): JSX.Element {
       </div>
     );
   }
+
   return (
     <div className={timerClassName}>
-      <Counter {...timer.diff} counting={false} styles={styles} />
+      <Counter {...timer.diff} counting={false} styles={styles} theme={theme} />
       <StartStopButton
         buttonLabel={{ inactive: "START", active: "WAIT" }}
         onComplete={() => {

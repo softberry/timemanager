@@ -6,21 +6,25 @@ import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../store/constant-enums";
 
 export default function Cart({ state }: any) {
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
 
   const css: any = {
-    hidden: `${styles.Cart}`,
-    inline: `${styles.Cart} ${styles.CartInline}`,
-    full: `${styles.Cart} ${styles.CartFull}`
+    hidden: styles[`Cart-${theme}`],
+    inline: `${styles[`Cart-${theme}`]} ${styles[`Cart-${theme}-Inline`]}`,
+    full: `${styles[`Cart-${theme}`]} ${styles[`Cart-${theme}-CartFull`]}`
   };
   const [position, setPosition] = useState<string>(css.hidden);
 
@@ -36,7 +40,7 @@ export default function Cart({ state }: any) {
 
   return (
     <div className={css[position]}>
-      <div className={styles.CartDatePickerWrapper}>
+      <div className={styles[`Cart-${theme}-DatePickerWrapper`]}>
         <EventsCalendar />
       </div>
     </div>

@@ -1,4 +1,4 @@
-.Nav {
+.Nav-#{$theme} {
   @include layer-bg("primary");
   @include layer-color("primary");
   @include zIndex("nav");
@@ -12,17 +12,22 @@
 .HistoryNav,
 .ToolsNav,
 .SearchNav {
-  display: flex;
+  &-#{$theme} { 
+    display: flex;
+  }
+  
 }
-.ToolsNav {
+
+.ToolsNav-#{$theme} {
   grid-area: toolsbar;
 }
-.HistoryNav {
+
+.HistoryNav-#{$theme} {
   grid-area: history;
   display: flex;
   align-items: center;
 
-  &Arrow {
+  &-Arrow {
     @include nav-button();
     border: none;
     padding: 0;
@@ -32,6 +37,6 @@
   }
 }
 
-.SearchNav {
+.SearchNav-#{$theme} {
   grid-area: suggestion;
 }

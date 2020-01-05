@@ -3,9 +3,11 @@ import Typography from "./__ui/typography";
 import NanoDataBase from "./db";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
 import { createStore } from "redux";
-import { Provider } from "react-redux";
+import { Provider, useSelector, useDispatch } from "react-redux";
 
 import rootReducer from "./store/reducers";
+import { DESIGN } from "./store/action-types";
+import { VDESIGN, USERSETTINGS } from "./store/constant-enums";
 
 import "./index.scss";
 
@@ -22,6 +24,17 @@ function Page() {
   document.oncontextmenu = function() {
     return false;
   };
+  const theme = useSelector((state: any) => state.design.theme);
+  const savedTheme =
+    window.localStorage.getItem(USERSETTINGS.USERSETTINGS_SELECTED_THEME) ||
+    VDESIGN.DESIGN_THEME_DEFAULT;
+  const dispatch = useDispatch();
+  if (theme !== savedTheme) {
+    dispatch({
+      type: DESIGN.DESIGN_THEME,
+      theme: savedTheme
+    });
+  }
 
   return (
     <Router>

@@ -12,18 +12,21 @@ export default function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const [ready, setReady] = useState(false);
   const [contacts, setContacts] = useState([]);
-
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
-  const viewClass = styles[`Contacts-${view}`];
+  const viewClass = styles[`Contacts-${theme}-${view}`];
 
   useEffect(() => {
     if (typeof nSQL !== "function") return;
@@ -44,7 +47,7 @@ export default function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   }, [ready]);
 
   useDispatch()({ type: TYPES.TOOLBAR_CONTACTS });
-
+  
   return (
     <div className={viewClass}>
       <List title="Contacts" list={contacts} type="CONTACTS_LIST" />

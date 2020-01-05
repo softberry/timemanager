@@ -1,7 +1,7 @@
-.Toolbar {
+.Toolbar-#{$theme} {
   display: flex;
 }
 
-.Button {
+.Button-#{$theme} {
   @include nav-button();
 }

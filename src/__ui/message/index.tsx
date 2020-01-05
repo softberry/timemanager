@@ -33,14 +33,17 @@ export default function Message() {
   const messages: IMessage[] = useSelector(
     ({ messages }: any) => messages.messages
   );
-
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
@@ -68,7 +71,7 @@ export default function Message() {
       return (
         <div
           key={index}
-          className={styles[`Dialog__${type}`]}
+          className={styles[`Dialog-${theme}__${type}`]}
           style={{
             marginLeft: `${index * 0.5}rem`,
             marginTop: `${index * 0.5}rem`
@@ -76,19 +79,19 @@ export default function Message() {
         >
           {closable && (
             <div
-              className={styles.Close}
+              className={styles[`Close-${theme}`]}
               onClick={hideMessage.bind({ dialogId })}
             >
               <Icon>close</Icon>
             </div>
           )}
-          <div className={styles.Icon}>
+          <div className={styles[`Icon-${theme}`]}>
             <Icon>{icon}</Icon>
           </div>
 
-          <div className={styles.Caption}>{caption}</div>
+          <div className={styles[`Caption-${theme}`]}>{caption}</div>
 
-          <div className={styles.Text}>
+          <div className={styles[`Text-${theme}`]}>
             <div>
               <DialogBody type={type} props={{ ...body, dialogId }} />
             </div>
@@ -97,5 +100,5 @@ export default function Message() {
       );
     }
   );
-  return <div className={styles.Message}>{dialogContent}</div>;
+  return <div className={styles[`Message-${theme}`]}>{dialogContent}</div>;
 }

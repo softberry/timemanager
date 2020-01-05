@@ -10,20 +10,24 @@ export default function StartStopButton({
   waitForSeconds = 3,
   buttonLabel = { active: "WAIT", inactive: "START" }
 }: IStartStopButtonProps) {
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
+        return themeOcean;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
   const [active, setActive] = useState(false);
   const [countdown, setCountDown] = useState(0);
 
-  const [turnWheel, setTurnWheel] = useState(styles.TimerAnimation);
+  const [turnWheel, setTurnWheel] = useState(styles[`TimerAnimation-${theme}`]);
   let strCountDown: string = !active
     ? ""
     : (waitForSeconds - countdown).toString();
@@ -46,9 +50,12 @@ export default function StartStopButton({
         clearInterval(intervalId);
         setActive(false);
         if (buttonLabel.inactive === "START") {
-          setTurnWheel(`${styles.TimerAnimation} ${styles.TimerAnimationOn}`);
+          setTurnWheel(
+            `${styles[`TimerAnimation-${theme}`]} 
+            ${styles[`TimerAnimationOn-${theme}`]}`
+          );
         } else {
-          setTurnWheel(`${styles.TimerAnimation}`);
+          setTurnWheel(`${styles[`TimerAnimation-${theme}`]}`);
         }
       }
     }
@@ -65,32 +72,37 @@ export default function StartStopButton({
     waitForSeconds,
     turnWheel,
     buttonLabel.inactive,
-    styles.TimerAnimation,
-    styles.TimerAnimationOn
+    styles,
+    theme
   ]);
 
   const stateClass = !active
-    ? styles.Button
-    : [styles.Button, styles.active].join(" ");
+    ? styles[`Button-${theme}`]
+    : [styles[`Button-${theme}`], styles[`active-${theme}`]].join(" ");
+  
   return (
     <div
       className={styles.ButtonWrapper}
-      onMouseDown={e => {
+      onMouseDown={() => {
         setActive(true);
       }}
-      onMouseUp={e => {
+      onMouseUp={() => {
         setActive(false);
       }}
-      onTouchStart={e => {
+      onTouchStart={() => {
         setActive(true);
       }}
-      onTouchEnd={e => {
+      onTouchEnd={() => {
         setActive(false);
       }}
     >
-      {active && <div className={styles.PressAndHoldInfo}>{infoText}</div>}
+      {active && (
+        <div className={styles[`PressAndHoldInfo-${theme}`]}>{infoText}</div>
+      )}
       <div className={stateClass}>
-        {active && <div className={styles.CountDown}>{strCountDown}</div>}
+        {active && (
+          <div className={styles[`CountDown-${theme}`]}>{strCountDown}</div>
+        )}
         <div className={turnWheel}></div>
       </div>
     </div>

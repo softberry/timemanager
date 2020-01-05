@@ -16,13 +16,17 @@ export default function Radio({
   checked = false,
   value
 }: IRadioItemProps) {
+  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
   const styles = useSelector((state: any) => {
     switch (state.design.theme) {
       case VDESIGN.DESIGN_THEME_OCEAN:
+        theme = VDESIGN.DESIGN_THEME_OCEAN;
         return themeOcean;
       case VDESIGN.DESIGN_THEME_DEFAULT:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
       default:
+        theme = VDESIGN.DESIGN_THEME_DEFAULT;
         return themeDefault;
     }
   });
@@ -30,15 +34,19 @@ export default function Radio({
   return (
     <>
       <div
-        className={styles.Radio}
+        className={styles[`Radio-${theme}`]}
         onClick={() => onChange(value)}
         data-value={value}
       >
         <div
-          className={checked ? styles.RadioIconSelected : styles.RadioIcon}
+          className={
+            checked
+              ? styles[`Radio-${theme}-IconSelected`]
+              : styles[`Radio-${theme}-Icon`]
+          }
         ></div>
-        <div className={styles.RadioLabel}>{label}</div>
-        <div className={styles.RadioContent}>{children}</div>
+        <div className={styles[`Radio-${theme}-Label`]}>{label}</div>
+        <div className={styles[`Radio-${theme}-Content`]}>{children}</div>
       </div>
     </>
   );

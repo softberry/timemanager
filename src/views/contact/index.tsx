@@ -1,9 +1,4 @@
-import React, {
-  FunctionComponent,
-  useEffect,
-  useState,
-  ReactNode
-} from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TYPES from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
@@ -16,12 +11,8 @@ import ContactDetails from "../../components/contactDetails";
  * Renders editable form from given values in given table
  * @param {Object} props
  */
-type ContactViewProps = {
-  match?: any;
-  children?: ReactNode;
-};
-// const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps)
-const ContactView: FunctionComponent = ({ match }: ContactViewProps) => {
+
+function ContactView({ match }: IContactViewProps) {
   const [table, setTable] = useState<IContactsTableModel>({
     id: "",
     surname: ""
@@ -59,7 +50,6 @@ const ContactView: FunctionComponent = ({ match }: ContactViewProps) => {
       return;
     }
   }, [queryState]);
-  // {props.match.params.type}:{props.match.params.id}
 
   return (
     <DefaultLayout>
@@ -72,6 +62,6 @@ const ContactView: FunctionComponent = ({ match }: ContactViewProps) => {
       )}
     </DefaultLayout>
   );
-};
+}
 
 export default ContactView;

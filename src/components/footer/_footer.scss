@@ -1,8 +1,8 @@
-.Footer {
+.Footer-#{$theme} {
   @include layer-bg("secondary");
   @include layer-color("secondary");
   @include zIndex("footer");
-  box-shadow: -2px 0 4px 2px darken($primary-layer-color, 20);
+  box-shadow: -2px 0 4px 2px lighten($primary-layer-color, 30);
   grid-area: ui-components-footer;
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@
     border: 1px solid rgba(0,0,0,.2);
   }
 
-  &Button {
+  &-Button {
     width: 10%;
     text-align: center;
     &:active {
@@ -27,7 +27,7 @@
       color: lighten($primary-layer-color, 10);
       border-radius: 4px;
     }
-    &ActiveLink {
+    &-ActiveLink {
       background-color: darken($primary-layer-color, 10);
       color: lighten($primary-layer-color, 10);
       border-radius: 4px;

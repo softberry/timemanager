@@ -5,8 +5,12 @@ const VDESIGN = {
   DESIGN_VIEW_SECONDARY: "secondary"
 };
 
+const USERSETTINGS = {
+  USERSETTINGS_SELECTED_THEME: "USERSETTINGS_SELECTED_THEME"
+};
 const VALUES = {
-  ...VDESIGN
+  ...VDESIGN,
+  ...USERSETTINGS
 };
 
-export { VALUES as default, VDESIGN };
+export { VALUES as default, VDESIGN, USERSETTINGS };

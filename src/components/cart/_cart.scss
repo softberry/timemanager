@@ -1,4 +1,5 @@
-.Cart {
+.Cart-#{$theme} {
+  @include view();
   position: fixed;
   width: 100%;
   height: 100%;
@@ -22,7 +23,7 @@
     z-index: -1;
   }
 
-  &DatePickerWrapper {
+  &-DatePickerWrapper {
     position: relative;
     left: 0;
     top: 0;
@@ -33,10 +34,10 @@
     padding: 1rem;
   }
 
-  &Inline {
+  &-Inline {
     @include zIndex("cart-inline");
   }
-  &Full {
+  &-Full {
     @include zIndex("cart-full");
   }
 }
