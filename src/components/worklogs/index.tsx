@@ -9,6 +9,7 @@ import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 
 interface IWorkListItemEntry {
+  //TODO: move this to interfaces.d.ts when this componenet completed
   name: string;
   labour: [{}];
   materials: [{}];

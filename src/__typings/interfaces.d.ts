@@ -18,10 +18,10 @@ interface IContactDetailsComponent extends IDesignModel {
   contact: IContactsTableModel;
 }
 
-interface IContactViewProps  {
+interface IContactViewProps {
   match?: any;
   children?: ReactNode;
-};
+}
 
 interface ICheckBoxComponentProps {
   children?: any;
@@ -70,6 +70,10 @@ interface IMessage {
   closable?: boolean;
   dialogId: any;
   key: any;
+}
+interface IDialogBodyProp {
+  type: string;
+  props: any;
 }
 
 interface IConfirmDeleteContact extends IMessage {

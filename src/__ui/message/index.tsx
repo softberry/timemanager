@@ -9,15 +9,11 @@ import { VDESIGN } from "../../store/constant-enums";
 
 import TYPES from "../../store/action-types";
 
-type DialogBodyProp = {
-  type: string;
-  props: any;
-};
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function DialogBody({ type, props }: DialogBodyProp) {
+function DialogBody({ type, props }: IDialogBodyProp) {
   switch (type) {
     case TYPES.CONFIRM_DELETE_CONTACT:
       return (

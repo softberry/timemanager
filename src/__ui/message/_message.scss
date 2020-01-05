@@ -21,6 +21,8 @@
 
 .Message-#{$theme} {
   @include zIndex("message");
+  font-family: $font-default;
+  font-size: 1rem;
   position: fixed;
   left: 0;
   top: 0;
