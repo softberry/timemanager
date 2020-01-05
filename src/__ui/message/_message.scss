@@ -1,4 +1,4 @@
-@mixin dialog($bgColor,$color) {
+@mixin dialog($bgColor, $color) {
   position: absolute;
   display: grid;
   grid-template-areas:
@@ -10,15 +10,14 @@
   padding: 0.5rem 1rem;
   width: 90vw;
   max-width: 400px;
-  background-color:lighten($bgColor,10);
-  color:lighten($color,10);
+  background-color: lighten($bgColor, 10);
+  color: lighten($color, 10);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0 0 4px 1px;
   border-radius: 3px;
 }
-
 
 .Message-#{$theme} {
   @include zIndex("message");
@@ -32,19 +31,17 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-
 .Dialog-#{$theme} {
   &__MESSAGES_INFO,
   &__MESSAGES_WARNING,
   &__MESSAGES_ERROR,
   &__CONFIRM_DELETE_CONTACT {
-    &--primary{
-      @include dialog($primary-layer-bg-color,$primary-layer-color);
+    &--primary {
+      @include dialog($primary-layer-bg-color, $primary-layer-color);
     }
-    &--secondary{
-      @include dialog($secondary-layer-bg-color,$secondary-layer-color);
+    &--secondary {
+      @include dialog($secondary-layer-bg-color, $secondary-layer-color);
     }
-    
   }
 }
 
@@ -76,4 +73,3 @@
   max-height: 8rem;
   padding-top: 0.5rem;
 }
-

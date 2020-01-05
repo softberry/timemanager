@@ -4,26 +4,18 @@
   &[type="phone"],
   &[type="mail"],
   &[type="number"] {
-    padding: 1.5rem;
+    padding: 1rem;
     width: 100%;
     height: 100%;
     font-family: $font-default;
     font-size: $font-size;
-
-      background-color: rgba(0, 0, 0, 0); //FIXME: conver to variable 
-
+    background-color:  $bg;
       &::selection {
-
         background-color: $primary-selected-text;
-
       }
-  
       &:focus,
-  
       &:active {
-  
-        background-color: rgba(0, 0, 0, 0.1);//FIXME: conver to variable 
-  
+        background-color:$bg-active
       }
 }
 
