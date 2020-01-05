@@ -1,4 +1,3 @@
-
 @mixin layer-bg($type) {
   @if $type == "primary" {
     background-color: map-get($primary-layer, "background");
@@ -43,7 +42,7 @@
     "nav": 1000,
     "footer": 1000,
     "cart-full": 1100,
-    "message":2000
+    "message": 2000
   );
   z-index: map-get($indexList, $item);
 }
@@ -117,4 +116,3 @@
     }
   }
 }
-

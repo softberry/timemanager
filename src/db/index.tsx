@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import TYPES from"../store/action-types";
+import TYPES from "../store/action-types";
 import Loading from "../components/loading";
 import { nSQL } from "@nano-sql/core";
 

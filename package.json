@@ -63,7 +63,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "prettify:check"
+      "pre-commit": "yarn prettify:check"
     }
   }
 }

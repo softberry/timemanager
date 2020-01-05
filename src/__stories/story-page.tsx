@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import '@csstools/normalize.css';
+import "@csstools/normalize.css";
 
 import "../index.scss";
 
@@ -13,7 +13,7 @@ import styles from "./default.module.scss";
 
 const store = createStore(rootReducer);
 
-export default function StoryPage({ children, viewType = "PrimaryView" }:any) {
+export default function StoryPage({ children, viewType = "PrimaryView" }: any) {
   return (
     <Provider store={store}>
       <Typography />

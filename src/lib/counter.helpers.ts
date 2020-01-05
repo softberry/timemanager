@@ -8,7 +8,7 @@ function twoDigit(n = "0") {
   return `0${input}`.slice(-2);
 }
 
-function timeDiff(start: number, end = Date.now()):ICounterDiffTime {
+function timeDiff(start: number, end = Date.now()): ICounterDiffTime {
   let diff = end - start;
 
   const [s, m, h] = [1000, 60 * 1000, 60 * 60 * 1000];
