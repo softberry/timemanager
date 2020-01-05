@@ -7,25 +7,19 @@ import TYPES from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
+
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 export default function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const [ready, setReady] = useState(false);
   const [contacts, setContacts] = useState([]);
-  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_OCEAN;
-        return themeOcean;
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+
   const viewClass = styles[`Contacts-${theme}-${view}`];
 
   useEffect(() => {
@@ -47,7 +41,7 @@ export default function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   }, [ready]);
 
   useDispatch()({ type: TYPES.TOOLBAR_CONTACTS });
-  
+
   return (
     <div className={viewClass}>
       <List title="Contacts" list={contacts} type="CONTACTS_LIST" />

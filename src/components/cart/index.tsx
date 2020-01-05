@@ -3,23 +3,16 @@ import EventsCalendar from "../../__ui/eventsCalendar";
 import { useSelector } from "react-redux";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+
 export default function Cart({ state }: any) {
-  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeOcean;
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
 
   const css: any = {
     hidden: styles[`Cart-${theme}`],

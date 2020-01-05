@@ -1,9 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import Icon from "@material-ui/core/Icon";
 import { VDESIGN } from "../../store/constant-enums";
+
+import { useTheme, useThemeStyle } from "../../__ui/typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 /**
  * Autocomplete component for search everywhere
@@ -14,26 +19,15 @@ import themeOcean from "./theme-ocean.module.scss";
 export default function AutoComplete({
   variant = VDESIGN.DESIGN_VIEW_PRIMARY
 }: any) {
-  let theme: string = VDESIGN.DESIGN_THEME_DEFAULT;
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
 
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_OCEAN;
-        return themeOcean;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
-  
   return (
     <div className={styles[`AutoComplete-${theme}`]}>
       <input className={styles[`AutoComplete-${theme}-${variant}-input`]} />
-      <div className={styles[`AutoComplete-${theme}-${variant}-inputSearchIcon`]}>
+      <div
+        className={styles[`AutoComplete-${theme}-${variant}-inputSearchIcon`]}
+      >
         <Icon>search</Icon>
       </div>
     </div>

@@ -1,27 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "@material-ui/core/Icon";
-import { useSelector } from "react-redux";
+
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 
-export default function Footer() {
-  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_OCEAN;
-        return themeOcean;
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
+export default function Footer() {
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
 
   return (
     <section className={styles[`Footer-${theme}`]}>

@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Radio from "./radio";
-import { useSelector } from "react-redux";
+
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+import { useThemeStyle } from "../../typography";
 import { VDESIGN } from "../../../store/constant-enums";
+
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 /**
  * Radio Component
@@ -16,16 +21,7 @@ export default function RadioGroup({ children, onChange }: IRadioGroupProps) {
   const [initialised, setInitialised] = useState(false);
   const [isValid, setIsValid] = useState("__INITIAL__");
 
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        return themeOcean;
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        return themeDefault;
-      default:
-        return themeDefault;
-    }
-  });
+  const styles = useThemeStyle(stylesMap);
 
   const radioGroupOnChangeCallback = useCallback(() => {
     if (typeof onChange === "function") {

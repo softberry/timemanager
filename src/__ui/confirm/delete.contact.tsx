@@ -2,34 +2,27 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../store/constant-enums";
 
 import TYPES from "../../store/action-types";
-
 import { Checkbox } from "../formElements";
+
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+
 export default function ConfirmDeleteContact({
   contact,
   dialogId
 }: IConfirmDeleteContact) {
   const dispatch = useDispatch();
   const history = useHistory();
-  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
 
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_OCEAN;
-        return themeOcean;
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
 
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const [worklogsCount, setWorklogsCount] = useState(-1);

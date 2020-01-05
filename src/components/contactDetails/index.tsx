@@ -7,7 +7,12 @@ import Worklogs from "../worklogs";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
+
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 function ReadOnlyDeatils({ contact }: any) {
   const { street, zip, city, tel, mobile } = contact;
@@ -63,20 +68,8 @@ export default function ContactDetails({
   const [isNewContact, setIsNewContact] = useState(false);
   const dispatch = useDispatch();
 
-  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_OCEAN;
-        return themeOcean;
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
 
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const viewClass = styles[`ContactDetails-${theme}-${view}`];
@@ -105,8 +98,6 @@ export default function ContactDetails({
       setFullName(`${shortName}. ${contact.surname}`);
     }
   }, [setFullName, setIsNewContact, fullName, contact, type]);
-  
-  
 
   if (isReadOnly) {
     return (
@@ -120,7 +111,7 @@ export default function ContactDetails({
   const EditableDetailTitle = isNewContact
     ? "Create New Contact"
     : "Edit Contact Deatils";
-  
+
   return (
     <div className={viewClass}>
       <h1>{EditableDetailTitle}</h1>

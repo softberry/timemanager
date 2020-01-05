@@ -5,6 +5,7 @@ import Input from "../../__ui/formElements";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 
 interface IWorkListItemEntry {
@@ -12,6 +13,10 @@ interface IWorkListItemEntry {
   labour: [{}];
   materials: [{}];
 }
+
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 function WorkListItem({ entry, theme, styles }: any) {
   const { name, labour, materials }: IWorkListItemEntry = entry;
@@ -103,20 +108,8 @@ export default function WorksLogs({ show, contact }: any) {
   const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
 
   const nSQL = useSelector((state: any) => state.db.nSQL);
-  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_OCEAN;
-        return themeOcean;
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
 
   useEffect(() => {
     if (typeof nSQL !== "function") return;

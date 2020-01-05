@@ -4,6 +4,7 @@ import Icon from "@material-ui/core/Icon";
 import ConfirmDeleteContact from "../confirm/delete.contact";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 
 import TYPES from "../../store/action-types";
@@ -12,6 +13,10 @@ type DialogBodyProp = {
   type: string;
   props: any;
 };
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+
 function DialogBody({ type, props }: DialogBodyProp) {
   switch (type) {
     case TYPES.CONFIRM_DELETE_CONTACT:
@@ -33,20 +38,8 @@ export default function Message() {
   const messages: IMessage[] = useSelector(
     ({ messages }: any) => messages.messages
   );
-  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_OCEAN;
-        return themeOcean;
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
 
   const dispatch = useDispatch();
   /**

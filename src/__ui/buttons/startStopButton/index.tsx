@@ -1,29 +1,22 @@
 import React, { useState, useEffect } from "react";
 
-import { useSelector } from "react-redux";
+import { VDESIGN } from "../../../store/constant-enums";
+import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
-import { VDESIGN } from "../../../store/constant-enums";
+
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 export default function StartStopButton({
   onComplete,
   waitForSeconds = 3,
   buttonLabel = { active: "WAIT", inactive: "START" }
 }: IStartStopButtonProps) {
-  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
-  const styles = useSelector((state: any) => {
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_OCEAN;
-        return themeOcean;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+
   const [active, setActive] = useState(false);
   const [countdown, setCountDown] = useState(0);
 
@@ -79,7 +72,7 @@ export default function StartStopButton({
   const stateClass = !active
     ? styles[`Button-${theme}`]
     : [styles[`Button-${theme}`], styles[`active-${theme}`]].join(" ");
-  
+
   return (
     <div
       className={styles.ButtonWrapper}

@@ -4,10 +4,14 @@ import Toolbar from "../toolbar";
 import Icon from "@material-ui/core/Icon";
 import { useHistory } from "react-router-dom";
 
-import { useSelector } from "react-redux";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
+
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 function NavBack({ index, goBack, theme, styles }: any) {
   const disabled = !!(index === 0);
@@ -37,22 +41,9 @@ function NavForward({ index, length, goForward, theme, styles }: any) {
 export default function Nav() {
   const history = useHistory();
 
-  let theme = VDESIGN.DESIGN_THEME_DEFAULT;
-  const styles = useSelector((state: any) => {
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
 
-    switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        theme = VDESIGN.DESIGN_THEME_OCEAN;
-        return themeOcean;
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-      default:
-        theme = VDESIGN.DESIGN_THEME_DEFAULT;
-        return themeDefault;
-    }
-  });
-  
   return (
     <nav className={styles[`Nav-${theme}`]}>
       <div className={styles[`HistoryNav-${theme}`]}>

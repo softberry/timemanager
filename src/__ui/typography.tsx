@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
 
 import TYPES from "../store/action-types";
+import { VDESIGN } from "../store/constant-enums";
 
 function Typography({ theme = "default", children }: ITypographyProps) {
   const currentTheme = useSelector((state: any) => state.design.theme);
@@ -56,4 +57,23 @@ function Typography({ theme = "default", children }: ITypographyProps) {
   return fontsReady === "LOADED" ? <>{children}</> : <div></div>;
 }
 
-export default Typography;
+function useTheme() {
+  const theme = useSelector((state: any) => {
+    switch (state.design.theme) {
+      case VDESIGN.DESIGN_THEME_DEFAULT:
+        return VDESIGN.DESIGN_THEME_DEFAULT;
+      case VDESIGN.DESIGN_THEME_OCEAN:
+        return VDESIGN.DESIGN_THEME_OCEAN;
+      default:
+        return VDESIGN.DESIGN_THEME_DEFAULT;
+    }
+  });
+  return theme;
+}
+
+function useThemeStyle(options: any) {
+  const theme = useTheme();
+  return options.get(theme);
+}
+
+export { Typography as default, useTheme, useThemeStyle };
