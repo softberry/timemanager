@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Icon from "@material-ui/core/Icon";
+import Icon from "../../__ui/icon";
 import ConfirmDeleteContact from "../confirm/delete.contact";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
