@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import EventsCalendar from "../../__ui/eventsCalendar";
+import EventsCalendar from "../eventsCalendar";
 import { useSelector } from "react-redux";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";

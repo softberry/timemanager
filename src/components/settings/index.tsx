@@ -25,7 +25,7 @@ export default function Settings({ view }: IDesignModel) {
         <h1>Settings</h1>
       </div>
       <div className={styles[`SettingsColLeft-${theme}`]}>
-        <div className={styles[`OptionListName-${theme}`]}>Theme</div>
+        <div className={styles[`OptionListName-${theme}-Active`]}>Theme</div>
         <div className={styles[`OptionListName-${theme}`]}>Time Settings</div>
         <div className={styles[`OptionListName-${theme}`]}>
           Material List Settings

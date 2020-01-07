@@ -44,8 +44,9 @@ export default function StartStopButton({
         setActive(false);
         if (buttonLabel.inactive === "START") {
           setTurnWheel(
-            `${styles[`TimerAnimation-${theme}`]} 
-            ${styles[`TimerAnimationOn-${theme}`]}`
+            `${styles[`TimerAnimation-${theme}`]} ${
+              styles[`TimerAnimation-${theme}-On`]
+            }`
           );
         } else {
           setTurnWheel(`${styles[`TimerAnimation-${theme}`]}`);
