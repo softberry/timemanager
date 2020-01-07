@@ -21,27 +21,37 @@ export default function Settings({ view }: IDesignModel) {
   const currentTheme = useSelector((state: any) => state.design.theme);
   return (
     <section className={viewClass}>
-      <h1>Settings</h1>
-      <p>Change Theme</p>
-      <RadioGroup
-        onChange={(val: string) => {
-          dispatch({
-            type: DESIGN.DESIGN_THEME,
-            theme: val
-          });
-        }}
-      >
-        <Radio
-          label="Default"
-          value={VDESIGN.DESIGN_THEME_DEFAULT}
-          checked={currentTheme === VDESIGN.DESIGN_THEME_DEFAULT}
-        ></Radio>
-        <Radio
-          label="Ocean"
-          value={VDESIGN.DESIGN_THEME_OCEAN}
-          checked={currentTheme === VDESIGN.DESIGN_THEME_OCEAN}
-        ></Radio>
-      </RadioGroup>
+      <div className={styles[`SettingsHeader-${theme}`]}>
+        <h1>Settings</h1>
+      </div>
+      <div className={styles[`SettingsColLeft-${theme}`]}>
+        <div className={styles[`OptionListName-${theme}`]}>Theme</div>
+        <div className={styles[`OptionListName-${theme}`]}>Time Settings</div>
+        <div className={styles[`OptionListName-${theme}`]}>
+          Material List Settings
+        </div>
+      </div>
+      <div className={styles[`SettingsColRight-${theme}`]}>
+        <RadioGroup
+          onChange={(val: string) => {
+            dispatch({
+              type: DESIGN.DESIGN_THEME,
+              theme: val
+            });
+          }}
+        >
+          <Radio
+            label="Default"
+            value={VDESIGN.DESIGN_THEME_DEFAULT}
+            checked={currentTheme === VDESIGN.DESIGN_THEME_DEFAULT}
+          ></Radio>
+          <Radio
+            label="Ocean"
+            value={VDESIGN.DESIGN_THEME_OCEAN}
+            checked={currentTheme === VDESIGN.DESIGN_THEME_OCEAN}
+          ></Radio>
+        </RadioGroup>
+      </div>
     </section>
   );
 }

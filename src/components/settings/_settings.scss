@@ -1,5 +1,11 @@
 @mixin settings() {
   @include view();
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "left right";
+  grid-template-columns: max-content 75%;
+  grid-template-rows: 3rem auto;
 }
 
 .Settings-#{$theme} {
@@ -14,4 +20,21 @@
     @include layer-color("secondary");
     @include settings();
   }
+}
+
+.SettingsHeader-#{$theme} {
+  grid-area: header;
+}
+.SettingsColLeft-#{$theme} {
+  grid-area: left;
+  overflow: hidden scroll;
+  background-color: $primary-layer-bg-color;
+  color: $primary-layer-color;
+}
+.SettingsColRight-#{$theme} {
+  grid-area: right;
+}
+
+.OptionListName-#{$theme} {
+  padding: 0.5rem;
 }

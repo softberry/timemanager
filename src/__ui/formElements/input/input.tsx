@@ -5,12 +5,10 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
 import { VDESIGN } from "../../../store/constant-enums";
+import { uuid } from "@nano-sql/core/lib/utilities";
 
-let inputId = 0;
-function getUniqueId() {
-  inputId++;
-  return `input-${inputId}`;
-}
+
+
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
@@ -19,7 +17,7 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
  * Input element:
  */
 export default function Input({ name, value }: IInputComponentProps) {
-  const id = getUniqueId();
+  const id = uuid();
   const [val, setVal] = useState<string>(value);
   const type = getTypeFromFieldName(name); // input type (text, tel, mail etc...)
 
@@ -35,7 +33,6 @@ export default function Input({ name, value }: IInputComponentProps) {
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const val: string = e.target.value;
-    console.log(val);
     setVal(val);
     `${val}`.length === 0
       ? setLabelPosition(`${TYPE_PLACEHOLDER}-${theme}`)
