@@ -24,3 +24,6 @@ yarn-error.log*
 
 #jetbrains
 .idea/
+
+#VS Code
+TimeManagerApp.code-workspace
