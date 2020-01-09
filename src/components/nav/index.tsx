@@ -1,7 +1,7 @@
 import React from "react";
 import AutoComplete from "../../__ui/autocomplete";
 import Toolbar from "../toolbar";
-import Icon from "@material-ui/core/Icon";
+import Icon from "../../__ui/icon";
 import { useHistory } from "react-router-dom";
 
 import themeDefault from "./theme-default.module.scss";

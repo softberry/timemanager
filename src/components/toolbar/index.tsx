@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import Icon from "@material-ui/core/Icon";
+import Icon from "../../__ui/icon";
 import { useHistory } from "react-router-dom";
 
 import themeDefault from "./theme-default.module.scss";

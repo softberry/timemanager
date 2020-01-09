@@ -57,6 +57,9 @@ function Typography({ theme = "default", children }: ITypographyProps) {
   return fontsReady === "LOADED" ? <>{children}</> : <div></div>;
 }
 
+/**
+ * @returns Selected theme from store if avaliable, default orherwise
+ */
 function useTheme() {
   const theme = useSelector((state: any) => {
     switch (state.design.theme) {
@@ -70,7 +73,10 @@ function useTheme() {
   });
   return theme;
 }
-
+/**
+ * @returns matching style object from given styles map
+ * @param options {Map} list of imported styles matching with selected theme
+ */
 function useThemeStyle(options: any) {
   const theme = useTheme();
   return options.get(theme);

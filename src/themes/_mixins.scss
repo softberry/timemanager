@@ -47,7 +47,12 @@
   z-index: map-get($indexList, $item);
 }
 
-@mixin materialIcon($size: 1rem) {
+@mixin materialIcon($size: 1.5em) {
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  flex-shrink: 0;
+  user-select: none;
   font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;

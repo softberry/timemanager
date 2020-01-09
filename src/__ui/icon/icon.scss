@@ -1,0 +1,4 @@
+.Icon-#{$theme} {
+  @include materialIcon();
+  color: inherit;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import EventsCalendar from "../../__ui/eventsCalendar";
+import EventsCalendar from "../../components/eventsCalendar";
 import TYPES from "../../store/action-types";
 import DefaultLayout from "../../layout/layout.default";
 

@@ -1,5 +1,15 @@
 @mixin settings() {
   @include view();
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "left right";
+  grid-template-columns: 160px 1fr;
+  grid-template-rows: min-content auto;
+}
+
+@mixin option-name {
+  padding: 0.5rem;
 }
 
 .Settings-#{$theme} {
@@ -13,5 +23,28 @@
     @include layer-bg("secondary");
     @include layer-color("secondary");
     @include settings();
+  }
+}
+
+.SettingsHeader-#{$theme} {
+  grid-area: header;
+  padding: 0.5rem;
+}
+.SettingsColLeft-#{$theme} {
+  grid-area: left;
+  overflow: hidden scroll;
+  background-color: $primary-layer-bg-color;
+  color: $primary-layer-color;
+}
+.SettingsColRight-#{$theme} {
+  grid-area: right;
+}
+
+.OptionListName-#{$theme} {
+  @include option-name();
+
+  &-Active {
+    @include option-name();
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }

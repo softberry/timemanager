@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Icon } from "@material-ui/core";
+import Icon from "../../__ui/icon";
 import Input from "../../__ui/formElements";
 
 import themeDefault from "./theme-default.module.scss";

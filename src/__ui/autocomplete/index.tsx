@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "@material-ui/core/Icon";
+import Icon from "../../__ui/icon";
 import { VDESIGN } from "../../store/constant-enums";
 
 import { useTheme, useThemeStyle } from "../../__ui/typography";
