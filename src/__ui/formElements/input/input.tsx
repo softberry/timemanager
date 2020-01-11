@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { getTypeFromFieldName } from "../../../lib/input.helpers";
+import { IInputComponentProps } from "../../../__typings/interfaces";
 
+import { getTypeFromFieldName } from "../../../lib/input.helpers";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
 import { VDESIGN } from "../../../store/constant-enums";
 import { uuid } from "@nano-sql/core/lib/utilities";
-
-
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);

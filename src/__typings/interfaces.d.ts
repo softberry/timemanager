@@ -1,36 +1,36 @@
-interface IDesignModel {
+export interface IDesignModel {
   view?: string;
 }
 
-interface IDesignActionTypes {
+export interface IDesignActionTypes {
   type: string;
   view?: string;
   theme?: string;
 }
 
-interface ITypographyProps {
+export interface ITypographyProps {
   theme?: string;
   children?: any;
 }
 
-interface IContactDetailsComponent extends IDesignModel {
+export interface IContactDetailsComponent extends IDesignModel {
   type: string;
   contact: IContactsTableModel;
 }
 
-interface IContactViewProps {
+export interface IContactViewProps {
   match?: any;
   children?: ReactNode;
 }
 
-interface ICheckBoxComponentProps {
+export interface ICheckBoxComponentProps {
   children?: any;
   checked?: boolean;
   label: string;
   onChange: any;
 }
 
-interface IRadioItemProps {
+export interface IRadioItemProps {
   children?: any;
   checked?: boolean;
   label: string;
@@ -38,30 +38,31 @@ interface IRadioItemProps {
   onChange?: any;
 }
 
-interface IRadioGroupProps {
+export interface IRadioGroupProps {
   children?: any;
   onChange: any;
 }
 
-interface IInputComponentProps {
+export interface IInputComponentProps {
   name: string;
   value: string;
 }
 
-interface IMultiInputProps extends IInputComponentProps {
+export interface IMultiInputProps extends IInputComponentProps {
   value?: [];
 }
-interface IStartStopButtonProps {
+
+export interface IStartStopButtonProps {
   onComplete: any;
   waitForSeconds?: number;
   buttonLabel: IStartStopButtonStates;
 }
 
-interface IStartStopButtonStates {
+export interface IStartStopButtonStates {
   active: string;
   inactive: string;
 }
-interface IMessage {
+export interface IMessage {
   icon?: string;
   type: string;
   caption?: string;
@@ -70,16 +71,16 @@ interface IMessage {
   dialogId: any;
   key: any;
 }
-interface IDialogBodyProp {
+export interface IDialogBodyProp {
   type: string;
   props: any;
 }
 
-interface IConfirmDeleteContact extends IMessage {
+export interface IConfirmDeleteContact extends IMessage {
   contact: IContactsTableModel;
 }
 
-interface IToolbarButton {
+export interface IToolbarButton {
   type: string;
   label?: string;
   disabled?: boolean;
@@ -89,28 +90,28 @@ interface IToolbarButton {
   theme?: any;
 }
 
-interface IToolbarButtonAction extends IToolbarButton {
+export interface IToolbarButtonAction extends IToolbarButton {
   nSQL?: any;
   contact: any;
 }
 
-interface IToolbarButtonState {
+export interface IToolbarButtonState {
   type: string;
   contact: any;
 }
-interface IStateDatabase {
+export interface IStateDatabase {
   type: string;
   nSQL: any;
 }
 
-interface IWorklogInput {
+export interface IWorklogInput {
   nSQL: any;
   start: Date;
   finish: Date;
   description?: string;
 }
 
-interface ICounterDiffTime {
+export interface ICounterDiffTime {
   hour: number;
   minute: number;
   second: number;
@@ -119,12 +120,12 @@ interface ICounterDiffTime {
   theme?: any;
 }
 
-interface ICounterDiff {
+export interface ICounterDiff {
   name: string;
   model: ICounterDiffTime;
 }
 
-interface ICounterTableModel {
+export interface ICounterTableModel {
   id: string;
   delaying: boolean;
   active: boolean;
@@ -133,7 +134,7 @@ interface ICounterTableModel {
   diff: ICounterDiff;
 }
 
-interface IContactsTableModel {
+export interface IContactsTableModel {
   id: string;
   name?: string;
   surname: string;
@@ -145,13 +146,13 @@ interface IContactsTableModel {
   mail?: [string];
 }
 
-interface IContactsTableQuerie {
+export interface IContactsTableQuerie {
   name: string;
   args: any;
   call: any;
 }
 
-interface IworkTableModel {
+export interface IworkTableModel {
   id: string;
   contactID: string;
   name: string;
@@ -160,17 +161,17 @@ interface IworkTableModel {
   description: string;
 }
 
-interface IworkTableQueryArguments {
+export interface IworkTableQueryArguments {
   contactID: string;
 }
 
-interface IworkTableQuery {
+export interface IworkTableQuery {
   name: string;
   args: any;
   call: any;
 }
 
-interface IWorkDurationTableModel {
+export interface IWorkDurationTableModel {
   id: string;
   start: Date;
   finish: Date;
@@ -178,13 +179,13 @@ interface IWorkDurationTableModel {
   workID: string;
 }
 
-interface IMaterialListTableModel {
+export interface IMaterialListTableModel {
   id: string;
   items: [materialItemTableModel];
   workID: string;
 }
 
-interface materialItemTableModel {
+export interface materialItemTableModel {
   id: string;
   name: string;
   description: string;
@@ -194,7 +195,7 @@ interface materialItemTableModel {
   materialListID: string;
 }
 
-interface IMaterialStockTableModel {
+export interface IMaterialStockTableModel {
   id: string;
   amount: number;
   description: string;
@@ -202,7 +203,7 @@ interface IMaterialStockTableModel {
   unit: string;
 }
 
-interface IUnitEnumsTableModel {
+export interface IUnitEnumsTableModel {
   id: string;
   name: string;
 }

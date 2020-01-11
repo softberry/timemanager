@@ -1,4 +1,6 @@
-import TYPES from"../action-types";
+import { IMessage } from "../../__typings/interfaces";
+
+import TYPES from "../action-types";
 
 /**
  * Assign a unique key for each message to make it easy to remove later

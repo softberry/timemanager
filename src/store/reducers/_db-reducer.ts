@@ -1,4 +1,6 @@
-import TYPES from"../action-types";
+import { IStateDatabase } from "../../__typings/interfaces";
+
+import TYPES from "../action-types";
 
 export default function db(state: any, payload: IStateDatabase) {
   switch (payload.type) {

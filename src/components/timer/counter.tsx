@@ -1,4 +1,5 @@
 import React from "react";
+import { ICounterDiffTime } from "../../__typings/interfaces";
 
 import { twoDigit } from "../../lib/counter.helpers";
 

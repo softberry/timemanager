@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from "react";
+import { IDesignModel, ICounterTableModel } from "../../__typings/interfaces";
 
 import { useSelector } from "react-redux";
 import { timeDiff } from "../../lib/counter.helpers";

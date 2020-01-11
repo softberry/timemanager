@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ITypographyProps } from "../__typings/interfaces";
+
 import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
 

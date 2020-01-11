@@ -10,7 +10,7 @@ export default {
   }
 };
 
-export const primary = () => {
+export const primary =  () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Input name="name" value={name.firstName()}></Input>
@@ -20,7 +20,7 @@ export const primary = () => {
   );
 };
 
-export const secondary = () => {
+export const secondary: any = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <Input name="name" value={name.firstName()}></Input>

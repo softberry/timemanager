@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { IDialogBodyProp, IMessage } from "../../__typings/interfaces";
+
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "../../__ui/icon";
 import ConfirmDeleteContact from "../confirm/delete.contact";

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  IConfirmDeleteContact,
+  IContactsTableModel
+} from "../../__typings/interfaces";
 
 import { useHistory } from "react-router-dom";
 import { useTheme, useThemeStyle } from "../../__ui/typography";

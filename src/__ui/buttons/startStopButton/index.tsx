@@ -5,11 +5,15 @@ import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
+import { IStartStopButtonProps } from "../../../__typings/interfaces";
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
-
-export default function StartStopButton({
+/**
+ * Special button delays onclick event for a given time
+ *
+ */
+function StartStopButton({
   onComplete,
   waitForSeconds = 3,
   buttonLabel = { active: "WAIT", inactive: "START" }
@@ -102,3 +106,5 @@ export default function StartStopButton({
     </div>
   );
 }
+
+export default StartStopButton;

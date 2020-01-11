@@ -1,5 +1,5 @@
 import React from "react";
-
+import { IRadioItemProps } from "../../../__typings/interfaces";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";

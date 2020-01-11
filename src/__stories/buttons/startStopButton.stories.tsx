@@ -1,4 +1,5 @@
 import React from "react";
+
 import StartStopButton from "../../__ui/buttons/startStopButton";
 import StoryPage from "../story-page";
 
@@ -12,9 +13,7 @@ export const primary = () => {
     <StoryPage viewType="PrimaryView">
       <StartStopButton
         buttonLabel={{ inactive: "STOP", active: "WAIT" }}
-        onComplete={() => {
-          console.log("OK!");
-        }}
+        onComplete={() => console.log}
       />
     </StoryPage>
   );
@@ -25,11 +24,8 @@ export const secondary = () => {
     <StoryPage viewType="SecondaryView">
       <StartStopButton
         buttonLabel={{ inactive: "STOP", active: "WAIT" }}
-        onComplete={() => {
-          console.log("OK!");
-        }}
+        onComplete={() => console.log}
       />
     </StoryPage>
   );
 };
-

@@ -1,3 +1,5 @@
+import { IDesignActionTypes } from "../../__typings/interfaces";
+
 import TYPES from "../action-types";
 import { VDESIGN, USERSETTINGS } from "../constant-enums";
 

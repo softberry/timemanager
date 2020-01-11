@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { IContactDetailsComponent } from "../../__typings/interfaces";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import TYPES from "../../store/action-types";

@@ -1,3 +1,5 @@
+import { IWorklogInput } from "../__typings/interfaces";
+
 function createWorkLog({
   nSQL,
   start,

@@ -1,5 +1,6 @@
 import React from "react";
 
+import { IMultiInputProps } from "../../../__typings/interfaces";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";

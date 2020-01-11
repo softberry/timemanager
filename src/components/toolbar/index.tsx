@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { IToolbarButtonAction } from "../../__typings/interfaces";
+
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Icon from "../../__ui/icon";

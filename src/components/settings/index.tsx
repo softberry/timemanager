@@ -4,6 +4,7 @@ import { DESIGN } from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
 import { RadioGroup, Radio } from "../../__ui/formElements";
 
+import { IDesignModel } from "../../__typings/interfaces";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";

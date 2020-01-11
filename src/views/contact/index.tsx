@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import {
+  IContactViewProps,
+  IContactsTableModel
+} from "../../__typings/interfaces";
 import { useSelector, useDispatch } from "react-redux";
 import TYPES from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";

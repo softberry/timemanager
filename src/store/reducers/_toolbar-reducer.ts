@@ -1,3 +1,7 @@
+import {
+  IToolbarButton,
+  IToolbarButtonState
+} from "../../__typings/interfaces";
 import TYPES from "../action-types";
 
 const home: IToolbarButton[] = [];

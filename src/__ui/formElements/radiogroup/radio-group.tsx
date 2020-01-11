@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
+import {
+  IRadioGroupProps,
+  IRadioItemProps
+} from "../../../__typings/interfaces";
+
 import Radio from "./radio";
 
 import themeDefault from "./theme-default.module.scss";

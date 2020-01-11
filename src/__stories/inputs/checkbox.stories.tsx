@@ -29,10 +29,10 @@ const checkBoxes = (({ len }) => {
 function onChangeHandler(checked:boolean) {
   console.log(checked);
 }
-export const primary = function() {
+export const primary:any = function() {
   return <StoryPage viewType="PrimaryView">{checkBoxes}</StoryPage>;
 };
 
-export const secondary = function() {
+export const secondary:any = function() {
   return <StoryPage viewType="SecondaryView">{checkBoxes}</StoryPage>;
 };
