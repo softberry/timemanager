@@ -53,9 +53,9 @@ export interface IMultiInputProps extends IInputComponentProps {
 }
 
 export interface IStartStopButtonProps {
+  turning?: boolean;
   onComplete: any;
   waitForSeconds?: number;
-  buttonLabel: IStartStopButtonStates;
 }
 
 export interface IStartStopButtonStates {
@@ -111,10 +111,12 @@ export interface IWorklogInput {
   description?: string;
 }
 
-export interface ICounterDiffTime {
+export interface IDiff {
   hour: number;
   minute: number;
   second: number;
+}
+export interface ICounterDiffTime extends IDiff {
   counting?;
   styles?: any;
   theme?: any;

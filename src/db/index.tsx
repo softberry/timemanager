@@ -23,6 +23,10 @@ type NanoDatabaseProps = {
   children?: any;
 };
 
+export function useDataBase() {
+  return nSQL;
+}
+
 /////////////////
 const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps) => {
   const [ready, setReady] = useState<string>("NOT_READY");

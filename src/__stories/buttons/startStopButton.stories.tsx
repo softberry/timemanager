@@ -11,10 +11,7 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <StartStopButton
-        buttonLabel={{ inactive: "STOP", active: "WAIT" }}
-        onComplete={() => console.log}
-      />
+      <StartStopButton  onComplete={() => console.log} />
     </StoryPage>
   );
 };
@@ -23,8 +20,9 @@ export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <StartStopButton
-        buttonLabel={{ inactive: "STOP", active: "WAIT" }}
-        onComplete={() => console.log}
+        onComplete={() => {
+          console.log();
+        }}
       />
     </StoryPage>
   );

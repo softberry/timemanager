@@ -10,95 +10,88 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 /**
- * Special button delays onclick event for a given time
+ * Special button delays onclick event for a given time.
+ * To avoid accidental clicks or touchs to start/stop timer,
+ * craftmen must keep button
+ * at least given `waitForSeconds` of time.
  *
  */
 function StartStopButton({
   onComplete,
   waitForSeconds = 3,
-  buttonLabel = { active: "WAIT", inactive: "START" }
+  turning = false
 }: IStartStopButtonProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const [active, setActive] = useState(false);
-  const [countdown, setCountDown] = useState(0);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isCountingDown, setIsCountingDown] = useState<boolean>(false);
+  const [counter, setCounter] = useState(0);
 
   const [turnWheel, setTurnWheel] = useState(styles[`TimerAnimation-${theme}`]);
-  let strCountDown: string = !active
-    ? ""
-    : (waitForSeconds - countdown).toString();
+  let strCountDown: string = isCountingDown
+    ? (waitForSeconds - counter).toString()
+    : "";
 
   const infoText = `Press and hold the button for ${strCountDown} seconds`;
 
   useEffect(() => {
-    let intervalId: number;
-
-    if (!active) {
-      setCountDown(0);
-      return;
+    if (turning) {
+      setTurnWheel(
+        `${styles[`TimerAnimation-${theme}`]} ${
+          styles[`TimerAnimation-${theme}-On`]
+        }`
+      );
+    } else {
+      setTurnWheel(`${styles[`TimerAnimation-${theme}`]}`);
     }
-    if (active) {
-      intervalId = window.setTimeout(() => {
-        setCountDown(countdown + 1);
-      }, 1000);
+  }, [turning, styles, theme]);
 
-      if (countdown === waitForSeconds) {
+  useEffect(() => {
+    let intervalId: number = -1;
+    if (isCountingDown) {
+      if (waitForSeconds > counter) {
+        intervalId = window.setTimeout(() => {
+          setCounter(counter + 1);
+        }, 1000);
+      }
+      if (counter >= waitForSeconds) {
         clearInterval(intervalId);
-        setActive(false);
-        if (buttonLabel.inactive === "START") {
-          setTurnWheel(
-            `${styles[`TimerAnimation-${theme}`]} ${
-              styles[`TimerAnimation-${theme}-On`]
-            }`
-          );
-        } else {
-          setTurnWheel(`${styles[`TimerAnimation-${theme}`]}`);
-        }
+        const currentActiveState = isActive;
+        setIsActive(!currentActiveState);
+        onComplete();
+        setIsCountingDown(false);
       }
     }
-    return () => {
-      if (countdown === waitForSeconds) {
-        clearInterval(intervalId);
-        window.setTimeout(onComplete, 500);
-      }
-    };
-  }, [
-    active,
-    countdown,
-    onComplete,
-    waitForSeconds,
-    turnWheel,
-    buttonLabel.inactive,
-    styles,
-    theme
-  ]);
+  }, [counter, isActive, isCountingDown, onComplete, waitForSeconds]);
 
-  const stateClass = !active
+  const stateClass = !isActive
     ? styles[`Button-${theme}`]
     : [styles[`Button-${theme}`], styles[`active-${theme}`]].join(" ");
 
   return (
-    <div
-      className={styles.ButtonWrapper}
-      onMouseDown={() => {
-        setActive(true);
-      }}
-      onMouseUp={() => {
-        setActive(false);
-      }}
-      onTouchStart={() => {
-        setActive(true);
-      }}
-      onTouchEnd={() => {
-        setActive(false);
-      }}
-    >
-      {active && (
+    <div className={styles.ButtonWrapper}>
+      {isCountingDown && (
         <div className={styles[`PressAndHoldInfo-${theme}`]}>{infoText}</div>
       )}
-      <div className={stateClass}>
-        {active && (
+      <div
+        className={stateClass}
+        onMouseDown={() => {
+          setCounter(0);
+          setIsCountingDown(true);
+        }}
+        onMouseUp={() => {
+          setIsCountingDown(false);
+        }}
+        onTouchStart={() => {
+          setCounter(0);
+          setIsCountingDown(true);
+        }}
+        onTouchEnd={() => {
+          setIsCountingDown(false);
+        }}
+      >
+        {isCountingDown && (
           <div className={styles[`CountDown-${theme}`]}>{strCountDown}</div>
         )}
         <div className={turnWheel}></div>

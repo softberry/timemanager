@@ -1,4 +1,4 @@
-import { ICounterDiffTime } from "../__typings/interfaces";
+import { IDiff } from "../__typings/interfaces";
 function twoDigit(n = "0") {
   const input = Math.max(parseInt(n, 10), 0);
 
@@ -9,7 +9,7 @@ function twoDigit(n = "0") {
   return `0${input}`.slice(-2);
 }
 
-function timeDiff(start: number, end = Date.now()): ICounterDiffTime {
+function timeDiff(start: number, end = Date.now()): IDiff {
   let diff = end - start;
 
   const [s, m, h] = [1000, 60 * 1000, 60 * 60 * 1000];
