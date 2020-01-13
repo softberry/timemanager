@@ -23,19 +23,23 @@ export interface IContactViewProps {
   children?: ReactNode;
 }
 
-export interface ICheckBoxComponentProps {
-  children?: any;
-  checked?: boolean;
-  label: string;
-  onChange: any;
+export interface ICheckBoxComponentProps extends IRadioItemProps {
+  value?: never;
+  /** callback function to be don if checkbox or radio  changes it state */
+  onChange: (checked?: any) => void;
 }
 
 export interface IRadioItemProps {
+  /** React elements to be rendered in created checkbox or radio */
   children?: any;
+  /** *initial state to be set* */
   checked?: boolean;
+  /** label text identifies the checkbox or radio element */
   label: string;
-  value?: string;
-  onChange?: any;
+  /** value of the radio element, whihc will be assigend to radiogroup when it's selected */
+  value: string;
+  /** callback function to be don if checkbox or radio  changes it state */
+  onChange?: (checked?: any) => void;
 }
 
 export interface IRadioGroupProps {

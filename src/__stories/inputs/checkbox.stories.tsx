@@ -1,14 +1,11 @@
 import React from "react";
-import  Checkbox  from "../../__ui/formElements/checkbox/checkbox";
+import Checkbox from "../../__ui/formElements/checkbox/checkbox";
 import StoryPage from "../story-page";
 import { lorem, random } from "faker";
 
 export default {
   title: "Form Elements/Checkbox",
-  component: Checkbox,
-  parameters: {
-    componentSubtitle: "Handy status label"
-  }
+  component: Checkbox
 };
 
 const checkBoxes = (({ len }) => {
@@ -26,13 +23,13 @@ const checkBoxes = (({ len }) => {
   });
 })({ len: 3 });
 
-function onChangeHandler(checked:boolean) {
+function onChangeHandler(checked: boolean) {
   console.log(checked);
 }
-export const primary:any = function() {
+export const primary: any = function() {
   return <StoryPage viewType="PrimaryView">{checkBoxes}</StoryPage>;
 };
 
-export const secondary:any = function() {
+export const secondary: any = function() {
   return <StoryPage viewType="SecondaryView">{checkBoxes}</StoryPage>;
 };

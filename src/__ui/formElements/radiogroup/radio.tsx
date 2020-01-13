@@ -17,7 +17,7 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 export default function Radio({
   children,
   label = "",
-  onChange,
+  onChange = () => {},
   checked = false,
   value
 }: IRadioItemProps) {

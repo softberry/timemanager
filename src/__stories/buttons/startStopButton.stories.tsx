@@ -5,14 +5,27 @@ import StoryPage from "../story-page";
 
 export default {
   title: "Buttons/Start Stop Button",
-  component: StartStopButton
+  component: StartStopButton,
+  parameters: {
+    componentSubtitle: "Delayed callback button"
+  }
 };
 
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <StartStopButton onComplete={() => console.log} />
-      <StartStopButton isTurning={true} onComplete={action("delayed-click")} />
+      <StartStopButton
+        waitForSeconds={5}
+        onComplete={() => {
+          alert("Complete event called at 5s.");
+        }}
+      />
+      <StartStopButton
+        isTurning={true}
+        onComplete={() => {
+          alert("Complete event called at default 3s.");
+        }}
+      />
     </StoryPage>
   );
 };
@@ -20,8 +33,18 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <StartStopButton onComplete={() => console.log} />
-      <StartStopButton isTurning={true} onComplete={() => console.log} />
+      <StartStopButton
+        waitForSeconds={5}
+        onComplete={() => {
+          alert("Complete event called at 4s.");
+        }}
+      />
+      <StartStopButton
+        isTurning={true}
+        onComplete={() => {
+          alert("Complete event called at default 3s.");
+        }}
+      />
     </StoryPage>
   );
 };
