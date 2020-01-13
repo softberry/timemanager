@@ -9,17 +9,17 @@ import { IStartStopButtonProps } from "../../../__typings/interfaces";
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+
 /**
  * Special button delays onclick event for a given time.
  * To avoid accidental clicks or touchs to start/stop timer,
  * craftmen must keep button
  * at least given `waitForSeconds` of time.
- *
  */
 function StartStopButton({
   onComplete,
   waitForSeconds = 3,
-  turning = false
+  isTurning = false
 }: IStartStopButtonProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -36,7 +36,7 @@ function StartStopButton({
   const infoText = `Press and hold the button for ${strCountDown} seconds`;
 
   useEffect(() => {
-    if (turning) {
+    if (isTurning) {
       setTurnWheel(
         `${styles[`TimerAnimation-${theme}`]} ${
           styles[`TimerAnimation-${theme}-On`]
@@ -45,7 +45,7 @@ function StartStopButton({
     } else {
       setTurnWheel(`${styles[`TimerAnimation-${theme}`]}`);
     }
-  }, [turning, styles, theme]);
+  }, [isTurning, styles, theme]);
 
   useEffect(() => {
     let intervalId: number = -1;

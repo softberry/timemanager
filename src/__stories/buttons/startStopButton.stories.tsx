@@ -11,7 +11,8 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <StartStopButton  onComplete={() => console.log} />
+      <StartStopButton onComplete={() => console.log} />
+      <StartStopButton isTurning={true} onComplete={action("delayed-click")} />
     </StoryPage>
   );
 };
@@ -19,11 +20,8 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <StartStopButton
-        onComplete={() => {
-          console.log();
-        }}
-      />
+      <StartStopButton onComplete={() => console.log} />
+      <StartStopButton isTurning={true} onComplete={() => console.log} />
     </StoryPage>
   );
 };

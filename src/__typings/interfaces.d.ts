@@ -51,17 +51,18 @@ export interface IInputComponentProps {
 export interface IMultiInputProps extends IInputComponentProps {
   value?: [];
 }
-
+/**
+ * props for StartStopButton
+ */
 export interface IStartStopButtonProps {
-  turning?: boolean;
-  onComplete: any;
+  /** Apply animation on button if true */
+  isTurning?: boolean;
+  /** Delayed click function. This callback will  be called on delay time is up*/
+  onComplete: () => void;
+  /** time to be delayed befor calling the complete event */
   waitForSeconds?: number;
 }
 
-export interface IStartStopButtonStates {
-  active: string;
-  inactive: string;
-}
 export interface IMessage {
   icon?: string;
   type: string;

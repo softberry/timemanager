@@ -122,7 +122,7 @@ export function Timer({ view = "primary" }: IDesignModel): JSX.Element {
       <StartStopButton
         onComplete={onCompleteEventHandler}
         waitForSeconds={3}
-        turning={timerActiveState}
+        isTurning={timerActiveState}
       />
     </div>
   );
