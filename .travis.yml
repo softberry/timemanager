@@ -1,5 +1,8 @@
+os: linux
 language: node_js
 node_js:
- - "10"
- script: 
- - yarn build
+- "10"
+install:
+- yarn
+script:
+- yarn build
