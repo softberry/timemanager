@@ -32,7 +32,7 @@ function Page() {
   if (theme !== savedTheme) {
     dispatch({
       type: DESIGN.DESIGN_THEME,
-      theme: savedTheme
+      theme: savedTheme,
     });
   }
 
