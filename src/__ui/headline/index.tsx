@@ -1,0 +1,85 @@
+import React from "react";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
+
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { VDESIGN } from "../../store/constant-enums";
+
+const stylesMap = new Map();
+stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
+stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+
+interface IHeadline {
+  size?: number;
+  children: any;
+}
+export default function Headline({ children, size }: IHeadline) {
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+
+  return (
+    <>
+      {size === 1 && (
+        <h1 className={styles[`Headline-${theme}-${size}`]}>{children}</h1>
+      )}
+      {size === 2 && (
+        <h2 className={styles[`Headline-${theme}-${size}`]}>{children}</h2>
+      )}
+      {size === 3 && (
+        <h3 className={styles[`Headline-${theme}-${size}`]}>{children}</h3>
+      )}
+      {size === 4 && (
+        <h4 className={styles[`Headline-${theme}-${size}`]}>{children}</h4>
+      )}
+      {size === 5 && (
+        <h5 className={styles[`Headline-${theme}-${size}`]}>{children}</h5>
+      )}
+      {size === 6 && (
+        <h6 className={styles[`Headline-${theme}-${size}`]}>{children}</h6>
+      )}
+    </>
+  );
+}
+
+export function H1({ children }: IHeadline) {
+  return (
+    <>
+      <Headline size={1}>{children}</Headline>
+    </>
+  );
+}
+export function H2({ children }: IHeadline) {
+  return (
+    <>
+      <Headline size={2}>{children}</Headline>
+    </>
+  );
+}
+export function H3({ children }: IHeadline) {
+  return (
+    <>
+      <Headline size={3}>{children}</Headline>
+    </>
+  );
+}
+export function H4({ children }: IHeadline) {
+  return (
+    <>
+      <Headline size={4}>{children}</Headline>
+    </>
+  );
+}
+export function H5({ children }: IHeadline) {
+  return (
+    <>
+      <Headline size={5}>{children}</Headline>
+    </>
+  );
+}
+export function H6({ children }: IHeadline) {
+  return (
+    <>
+      <Headline size={6}>{children}</Headline>
+    </>
+  );
+}

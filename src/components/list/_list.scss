@@ -27,7 +27,7 @@
   &-Contact,
   &-Duration {
     line-height: 2;
-    padding: 0 1rem;
+    padding: 0 1 * $font-size;
     box-sizing: border-box;
   }
 
@@ -35,7 +35,7 @@
     grid-area: list-item-contact;
     overflow: hidden;
     position: relative;
-    padding: 0 1rem;
+    padding: 0 1 * $font-size;
     white-space: nowrap;
     text-overflow: ellipsis;
   }

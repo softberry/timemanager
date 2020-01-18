@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import TYPES from "../../store/action-types";
 import Input, { MultipleInput } from "../../__ui/formElements";
+import { H1 } from "../../__ui/headline";
 import Worklogs from "../worklogs";
 
 import themeDefault from "./theme-default.module.scss";
@@ -49,7 +50,7 @@ function EditableDetails({ contact }: any) {
 function EditableInput({ item, contact }: any) {
   const field = {
     name: item,
-    value: contact[item]
+    value: contact[item],
   };
 
   return (
@@ -63,7 +64,7 @@ function EditableInput({ item, contact }: any) {
 export default function ContactDetails({
   contact,
   type,
-  view
+  view,
 }: IContactDetailsComponent) {
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isNewContact, setIsNewContact] = useState(false);
@@ -103,7 +104,7 @@ export default function ContactDetails({
   if (isReadOnly) {
     return (
       <div className={viewClass}>
-        <h1>{fullName}</h1>
+        <H1>{fullName}</H1>
         <ReadOnlyDeatils contact={contact} />
         <Worklogs show={true} contact={contact} />
       </div>
@@ -115,7 +116,7 @@ export default function ContactDetails({
 
   return (
     <div className={viewClass}>
-      <h1>{EditableDetailTitle}</h1>
+      <H1>{EditableDetailTitle}</H1>
       <EditableDetails contact={contact} />
       <Worklogs show={false} contact={contact} />
     </div>

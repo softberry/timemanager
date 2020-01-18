@@ -3,12 +3,12 @@
 .Input-#{$theme} {
   position: relative;
   border: none;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5 * $font-size;
   label {
     display: block;
     position: absolute;
     font-weight: $font-weight-bold;
-    font-size: 0.75rem;
+    font-size: 0.75 * $font-size;
     transition: all 300ms;
     text-transform: capitalize;
   }
@@ -19,19 +19,19 @@
 }
 
 .TYPE_PLACEHOLDER-#{$theme} {
-  font-size: 1rem;
+  font-size: 1 * $font-size;
   transform: translateY(50%);
   font-weight: $font-weight-normal;
-  padding-left: 0.5rem 1rem;
+  padding-left: rem(0.5) 1 * $font-size;
   opacity: 0.5;
   font-style: italic;
   text-shadow: 0 0px 1px currentColor;
-  margin: 0.25rem 0.5rem;
+  margin: rem(0.25) 0.5 * $font-size;
   line-height: 1;
 }
 .TYPE_LABEL-#{$theme} {
   display: block;
   position: absolute;
-  margin: -0.25rem 0 0 0;
+  margin: rem(-0.25) 0 0 0;
   font-weight: $font-weight-bold;
 }

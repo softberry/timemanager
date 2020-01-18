@@ -1,3 +1,5 @@
+$font-size: 14px;
+
 html,
 body {
   font-size: 14px;
@@ -22,57 +24,15 @@ input {
   -webkit-user-select: text;
 }
 
-h1 {
-  font-size: 1.25rem;
-  padding: 0.25rem 0;
-  line-height: 1;
-}
-
-h2 {
-  font-size: 1rem;
-  padding: 0.25rem 0;
-  line-height: 1;
-}
-
-h3 {
-  font-size: 0.8rem;
-  padding: 0.8rem 0;
-  line-height: 1rem;
-}
-
-h4 {
-  font-size: 1.5rem;
-  padding: 0.75rem 0;
-  line-height: 1.5rem;
-}
-
-h5 {
-  font-size: 1.25rem;
-  padding: 0.75rem 0;
-  line-height: 1.5rem;
-}
-
-h6 {
-  font-size: 1.125rem;
-  padding: 0.5rem 0;
-  line-height: 1.25rem;
-}
-
 p {
-  font-size: 1rem;
-  padding: 1rem 0;
-  line-height: 1.25rem;
+  font-size: 1 * $font-size;
+  padding: rem(1) 0;
+  line-height: 1.25 * $font-size;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
 p {
   margin: 0;
-  line-height: 1.5rem;
+  line-height: 1.5 * $font-size;
 }
 
 a,
@@ -90,7 +50,7 @@ input[type="mail"],
 input[type="number"] {
   border: none;
   line-height: 1;
-  height: 3rem;
+  height: 3 * $font-size;
   width: 100%;
   display: inline-block;
   color: inherit;
@@ -101,9 +61,11 @@ input[type="number"] {
     outline: none;
   }
 }
+
 label {
   position: relative;
 }
+
 a,
 button {
   &:focus,

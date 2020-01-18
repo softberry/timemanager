@@ -1,9 +1,9 @@
-$theme:"default";
+$theme: "default";
 
 // TYPOGRAPHY
 $font-default: Exo, sans-serif;
 $font-numbers: "Allerta Stencil", sans-serif;
-$font-size: 1rem;
+$font-size: 14px;
 $font-weight-normal: 300;
 $font-weight-bold: 600;
 
@@ -18,12 +18,12 @@ $secondary-selected-text: rgba(243, 169, 227, 0.75);
 
 $primary-layer: (
   "background": $primary-layer-bg-color,
-  "color": $primary-layer-color
+  "color": $primary-layer-color,
 );
 
 $secondary-layer: (
   "background": $secondary-layer-bg-color,
-  "color": $secondary-layer-color
+  "color": $secondary-layer-color,
 );
 
 $break-points: (
@@ -31,5 +31,5 @@ $break-points: (
   "small": 480px,
   "medium": 720px,
   "large": 960px,
-  "xlarge": 1200px
+  "xlarge": 1200px,
 );

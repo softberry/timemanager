@@ -1,0 +1,41 @@
+.Headline {
+  &-#{$theme} {
+    &-1 {
+      font-size: rem(2.25);
+      padding: rem(0.75) 0;
+      margin: rem(0.75);
+      line-height: rem(1.25);
+    }
+
+    &-2 {
+      font-size: rem(2);
+      padding: rem(0.65) 0;
+      margin: rem(0.5);
+      line-height: rem(1.25);
+    }
+    &-3 {
+      font-size: rem(1.75);
+      padding: rem(0.5) 0;
+      margin: rem(0.35);
+      line-height: rem(1.25);
+    }
+    &-4 {
+      font-size: rem(1.5);
+      padding: rem(0.45) 0;
+      margin: rem(0.3);
+      line-height: rem(1.25);
+    }
+    &-5 {
+      font-size: rem(1.25);
+      padding: rem(0.35) 0;
+      margin: rem(0.25);
+      line-height: rem(1.25);
+    }
+    &-6 {
+      font-size: rem(1.125);
+      padding: rem(0.25) 0;
+      margin: rem(0.2);
+      line-height: rem(1.25);
+    }
+  }
+}

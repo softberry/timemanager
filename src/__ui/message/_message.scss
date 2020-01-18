@@ -5,9 +5,9 @@
     "icon caption close"
     "text text text"
     ". . footer";
-  grid-template-columns: auto 1fr 1rem;
+  grid-template-columns: auto 1fr 1 * $font-size;
   grid-template-rows: max-content max-content;
-  padding: 0.5rem 1rem;
+  padding: rem(0.5) 1 * $font-size;
   width: 90vw;
   max-width: 400px;
   background-color: lighten($bgColor, 10);
@@ -22,7 +22,7 @@
 .Message-#{$theme} {
   @include zIndex("message");
   font-family: $font-default;
-  font-size: 1rem;
+  font-size: 1 * $font-size;
   position: fixed;
   left: 0;
   top: 0;
@@ -48,7 +48,7 @@
 .Caption-#{$theme} {
   grid-area: caption;
   font-weight: 700;
-  padding: 0.5rem;
+  padding: 0.5 * $font-size;
 }
 
 .Icon-#{$theme} {
@@ -59,8 +59,8 @@
 
 .Close-#{$theme} {
   grid-area: close;
-  width: 1rem;
-  font-size: 1rem;
+  width: 1 * $font-size;
+  font-size: 1 * $font-size;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -68,8 +68,8 @@
 
 .Text-#{$theme} {
   grid-area: text;
-  line-height: 1.5rem;
+  line-height: 1.5 * $font-size;
   overflow-y: scroll;
-  max-height: 8rem;
-  padding-top: 0.5rem;
+  max-height: 8 * $font-size;
+  padding-top: 0.5 * $font-size;
 }

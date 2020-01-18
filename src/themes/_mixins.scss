@@ -1,3 +1,7 @@
+@function rem($size) {
+  @return $size * $font-size;
+}
+
 @mixin layer-bg($type) {
   @if $type == "primary" {
     background-color: map-get($primary-layer, "background");
@@ -27,11 +31,11 @@
 }
 
 @mixin view {
-  padding: 0 0.5rem;
+  padding: 0 0.5 * $font-size;
   min-height: 100%;
   overflow: auto;
   @include WidthUp("small") {
-    padding: 0 1rem;
+    padding: 0 1 * $font-size;
   }
 }
 
@@ -42,7 +46,7 @@
     "nav": 1000,
     "footer": 1000,
     "cart-full": 1100,
-    "message": 2000
+    "message": 2000,
   );
   z-index: map-get($indexList, $item);
 }
@@ -80,7 +84,7 @@
 @function get-param($variantName, $param) {
   $variant: (
     "primary": $primary-layer,
-    "secondary": $secondary-layer
+    "secondary": $secondary-layer,
   );
   @if variantName == "primary" {
     $variant: $primary-layer;
@@ -100,10 +104,10 @@
 @mixin nav-button() {
   display: flex;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 1 * $font-size;
   border: 1px solid;
-  border-radius: 0.25rem;
-  margin: 0 0.25rem;
+  border-radius: 0.25 * $font-size;
+  margin: 0 0.25 * $font-size;
   cursor: pointer;
 
   &[data-disabled="true"] {

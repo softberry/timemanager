@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { H1 } from "../../__ui/headline";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
-
-import { Link } from "react-router-dom";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -37,7 +38,7 @@ export default function List({ type, list = [] }: any) {
     <>
       <section className={styles[`List-${theme}`]}>
         <div className={styles[`List-${theme}-Title`]}>
-          <h1 className={styles[`List-${theme}-Title-Text`]}>Contacts</h1>
+          <H1>Contacts</H1>
         </div>
         {type === "CONTACTS_LIST" && contactsList({ list, theme, styles })}
       </section>

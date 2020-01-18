@@ -1,4 +1,4 @@
-$theme:"ocean";
+$theme: "ocean";
 
 // TYPOGRAPHY
 $font-default: "Dosis", sans-serif;
@@ -8,9 +8,9 @@ $font-weight-normal: 300;
 $font-weight-bold: 600;
 
 // LAYERS / VIEWS
-$primary-layer-bg-color:#115171;// #0e8ac7;
+$primary-layer-bg-color: #115171; // #0e8ac7;
 $primary-layer-color: #bddaf3;
-$primary-selected-text:rgba(64, 11, 161,.25);
+$primary-selected-text: rgba(64, 11, 161, 0.25);
 
 $secondary-layer-bg-color: #e9efef;
 $secondary-layer-color: #225058; // #6569f2;
@@ -18,12 +18,12 @@ $secondary-selected-text: rgba(34, 80, 88, 0.75);
 
 $primary-layer: (
   "background": $primary-layer-bg-color,
-  "color": $primary-layer-color
+  "color": $primary-layer-color,
 );
 
 $secondary-layer: (
   "background": $secondary-layer-bg-color,
-  "color": $secondary-layer-color
+  "color": $secondary-layer-color,
 );
 
 $break-points: (
@@ -31,5 +31,5 @@ $break-points: (
   "small": 480px,
   "medium": 720px,
   "large": 960px,
-  "xlarge": 1200px
+  "xlarge": 1200px,
 );

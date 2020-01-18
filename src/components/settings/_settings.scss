@@ -9,7 +9,7 @@
 }
 
 @mixin option-name {
-  padding: 0.5rem;
+  padding: 0.5 * $font-size;
 }
 
 .Settings-#{$theme} {
@@ -28,7 +28,7 @@
 
 .SettingsHeader-#{$theme} {
   grid-area: header;
-  padding: 0.5rem;
+  padding: 0.5 * $font-size;
 }
 .SettingsColLeft-#{$theme} {
   grid-area: left;

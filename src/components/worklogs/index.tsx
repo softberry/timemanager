@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Icon from "../../__ui/icon";
 import Input from "../../__ui/formElements";
+import { H2, H4 } from "../../__ui/headline";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -54,7 +55,7 @@ function WorkListItemEditForm({ entry, styles, theme }: any) {
   const nameField = {
     id: `${entry.id}-name`,
     name: "name",
-    value: entry.name
+    value: entry.name,
   };
   return (
     <div className={styles[`WorkLogs-${theme}-EditForm`]}>
@@ -62,10 +63,7 @@ function WorkListItemEditForm({ entry, styles, theme }: any) {
         <Input {...nameField} />
       </div>
       <div className={styles[`WorkLogs-${theme}-EditForm-Description`]}>
-        <Input
-          name="description"
-          value={entry.description}
-        />
+        <Input name="description" value={entry.description} />
       </div>
       <div className={styles[`WorkLogs-${theme}-EditForm-Times`]}>
         <WorkListTimeEntries entries={entry} styles={styles} theme={theme} />
@@ -97,7 +95,7 @@ function WorkListTimeEntries({ entries, styles, theme }: any) {
 function WorkListWorkEntries({ entries, styles, theme }: any) {
   return (
     <>
-      <h4>Work Logs</h4>
+      <H4>Work Logs</H4>
       <div>Kabelbinder 3.25€ x 1 stck</div>
     </>
   );
@@ -142,12 +140,12 @@ export default function WorksLogs({ show, contact }: any) {
   return show ? (
     <>
       <hr />
-      <h2 className={styles[`WorkLogs-${theme}-Title`]}>
+      <H2>
         <div>Worklog</div>
         <div onClick={addNewWork}>
           <Icon>add</Icon>
         </div>
-      </h2>
+      </H2>
       {workLogs.data.length > 0 && (
         <>
           {workLogs.data.map((entry, key) => {
