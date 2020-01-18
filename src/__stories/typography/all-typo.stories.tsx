@@ -5,7 +5,7 @@ import { H1, H2, H3, H4, H5, H6 } from "../../__ui/headline";
 import StoryPage from "../story-page";
 
 export default {
-  title: "Typographie /All Headlines",
+  title: "Typographie /Headlines /All (h1- h6)",
   parameters: {
     component: H1,
     componentSubtitle: "Headline",
