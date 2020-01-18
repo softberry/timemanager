@@ -8,12 +8,19 @@ import { VDESIGN } from "../../store/constant-enums";
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
-
-interface IHeadline {
-  size?: number;
+/**
+ * Hello
+ */
+interface IHeadlineProps {
+  /** String, DOM elements React elements those will be rendered in the headline  */
   children: any;
 }
-export default function Headline({ children, size }: IHeadline) {
+
+interface IHeadlinesProps extends IHeadlineProps {
+  size?: number;
+}
+
+export default function Headline({ children, size }: IHeadlinesProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -41,42 +48,42 @@ export default function Headline({ children, size }: IHeadline) {
   );
 }
 
-export function H1({ children }: IHeadline) {
+export function H1({ children = <></> }: IHeadlineProps) {
   return (
     <>
       <Headline size={1}>{children}</Headline>
     </>
   );
 }
-export function H2({ children }: IHeadline) {
+export function H2({ children }: IHeadlineProps) {
   return (
     <>
       <Headline size={2}>{children}</Headline>
     </>
   );
 }
-export function H3({ children }: IHeadline) {
+export function H3({ children }: IHeadlineProps) {
   return (
     <>
       <Headline size={3}>{children}</Headline>
     </>
   );
 }
-export function H4({ children }: IHeadline) {
+export function H4({ children }: IHeadlineProps) {
   return (
     <>
       <Headline size={4}>{children}</Headline>
     </>
   );
 }
-export function H5({ children }: IHeadline) {
+export function H5({ children }: IHeadlineProps) {
   return (
     <>
       <Headline size={5}>{children}</Headline>
     </>
   );
 }
-export function H6({ children }: IHeadline) {
+export function H6({ children }: IHeadlineProps) {
   return (
     <>
       <Headline size={6}>{children}</Headline>
