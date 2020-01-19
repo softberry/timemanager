@@ -214,3 +214,13 @@ export interface IUnitEnumsTableModel {
   id: string;
   name: string;
 }
+
+interface IHeadlineProps {
+  /** String, DOM elements React elements those will be rendered in the headline  */
+  children: any;
+}
+
+interface IHeadlineBuilderProps extends IHeadlineProps {
+  /** Size of Headline elements valid values are 1-6 */
+  size: number;
+}

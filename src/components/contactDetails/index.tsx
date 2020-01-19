@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { IContactDetailsComponent } from "../../__typings/interfaces";
+import {
+  IContactDetailsComponent,
+  IworkTableModel,
+} from "../../__typings/interfaces";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -87,6 +90,14 @@ export default function ContactDetails({
   const [fullName, setFullName] = useState(
     `${contact.name} ${contact.surname}`
   );
+
+  nSQL("workTable")
+    .query("select")
+    .where(["contactID", "=", contact.id])
+    .exec()
+    .then((worklogs: [IworkTableModel]) => {
+      dispatch({ type: TYPES.WORKLOGS_UPDATE, worklogs });
+    });
 
   useEffect(() => {
     if (contact.id === null) return;

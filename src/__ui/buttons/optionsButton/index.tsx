@@ -9,7 +9,7 @@ import themeOcean from "./theme-ocean.module.scss";
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
-
+//TODO: move interface to _typings
 interface IOptionsButtonProps {
   /** Action */
   onClick: () => any;

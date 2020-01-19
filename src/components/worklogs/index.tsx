@@ -102,8 +102,9 @@ function WorkListWorkEntries({ entries, styles, theme }: any) {
 }
 
 export default function WorksLogs({ show, contact }: any) {
-  const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
+  //  const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
 
+  const worklogs = useSelector((state: any) => state.worklogs.worklogs);
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -113,53 +114,18 @@ export default function WorksLogs({ show, contact }: any) {
   }, [nSQL]);
 
   useEffect(() => {
-    if (contact.id === null) return;
-    if (workLogs.state === "ACTIVE" || workLogs.state === "READY") return;
-    setWorkLogs({ ...workLogs, state: "ACTIVE" });
-    nSQL("workTable")
-      .presetQuery("getWorkLogsOfContact", { contactID: contact.id })
-      .exec()
-      .then((logs: []) => {
-        setWorkLogs({ ...workLogs, state: "READY", data: logs });
-      });
-  }, [workLogs, contact, nSQL]);
-
-  function addNewWork() {
-    nSQL("workTable")
-      .presetQuery("createNewWorkLogForContact", { contactID: contact.id })
-      .exec()
-      .then((logs: []) => {
-        setWorkLogs({ ...workLogs, state: "NEWDATA", data: logs });
-      });
-  }
-
-  useEffect(() => {
     if (!show) return;
-  }, [show]);
+    if (worklogs.length === 0) return;
+  }, [show, worklogs]);
 
-  return show ? (
+  return show && worklogs.length > 0 ? (
     <>
-      <hr />
-      <H2>
-        <div>Worklog</div>
-        <div onClick={addNewWork}>
-          <Icon>add</Icon>
-        </div>
-      </H2>
-      {workLogs.data.length > 0 && (
-        <>
-          {workLogs.data.map((entry, key) => {
-            return (
-              <WorkListItem
-                key={key}
-                entry={entry}
-                styles={styles}
-                theme={theme}
-              />
-            );
-          })}
-        </>
-      )}
+      <H2>Worklog</H2>
+      {worklogs.map((entry: any, key: number) => {
+        return (
+          <WorkListItem key={key} entry={entry} styles={styles} theme={theme} />
+        );
+      })}
     </>
   ) : (
     <></>

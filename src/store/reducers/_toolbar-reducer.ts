@@ -40,6 +40,13 @@ const editContact: IToolbarButton[] = [
     disabled: false,
     hidden: false,
     clickAction: TYPES.EVENT_DELETE_CONTACT
+  },
+  {
+    type: "add",
+    label: "New Worklog",
+    disabled: false,
+    hidden: false,
+    clickAction: TYPES.EVENT_CREATE_WORKLOG
   }
 ];
 const calendar: IToolbarButton[] = [];

@@ -1,6 +1,10 @@
 import React from "react";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
+import {
+  IHeadlineBuilderProps,
+  IHeadlineProps,
+} from "../../__typings/interfaces";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../store/constant-enums";
@@ -8,19 +12,8 @@ import { VDESIGN } from "../../store/constant-enums";
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
-/**
- * Hello
- */
-interface IHeadlineProps {
-  /** String, DOM elements React elements those will be rendered in the headline  */
-  children: any;
-}
 
-interface IHeadlinesProps extends IHeadlineProps {
-  size?: number;
-}
-
-export default function Headline({ children, size }: IHeadlinesProps) {
+export default function Headline({ children, size }: IHeadlineBuilderProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 

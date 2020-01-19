@@ -2,7 +2,8 @@ import React from "react";
 import Typography from "./__ui/typography";
 import NanoDataBase from "./db";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import { Provider, useSelector, useDispatch } from "react-redux";
 
 import rootReducer from "./store/reducers";
@@ -18,7 +19,7 @@ import Settings from "./views/settings";
 import Contact from "./views/contact";
 import Message from "./__ui/message";
 
-const TimerAppStore = createStore(rootReducer);
+const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
 
 function Page() {
   document.oncontextmenu = function() {

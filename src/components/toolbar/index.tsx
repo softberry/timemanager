@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
-import { IToolbarButtonAction } from "../../__typings/interfaces";
+import {
+  IToolbarButtonAction,
+  IworkTableModel,
+} from "../../__typings/interfaces";
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -25,7 +28,7 @@ function ToolbarButton({
   contact,
   hidden,
   styles,
-  theme
+  theme,
 }: IToolbarButtonAction) {
   // { type, disabled = true, hidden = false }
   // types: add, edit, delete, save , ...
@@ -56,10 +59,29 @@ function ToolbarButton({
           type: TYPES.CONFIRM_DELETE_CONTACT,
           caption: "Want to delete?",
           body: { contact: contact },
-          closable: true
+          closable: true,
         });
-
         break;
+      case TYPES.EVENT_CREATE_WORKLOG:
+        nSQL("workTable")
+          .presetQuery("createNewWorkLogForContact", {
+            contactID: contact.id,
+          })
+          .exec()
+          .then((current: [IworkTableModel]) => {
+            nSQL("workTable")
+              .query("select")
+              .where(["contactID", "=", current[0].contactID])
+              .exec()
+              .then((allWorkLogs: [IworkTableModel]) => {
+                dispatch({
+                  type: TYPES.WORKLOGS_UPDATE,
+                  worklogs: allWorkLogs,
+                });
+              });
+          });
+
+        return;
       default:
         console.log(clickAction, " is not assigned to any Clickhandler! ");
     }
