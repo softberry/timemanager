@@ -1,18 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { H1 } from "../../__ui/headline";
-
+import Badge from "../../__ui/badge";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
+import { useSelector } from "react-redux";
+
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function contactsList({ list, theme, styles }: any) {
+function WorkLogBadgeFromID({ view, contactID }: any) {
+  const [queried, setQueried] = useState(false);
+  const [count, setCount] = useState(0);
+  const nSQL = useSelector((state: any) => state.db.nSQL);
+
+  useEffect(() => {
+    if (typeof nSQL !== "function" || queried) return;
+    setQueried(true);
+    nSQL("workTable")
+      .presetQuery("getWorkLogsOfContact", { contactID })
+      .exec()
+      .then((logs: []) => {
+        setCount(logs.length);
+      });
+  }, [nSQL, contactID, queried]);
+  useEffect(() => {
+    if (count === 0) return;
+  }, [count]);
+
+  return <>{count > 0 && <Badge content={count} view={view} />}</>;
+}
+
+function contactsList({ list, theme, styles, view }: any) {
   return (
     <>
       {list.map((item: any, key: number) => (
@@ -24,13 +48,16 @@ function contactsList({ list, theme, styles }: any) {
           <div className={styles[`ListItem-${theme}-Contact`]}>
             {item.name} {item.surname}
           </div>
+          <div className={styles[`ListItem-${theme}-Badge`]}>
+            <WorkLogBadgeFromID view={view} contactID={item.id} />
+          </div>
         </Link>
       ))}
     </>
   );
 }
 
-export default function List({ type, list = [] }: any) {
+export default function List({ type, list = [], view }: any) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -40,7 +67,8 @@ export default function List({ type, list = [] }: any) {
         <div className={styles[`List-${theme}-Title`]}>
           <H1>Contacts</H1>
         </div>
-        {type === "CONTACTS_LIST" && contactsList({ list, theme, styles })}
+        {type === "CONTACTS_LIST" &&
+          contactsList({ list, theme, styles, view })}
       </section>
     </>
   );

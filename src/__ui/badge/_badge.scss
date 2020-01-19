@@ -1,18 +1,24 @@
 @mixin badge() {
   border-radius: rem(0.5);
-  line-height: inherit;
-  display: inline;
-  padding: 0.25em 1em;
+  display: inline-block;
+  padding: 0 1em;
+  margin: 2px 4px;
   text-align: center;
 }
 
 .Badge-#{$theme} {
   &-primary {
     @include badge();
-    box-shadow: inset 0 0 4px 0 $primary-layer-color;
+    color: $primary-layer-bg-color;
+    background-color: $primary-layer-color;
   }
   &-secondary {
     @include badge();
-    box-shadow: inset 0 0 4px 0 $secondary-layer-color;
+    @if $theme == "default" {
+      border: 1px solid $primary-layer-bg-color;
+    } @else {
+      color: $secondary-layer-bg-color;
+      background-color: $secondary-layer-color;
+    }
   }
 }

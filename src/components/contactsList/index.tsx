@@ -44,7 +44,7 @@ export default function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
 
   return (
     <div className={viewClass}>
-      <List title="Contacts" list={contacts} type="CONTACTS_LIST" />
+      <List title="Contacts" list={contacts} type="CONTACTS_LIST" view={view} />
     </div>
   );
 }

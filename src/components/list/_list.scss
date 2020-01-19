@@ -17,8 +17,9 @@
 
 .ListItem-#{$theme} {
   display: grid;
-  grid-template-areas: "list-item-contact";
-  grid-template-columns: auto;
+  align-items: center;
+  grid-template-areas: "list-item-contact badge";
+  grid-template-columns: auto min-content;
   padding: 2px 0;
   background-color: rgba(#fff, 0.75);
   margin-bottom: 0;
@@ -42,5 +43,9 @@
 
   &-Duration {
     grid-area: list-item-duration;
+  }
+
+  &-Badge {
+    grid-area: badge;
   }
 }
