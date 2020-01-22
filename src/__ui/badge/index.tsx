@@ -20,7 +20,6 @@ interface IBadgeProps {
 function Badge({ content, view = VDESIGN.DESIGN_VIEW_PRIMARY }: IBadgeProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-  console.log(styles, styles[`Badge-${theme}-${view}`]);
   return <div className={styles[`Badge-${theme}-${view}`]}>{content}</div>;
 }
 

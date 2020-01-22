@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Icon from "../../../__ui/icon";
 import { VDESIGN } from "../../../store/constant-enums";
@@ -13,17 +13,31 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 interface IOptionsButtonProps {
   /** Action */
   onClick: () => any;
+  children?: any;
 }
 
 /**
  * Special button, which can show drop-down like list on click.
  */
-function OptionsButton({ onClick }: IOptionsButtonProps) {
+function OptionsButton({ onClick, children }: IOptionsButtonProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
+  const [show, setShow] = useState<boolean>(false);
+  function handleClick() {
+    setShow(!show);
+  }
   return (
-    <div className={styles[`Options-${theme}`]}>
-      <Icon>more_horiz</Icon>
+    <div
+      className={styles[`Options-${theme}`]}
+      data-show={show ? "true" : "false"}
+    >
+      <div className={styles[`Options-Button-${theme}`]} onClick={handleClick}>
+        {!show && <Icon>more_horiz</Icon>}
+        {show && <Icon>close</Icon>}
+      </div>
+      <div className={styles[`Options-Content-${theme}`]}>
+        {show && children}
+      </div>
     </div>
   );
 }

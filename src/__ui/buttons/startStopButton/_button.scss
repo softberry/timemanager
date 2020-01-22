@@ -39,7 +39,7 @@
     transform: translate(73%, 22%);
   }
 
-  &-On {
+  &[data-turning="yes"] {
     opacity: 0.75;
     &:before {
       animation: activeGearBig 1s linear infinite;

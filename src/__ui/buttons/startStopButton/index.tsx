@@ -19,7 +19,7 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 function StartStopButton({
   onComplete,
   waitForSeconds = 3,
-  isTurning = false
+  isTurning = false,
 }: IStartStopButtonProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -28,7 +28,7 @@ function StartStopButton({
   const [isCountingDown, setIsCountingDown] = useState<boolean>(false);
   const [counter, setCounter] = useState(0);
 
-  const [turnWheel, setTurnWheel] = useState(styles[`TimerAnimation-${theme}`]);
+  const [turnWheel, setTurnWheel] = useState<boolean>(isTurning);
   let strCountDown: string = isCountingDown
     ? (waitForSeconds - counter).toString()
     : "";
@@ -36,16 +36,10 @@ function StartStopButton({
   const infoText = `Press and hold the button for ${strCountDown} seconds`;
 
   useEffect(() => {
-    if (isTurning) {
-      setTurnWheel(
-        `${styles[`TimerAnimation-${theme}`]} ${
-          styles[`TimerAnimation-${theme}-On`]
-        }`
-      );
-    } else {
-      setTurnWheel(`${styles[`TimerAnimation-${theme}`]}`);
+    if (isTurning !== turnWheel) {
+      setTurnWheel(isTurning);
     }
-  }, [isTurning, styles, theme]);
+  }, [isTurning, turnWheel]);
 
   useEffect(() => {
     let intervalId: number = -1;
@@ -94,7 +88,10 @@ function StartStopButton({
         {isCountingDown && (
           <div className={styles[`CountDown-${theme}`]}>{strCountDown}</div>
         )}
-        <div className={turnWheel}></div>
+        <div
+          className={styles[`TimerAnimation-${theme}`]}
+          data-turning={turnWheel ? "yes" : "no"}
+        ></div>
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ export default function Input({ name, value }: IInputComponentProps) {
       </label>
       <input
         id={id}
-        className={`${styles[`input-${theme}`]}`}
+        className={`${styles[`Input-${theme}`]}`}
         type={type}
         value={val}
         onChange={handleOnChange}

@@ -17,7 +17,7 @@ export default function Checkbox({
   children,
   checked = false,
   label,
-  onChange
+  onChange,
 }: ICheckBoxComponentProps) {
   if (typeof onChange !== "function") {
     console.error("Checkbox component must have onChange function.");
@@ -41,13 +41,7 @@ export default function Checkbox({
         className={styles[`Checkbox-${theme}`]}
         onClick={checkOnChangeHandler}
       >
-        <div
-          className={
-            isChecked
-              ? styles[`Checkbox-${theme}-IconSelected`]
-              : styles[`Checkbox-${theme}-Icon`]
-          }
-        ></div>
+        <div data-checked={isChecked}></div>
         <div className={styles[`Checkbox-${theme}-Label`]}>{label}</div>
         <div className={styles[`Checkbox-${theme}-Content`]}>{children}</div>
       </div>

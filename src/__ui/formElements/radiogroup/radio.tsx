@@ -19,7 +19,7 @@ export default function Radio({
   label = "",
   onChange = () => {},
   checked = false,
-  value
+  value,
 }: IRadioItemProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -31,13 +31,7 @@ export default function Radio({
         onClick={() => onChange(value)}
         data-value={value}
       >
-        <div
-          className={
-            checked
-              ? styles[`Radio-${theme}-IconSelected`]
-              : styles[`Radio-${theme}-Icon`]
-          }
-        ></div>
+        <div data-checked={checked}></div>
         <div className={styles[`Radio-${theme}-Label`]}>{label}</div>
         <div className={styles[`Radio-${theme}-Content`]}>{children}</div>
       </div>

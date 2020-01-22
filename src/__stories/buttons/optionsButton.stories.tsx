@@ -14,11 +14,7 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <OptionsButton
-        onClick={() => {
-          alert("Complete event called at 5s.");
-        }}
-      />
+      <OptionsButton onClick={() => {}}></OptionsButton>
     </StoryPage>
   );
 };
@@ -26,11 +22,7 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <OptionsButton
-        onClick={() => {
-          alert("Complete event called at 5s.");
-        }}
-      />
+      <OptionsButton onClick={() => {}} />
     </StoryPage>
   );
 };
