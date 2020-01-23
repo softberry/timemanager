@@ -58,7 +58,7 @@
 
   @if $selected {
     &:before {
-      @include materialIcon(inherit);
+      @include materialIconSmall();
 
       @if $type == "check" {
         content: "done";
@@ -69,7 +69,7 @@
     }
   } @else {
     &:before {
-      @include materialIcon(inherit);
+      @include materialIconSmall();
       @if $type == "check" {
         content: "";
       }

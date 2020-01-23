@@ -1,10 +1,13 @@
 import React, { useState, useCallback } from "react";
-import { ICheckBoxComponentProps } from "../../../__typings/interfaces";
+import {
+  ICheckBoxComponentProps,
+  ISizeIcon,
+} from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../../store/constant-enums";
 import { useTheme, useThemeStyle } from "../../typography";
-
+import Icon from "../../../__ui/icon";
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
@@ -41,7 +44,10 @@ export default function Checkbox({
         className={styles[`Checkbox-${theme}`]}
         onClick={checkOnChangeHandler}
       >
-        <div data-checked={isChecked}></div>
+        {isChecked && <Icon size={ISizeIcon.SMALL}>check_circle_outline</Icon>}
+        {!isChecked && (
+          <Icon size={ISizeIcon.SMALL}>radio_button_unchecked</Icon>
+        )}
         <div className={styles[`Checkbox-${theme}-Label`]}>{label}</div>
         <div className={styles[`Checkbox-${theme}-Content`]}>{children}</div>
       </div>

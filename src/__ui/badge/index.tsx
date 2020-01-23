@@ -1,5 +1,6 @@
 import React from "react";
 
+import { IBadgeProps } from "../../__typings/interfaces.d";
 import { VDESIGN } from "../../store/constant-enums";
 import { useTheme, useThemeStyle } from "../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -8,11 +9,6 @@ import themeOcean from "./theme-ocean.module.scss";
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
-
-interface IBadgeProps {
-  content: number;
-  view?: string;
-}
 
 /**
  * Special button, which can show drop-down like list on click.

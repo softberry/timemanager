@@ -10,11 +10,5 @@
 .Radio {
   &-#{$theme} {
     @include option-container("radio");
-    > [data-checked="true"] {
-      @include option-icon("radio", true);
-    }
-    > [data-checked="false"] {
-      @include option-icon("radio", false);
-    }
   }
 }

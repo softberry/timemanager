@@ -1,4 +1,12 @@
 .Icon-#{$theme} {
-  @include materialIcon();
   color: inherit;
+  &[data-size="SMALL"] {
+    @include materialIconSmall();
+  }
+  &[data-size="MEDIUM"] {
+    @include materialIconMedium();
+  }
+  &[data-size="LARGE"] {
+    @include materialIconLarge();
+  }
 }

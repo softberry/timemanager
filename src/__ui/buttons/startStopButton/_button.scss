@@ -23,7 +23,8 @@
   opacity: 0.5;
 
   &:before {
-    @include materialIcon(450%);
+    @include materialIcon(6);
+
     display: block;
     position: absolute;
     content: "brightness_7";
@@ -31,7 +32,7 @@
     position: absolute;
   }
   &:after {
-    @include materialIcon(300%);
+    @include materialIcon(4);
     display: block;
     position: absolute;
     content: "brightness_7";

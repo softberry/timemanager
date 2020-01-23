@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import { IOptionsButtonProps } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 import { VDESIGN } from "../../../store/constant-enums";
 import { useTheme, useThemeStyle } from "../../typography";
@@ -9,12 +10,6 @@ import themeOcean from "./theme-ocean.module.scss";
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
-//TODO: move interface to _typings
-interface IOptionsButtonProps {
-  /** Action */
-  onClick: () => any;
-  children?: any;
-}
 
 /**
  * Special button, which can show drop-down like list on click.
@@ -29,7 +24,7 @@ function OptionsButton({ onClick, children }: IOptionsButtonProps) {
   return (
     <div
       className={styles[`Options-${theme}`]}
-      data-show={show ? "true" : "false"}
+      data-show-content={show ? "true" : "false"}
     >
       <div className={styles[`Options-Button-${theme}`]} onClick={handleClick}>
         {!show && <Icon>more_horiz</Icon>}

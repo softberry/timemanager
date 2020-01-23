@@ -215,12 +215,40 @@ export interface IUnitEnumsTableModel {
   name: string;
 }
 
-interface IHeadlineProps {
+export interface IHeadlineProps {
   /** String, DOM elements React elements those will be rendered in the headline  */
   children: any;
 }
 
-interface IHeadlineBuilderProps extends IHeadlineProps {
+export interface IHeadlineBuilderProps extends IHeadlineProps {
   /** Size of Headline elements valid values are 1-6 */
   size: number;
+}
+/** Size enums for Material Icons */
+export enum ISizeIcon {
+  SMALL = "SMALL",
+  MEDIUM = "MEDIUM",
+  LARGE = "LARGE",
+}
+/** Material Icon properties */
+export interface IIconProps {
+  children?: any;
+  onClick?: () => any;
+  size?: ISizeIcon;
+}
+
+export interface IBadgeProps {
+  content: number;
+  view?: string;
+}
+
+export interface IOptionsButtonProps {
+  /** Action */
+  onClick?: () => any;
+  children?: any;
+}
+export interface IWorkListItemEntry {
+  name: string;
+  labour: [{}];
+  materials: [{}];
 }

@@ -4,7 +4,7 @@ import StartStopButton from "../../__ui/buttons/startStopButton";
 import StoryPage from "../story-page";
 
 export default {
-  title: "Buttons/Start Stop Button/Turning",
+  title: "Form Elements/Buttons/Start Stop Button/Turning",
   component: StartStopButton,
   parameters: {
     componentSubtitle: "Delayed callback button"

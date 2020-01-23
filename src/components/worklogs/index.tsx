@@ -8,13 +8,8 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
+import {IWorkListItemEntry} from "../../__typings/interfaces.d";
 
-interface IWorkListItemEntry {
-  //TODO: move this to interfaces.d.ts when this componenet completed
-  name: string;
-  labour: [{}];
-  materials: [{}];
-}
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);

@@ -4,7 +4,7 @@ import OptionsButton from "../../__ui/buttons/optionsButton";
 import StoryPage from "../story-page";
 
 export default {
-  title: "Buttons/Options Button",
+  title: "Form Elements/Buttons/Options Button",
   component: OptionsButton,
   parameters: {
     componentSubtitle: "Options button",
@@ -14,7 +14,15 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <OptionsButton onClick={() => {}}></OptionsButton>
+      <OptionsButton onClick={() => {}}>
+        <div>
+          <ul>
+            <li>Line 1</li>
+            <li>Line 2</li>
+            <li>Line 3</li>
+          </ul>
+        </div>
+      </OptionsButton>
     </StoryPage>
   );
 };

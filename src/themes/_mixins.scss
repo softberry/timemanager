@@ -51,16 +51,16 @@
   z-index: map-get($indexList, $item);
 }
 
-@mixin materialIcon($size: 1.5em) {
-  width: 1em;
-  height: 1em;
+@mixin materialIcon($size:1.75) {
+  width: rem($size);
+  height: rem($size);
   overflow: hidden;
   flex-shrink: 0;
   user-select: none;
   font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
-  font-size: $size;
+  font-size: rem($size);
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -79,6 +79,16 @@
 
   /* Support for IE. */
   font-feature-settings: "liga";
+}
+
+@mixin materialIconSmall() {
+  @include materialIcon(1.25);
+}
+@mixin materialIconMedium() {
+  @include materialIcon(1.75);
+}
+@mixin materialIconLarge() {
+  @include materialIcon(2);
 }
 
 @function get-param($variantName, $param) {

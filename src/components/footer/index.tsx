@@ -37,7 +37,7 @@ export default function Footer() {
         className={styles[`Footer-${theme}-Button`]}
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >
-        <Icon>list</Icon>
+        <Icon>date_range</Icon>
       </NavLink>
       <NavLink
         to="/settings"
