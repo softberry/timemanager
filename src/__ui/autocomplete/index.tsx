@@ -17,13 +17,16 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
  * https://github.com/softberry/timemanager/issues/37
  */
 export default function AutoComplete({
-  variant = VDESIGN.DESIGN_VIEW_PRIMARY
+  variant = VDESIGN.DESIGN_VIEW_PRIMARY,
 }: any) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
+  function handleAutoFocus(e: any) {
+    e.currentTarget.querySelector("input").focus();
+  }
   return (
-    <div className={styles[`AutoComplete-${theme}`]}>
+    <div className={styles[`AutoComplete-${theme}`]} onClick={handleAutoFocus}>
       <input className={styles[`AutoComplete-${theme}-${variant}-input`]} />
       <div
         className={styles[`AutoComplete-${theme}-${variant}-inputSearchIcon`]}
