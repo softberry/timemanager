@@ -21,7 +21,7 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function ReadOnlyDeatils({ contact }: any) {
+function ReadOnlyDetails({ contact }: any) {
   const { street, zip, city, tel, mobile } = contact;
   return (
     <>
@@ -117,14 +117,14 @@ export default function ContactDetails({
     return (
       <div className={viewClass}>
         <H1>{fullName}</H1>
-        <ReadOnlyDeatils contact={contact} />
+        <ReadOnlyDetails contact={contact} />
         <Worklogs show={true} contact={contact} />
       </div>
     );
   }
   const EditableDetailTitle = isNewContact
     ? "Create New Contact"
-    : "Edit Contact Deatils";
+    : "Edit Contact Details";
 
   return (
     <div className={viewClass}>
