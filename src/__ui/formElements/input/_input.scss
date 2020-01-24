@@ -3,7 +3,7 @@
 .Input-#{$theme} {
   position: relative;
   border: none;
-  margin-bottom: 0.5 * $font-size;
+  margin-bottom: 0.25 * $font-size;
   label {
     display: block;
     position: absolute;
@@ -32,6 +32,6 @@
 .TYPE_LABEL-#{$theme} {
   display: block;
   position: absolute;
-  margin: rem(-0.25) 0 0 0;
+  margin: rem(-.25) 0 0 0;
   font-weight: $font-weight-bold;
 }
