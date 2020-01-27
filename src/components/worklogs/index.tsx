@@ -8,8 +8,7 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
-import {IWorkListItemEntry} from "../../__typings/interfaces.d";
-
+import { IWorkListItemEntry } from "../../__typings/interfaces";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -96,7 +95,7 @@ function WorkListWorkEntries({ entries, styles, theme }: any) {
   );
 }
 
-export default function WorksLogs({ show, contact }: any) {
+function WorksLogs({ show, contact }: any) {
   //  const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
 
   const worklogs = useSelector((state: any) => state.worklogs.worklogs);
@@ -126,3 +125,5 @@ export default function WorksLogs({ show, contact }: any) {
     <></>
   );
 }
+
+export default WorksLogs;

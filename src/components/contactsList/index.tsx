@@ -13,7 +13,7 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-export default function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
+function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const [ready, setReady] = useState(false);
   const [contacts, setContacts] = useState([]);
@@ -48,3 +48,4 @@ export default function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
     </div>
   );
 }
+export default ContactsList;

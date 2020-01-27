@@ -1,16 +1,16 @@
 import React from "react";
-import Input from "../../__ui/formElements/input/input";
+import Input from "../../__ui/formElements";
 import StoryPage from "../story-page";
 import { name, address } from "faker";
 export default {
   title: "Form Elements/Input",
   component: Input,
   parameters: {
-    componentSubtitle: "Handy status label"
-  }
+    componentSubtitle: "Handy status label",
+  },
 };
 
-export const primary =  () => {
+export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Input name="name" value={name.firstName()}></Input>

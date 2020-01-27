@@ -100,7 +100,7 @@ function ToolbarButton({
   );
 }
 
-export default function Toolbar() {
+function Toolbar() {
   const buttons = useSelector((state: any) => state.toolbar.buttons);
   const currentContact = useSelector((state: any) => state.toolbar.contact);
 
@@ -130,3 +130,5 @@ export default function Toolbar() {
     </div>
   );
 }
+
+export default Toolbar;

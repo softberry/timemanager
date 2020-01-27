@@ -9,7 +9,7 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-export default function() {
+function Loading() {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -19,3 +19,4 @@ export default function() {
     </div>
   );
 }
+export default Loading;

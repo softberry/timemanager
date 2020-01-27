@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   IConfirmDeleteContact,
-  IContactsTableModel
+  IContactsTableModel,
 } from "../../__typings/interfaces";
 
 import { useHistory } from "react-router-dom";
@@ -18,10 +18,7 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-export default function ConfirmDeleteContact({
-  contact,
-  dialogId
-}: IConfirmDeleteContact) {
+function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -51,7 +48,7 @@ export default function ConfirmDeleteContact({
           selectedItems.forEach(item => {
             nSQL("workTable")
               .query("upsert", {
-                contactID: "__DELETED_CONTACT__"
+                contactID: "__DELETED_CONTACT__",
               })
               .where(["id", "=", item.id])
               .exec()
@@ -70,7 +67,7 @@ export default function ConfirmDeleteContact({
       .catch((err: any) => {});
     dispatch({
       type: TYPES.MESSAGES_HIDE_MESSAGE,
-      dialogId: dialogId
+      dialogId: dialogId,
     });
   }
 
@@ -112,3 +109,5 @@ export default function ConfirmDeleteContact({
     </>
   );
 }
+
+export default ConfirmDeleteContact;

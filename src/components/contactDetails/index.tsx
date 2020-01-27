@@ -65,11 +65,7 @@ function EditableInput({ item, contact }: any) {
   );
 }
 
-export default function ContactDetails({
-  contact,
-  type,
-  view,
-}: IContactDetailsComponent) {
+function ContactDetails({ contact, type, view }: IContactDetailsComponent) {
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isNewContact, setIsNewContact] = useState(false);
   const dispatch = useDispatch();
@@ -134,3 +130,4 @@ export default function ContactDetails({
     </div>
   );
 }
+export default ContactDetails;

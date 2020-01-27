@@ -3,13 +3,13 @@ import { ICounterDiffTime } from "../../__typings/interfaces";
 
 import { twoDigit } from "../../lib/counter.helpers";
 
-export default function Counter({
+function Counter({
   hour,
   minute,
   second,
   counting = false,
   styles,
-  theme
+  theme,
 }: ICounterDiffTime) {
   const beatClass = [styles[`Beats-${theme}`]];
   counting && beatClass.push(styles[`beats-${theme}`]);
@@ -32,3 +32,5 @@ export default function Counter({
     </div>
   );
 }
+
+export default Counter;

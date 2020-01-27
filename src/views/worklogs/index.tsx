@@ -12,7 +12,7 @@ import EventsCalendar from "../../components/eventsCalendar";
 //  https://github.com/softberry/timemanager/issues/40
 //  https://github.com/softberry/timemanager/issues/32
 
-export default function() {
+function WorklogsView() {
   const [ready, setReady] = useState(false);
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const [worklog, setWorklog] = useState([]);
@@ -42,3 +42,5 @@ export default function() {
     </DefaultLayout>
   );
 }
+
+export default WorklogsView;

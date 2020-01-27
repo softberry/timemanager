@@ -1,5 +1,5 @@
 import React from "react";
-import { IRadioItemProps, ISizeIcon } from "../../../__typings/interfaces.d";
+import { IRadioItemProps, ESizeIcon } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
@@ -16,7 +16,7 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
  *
  */
 
-export default function Radio({
+function Radio({
   children,
   label = "",
   onChange = () => {},
@@ -34,11 +34,13 @@ export default function Radio({
         data-value={value}
       >
 
-        {checked && <Icon size={ISizeIcon.SMALL}>radio_button_checked</Icon>}
-        {!checked && <Icon size={ISizeIcon.SMALL}>radio_button_unchecked</Icon>}
+        {checked && <Icon size={ESizeIcon.SMALL}>radio_button_checked</Icon>}
+        {!checked && <Icon size={ESizeIcon.SMALL}>radio_button_unchecked</Icon>}
         <div className={styles[`Radio-${theme}-Label`]}>{label}</div>
         <div className={styles[`Radio-${theme}-Content`]}>{children}</div>
       </div>
     </>
   );
 }
+
+export default Radio;

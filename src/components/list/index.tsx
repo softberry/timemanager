@@ -56,7 +56,7 @@ function contactsList({ list, theme, styles, view }: any) {
   );
 }
 
-export default function List({ type, list = [], view }: any) {
+function List({ type, list = [], view }: any) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -72,3 +72,5 @@ export default function List({ type, list = [], view }: any) {
     </>
   );
 }
+
+export default List;

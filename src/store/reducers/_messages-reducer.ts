@@ -21,7 +21,7 @@ icons.set(TYPES.CONFIRM_DELETE_CONTACT, "assignment_turned_in");
 
 //type, caption, body, closable, dialogId
 
-export default function message(state: any = { messages: [] }, payload: any) {
+function message(state: any = { messages: [] }, payload: any) {
   switch (payload.type) {
     case TYPES.MESSAGES_INFO:
     case TYPES.MESSAGES_WARNING:
@@ -35,8 +35,8 @@ export default function message(state: any = { messages: [] }, payload: any) {
         ...state,
         messages: [
           ...state.messages,
-          { ...payload, icon: icons.get(payload.type) }
-        ]
+          { ...payload, icon: icons.get(payload.type) },
+        ],
       };
     case TYPES.MESSAGES_HIDE_MESSAGE:
       const messageToHide: IMessage[] = state.messages.filter(
@@ -44,11 +44,12 @@ export default function message(state: any = { messages: [] }, payload: any) {
       );
       return {
         ...state,
-        messages: messageToHide
+        messages: messageToHide,
       };
     default:
       return {
-        ...state
+        ...state,
       };
   }
 }
+export default message;

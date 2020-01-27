@@ -6,12 +6,13 @@ module.exports = {
     "@storybook/addon-docs/register",
     {
       name: "@storybook/addon-docs",
-      options: { configureJSX: true }
+      options: { configureJSX: true },
     },
     {
-      name: "@storybook/preset-create-react-app"
-    }
-  ]
+      name: "@storybook/preset-create-react-app",
+      options: {
+        tsDocgenLoaderOptions: {},
+      },
+    },
+  ],
 };
-
-// import t from "@storybook/addon-info/docs/register"

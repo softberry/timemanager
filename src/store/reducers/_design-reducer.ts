@@ -3,10 +3,10 @@ import { IDesignActionTypes } from "../../__typings/interfaces";
 import TYPES from "../action-types";
 import { VDESIGN, USERSETTINGS } from "../constant-enums";
 
-export default function designReducer(
+function designReducer(
   state = {
     view: VDESIGN.DESIGN_VIEW_PRIMARY,
-    theme: VDESIGN.DESIGN_THEME_DEFAULT
+    theme: VDESIGN.DESIGN_THEME_DEFAULT,
   },
   action: IDesignActionTypes
 ) {
@@ -18,14 +18,16 @@ export default function designReducer(
       );
       return {
         ...state,
-        theme: action.theme
+        theme: action.theme,
       };
     case TYPES.DESIGN_VIEW:
       return {
         ...state,
-        view: action.view
+        view: action.view,
       };
     default:
       return state;
   }
 }
+
+export default designReducer;

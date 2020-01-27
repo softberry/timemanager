@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { IOptionsButtonProps } from "../../../__typings/interfaces.d";
+import { IOptionsButtonProps } from "../../../__typings/interfaces";
 import Icon from "../../../__ui/icon";
 import { VDESIGN } from "../../../store/constant-enums";
 import { useTheme, useThemeStyle } from "../../typography";

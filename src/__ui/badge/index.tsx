@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IBadgeProps } from "../../__typings/interfaces.d";
+import { IBadgeProps } from "../../__typings/interfaces";
 import { VDESIGN } from "../../store/constant-enums";
 import { useTheme, useThemeStyle } from "../typography";
 import themeDefault from "./theme-default.module.scss";

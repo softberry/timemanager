@@ -24,6 +24,7 @@ export interface IContactViewProps {
 }
 
 export interface ICheckBoxComponentProps extends IRadioItemProps {
+  /** Value of the check box */
   value?: never;
   /** callback function to be don if checkbox or radio  changes it state */
   onChange: (checked?: any) => void;
@@ -46,14 +47,25 @@ export interface IRadioGroupProps {
   children?: any;
   onChange: any;
 }
-
-export interface IInputComponentProps {
-  name: string;
-  value: string;
+/** Input labels can be visually label or placeholder */
+export enum ELabelTypes {
+  LABEL = "LABEL",
+  PLACEHOLDER = "PLACEHOLDER",
 }
 
-export interface IMultiInputProps extends IInputComponentProps {
-  value?: [];
+export interface IInputProps {
+  /** Name of the input field */
+  name: string;
+  /** Value  of the input field */
+  value: string;
+  /** Callback funtion that sets parents active state. Used in Multifield only */
+  fieldState?: (n: boolean) => void;
+}
+
+export interface IMultiInputProps {
+  name: string;
+  value: string[];
+  getStateFromChildren?: (n: boolean) => any;
 }
 /**
  * props for StartStopButton
@@ -225,7 +237,7 @@ export interface IHeadlineBuilderProps extends IHeadlineProps {
   size: number;
 }
 /** Size enums for Material Icons */
-export enum ISizeIcon {
+export enum ESizeIcon {
   SMALL = "SMALL",
   MEDIUM = "MEDIUM",
   LARGE = "LARGE",
@@ -234,7 +246,7 @@ export enum ISizeIcon {
 export interface IIconProps {
   children?: any;
   onClick?: () => any;
-  size?: ISizeIcon;
+  size?: ESizeIcon;
 }
 
 export interface IBadgeProps {

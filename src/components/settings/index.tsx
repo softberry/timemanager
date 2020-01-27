@@ -15,7 +15,7 @@ const stylesMap = new Map();
 
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
-export default function Settings({ view }: IDesignModel) {
+function Settings({ view }: IDesignModel) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -58,3 +58,5 @@ export default function Settings({ view }: IDesignModel) {
     </section>
   );
 }
+
+export default Settings;

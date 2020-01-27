@@ -13,10 +13,10 @@ import { VDESIGN, USERSETTINGS } from "./store/constant-enums";
 import "./index.scss";
 
 import Home from "./views/home";
-import Calendar from "./views/calendar";
-import Contacts from "./views/contacts";
-import Settings from "./views/settings";
-import Contact from "./views/contact";
+import CalendarView from "./views/calendar";
+import ContactsView from "./views/contacts";
+import SettingsView from "./views/settings";
+import ContactView from "./views/contact";
 import Message from "./__ui/message";
 
 const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
@@ -43,10 +43,10 @@ function Page() {
         <NanoDataBase>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/contacts" component={Contacts} />
-            <Route exact path="/calendar" component={Calendar} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/contact/:type/:id" component={Contact} />
+            <Route exact path="/contacts" component={ContactsView} />
+            <Route exact path="/calendar" component={CalendarView} />
+            <Route exact path="/settings" component={SettingsView} />
+            <Route exact path="/contact/:type/:id" component={ContactView} />
           </Switch>
         </NanoDataBase>
         <Message />
