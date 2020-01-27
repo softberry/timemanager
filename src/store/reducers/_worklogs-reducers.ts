@@ -1,7 +1,6 @@
 import TYPES from "../action-types";
 
-export default function worklogs(state: any = { worklogs: [] }, action: any) {
-  
+function worklogs(state: any = { worklogs: [] }, action: any) {
   switch (action.type) {
     case TYPES.WORKLOGS_UPDATE:
       return {
@@ -12,3 +11,5 @@ export default function worklogs(state: any = { worklogs: [] }, action: any) {
       return state;
   }
 }
+
+export default worklogs;

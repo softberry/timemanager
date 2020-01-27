@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import {
   ICheckBoxComponentProps,
-  ISizeIcon,
+  ESizeIcon,
 } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -14,9 +14,8 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 /**
  * Checkbox Component
- *
  */
-export default function Checkbox({
+function Checkbox({
   children,
   checked = false,
   label,
@@ -44,9 +43,9 @@ export default function Checkbox({
         className={styles[`Checkbox-${theme}`]}
         onClick={checkOnChangeHandler}
       >
-        {isChecked && <Icon size={ISizeIcon.SMALL}>check_circle_outline</Icon>}
+        {isChecked && <Icon size={ESizeIcon.SMALL}>check_box</Icon>}
         {!isChecked && (
-          <Icon size={ISizeIcon.SMALL}>radio_button_unchecked</Icon>
+          <Icon size={ESizeIcon.SMALL}>check_box_outline_blank</Icon>
         )}
         <div className={styles[`Checkbox-${theme}-Label`]}>{label}</div>
         <div className={styles[`Checkbox-${theme}-Content`]}>{children}</div>
@@ -54,3 +53,5 @@ export default function Checkbox({
     </>
   );
 }
+
+export default Checkbox;

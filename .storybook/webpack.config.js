@@ -6,14 +6,16 @@ module.exports = ({ config }) => ({
     rules: [
       ...config.module.rules,
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|tsx)?$/,
         include: path.resolve(__dirname, "../src"),
-        use: [require.resolve("react-docgen-typescript-loader")]
-      }
-    ]
+        use: [
+          require.resolve("react-docgen-typescript-loader"),
+        ],
+      },
+    ],
   },
   resolve: {
     ...config.resolve,
-    extensions: [...config.resolve.extensions, ".ts", ".tsx"]
-  }
+    extensions: [...config.resolve.extensions, ".ts", ".tsx"],
+  },
 });

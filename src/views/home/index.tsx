@@ -6,7 +6,7 @@ import { VDESIGN } from "../../store/constant-enums";
 import DefaultLayout from "../../layout/layout.default";
 import Timer from "../../components/timer";
 
-export default function() {
+function HomeView() {
   useDispatch()({ type: TYPES.TOOLBAR_HOME });
 
   return (
@@ -15,3 +15,5 @@ export default function() {
     </DefaultLayout>
   );
 }
+
+export default HomeView;

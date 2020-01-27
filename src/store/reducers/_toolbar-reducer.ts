@@ -11,8 +11,7 @@ const contacts: IToolbarButton[] = [
     label: "New Contact",
     disabled: false,
     hidden: false,
-    clickAction: TYPES.EVENT_CREATE_CONTACT
-    
+    clickAction: TYPES.EVENT_CREATE_CONTACT,
   },
   { type: "delete", disabled: true, hidden: true },
   { type: "edit", disabled: true, hidden: true },
@@ -52,7 +51,7 @@ const editContact: IToolbarButton[] = [
 ];
 const calendar: IToolbarButton[] = [];
 const settings: IToolbarButton[] = [];
-export default function toolBarReducer(
+function toolBarReducer(
   state = { buttons: home },
   action: IToolbarButtonState
 ) {
@@ -95,3 +94,4 @@ export default function toolBarReducer(
       };
   }
 }
+export default toolBarReducer;

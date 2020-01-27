@@ -16,7 +16,7 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
  * Set ViewState from store
  * https://github.com/softberry/timemanager/issues/37
  */
-export default function AutoComplete({
+function AutoComplete({
   variant = VDESIGN.DESIGN_VIEW_PRIMARY,
 }: any) {
   const theme = useTheme();
@@ -36,3 +36,5 @@ export default function AutoComplete({
     </div>
   );
 }
+
+export default AutoComplete;

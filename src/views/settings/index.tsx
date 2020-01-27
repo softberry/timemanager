@@ -4,7 +4,8 @@ import Settings from "../../components/settings";
 import DefaultLayout from "../../layout/layout.default";
 import TYPES from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
-export default function() {
+
+function SettingsView() {
   useDispatch()({ type: TYPES.TOOLBAR_SETTINGS });
   return (
     <DefaultLayout>
@@ -12,3 +13,5 @@ export default function() {
     </DefaultLayout>
   );
 }
+
+export default SettingsView;

@@ -11,7 +11,7 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-export default function Footer() {
+function Footer() {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -49,3 +49,5 @@ export default function Footer() {
     </section>
   );
 }
+
+export default Footer;
