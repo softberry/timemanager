@@ -32,6 +32,7 @@ function AllInputs({
     const field = {
       name: `${name}`,
       value: val,
+      required:true,
       fieldState: (n: any) => {
         const activeCount = n
           ? activeChildrenlength + 1

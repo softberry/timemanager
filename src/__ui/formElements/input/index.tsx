@@ -20,10 +20,23 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 /**
  * Input element:
  */
-function Input({ name, value, fieldState = () => {} }: IInputProps) {
+function Input({
+  name,
+  value,
+  fieldState = () => {},
+  required,
+  validate,
+}: IInputProps) {
   const id = uuid();
   const [inputElement, setInputElement] = useState<any>(null);
   const [val, setVal] = useState<string>(value);
+
+  /*********************************************** */
+  //TODO:  Use debounced validation rule.
+  //       If validation type define use it, if not use default validation rule
+  //TODO:  Define Required style
+  /*********************************************** */
+
   const [hasFocus, setHasFocus] = useState<boolean>(false);
   const [labelType, setLabelType] = useState<ELabelTypes>(
     `${val}`.length === 0 ? ELabelTypes.PLACEHOLDER : ELabelTypes.LABEL

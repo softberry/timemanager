@@ -53,6 +53,13 @@ export enum ELabelTypes {
   PLACEHOLDER = "PLACEHOLDER",
 }
 
+export enum EValidationKinds {
+  TEXT = "TEXT",
+  ZIP = "ZIP",
+  MAIL = "MAIL",
+  MOBILE = "MOBILE",
+  PHONE = "PHONE",
+}
 export interface IInputProps {
   /** Name of the input field */
   name: string;
@@ -60,11 +67,16 @@ export interface IInputProps {
   value: string;
   /** Callback funtion that sets parents active state. Used in Multifield only */
   fieldState?: (n: boolean) => void;
+  /** Define whether this field should have a value */
+  required: boolean;
+  /** Should be value of field to be validated. */
+  validate?: EValidationKinds;
 }
 
-export interface IMultiInputProps {
+export interface IMultiInputProps extends IInputProps {
   name: string;
   value: string[];
+  fieldState?:never;
   getStateFromChildren?: (n: boolean) => any;
 }
 /**
