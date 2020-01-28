@@ -254,11 +254,6 @@ export interface IBadgeProps {
   view?: string;
 }
 
-export interface IOptionsButtonProps {
-  /** Action */
-  onClick?: () => any;
-  children?: any;
-}
 export interface IWorkListItemEntry {
   name: string;
   labour: [{}];
