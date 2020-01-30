@@ -70,7 +70,7 @@ export interface IInputProps {
   /** Define whether this field should have a value */
   required: boolean;
   /** Should be value of field to be validated. */
-  validate?: EValidationKinds;
+  validate?: boolean;
 }
 
 export interface IMultiInputProps extends IInputProps {

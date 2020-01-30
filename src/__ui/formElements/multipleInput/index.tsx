@@ -63,12 +63,13 @@ function MultipleInput(props: IMultiInputProps): any {
   function getActiveStateFromChilds(childrenState: boolean) {
     setMultiFieldActiveState(childrenState);
   }
-
+  console.log(props);
   return (
     <div
       className={styles[`MultipleInputContainer-${theme}`]}
       data-field-active={multiFieldActiveState}
     >
+
       <AllInputs {...props} getStateFromChildren={getActiveStateFromChilds} />
       {multiFieldActiveState && (
         <p>

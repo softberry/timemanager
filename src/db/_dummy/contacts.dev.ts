@@ -1,4 +1,4 @@
-import { name, address, phone, internet } from "faker";
+import { name, address, phone, internet } from "faker/locale/de";
 
 function createRandomContacts(num = 0) {
   function model() {

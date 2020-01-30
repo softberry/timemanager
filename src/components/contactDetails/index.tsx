@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   IContactDetailsComponent,
   IworkTableModel,
-  EValidationKinds,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -72,7 +71,7 @@ function EditableInput({ fieldName, contact }: any) {
     name: fieldName,
     value: contact[fieldName],
     required: fieldName === "surname",
-    validate: EValidationKinds.TEXT,
+    validate: true,
   };
 
   return (

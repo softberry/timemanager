@@ -46,7 +46,7 @@ const contactsTable: InanoSQLTableConfig = {
   model: {
     "id:uuid": { pk: true },
     "name:string": { default: "" },
-    "surname:string": { notNull: true },
+    "surname:string": { default: "", notNull: true },
     "street:string": { default: "" },
     "zip:string": { default: "" },
     "city:string": { default: "" },

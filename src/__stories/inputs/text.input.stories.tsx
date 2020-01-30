@@ -18,19 +18,19 @@ export const primary = () => {
         name="name"
         value={name.firstName()}
         required={true}
-        validate={EValidationKinds.TEXT}
+        validate={true}
       ></Input>
       <Input
         name="Surname"
         value={name.lastName()}
         required={false}
-        validate={EValidationKinds.TEXT}
+        validate={true}
       ></Input>
       <Input
         name="City"
         value={address.city()}
         required={false}
-        validate={EValidationKinds.TEXT}
+        validate={true}
       ></Input>
     </StoryPage>
   );
@@ -43,19 +43,19 @@ export const secondary: any = () => {
         name="name"
         value={name.firstName()}
         required={true}
-        validate={EValidationKinds.TEXT}
+        validate={true}
       ></Input>
       <Input
         name="Surname"
         value={name.lastName()}
         required={false}
-        validate={EValidationKinds.TEXT}
+        validate={true}
       ></Input>
       <Input
         name="City"
         value={address.city()}
         required={false}
-        validate={EValidationKinds.TEXT}
+        validate={true}
       ></Input>
     </StoryPage>
   );

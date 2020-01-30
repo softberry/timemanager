@@ -3,6 +3,7 @@ import {
   IInputProps,
   ESizeIcon,
   ELabelTypes,
+  //EValidationKinds,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
@@ -12,6 +13,15 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
 import { VDESIGN } from "../../../store/constant-enums";
 import { uuid } from "@nano-sql/core/lib/utilities";
+
+import isEmail from "validator/lib/isEmail";
+import isMobilePhone from "validator/lib/isMobilePhone";
+import isPostalCode from "validator/lib/isPostalCode";
+// EValidationKinds.MAIL
+// EValidationKinds.MOBILE
+// EValidationKinds.PHONE
+// EValidationKinds.TEXT
+// EValidationKinds.ZIP
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -25,7 +35,7 @@ function Input({
   value,
   fieldState = () => {},
   required,
-  validate,
+  validate = true,
 }: IInputProps) {
   const id = uuid();
   const [inputElement, setInputElement] = useState<any>(null);
@@ -41,10 +51,40 @@ function Input({
   const [labelType, setLabelType] = useState<ELabelTypes>(
     `${val}`.length === 0 ? ELabelTypes.PLACEHOLDER : ELabelTypes.LABEL
   );
+  const [isValid, setIsValid] = useState<boolean>(true);
   const type = getTypeFromFieldName(name); // input type (text, tel, mail etc...)
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
+
+  useEffect(() => {
+    if (validate) {
+      if (required || `${val}`.length > 0) {
+        switch (type) {
+          case "mail": {
+            setIsValid(isEmail(`${val}`));
+            break;
+          }
+          case "phone": {
+            setIsValid(isMobilePhone(`${val}`, "de-DE"));
+            break;
+          }
+          case "zip": {
+            setIsValid(isPostalCode(`${val}`, "DE"));
+            break;
+          }
+          default:
+            setIsValid(`${val}`.length > 0);
+        }
+      }
+    } else {
+      if (required) {
+        setIsValid(`${val}`.length > 0);
+      } else {
+        setIsValid(true);
+      }
+    }
+  }, [setIsValid, required, type, val, validate]);
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     const val: string = e.target.value;
@@ -92,7 +132,7 @@ function Input({
   }, [val]);
 
   return (
-    <div className={styles[`Input-${theme}`]}>
+    <div className={styles[`Input-${theme}`]} data-valid={isValid}>
       <label
         htmlFor={id}
         className={styles[`Input-${theme}-label`]}
