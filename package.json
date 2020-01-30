@@ -32,7 +32,7 @@
     "storybook": "start-storybook -p 5000 -s ./public",
     "prettify:write": "prettier --write .prettierrc ./**/*.{*,*.yml}",
     "prettify:check": "prettier --check .prettierrc ./**/*.{*,*.yml}",
-    "deploy-storybook":"deploy-storybook -- --ci"
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "eslintConfig": {
     "extends": "react-app"
