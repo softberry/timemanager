@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../__ui/formElements";
 import StoryPage from "../story-page";
 import { name, address } from "faker";
-import { EValidationKinds } from "../../__typings/interfaces.d";
+
 export default {
   title: "Form Elements/Input",
   component: Input,

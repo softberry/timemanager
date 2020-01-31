@@ -10,4 +10,3 @@ install:
   - yarn
 script:
   - yarn build
-  - yarn deploy-storybook --source-branch develop
