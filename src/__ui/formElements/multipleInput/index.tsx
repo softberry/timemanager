@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import { IMultiInputProps } from "../../../__typings/interfaces";
+import { IMultiInputProps, ESizeIcon } from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../../store/constant-enums";
 
+import Icon from "../../icon";
 import Input from "../index";
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -32,7 +33,7 @@ function AllInputs({
     const field = {
       name: `${name}`,
       value: val,
-      required:true,
+      required: true,
       fieldState: (n: any) => {
         const activeCount = n
           ? activeChildrenlength + 1
@@ -63,19 +64,18 @@ function MultipleInput(props: IMultiInputProps): any {
   function getActiveStateFromChilds(childrenState: boolean) {
     setMultiFieldActiveState(childrenState);
   }
-  console.log(props);
+
   return (
     <div
       className={styles[`MultipleInputContainer-${theme}`]}
       data-field-active={multiFieldActiveState}
     >
-
       <AllInputs {...props} getStateFromChildren={getActiveStateFromChilds} />
-      {multiFieldActiveState && (
-        <p>
-          Add new <strong>{props.name}</strong> field
-        </p>
-      )}
+
+      <div className={styles[`MultipleInputContainer-${theme}-add-new`]}>
+        <Icon size={ESizeIcon.SMALL}>add</Icon>
+        Add new {props.name} field
+      </div>
     </div>
   );
 }

@@ -1,11 +1,18 @@
 .MultipleInputContainer {
   &-#{$theme} {
-    margin: 2px;
+    margin-bottom: rem(1) ;
+    box-shadow: 0 0 2px 0 #cccccc;
     transition: all 300ms;
 
     &[data-field-active="true"] {
-     
-      box-shadow: 0 0 2px 0 #cccccc;
+
+      box-shadow: 0 0 6px 2px #cccccc;
+    }
+
+    &-add-new {
+      padding: rem(1);
+      display: flex;
+      align-items: center;
     }
   }
 }
