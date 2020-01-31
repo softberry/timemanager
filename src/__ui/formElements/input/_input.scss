@@ -6,6 +6,10 @@ $bg-active: rgba(125, 125, 125, 0.125);
   border: none;
   margin-bottom: 0.25 * $font-size;
 
+  &[data-valid="false"]{
+    border:#c10b2f 1px solid;
+  }
+
   &-label {
     display: block;
     position: absolute;

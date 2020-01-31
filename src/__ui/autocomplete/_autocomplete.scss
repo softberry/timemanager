@@ -6,16 +6,15 @@
   margin: 0;
   font-size: inherit;
   line-height: $font-size;
-  border-radius: 0.75 * $font-size;
-  padding-left: .5 * $font-size;
-
+  border-radius: rem(1.5);
+  padding-left: rem(.5);
   outline: none;
   transition: background-color, width 300ms;
   background-color: darken($BG, 5%);
-  box-shadow: inset 0 0 2px 0 $BG;
+  box-shadow: inset 0 0 $font-size 0 $BG;
   color: $C;
   max-width: 100%;
-  width: rem(3);
+  width: rem(5);
 
   &:focus {
     background-color: lighten($BG, 5%);
@@ -24,10 +23,9 @@
   }
 
   &SearchIcon {
-    display: flex;
     position: absolute;
-    right:.5 * $font-size;
-    color: lighten($BG, 10%);
+    right:rem(.5);
+    color: darken($C, 25%);
     margin: auto 0;
   }
 }

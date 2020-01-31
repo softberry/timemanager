@@ -4,7 +4,10 @@ os: linux
 language: node_js
 node_js:
   - "10"
+before_install:
+  - yarn global add @storybook/cli
 install:
   - yarn
 script:
   - yarn build
+  - yarn deploy-storybook

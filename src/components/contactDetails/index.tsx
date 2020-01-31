@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   IContactDetailsComponent,
   IworkTableModel,
-} from "../../__typings/interfaces";
+} from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -39,11 +39,13 @@ function EditableDetails({ contact }: any) {
 
   return (
     <div>
-      {Object.keys(contact).map((item, key) => {
-        const props = { item, contact };
+      {Object.keys(contact).map((fieldName, key) => {
+        const props = { fieldName, contact };
         return (
           <div key={key}>
-            {!nonRenderedItems.includes(item) && <EditableInput {...props} />}
+            {!nonRenderedItems.includes(fieldName) && (
+              <EditableInput {...props} />
+            )}
           </div>
         );
       })}
@@ -51,16 +53,30 @@ function EditableDetails({ contact }: any) {
   );
 }
 
-function EditableInput({ item, contact }: any) {
+function EditableInput({ fieldName, contact }: any) {
+  if (Array.isArray(contact[fieldName])) {
+    const multiField = {
+      name: fieldName,
+      value: contact[fieldName],
+      required: fieldName === "surname",
+    };
+    return (
+      <>
+        <MultipleInput {...multiField} />
+      </>
+    );
+  }
+
   const field = {
-    name: item,
-    value: contact[item],
+    name: fieldName,
+    value: contact[fieldName],
+    required: fieldName === "surname",
+    validate: true,
   };
 
   return (
     <>
-      {Array.isArray(field.value) && <MultipleInput {...field} />}
-      {!Array.isArray(field.value) && <Input {...field} />}
+      <Input {...field} />
     </>
   );
 }

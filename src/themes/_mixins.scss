@@ -82,13 +82,13 @@
 }
 
 @mixin materialIconSmall() {
-  @include materialIcon(1.25);
+  @include materialIcon(2);
 }
 @mixin materialIconMedium() {
-  @include materialIcon(1.75);
+  @include materialIcon(2.5);
 }
 @mixin materialIconLarge() {
-  @include materialIcon(2);
+  @include materialIcon(3);
 }
 
 @function get-param($variantName, $param) {

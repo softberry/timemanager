@@ -8,6 +8,7 @@ import { VDESIGN } from "../../store/constant-enums";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
+import { IContactsTableModel } from "../../__typings/interfaces";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -16,7 +17,7 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const [ready, setReady] = useState(false);
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState<IContactsTableModel[]>([]);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -30,7 +31,7 @@ function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
       .where(["id", "!=", "new-contact-to-edit"])
       .orderBy(["name ASC", "surname ASC"])
       .exec()
-      .then((list: []) => {
+      .then((list: [IContactsTableModel]) => {
         setContacts(list);
         setReady(true);
       });
