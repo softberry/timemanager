@@ -38,7 +38,7 @@ function NavForward({ index, length, goForward, theme, styles }: any) {
   );
 }
 
-export default function Nav() {
+function Nav() {
   const history = useHistory();
 
   const theme = useTheme();
@@ -59,3 +59,5 @@ export default function Nav() {
     </nav>
   );
 }
+
+export default Nav;

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { IContactDetailsComponent } from "../../__typings/interfaces";
+import {
+  IContactDetailsComponent,
+  IworkTableModel,
+} from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import TYPES from "../../store/action-types";
 import Input, { MultipleInput } from "../../__ui/formElements";
+import { H1 } from "../../__ui/headline";
+
 import Worklogs from "../worklogs";
 
 import themeDefault from "./theme-default.module.scss";
@@ -16,7 +21,7 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function ReadOnlyDeatils({ contact }: any) {
+function ReadOnlyDetails({ contact }: any) {
   const { street, zip, city, tel, mobile } = contact;
   return (
     <>
@@ -34,11 +39,13 @@ function EditableDetails({ contact }: any) {
 
   return (
     <div>
-      {Object.keys(contact).map((item, key) => {
-        const props = { item, contact };
+      {Object.keys(contact).map((fieldName, key) => {
+        const props = { fieldName, contact };
         return (
           <div key={key}>
-            {!nonRenderedItems.includes(item) && <EditableInput {...props} />}
+            {!nonRenderedItems.includes(fieldName) && (
+              <EditableInput {...props} />
+            )}
           </div>
         );
       })}
@@ -46,25 +53,35 @@ function EditableDetails({ contact }: any) {
   );
 }
 
-function EditableInput({ item, contact }: any) {
+function EditableInput({ fieldName, contact }: any) {
+  if (Array.isArray(contact[fieldName])) {
+    const multiField = {
+      name: fieldName,
+      value: contact[fieldName],
+      required: fieldName === "surname",
+    };
+    return (
+      <>
+        <MultipleInput {...multiField} />
+      </>
+    );
+  }
+
   const field = {
-    name: item,
-    value: contact[item]
+    name: fieldName,
+    value: contact[fieldName],
+    required: fieldName === "surname",
+    validate: true,
   };
 
   return (
     <>
-      {Array.isArray(field.value) && <MultipleInput {...field} />}
-      {!Array.isArray(field.value) && <Input {...field} />}
+      <Input {...field} />
     </>
   );
 }
 
-export default function ContactDetails({
-  contact,
-  type,
-  view
-}: IContactDetailsComponent) {
+function ContactDetails({ contact, type, view }: IContactDetailsComponent) {
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isNewContact, setIsNewContact] = useState(false);
   const dispatch = useDispatch();
@@ -86,6 +103,14 @@ export default function ContactDetails({
     `${contact.name} ${contact.surname}`
   );
 
+  nSQL("workTable")
+    .query("select")
+    .where(["contactID", "=", contact.id])
+    .exec()
+    .then((worklogs: [IworkTableModel]) => {
+      dispatch({ type: TYPES.WORKLOGS_UPDATE, worklogs });
+    });
+
   useEffect(() => {
     if (contact.id === null) return;
     if (contact.id === "new-contact-to-edit") {
@@ -103,21 +128,22 @@ export default function ContactDetails({
   if (isReadOnly) {
     return (
       <div className={viewClass}>
-        <h1>{fullName}</h1>
-        <ReadOnlyDeatils contact={contact} />
+        <H1>{fullName}</H1>
+        <ReadOnlyDetails contact={contact} />
         <Worklogs show={true} contact={contact} />
       </div>
     );
   }
   const EditableDetailTitle = isNewContact
     ? "Create New Contact"
-    : "Edit Contact Deatils";
+    : "Edit Contact Details";
 
   return (
     <div className={viewClass}>
-      <h1>{EditableDetailTitle}</h1>
+      <H1>{EditableDetailTitle}</H1>
       <EditableDetails contact={contact} />
       <Worklogs show={false} contact={contact} />
     </div>
   );
 }
+export default ContactDetails;

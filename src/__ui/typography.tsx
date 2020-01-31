@@ -19,7 +19,7 @@ function Typography({ theme = "default", children }: ITypographyProps) {
 
   const webFontsConfig = {
     google: {
-      families: ["Allerta Stencil:400", "Exo:300,600", "Dosis", "Audiowide"]
+      families: ["Allerta Stencil:400", "Exo:300,600", "Dosis:200,600", "Audiowide"]
     },
     custom: {
       families: ["Material+Icons"],

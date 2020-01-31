@@ -12,7 +12,7 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-export default function DefaultLayout({ children }: any) {
+function DefaultLayout({ children }: any) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -24,3 +24,5 @@ export default function DefaultLayout({ children }: any) {
     </section>
   );
 }
+
+export default DefaultLayout;

@@ -10,14 +10,14 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-export default function Cart({ state }: any) {
+function Cart({ state }: any) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
   const css: any = {
     hidden: styles[`Cart-${theme}`],
     inline: `${styles[`Cart-${theme}`]} ${styles[`Cart-${theme}-Inline`]}`,
-    full: `${styles[`Cart-${theme}`]} ${styles[`Cart-${theme}-CartFull`]}`
+    full: `${styles[`Cart-${theme}`]} ${styles[`Cart-${theme}-CartFull`]}`,
   };
   const [position, setPosition] = useState<string>(css.hidden);
 
@@ -39,3 +39,5 @@ export default function Cart({ state }: any) {
     </div>
   );
 }
+
+export default Cart;

@@ -1,0 +1,6 @@
+public/
+docs/
+build/
+*.code-workspace
+*.log
+*.lock

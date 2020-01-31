@@ -1,37 +1,56 @@
 @import "../form-mixins";
+$bg-active: rgba(125, 125, 125, 0.125);
 
 .Input-#{$theme} {
   position: relative;
   border: none;
-  margin-bottom: 0.5rem;
-  label {
+  margin-bottom: 0.25 * $font-size;
+
+  &[data-valid="false"]{
+    border:#c10b2f 1px solid;
+  }
+
+  &-label {
     display: block;
     position: absolute;
     font-weight: $font-weight-bold;
-    font-size: 0.75rem;
+    font-size: 0.75 * $font-size;
     transition: all 300ms;
     text-transform: capitalize;
+
+    &[data-type="PLACEHOLDER"] {
+      font-size: 1 * $font-size;
+      transform: translateY(50%);
+      font-weight: $font-weight-normal;
+      // padding-left: rem(0.5) 1 * $font-size;
+      opacity: 0.5;
+      font-style: italic;
+      text-shadow: 0 0px 1px currentColor;
+      margin: $font-size auto auto $font-size;
+      line-height: 1;
+    }
+
+    &[data-type="LABEL"] {
+      display: block;
+      position: absolute;
+      margin: 0;
+      font-weight: $font-weight-bold;
+    }
   }
 
-  input {
+  &-Wrapper {
+    display: flex;
+    padding-right: rem(1);
+    &[data-has-focus="true"] {
+      background-color: $bg-active;
+    }
+  }
+
+  &-input {
     @include form-input();
   }
-}
 
-.TYPE_PLACEHOLDER-#{$theme} {
-  font-size: 1rem;
-  transform: translateY(50%);
-  font-weight: $font-weight-normal;
-  padding-left: 0.5rem 1rem;
-  opacity: 0.5;
-  font-style: italic;
-  text-shadow: 0 0px 1px currentColor;
-  margin: 0.25rem 0.5rem;
-  line-height: 1;
-}
-.TYPE_LABEL-#{$theme} {
-  display: block;
-  position: absolute;
-  margin: -0.25rem 0 0 0;
-  font-weight: $font-weight-bold;
+  &-btn-clear {
+    align-self: center;
+  }
 }

@@ -4,10 +4,13 @@ import EventsCalendar from "../../components/eventsCalendar";
 import TYPES from "../../store/action-types";
 import DefaultLayout from "../../layout/layout.default";
 
-export default function() {
+function CalendarView() {
   useDispatch()({ type: TYPES.TOOLBAR_CALENDAR });
 
-  return <DefaultLayout>
+  return (
+    <DefaultLayout>
       <EventsCalendar />
-  </DefaultLayout>;
+    </DefaultLayout>
+  );
 }
+export default CalendarView;

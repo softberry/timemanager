@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DESIGN } from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
+
+import { H1 } from "../../__ui/headline";
 import { RadioGroup, Radio } from "../../__ui/formElements";
 
 import { IDesignModel } from "../../__typings/interfaces";
@@ -13,7 +15,7 @@ const stylesMap = new Map();
 
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
-export default function Settings({ view }: IDesignModel) {
+function Settings({ view }: IDesignModel) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -23,7 +25,7 @@ export default function Settings({ view }: IDesignModel) {
   return (
     <section className={viewClass}>
       <div className={styles[`SettingsHeader-${theme}`]}>
-        <h1>Settings</h1>
+        <H1>Settings</H1>
       </div>
       <div className={styles[`SettingsColLeft-${theme}`]}>
         <div className={styles[`OptionListName-${theme}-Active`]}>Theme</div>
@@ -37,7 +39,7 @@ export default function Settings({ view }: IDesignModel) {
           onChange={(val: string) => {
             dispatch({
               type: DESIGN.DESIGN_THEME,
-              theme: val
+              theme: val,
             });
           }}
         >
@@ -56,3 +58,5 @@ export default function Settings({ view }: IDesignModel) {
     </section>
   );
 }
+
+export default Settings;

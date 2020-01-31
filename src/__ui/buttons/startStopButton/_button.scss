@@ -1,22 +1,22 @@
+$base-size: $font-size;
+
 .Button-#{$theme} {
-    border: transparent 0.75em ridge;
-  width: 7.5rem;
-  height: 7.5rem;
+  border: transparent $base-size * 1.25 ridge;
+  width: 10 * $base-size;
+  height: 10 * $base-size;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: darken($primary-layer-bg-color, 50%) 0 0 1rem 2px,
-    inset lighten($primary-layer-bg-color, 10%) 0 0 1rem 2px;
-  font-size: 1.25rem;
+  box-shadow: darken($primary-layer-bg-color, 50%) 0 0 rem(1) 2px,
+    inset lighten($primary-layer-bg-color, 10%) 0 0 rem(1) 2px;
+  font-size: 1.25 * $base-size;
   transition: all 300ms;
-  margin: 1rem;
-  }
+  margin: 1 * $base-size;
+}
 
-
-.TimerAnimation-#{$theme} {
-
+.TimerAnimation-#{$theme} { 
   position: absolute;
   width: 100%;
   height: 100%;
@@ -25,7 +25,8 @@
   opacity: 0.5;
 
   &:before {
-    @include materialIcon(450%);
+    @include materialIcon(8);
+
     display: block;
     position: absolute;
     content: "brightness_7";
@@ -33,7 +34,7 @@
     position: absolute;
   }
   &:after {
-    @include materialIcon(300%);
+    @include materialIcon(6);
     display: block;
     position: absolute;
     content: "brightness_7";
@@ -41,7 +42,7 @@
     transform: translate(73%, 22%);
   }
 
-  &-On {
+  &[data-turning="yes"] {
     opacity: 0.75;
     &:before {
       animation: activeGearBig 1s linear infinite;
@@ -50,14 +51,12 @@
       animation: activeGearSmall 1s linear infinite;
     }
   }
-  }
-  
-  .active-#{$theme} {
-    box-shadow: lighten($primary-layer-bg-color, 10%) 0 0 0.25em 4px,
-    inset darken($primary-layer-bg-color, 50%) 0 0 0.25em 4px;
-  }
-  
+}
 
+.active-#{$theme} {
+  box-shadow: lighten($primary-layer-bg-color, 10%) 0 0 0.25em 4px,
+    inset darken($primary-layer-bg-color, 50%) 0 0 0.25em 4px;
+}
 
 .CountDown-#{$theme} {
   display: block;
@@ -71,15 +70,14 @@
   font-size: 6em;
   font-weight: $font-weight-bold;
   animation: ct 1s linear infinite;
-  
 }
 
 .PressAndHoldInfo-#{$theme} {
   position: absolute;
-  top: 2rem;
+  top: 2 * $base-size;
   transform: translateY(100%);
   left: 0;
-  font-size: 1rem;
+  font-size: 1 * $base-size;
   font-weight: 600;
   line-height: 1;
   flex-basis: 100%;
@@ -118,4 +116,3 @@
     transform: translate(73%, 22%) rotate(-360deg);
   }
 }
-

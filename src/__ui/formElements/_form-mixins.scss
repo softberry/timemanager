@@ -1,23 +1,18 @@
 @mixin form-input() {
   $bg: rgba(0, 0, 0, 0);
-  $bg-active: rgba(125, 125, 125, 0.125);
+
   &[type="date"],
   &[type="text"],
   &[type="phone"],
   &[type="mail"],
+  &[type="zip"],
   &[type="number"] {
-    padding: .5rem;
-    width: 100%;
-    height: 100%;
+    padding: $font-size;
     font-family: $font-default;
     font-size: $font-size;
     background-color: $bg;
     &::selection {
       background-color: $primary-selected-text;
-    }
-    &:focus,
-    &:active {
-      background-color: $bg-active;
     }
   }
 }
@@ -42,40 +37,5 @@
   &-Content {
     grid-area: content;
     font-size: 0.75em;
-  }
-}
-
-@mixin option-icon($type: "check", $selected: false) {
-  grid-area: icon;
-  width: 1em;
-  height: 1em;
-  font-size: 1em;
-
-  @if $type == "check" {
-    box-shadow: inset 0 0 1px 1px;
-    border-radius: 2px;
-  }
-
-  @if $selected {
-    &:before {
-      @include materialIcon(inherit);
-
-      @if $type == "check" {
-        content: "done";
-      }
-      @if $type == "radio" {
-        content: "radio_button_checked";
-      }
-    }
-  } @else {
-    &:before {
-      @include materialIcon(inherit);
-      @if $type == "check" {
-        content: "";
-      }
-      @if $type == "radio" {
-        content: "radio_button_unchecked";
-      }
-    }
   }
 }

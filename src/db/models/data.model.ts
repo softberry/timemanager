@@ -33,10 +33,10 @@ const counterTable: InanoSQLTableConfig = {
       model: {
         "hour:int": { default: 0 },
         "minute:int": { default: 0 },
-        "second:int": { default: 0 }
-      }
-    }
-  }
+        "second:int": { default: 0 },
+      },
+    },
+  },
 };
 // export default counterTable;
 // Contact-Table
@@ -46,13 +46,13 @@ const contactsTable: InanoSQLTableConfig = {
   model: {
     "id:uuid": { pk: true },
     "name:string": { default: "" },
-    "surname:string": { default: "" },
+    "surname:string": { default: "", notNull: true },
     "street:string": { default: "" },
     "zip:string": { default: "" },
     "city:string": { default: "" },
     "tel:string[]": { default: [""] },
     "mobile:string[]": { default: [""] },
-    "mail:string[]": { default: [""] }
+    "mail:string[]": { default: [""] },
   },
   queries: [
     {
@@ -60,9 +60,9 @@ const contactsTable: InanoSQLTableConfig = {
       args: {},
       call: (db: any, args: any) => {
         return db.query("upsert", { id: "new-contact-to-edit" }).emit();
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
 // Work-Table
 // ID - CONTACTID - DESCRIPTION
@@ -74,13 +74,13 @@ const workTable: InanoSQLTableConfig = {
     "name:string": {},
     "labour:string[]": {}, // workDurationTable
     "materials:string[]": {}, // materialItemTable
-    "description:string": {}
+    "description:string": {},
   },
   queries: [
     {
       name: "createNewWorkLogForContact",
       args: {
-        "contactID:uuid": {}
+        "contactID:uuid": {},
       },
       call: (db: any, args: any) => {
         const work = {
@@ -88,24 +88,24 @@ const workTable: InanoSQLTableConfig = {
           contactID: args.contactID,
           labour: [],
           materials: [],
-          description: ""
+          description: "",
         };
         return db.query("upsert", work).emit();
-      }
+      },
     },
     {
       name: "getWorkLogsOfContact",
       args: {
-        "contactID:uuid": {}
+        "contactID:uuid": {},
       },
       call: (db: any, args: any) => {
         return db
           .query("select")
           .where(["contactID", "=", args.contactID])
           .emit();
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
 
 //  Work-Duration-Table
@@ -117,8 +117,8 @@ const workDurationTable: InanoSQLTableConfig = {
     "start:date": { notNull: true },
     "finish:date": { notNull: true },
     "description:string": {},
-    "workID:string": {}
-  }
+    "workID:string": {},
+  },
 };
 
 //  Material-List-Table
@@ -129,8 +129,8 @@ const materialListTable: InanoSQLTableConfig = {
   model: {
     "id:uuid": { pk: true },
     "items:materialItemTable[]": {},
-    "workID:string": {}
-  }
+    "workID:string": {},
+  },
 };
 
 // Material-Item-Table
@@ -145,8 +145,8 @@ const materialItemTable: InanoSQLTableConfig = {
     "price:float": {},
     "amount:float": {},
     "unit:string": { default: "n/a" },
-    "materialListID:string": {}
-  }
+    "materialListID:string": {},
+  },
 };
 
 // Material-Stocks-Table
@@ -160,8 +160,8 @@ const materialStockTable: InanoSQLTableConfig = {
     "amount:float": { notNull: true },
     "description:string": { default: "0" },
     "price:float": {},
-    "unit:string": { default: "n/a" }
-  }
+    "unit:string": { default: "n/a" },
+  },
 };
 
 // UNIT-ENUMS
@@ -169,8 +169,8 @@ const unitEnumsTable: InanoSQLTableConfig = {
   name: "unitEnumsTable",
   model: {
     "id:uuid": { pk: true },
-    "name:string": { default: "" } // METER|KG|
-  }
+    "name:string": { default: "" }, // METER|KG|
+  },
 };
 
 const counterModelTables = [
@@ -181,7 +181,7 @@ const counterModelTables = [
   materialItemTable,
   materialListTable,
   materialStockTable,
-  unitEnumsTable
+  unitEnumsTable,
 ];
 
 export default counterModelTables;

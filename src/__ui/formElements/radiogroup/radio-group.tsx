@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
   IRadioGroupProps,
-  IRadioItemProps
+  IRadioItemProps,
 } from "../../../__typings/interfaces";
 
 import Radio from "./radio";
@@ -20,7 +20,7 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
  *
  */
 
-export default function RadioGroup({ children, onChange }: IRadioGroupProps) {
+function RadioGroup({ children, onChange }: IRadioGroupProps) {
   const [radioItemsProps, setRadioItemsProps] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
   const [initialised, setInitialised] = useState(false);
@@ -71,7 +71,7 @@ export default function RadioGroup({ children, onChange }: IRadioGroupProps) {
         return {
           children,
           label,
-          value
+          value,
         };
       });
       setRadioItemsProps(propsList);
@@ -100,3 +100,5 @@ export default function RadioGroup({ children, onChange }: IRadioGroupProps) {
     </>
   );
 }
+
+export default RadioGroup;

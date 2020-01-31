@@ -1,8 +1,19 @@
-# Time Manager
+# Time Manager [pre-alpha]
+
+[![Build Status](https://travis-ci.org/softberry/timemanager.svg?branch=develop)](https://travis-ci.org/softberry/timemanager)
+
+## Under Development
+
+__This project is still in early phase of development and not suitable for production.__
 
 ## A powerfull time logger for all craftmen
 
-This project is designed to be an assistant to all kind of craftmen, who needs to keep track of their working hours as well as used materials for a specific Job. 
+**Brief Introduction:** This App is desigend to be a mobile assistant for every craftmen, who needs to keep track of his/her consumed time of labour, used materials, managing appointments and more.
 
-**It's currently still in development mode and not ready to use in production**
+## Functions
 
+### Time Tracker:
+
+### Manage Contacts and Customers
+
+### Appointments / Calendar

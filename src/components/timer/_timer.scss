@@ -27,7 +27,7 @@
 
 
 .Counter-#{$theme} {
-  font-size: 5rem;
+  font-size: 5 * $font-size;
   font-family: $font-numbers;
   opacity: 0.5;
   display: flex;
@@ -39,7 +39,7 @@
     -2px -2px 10px $primary-layer-bg-color;
   @include WidthUp("small") {
     @include HeightUp("x-small") {
-      font-size: 8rem;
+      font-size: 8 * $font-size;
     }
   }
 }
@@ -57,9 +57,9 @@
 }
 
 .Second-#{$theme} {
-  font-size: 1rem;
+  font-size: 1 * $font-size;
   position: absolute;
-  
+
 }
 
 .Beats-#{$theme} {

@@ -32,7 +32,7 @@ function DialogBody({ type, props }: IDialogBodyProp) {
   }
 }
 
-export default function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
+function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   const messages: IMessage[] = useSelector(
     ({ messages }: any) => messages.messages
   );
@@ -93,3 +93,5 @@ export default function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   );
   return <div className={styles[`Message-${theme}`]}>{dialogContent}</div>;
 }
+
+export default Message;

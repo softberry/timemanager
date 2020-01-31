@@ -1,11 +1,5 @@
 @import "../form-mixins";
 
-.Checkbox-#{$theme}{
+.Checkbox-#{$theme} {
   @include option-container("check");
-  &-Icon {
-    @include option-icon("check", false);
-  }
-  &-IconSelected {
-    @include option-icon("check", true);
-  }
 }

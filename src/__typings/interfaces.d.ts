@@ -24,6 +24,7 @@ export interface IContactViewProps {
 }
 
 export interface ICheckBoxComponentProps extends IRadioItemProps {
+  /** Value of the check box */
   value?: never;
   /** callback function to be don if checkbox or radio  changes it state */
   onChange: (checked?: any) => void;
@@ -46,14 +47,37 @@ export interface IRadioGroupProps {
   children?: any;
   onChange: any;
 }
-
-export interface IInputComponentProps {
-  name: string;
-  value: string;
+/** Input labels can be visually label or placeholder */
+export enum ELabelTypes {
+  LABEL = "LABEL",
+  PLACEHOLDER = "PLACEHOLDER",
 }
 
-export interface IMultiInputProps extends IInputComponentProps {
-  value?: [];
+export enum EValidationKinds {
+  TEXT = "TEXT",
+  ZIP = "ZIP",
+  MAIL = "MAIL",
+  MOBILE = "MOBILE",
+  PHONE = "PHONE",
+}
+export interface IInputProps {
+  /** Name of the input field */
+  name: string;
+  /** Value  of the input field */
+  value: string;
+  /** Callback funtion that sets parents active state. Used in Multifield only */
+  fieldState?: (n: boolean) => void;
+  /** Define whether this field should have a value */
+  required: boolean;
+  /** Should be value of field to be validated. */
+  validate?: boolean;
+}
+
+export interface IMultiInputProps extends IInputProps {
+  name: string;
+  value: string[];
+  fieldState?:never;
+  getStateFromChildren?: (n: boolean) => any;
 }
 /**
  * props for StartStopButton
@@ -213,4 +237,37 @@ export interface IMaterialStockTableModel {
 export interface IUnitEnumsTableModel {
   id: string;
   name: string;
+}
+
+export interface IHeadlineProps {
+  /** String, DOM elements React elements those will be rendered in the headline  */
+  children: any;
+}
+
+export interface IHeadlineBuilderProps extends IHeadlineProps {
+  /** Size of Headline elements valid values are 1-6 */
+  size: number;
+}
+/** Size enums for Material Icons */
+export enum ESizeIcon {
+  SMALL = "SMALL",
+  MEDIUM = "MEDIUM",
+  LARGE = "LARGE",
+}
+/** Material Icon properties */
+export interface IIconProps {
+  children?: any;
+  onClick?: () => any;
+  size?: ESizeIcon;
+}
+
+export interface IBadgeProps {
+  content: number;
+  view?: string;
+}
+
+export interface IWorkListItemEntry {
+  name: string;
+  labour: [{}];
+  materials: [{}];
 }

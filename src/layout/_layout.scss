@@ -27,7 +27,7 @@ body {
     "ui-components-nav"
     "ui-components-main"
     "ui-components-footer";
-  grid-template-rows: 3rem 1fr 2rem;
+  grid-template-rows: rem(3) 1fr min-content;
   grid-template-columns: 1fr;
   margin: 0 auto;
 }

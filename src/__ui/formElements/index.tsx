@@ -1,5 +1,5 @@
-import Input from "./input/input";
-import MultipleInput from "./multipleInput/multiple.input";
+import Input from "./input";
+import MultipleInput from "./multipleInput";
 import Checkbox from "./checkbox/checkbox";
 import RadioGroup from "./radiogroup/radio-group";
 import Radio from "./radiogroup/radio";

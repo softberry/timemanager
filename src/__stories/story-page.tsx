@@ -13,7 +13,7 @@ import styles from "./default.module.scss";
 
 const store = createStore(rootReducer);
 
-export default function StoryPage({ children, viewType = "PrimaryView" }: any) {
+function StoryPage({ children, viewType = "PrimaryView" }: any) {
   return (
     <Provider store={store}>
       <Typography />
@@ -21,3 +21,5 @@ export default function StoryPage({ children, viewType = "PrimaryView" }: any) {
     </Provider>
   );
 }
+
+export default StoryPage;

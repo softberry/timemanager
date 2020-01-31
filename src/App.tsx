@@ -2,7 +2,8 @@ import React from "react";
 import Typography from "./__ui/typography";
 import NanoDataBase from "./db";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import { Provider, useSelector, useDispatch } from "react-redux";
 
 import rootReducer from "./store/reducers";
@@ -12,13 +13,13 @@ import { VDESIGN, USERSETTINGS } from "./store/constant-enums";
 import "./index.scss";
 
 import Home from "./views/home";
-import Calendar from "./views/calendar";
-import Contacts from "./views/contacts";
-import Settings from "./views/settings";
-import Contact from "./views/contact";
+import CalendarView from "./views/calendar";
+import ContactsView from "./views/contacts";
+import SettingsView from "./views/settings";
+import ContactView from "./views/contact";
 import Message from "./__ui/message";
 
-const TimerAppStore = createStore(rootReducer);
+const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
 
 function Page() {
   document.oncontextmenu = function() {
@@ -32,7 +33,7 @@ function Page() {
   if (theme !== savedTheme) {
     dispatch({
       type: DESIGN.DESIGN_THEME,
-      theme: savedTheme
+      theme: savedTheme,
     });
   }
 
@@ -42,10 +43,10 @@ function Page() {
         <NanoDataBase>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/contacts" component={Contacts} />
-            <Route exact path="/calendar" component={Calendar} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/contact/:type/:id" component={Contact} />
+            <Route exact path="/contacts" component={ContactsView} />
+            <Route exact path="/calendar" component={CalendarView} />
+            <Route exact path="/settings" component={SettingsView} />
+            <Route exact path="/contact/:type/:id" component={ContactView} />
           </Switch>
         </NanoDataBase>
         <Message />

@@ -5,19 +5,10 @@
     display: flex;
     flex-direction: column;
   }
-  
 }
 
 .Radio {
   &-#{$theme} {
-  @include option-container("radio");
-
-  &-Icon {
-    @include option-icon("radio", false);
+    @include option-container("radio");
   }
-
-  &-IconSelected {
-    @include option-icon("radio", true);
-  }
-}
 }
