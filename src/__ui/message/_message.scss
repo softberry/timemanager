@@ -37,10 +37,10 @@
   &__MESSAGES_ERROR,
   &__CONFIRM_DELETE_CONTACT {
     &--primary {
-      @include dialog($primary-layer-bg-color, $primary-layer-color);
+      @include dialog(color-palette("primary","background"), color-palette("primary","color"));
     }
     &--secondary {
-      @include dialog($secondary-layer-bg-color, $secondary-layer-color);
+      @include dialog(color-palette("secondary","background"), color-palette("secondary","color"));
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import List from "../list";
@@ -10,11 +10,14 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { IContactsTableModel } from "../../__typings/interfaces";
 
+import ViewContext from "../../views/index";
+
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function ContactsList({ view = VDESIGN.DESIGN_VIEW_SECONDARY }) {
+function ContactsList() {
+  const view = useContext(ViewContext);
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const [ready, setReady] = useState(false);
   const [contacts, setContacts] = useState<IContactsTableModel[]>([]);

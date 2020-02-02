@@ -3,27 +3,29 @@ $theme: "ocean";
 // TYPOGRAPHY
 $font-default: "Dosis", sans-serif;
 $font-numbers: "Audiowide", sans-serif;
-$font-size: 14px;
+$font-base: 14px;
+$font-size: $font-base * 1;
 $font-weight-normal: 200;
 $font-weight-bold: 600;
 
-// LAYERS / VIEWS
-$primary-layer-bg-color: #115171; // #0e8ac7;
-$primary-layer-color: #bddaf3;
-$primary-selected-text: rgba(64, 11, 161, 0.25);
 
-$secondary-layer-bg-color: #e9efef;
-$secondary-layer-color: #225058; // #6569f2;
-$secondary-selected-text: rgba(34, 80, 88, 0.75);
 
-$primary-layer: (
-  "background": $primary-layer-bg-color,
-  "color": $primary-layer-color,
+$primary-color-pallete: (
+  "background": #115171,
+  "color": #bddaf3,
+  "selected": #ed7bed,
+  "positive": #7c6a80,
+  "negative": #b7adb9,
+  "error": #e83570,
 );
 
-$secondary-layer: (
-  "background": $secondary-layer-bg-color,
-  "color": $secondary-layer-color,
+$secondary-color-pallete: (
+  "background": #e9efef,
+  "color": #225058,
+  "selected": #7bedac,
+  "positive": #6c4182,
+  "negative": #c9b9d1,
+  "error": #91143e,
 );
 
 $break-points: (

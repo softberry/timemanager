@@ -26,7 +26,7 @@ input {
 
 p {
   font-size: 1 * $font-size;
-  padding: rem(1) 0;
+  padding: 1 * $font-size 0;
   line-height: 1.25 * $font-size;
 }
 

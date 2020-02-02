@@ -1,6 +1,6 @@
 @mixin text-input($variant: "primary") {
-  $BG: get-param($variant, "background-color");
-  $C: get-param($variant, "color");
+  $BG: color-palette($variant, "background");
+  $C: color-palette($variant, "color");
 
   border: none;
   margin: 0;

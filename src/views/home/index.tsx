@@ -6,13 +6,17 @@ import { VDESIGN } from "../../store/constant-enums";
 import DefaultLayout from "../../layout/layout.default";
 import Timer from "../../components/timer";
 
+import ViewContext from "../index";
+
 function HomeView() {
   useDispatch()({ type: TYPES.TOOLBAR_HOME });
 
   return (
-    <DefaultLayout>
-      <Timer view={VDESIGN.DESIGN_VIEW_PRIMARY} />
-    </DefaultLayout>
+    <ViewContext.Provider value={VDESIGN.DESIGN_VIEW_PRIMARY}>
+      <DefaultLayout>
+        <Timer />
+      </DefaultLayout>
+    </ViewContext.Provider>
   );
 }
 

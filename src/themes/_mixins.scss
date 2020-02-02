@@ -3,19 +3,11 @@
 }
 
 @mixin layer-bg($type) {
-  @if $type == "primary" {
-    background-color: map-get($primary-layer, "background");
-  } @else if $type == "secondary" {
-    background-color: map-get($secondary-layer, "background");
-  }
+  background-color: color-palette($type, "background");
 }
 
 @mixin layer-color($type) {
-  @if $type == "primary" {
-    color: map-get($primary-layer, "color");
-  } @else if $type == "secondary" {
-    color: map-get($secondary-layer, "color");
-  }
+  color: color-palette($type, "color");
 }
 
 @mixin WidthUp($break) {
@@ -51,7 +43,7 @@
   z-index: map-get($indexList, $item);
 }
 
-@mixin materialIcon($size:1.75) {
+@mixin materialIcon($size: 1.75) {
   width: rem($size);
   height: rem($size);
   overflow: hidden;
@@ -91,24 +83,14 @@
   @include materialIcon(3);
 }
 
-@function get-param($variantName, $param) {
+@function color-palette($variantName, $param) {
   $variant: (
-    "primary": $primary-layer,
-    "secondary": $secondary-layer,
+    "primary": $primary-color-pallete,
+    "secondary": $secondary-color-pallete,
   );
-  @if variantName == "primary" {
-    $variant: $primary-layer;
-  } @else if variantName == "secondary" {
-    $variant: $secondary-layer;
-  }
+  $selectedVariant: map-get($variant, $variantName);
 
-  @if $param == "background-color" {
-    @return map-get(map-get($variant, $variantName), "background");
-  } @else if $param == "color" {
-    @return map-get(map-get($variant, $variantName), "color");
-  } @else {
-    @return "";
-  }
+  @return map-get($selectedVariant, $param);
 }
 
 @mixin nav-button() {

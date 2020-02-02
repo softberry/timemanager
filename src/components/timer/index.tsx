@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  IDesignModel,
-  ICounterTableModel,
-  IDiff
-} from "../../__typings/interfaces";
+import React, { useEffect, useState, useContext } from "react";
+import { ICounterTableModel, IDiff } from "../../__typings/interfaces";
 
 import { useSelector } from "react-redux";
 import { timeDiff } from "../../lib/counter.helpers";
@@ -16,6 +12,7 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 import { VDESIGN } from "../../store/constant-enums";
+import ViewContext from "../../views";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -23,7 +20,8 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 let timerID: number;
 
-export function Timer({ view = "primary" }: IDesignModel): JSX.Element {
+export function Timer(): JSX.Element {
+  const view = useContext(ViewContext);
   const [timerActiveState, setTimerActiveState] = useState<boolean>(false);
 
   const [diff, setDiff] = useState<IDiff>(timeDiff(0, 0));
@@ -40,7 +38,7 @@ export function Timer({ view = "primary" }: IDesignModel): JSX.Element {
         id: "active-counter-0",
         start: _now,
         current: _now,
-        active: true
+        active: true,
       })
       .exec()
       .then((current: [ICounterTableModel]) => {
@@ -53,7 +51,7 @@ export function Timer({ view = "primary" }: IDesignModel): JSX.Element {
       .query("upsert", {
         id: "active-counter-0",
         active: false,
-        current: Date.now()
+        current: Date.now(),
       })
       .exec();
   };
@@ -87,7 +85,7 @@ export function Timer({ view = "primary" }: IDesignModel): JSX.Element {
         .query("upsert", {
           id: "active-counter-0",
           active: true,
-          current: now
+          current: now,
           // diff: timeDiff(timerActiveState.start, now)
         })
         .exec()
