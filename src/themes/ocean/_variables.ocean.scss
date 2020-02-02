@@ -11,7 +11,7 @@ $font-weight-bold: 600;
 $primary-color-pallete: (
   "background": #115171,
   "color": #bddaf3,
-  "pressed": transparentize(#2edcdc, 0.5),
+  "simple": #5e6b80,
   "selected": #ed7bed,
   "positive": #7c6a80,
   "negative": #b7adb9,
@@ -21,7 +21,7 @@ $primary-color-pallete: (
 $secondary-color-pallete: (
   "background": #e9efef,
   "color": #225058,
-  "pressed": transparentize(#1f9233, 0.25),
+  "simple": #242633,
   "selected": #7bedac,
   "positive": #6c4182,
   "negative": #c9b9d1,

@@ -1,5 +1,6 @@
 @mixin basicButton($variant: "primary", $action-class: "simple") {
   $BG: color-palette($variant, "color");
+
   @if ($action-class== "negative") {
     $BG: color-palette($variant, "negative");
   }
@@ -9,9 +10,10 @@
   @if ($action-class== "error") {
     $BG: color-palette($variant, "error");
   }
-
+  $C: invert($BG);
   font-family: inherit;
   background-color: $BG;
+  color: $C;
   padding: rem(0.25) rem(1);
   font-size: rem(1);
 
@@ -32,6 +34,7 @@
     line-height: inherit;
     display: flex;
     align-items: center;
+    color: inherit;
   }
 
   &:active {

@@ -12,7 +12,7 @@ $font-weight-bold: 600;
 $primary-color-pallete: (
   "background": #3d4346,
   "color": #dbdcdd,
-  // "pressed": transparentize(#2edcdc, 0.5),
+  "simple": #3f303f,
   "selected": #ed7bed,
   "positive": #215d41,
   "negative": #b7adb9,
@@ -21,10 +21,10 @@ $primary-color-pallete: (
 
 $secondary-color-pallete: (
   "background": #efebe9,
-  "color": #e6a280,
-  // "pressed": transparentize(#1f9233, 0.25),
+  "color": #38302c,
+  "simple": #38302c,
   "selected": #7bedac,
-  "positive": #6c4182,
+  "positive": #87ad2c,
   "negative": #c3c3b3,
   "error": #91143e,
 );
