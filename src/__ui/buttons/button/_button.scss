@@ -1,37 +1,72 @@
-@mixin basicButton($variant: "primary") {
+@mixin basicButton($variant: "primary", $action-class: "simple") {
   $BG: color-palette($variant, "background");
   $C: color-palette($variant, "color");
+  @if ($action-class== "negative") {
+    $C: color-palette($variant, "negative");
+  }
+  @if ($action-class== "positive") {
+    $C: color-palette($variant, "positive");
+  }
+  @if ($action-class== "error") {
+    $C: color-palette($variant, "error");
+  }
+
   font-family: inherit;
   background-color: transparentize($color: $C, $amount: 0.75);
   padding: rem(0.25) rem(1);
   font-size: rem(1);
-  appearance: none;
+
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   transition: all 300ms;
 
+  button {
+    appearance: none;
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    display: flex;
+    align-items: center;
+  }
+
   &:active {
     background-color: transparentize($color: $C, $amount: 0.75);
   }
 }
-//TODO: use color palette for button variants
 
-button {
-  &.Btn-#{$theme} {
-    &-basic {
-      &-primary {
-        @include basicButton();
-      }
-      &-secondary {
-        @include basicButton("secondary");
-      }
+.Btn-#{$theme} {
+  &-primary {
+    &--simple {
+      @include basicButton("primary", "simple");
+    }
+    &--negative {
+      @include basicButton("primary", "negative");
+    }
+    &--positive {
+      @include basicButton("primary", "positive");
+    }
+    &--error {
+      @include basicButton("primary", "error");
+    }
+  }
+
+  &-secondary {
+    &--simple {
+      @include basicButton("secondary", "simple");
+    }
+    &--negative {
+      @include basicButton("secondary", "negative");
+    }
+    &--positive {
+      @include basicButton("secondary", "positive");
+    }
+    &--error {
+      @include basicButton("secondary", "error");
     }
   }
 }
-
-/*
-@mixin text-input($variant: "primary") {
-  $BG: color-palette($variant, "background");
-  $C: color-palette($variant, "color");
-*/
