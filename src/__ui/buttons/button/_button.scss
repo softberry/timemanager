@@ -1,0 +1,90 @@
+@mixin basicButton($variant: "primary", $action-class: "simple") {
+  $BG: color-palette($variant, "color");
+  @if ($action-class== "negative") {
+    $BG: color-palette($variant, "negative");
+  }
+  @if ($action-class== "positive") {
+    $BG: color-palette($variant, "positive");
+  }
+  @if ($action-class== "error") {
+    $BG: color-palette($variant, "error");
+  }
+
+  font-family: inherit;
+  background-color: $BG;
+  padding: rem(0.25) rem(1);
+  font-size: rem(1);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 300ms;
+  position: relative;
+
+  button {
+    appearance: none;
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    display: flex;
+    align-items: center;
+  }
+
+  &:active {
+    &:before {
+      background-color: transparentize(invert($BG), 0.25);
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, 50%);
+    }
+  }
+
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+    transition: all 600ms;
+  }
+}
+
+.Btn-#{$theme} {
+  &-primary {
+    &--simple {
+      @include basicButton("primary", "simple");
+    }
+    &--negative {
+      @include basicButton("primary", "negative");
+    }
+    &--positive {
+      @include basicButton("primary", "positive");
+    }
+    &--error {
+      @include basicButton("primary", "error");
+    }
+  }
+
+  &-secondary {
+    &--simple {
+      @include basicButton("secondary", "simple");
+    }
+    &--negative {
+      @include basicButton("secondary", "negative");
+    }
+    &--positive {
+      @include basicButton("secondary", "positive");
+    }
+    &--error {
+      @include basicButton("secondary", "error");
+    }
+  }
+}

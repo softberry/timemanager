@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   IInputProps,
   ESizeIcon,
@@ -12,6 +12,7 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
 import { VDESIGN } from "../../../store/constant-enums";
+import ViewContext from "../../../views";
 import { uuid } from "@nano-sql/core/lib/utilities";
 
 import isEmail from "validator/lib/isEmail";
@@ -40,7 +41,7 @@ function Input({
   const id = uuid();
   const [inputElement, setInputElement] = useState<any>(null);
   const [val, setVal] = useState<string>(value);
-
+  const view = useContext(ViewContext);
   /*********************************************** */
   //TODO:  Use debounced validation rule.
   //       If validation type define use it, if not use default validation rule
@@ -132,7 +133,7 @@ function Input({
   }, [val]);
 
   return (
-    <div className={styles[`Input-${theme}`]} data-valid={isValid}>
+    <div className={styles[`Input-${theme}-${view}`]} data-valid={isValid}>
       <label
         htmlFor={id}
         className={styles[`Input-${theme}-label`]}

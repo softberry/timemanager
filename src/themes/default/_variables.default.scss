@@ -3,27 +3,30 @@ $theme: "default";
 // TYPOGRAPHY
 $font-default: Exo, sans-serif;
 $font-numbers: "Allerta Stencil", sans-serif;
-$font-size: 14px;
+$font-base: 14px;
+$font-size: $font-base * 1;
 $font-weight-normal: 300;
 $font-weight-bold: 600;
 
-// LAYERS / VIEWS
-$primary-layer-bg-color: #3d4346;
-$primary-layer-color: #eeeeee;
-$primary-selected-text: rgba(243, 169, 227, 0.25);
-
-$secondary-layer-bg-color: #efebe9;
-$secondary-layer-color: #242848;
-$secondary-selected-text: rgba(243, 169, 227, 0.75);
-
-$primary-layer: (
-  "background": $primary-layer-bg-color,
-  "color": $primary-layer-color,
+// COLOR PALETTE
+$primary-color-pallete: (
+  "background": #3d4346,
+  "color": #dbdcdd,
+  // "pressed": transparentize(#2edcdc, 0.5),
+  "selected": #ed7bed,
+  "positive": #215d41,
+  "negative": #b7adb9,
+  "error": #e83570,
 );
 
-$secondary-layer: (
-  "background": $secondary-layer-bg-color,
-  "color": $secondary-layer-color,
+$secondary-color-pallete: (
+  "background": #efebe9,
+  "color": #e6a280,
+  // "pressed": transparentize(#1f9233, 0.25),
+  "selected": #7bedac,
+  "positive": #6c4182,
+  "negative": #c3c3b3,
+  "error": #91143e,
 );
 
 $break-points: (

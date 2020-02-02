@@ -4,6 +4,7 @@ import { createStore } from "redux";
 import "@csstools/normalize.css";
 
 import "../index.scss";
+import ViewContext from "../views";
 
 import Typography from "../__ui/typography";
 
@@ -15,10 +16,14 @@ const store = createStore(rootReducer);
 
 function StoryPage({ children, viewType = "PrimaryView" }: any) {
   return (
-    <Provider store={store}>
-      <Typography />
-      <div className={styles[viewType]}>{children}</div>
-    </Provider>
+    <ViewContext.Provider
+      value={viewType === "PrimaryView" ? "primary" : "secondary"}
+    >
+      <Provider store={store}>
+        <Typography />
+        <div className={styles[viewType]}>{children}</div>
+      </Provider>
+    </ViewContext.Provider>
   );
 }
 

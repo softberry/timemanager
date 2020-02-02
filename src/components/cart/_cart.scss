@@ -17,7 +17,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: map-get($primary-layer, "background");
+    background-color: color-palette("primary", "background");
     opacity: 0.5;
     transition: opacity 600ms;
     z-index: -1;

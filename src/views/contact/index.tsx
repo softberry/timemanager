@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   IContactViewProps,
-  IContactsTableModel
+  IContactsTableModel,
 } from "../../__typings/interfaces";
 import { useSelector, useDispatch } from "react-redux";
 import TYPES from "../../store/action-types";
@@ -11,6 +11,8 @@ import DefaultLayout from "../../layout/layout.default";
 
 import ContactDetails from "../../components/contactDetails";
 
+import ViewContext from "../index";
+
 /**
  * Renders editable form from given values in given table
  * @param {Object} props
@@ -19,7 +21,7 @@ import ContactDetails from "../../components/contactDetails";
 function ContactView({ match }: IContactViewProps) {
   const [table, setTable] = useState<IContactsTableModel>({
     id: "",
-    surname: ""
+    surname: "",
   });
   const [queryState, setQueryState] = useState<string>("INITIAL");
   const nSQL: any = useSelector((state: any) => state.db.nSQL);
@@ -44,7 +46,7 @@ function ContactView({ match }: IContactViewProps) {
           type: TYPES.MESSAGES_ERROR,
           caption: err.toString(),
           body: <>{err.stack.toString()}</>,
-          closable: true
+          closable: true,
         });
       });
   }
@@ -56,15 +58,13 @@ function ContactView({ match }: IContactViewProps) {
   }, [queryState]);
 
   return (
-    <DefaultLayout>
-      {queryState === "READY" && (
-        <ContactDetails
-          view={VDESIGN.DESIGN_VIEW_SECONDARY}
-          type={match.params.type}
-          contact={table}
-        />
-      )}
-    </DefaultLayout>
+    <ViewContext.Provider value={VDESIGN.DESIGN_VIEW_SECONDARY}>
+      <DefaultLayout>
+        {queryState === "READY" && (
+          <ContactDetails type={match.params.type} contact={table} />
+        )}
+      </DefaultLayout>
+    </ViewContext.Provider>
   );
 }
 

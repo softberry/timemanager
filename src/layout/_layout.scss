@@ -1,20 +1,20 @@
 @mixin html-base {
-  font-size: $font-size;
+  font-size: $font-base;
   @media screen and (min-height: map-get($break-points,"small") or (min-width: map-get($break-points,"x-small"))) {
-    font-size: $font-size * 1.125;
+    font-size: $font-base * 1.125;
   }
 
   @media screen and (min-height: map-get($break-points,"large") or (min-width: map-get($break-points,"medium"))) {
-    font-size: $font-size * 1.25;
+    font-size: $font-base * 1.25;
   }
 
   @media screen and (min-height: map-get($break-points,"x-large") or (min-width: map-get($break-points,"large"))) {
-    font-size: $font-size * 1.5;
+    font-size: $font-base * 1.5;
   }
 }
 
 html,
-body {
+body  {
   @include html-base();
 }
 

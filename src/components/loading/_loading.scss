@@ -1,14 +1,14 @@
 .Loading-#{$theme} {
   @include view();
-  background-color: $primary-layer-bg-color;
-  color: $primary-layer-color;
+  background-color: color-palette("primary","background");
+  color: color-palette("primary","color");
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
   > * {
-    color: $primary-layer-color;
+    color: color-palette("primary","color");
   }
 }
 
@@ -17,8 +17,8 @@
   height: 4em;
   border: none;
   border-radius: 50%;
-  box-shadow: inset 0 0 12px 2px $primary-layer-color,
-    0 0 12px 2px $primary-layer-color;
+  box-shadow: inset 0 0 12px 2px color-palette("primary","color"),
+    0 0 12px 2px color-palette("primary","color");
   position: relative;
 
   &:before {
@@ -27,7 +27,7 @@
     position: relative;
     left: 50%;
     top: 50%;
-    background-color: $primary-layer-bg-color;
+    background-color: color-palette("primary","background");
     width: 100%;
     height: 100%;
     transform-origin: 0% 0%;

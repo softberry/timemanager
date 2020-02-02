@@ -1,5 +1,5 @@
 export interface IDesignModel {
-  view?: string;
+  view: string;
 }
 
 export interface IDesignActionTypes {
@@ -13,7 +13,7 @@ export interface ITypographyProps {
   children?: any;
 }
 
-export interface IContactDetailsComponent extends IDesignModel {
+export interface IContactDetailsComponent  {
   type: string;
   contact: IContactsTableModel;
 }

@@ -12,7 +12,7 @@
     font-size: $font-size;
     background-color: $bg;
     &::selection {
-      background-color: $primary-selected-text;
+      background-color: color-palette("primary","selected");
     }
   }
 }

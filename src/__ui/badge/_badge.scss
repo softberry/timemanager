@@ -10,16 +10,12 @@
 .Badge-#{$theme} {
   &-primary {
     @include badge();
-    color: $primary-layer-bg-color;
-    background-color: $primary-layer-color;
+    color: color-palette("primary","background");
+    background-color: color-palette("primary","color");
   }
   &-secondary {
     @include badge();
-    @if $theme == "default" {
-      border: 1px solid $primary-layer-bg-color;
-    } @else {
-      color: $secondary-layer-color;
-      background-color: rgba($secondary-layer-color, 0.25);
-    }
+    color: color-palette("secondary","background");
+    background-color: color-palette("secondary","color");
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   IContactDetailsComponent,
   IworkTableModel,
@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import TYPES from "../../store/action-types";
 import Input, { MultipleInput } from "../../__ui/formElements";
+import Button from "../../__ui/buttons/button";
 import { H1 } from "../../__ui/headline";
 
 import Worklogs from "../worklogs";
@@ -16,6 +17,7 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
+import ViewContext from "../../views/index";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -49,6 +51,7 @@ function EditableDetails({ contact }: any) {
           </div>
         );
       })}
+      <Button icon="save">Save</Button>
     </div>
   );
 }
@@ -81,7 +84,8 @@ function EditableInput({ fieldName, contact }: any) {
   );
 }
 
-function ContactDetails({ contact, type, view }: IContactDetailsComponent) {
+function ContactDetails({ contact, type }: IContactDetailsComponent) {
+  const view = useContext(ViewContext);
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isNewContact, setIsNewContact] = useState(false);
   const dispatch = useDispatch();
