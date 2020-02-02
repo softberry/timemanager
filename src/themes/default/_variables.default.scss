@@ -8,11 +8,11 @@ $font-size: $font-base * 1;
 $font-weight-normal: 300;
 $font-weight-bold: 600;
 
-
 // COLOR PALETTE
 $primary-color-pallete: (
   "background": #3d4346,
   "color": #dbdcdd,
+  // "pressed": transparentize(#2edcdc, 0.5),
   "selected": #ed7bed,
   "positive": #215d41,
   "negative": #b7adb9,
@@ -22,6 +22,7 @@ $primary-color-pallete: (
 $secondary-color-pallete: (
   "background": #efebe9,
   "color": #e6a280,
+  // "pressed": transparentize(#1f9233, 0.25),
   "selected": #7bedac,
   "positive": #6c4182,
   "negative": #c3c3b3,

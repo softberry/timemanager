@@ -23,7 +23,7 @@ const BaseButtonStory = () => (
         "simple"
       )}
     >
-      {text("Label", "Hello Storybook")}
+      {text("Label", "Click here!!!")}
     </Button>
   </>
 );
