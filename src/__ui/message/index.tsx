@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
-import { IDialogBodyProp, IMessage } from "../../__typings/interfaces";
+import {
+  IDialogBodyProp,
+  IMessage,
+  ESizeIcon,
+} from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "../../__ui/icon";
@@ -47,7 +51,7 @@ function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   function hideMessage({ dialogId }: any): void {
     dispatch({
       type: TYPES.MESSAGES_HIDE_MESSAGE,
-      dialogId
+      dialogId,
     });
   }
 
@@ -65,7 +69,7 @@ function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
           className={styles[`Dialog-${theme}__${type}--${variant}`]}
           style={{
             marginLeft: `${index * 0.5}rem`,
-            marginTop: `${index * 0.5}rem`
+            marginTop: `${index * 0.5}rem`,
           }}
         >
           {closable && (
@@ -73,19 +77,17 @@ function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
               className={styles[`Close-${theme}`]}
               onClick={hideMessage.bind({ dialogId })}
             >
-              <Icon>close</Icon>
+              <Icon size={ESizeIcon.SMALL}>close</Icon>
             </div>
           )}
           <div className={styles[`Icon-${theme}`]}>
-            <Icon>{icon}</Icon>
+            <Icon size={ESizeIcon.SMALL}>{icon}</Icon>
           </div>
 
           <div className={styles[`Caption-${theme}`]}>{caption}</div>
 
           <div className={styles[`Text-${theme}`]}>
-            <div>
-              <DialogBody type={type} props={{ ...body, dialogId }} />
-            </div>
+            <DialogBody type={type} props={{ ...body, dialogId }} />
           </div>
         </div>
       );

@@ -3,6 +3,7 @@ import { withKnobs, text, select } from "@storybook/addon-knobs";
 
 import Button from "../../__ui/buttons/button";
 import StoryPage from "../story-page";
+import { EButtonActionClasses } from "../../__typings/interfaces";
 
 export default {
   title: "Form Elements/Buttons/Default Buttons",
@@ -19,9 +20,15 @@ const BaseButtonStory = () => (
       icon={select("Icons", ["add", "close", "add", "edit", "save"], "add")}
       actionClass={select(
         "Button Types",
-        ["simple", "error", "negative", "positive"],
-        "simple"
+        [
+          EButtonActionClasses.SIMPLE,
+          EButtonActionClasses.POISITIVE,
+          EButtonActionClasses.NEGATIVE,
+          EButtonActionClasses.ERROR,
+        ],
+        EButtonActionClasses.SIMPLE
       )}
+      onClick={() => false}
     >
       {text("Label", "Click here!!!")}
     </Button>

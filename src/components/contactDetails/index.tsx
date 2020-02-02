@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import {
   IContactDetailsComponent,
   IworkTableModel,
+  EButtonActionClasses,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -51,7 +52,13 @@ function EditableDetails({ contact }: any) {
           </div>
         );
       })}
-      <Button icon="save">Save</Button>
+      <Button
+        icon="save"
+        onClick={() => {}}
+        actionClass={EButtonActionClasses.SIMPLE}
+      >
+        Save
+      </Button>
     </div>
   );
 }

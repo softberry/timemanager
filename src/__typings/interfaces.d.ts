@@ -13,7 +13,7 @@ export interface ITypographyProps {
   children?: any;
 }
 
-export interface IContactDetailsComponent  {
+export interface IContactDetailsComponent {
   type: string;
   contact: IContactsTableModel;
 }
@@ -76,7 +76,7 @@ export interface IInputProps {
 export interface IMultiInputProps extends IInputProps {
   name: string;
   value: string[];
-  fieldState?:never;
+  fieldState?: never;
   getStateFromChildren?: (n: boolean) => any;
 }
 /**
@@ -89,6 +89,19 @@ export interface IStartStopButtonProps {
   onComplete: () => void;
   /** time to be delayed befor calling the complete event */
   waitForSeconds?: number;
+}
+
+export enum EButtonActionClasses {
+  "SIMPLE" = "simple",
+  "NEGATIVE" = "negative",
+  "POISITIVE" = "positive",
+  "ERROR" = "error",
+}
+export interface IButtonProps {
+  children?: any;
+  icon?: string;
+  onClick: () => void;
+  actionClass: EButtonActionClasses;
 }
 
 export interface IMessage {

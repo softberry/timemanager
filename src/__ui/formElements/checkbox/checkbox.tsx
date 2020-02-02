@@ -48,7 +48,9 @@ function Checkbox({
           <Icon size={ESizeIcon.SMALL}>check_box_outline_blank</Icon>
         )}
         <div className={styles[`Checkbox-${theme}-Label`]}>{label}</div>
-        <div className={styles[`Checkbox-${theme}-Content`]}>{children}</div>
+        {children && (
+          <div className={styles[`Checkbox-${theme}-Content`]}>{children}</div>
+        )}
       </div>
     </>
   );
