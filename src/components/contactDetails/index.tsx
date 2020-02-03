@@ -10,7 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 import TYPES from "../../store/action-types";
 import Input, { MultipleInput } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
-import { H1 } from "../../__ui/headline";
+import { H3 } from "../../__ui/headline";
+
+import Toolbar from "../toolbar";
 
 import Worklogs from "../worklogs";
 
@@ -137,9 +139,10 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
   }, [setFullName, setIsNewContact, fullName, contact, type]);
 
   if (isReadOnly) {
+    dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: fullName });
     return (
       <div className={viewClass}>
-        <H1>{fullName}</H1>
+        <Toolbar />
         <ReadOnlyDetails contact={contact} />
         <Worklogs show={true} contact={contact} />
       </div>
@@ -151,7 +154,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
 
   return (
     <div className={viewClass}>
-      <H1>{EditableDetailTitle}</H1>
+      <H3>{EditableDetailTitle}</H3>
       <EditableDetails contact={contact} />
       <Worklogs show={false} contact={contact} />
     </div>

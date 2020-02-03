@@ -1,6 +1,7 @@
 import React from "react";
 import AutoComplete from "../../__ui/autocomplete";
-import Toolbar from "../toolbar";
+
+import ViewTitle from "../view-title";
 import Icon from "../../__ui/icon";
 import { useHistory } from "react-router-dom";
 
@@ -50,8 +51,8 @@ function Nav() {
         <NavBack {...history} styles={styles} theme={theme} />
         <NavForward {...history} styles={styles} theme={theme} />
       </div>
-      <div className={styles[`ToolsNav-${theme}`]}>
-        <Toolbar />
+      <div className={styles[`ViewTitle-${theme}`]}>
+        <ViewTitle />
       </div>
       <div className={styles[`SearchNav-${theme}`]}>
         <AutoComplete variant={VDESIGN.DESIGN_VIEW_PRIMARY} />

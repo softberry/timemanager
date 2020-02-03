@@ -23,6 +23,7 @@ function ContactsList() {
   const [contacts, setContacts] = useState<IContactsTableModel[]>([]);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
+  const dispatch = useDispatch();
 
   const viewClass = styles[`Contacts-${theme}-${view}`];
 
@@ -44,7 +45,8 @@ function ContactsList() {
     if (!ready) return;
   }, [ready]);
 
-  useDispatch()({ type: TYPES.TOOLBAR_CONTACTS });
+  dispatch({ type: TYPES.TOOLBAR_CONTACTS });
+  dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: "Contacts" });
 
   return (
     <div className={viewClass}>

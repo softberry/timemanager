@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { H1 } from "../../__ui/headline";
 import Badge from "../../__ui/badge";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 import { useSelector } from "react-redux";
+import Toolbar from "../toolbar";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -64,7 +64,7 @@ function List({ type, list = [], view }: any) {
     <>
       <section className={styles[`List-${theme}`]}>
         <div className={styles[`List-${theme}-Title`]}>
-          <H1>Contacts</H1>
+          <Toolbar />
         </div>
         {type === "CONTACTS_LIST" &&
           contactsList({ list, theme, styles, view })}
