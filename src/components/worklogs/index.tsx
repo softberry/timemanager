@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Icon from "../../__ui/icon";
 import Input from "../../__ui/formElements";
 import { H2, H4 } from "../../__ui/headline";
@@ -8,11 +8,14 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
+import TYPES from "../../store/action-types";
 import {
   IWorkListItemEntry,
   ButtonTypeEnums,
   ButtonAlignmentEnums,
   IconEnums,
+  IContactsTableModel,
+  IworkTableModel,
 } from "../../__typings/interfaces.d";
 import Button from "../../__ui/buttons/button";
 
@@ -100,28 +103,46 @@ function WorkListWorkEntries({ entries, styles, theme }: any) {
   );
 }
 
-function WorksLogs<T>(show: T, contact: T) {
+function WorksLogs<T>(contact: IContactsTableModel) {
   //  const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
 
   const worklogs = useSelector((state: any) => state.worklogs.worklogs);
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
+  const dispatch = useDispatch();
+
+  function addWorkLogFor(): void {
+    nSQL("workTable")
+      .presetQuery("createNewWorkLogForContact", {
+        contactID: contact.id,
+      })
+      .exec()
+      .then((current: [IworkTableModel]) => {
+        nSQL("workTable")
+          .query("select")
+          .where(["contactID", "=", current[0].contactID])
+          .exec()
+          .then((allWorkLogs: [IworkTableModel]) => {
+            dispatch({
+              type: TYPES.WORKLOGS_UPDATE,
+              worklogs: allWorkLogs,
+            });
+          });
+      });
+  }
 
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
 
   useEffect(() => {
-    if (!show) return;
     if (worklogs.length === 0) return;
-  }, [show, worklogs]);
-
-  if (!show) return <></>;
+  }, [worklogs]);
 
   return (
     <>
-      <H2>Worklog</H2>
+      <H2>Worklogs</H2>
 
       {worklogs.map((entry: any, key: number) => {
         return (
@@ -133,7 +154,7 @@ function WorksLogs<T>(show: T, contact: T) {
           icon={IconEnums.ADD}
           align={ButtonAlignmentEnums.CENTER}
           type={ButtonTypeEnums.POISITIVE}
-          onClick={() => {}}
+          onClick={addWorkLogFor}
         >
           Create Worklog
         </Button>

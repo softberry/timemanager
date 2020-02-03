@@ -3,7 +3,6 @@ import {
   IContactDetailsComponent,
   IworkTableModel,
   ButtonTypeEnums,
-  SizeIconEnums,
   ButtonAlignmentEnums,
   IReadOnlyContactProps,
   IconEnums,
@@ -23,7 +22,6 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views/index";
-import Icon from "../../__ui/icon";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -41,15 +39,34 @@ function ReadOnlyDetails({ contact, propsClass }: IReadOnlyContactProps) {
             <div>
               {street}, {zip} - {city}{" "}
             </div>
-            <a href={`mailto:${mail}`}>
-              <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.MAIL}</Icon>
-            </a>
-            <a href={`tel:${mobile}`}>
-              <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.SMART_PHONE}</Icon>
-            </a>
-            <a href={`tel:${tel}`}>
-              <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.PHONE}</Icon>
-            </a>
+            <div
+              className={styles[`ReadOnly-${theme}-${view}-Contact-Buttons`]}
+            >
+              <a href={`mailto:${mail}`}>
+                <Button
+                  align={ButtonAlignmentEnums.LEFT}
+                  icon={IconEnums.MAIL}
+                  onClick={() => {}}
+                  type={ButtonTypeEnums.SIMPLE}
+                />
+              </a>
+              <a href={`tel:${mobile}`}>
+                <Button
+                  align={ButtonAlignmentEnums.LEFT}
+                  icon={IconEnums.SMART_PHONE}
+                  onClick={() => {}}
+                  type={ButtonTypeEnums.SIMPLE}
+                />
+              </a>
+              <a href={`tel:${tel}`}>
+                <Button
+                  align={ButtonAlignmentEnums.LEFT}
+                  icon={IconEnums.PHONE}
+                  onClick={() => {}}
+                  type={ButtonTypeEnums.SIMPLE}
+                />
+              </a>
+            </div>
           </address>
         </div>
       </div>
@@ -162,13 +179,14 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
       type: TYPES.VIEWSETTINGS.UPDATE_TITLE,
       title: "Contact Details",
     });
+
     return (
       <div className={viewClass}>
         <ReadOnlyDetails
           contact={contact}
           propsClass={{ styles, theme, view }}
         />
-        <Worklogs show={true} contact={contact} />
+        <Worklogs {...contact} />
       </div>
     );
   }
@@ -180,7 +198,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
     <div className={viewClass}>
       <H3>{EditableDetailTitle}</H3>
       <EditableDetails contact={contact} />
-      <Worklogs show={false} contact={contact} />
+
     </div>
   );
 }

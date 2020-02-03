@@ -20,12 +20,17 @@
   color: $C;
   padding: rem(0.25) rem(1);
   font-size: rem(1);
-
+  margin: rem(.5);
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   transition: all 300ms;
   position: relative;
+
+  &[data-icon-only="true"] {
+    border-radius: 50%;
+    padding: rem(0.5);
+  }
 
   button {
     appearance: none;
@@ -66,7 +71,9 @@
 
 .Button-Container {
   display: flex;
-
+  &[data-icon-only="true"] {
+    display: inline-flex;
+  }
   &[data-align="left"] {
     justify-content: flex-start;
   }

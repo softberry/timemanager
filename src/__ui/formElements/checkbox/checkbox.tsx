@@ -46,7 +46,7 @@ function Checkbox({
       >
         {isChecked && <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_ON}</Icon>}
         {!isChecked && (
-          <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_ON}</Icon>
+          <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_OFF}</Icon>
         )}
         <div className={styles[`Checkbox-${theme}-Label`]}>{label}</div>
         {children && (

@@ -28,12 +28,17 @@ function Button({
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
-
+  const iconOnly = children === undefined;
   return (
-    <div className={styles["Button-Container"]} data-align={align}>
+    <div
+      className={styles["Button-Container"]}
+      data-align={align}
+      data-icon-only={iconOnly}
+    >
       <div
         className={styles[`Btn-${theme}-${view}--${type}`]}
         onClick={onClick}
+        data-icon-only={iconOnly}
       >
         <button>
           {icon && <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>}

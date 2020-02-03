@@ -5,7 +5,7 @@ export enum IconEnums {
   ARROW_FORWARD = "arrow_forward",
   ARROW_UP = "keyboard_arrow_up",
   CALENDAR = "date_range",
-  CHECKBOX_OFF = "checkbox_outline_blank",
+  CHECKBOX_OFF = "check_box_outline_blank",
   CHECKBOX_ON = "check_box",
   CLEAR = "highlight_off",
   CLOSE = "close",

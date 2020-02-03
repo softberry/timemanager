@@ -8,6 +8,9 @@
     align-items: center;
     justify-content: space-between;
   }
+  &-Contact-Buttons {
+    display: flex;
+  }
 }
 
 .ContactDetails-#{$theme} {
