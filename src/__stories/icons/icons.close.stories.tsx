@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "../../__ui/icon";
 import StoryPage from "../story-page";
 
-import { ESizeIcon } from "../../__typings/interfaces.d";
+import { SizeIconEnums, IconEnums } from "../../__typings/interfaces.d";
 export default {
   title: "Icons Set / Close",
   parameters: {
@@ -15,9 +15,9 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <Icon size={ESizeIcon.SMALL}>close</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>close</Icon>
-      <Icon size={ESizeIcon.LARGE}>close</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CLOSE}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CLOSE}</Icon>
     </StoryPage>
   );
 };
@@ -25,9 +25,9 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <Icon size={ESizeIcon.SMALL}>close</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>close</Icon>
-      <Icon size={ESizeIcon.LARGE}>close</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CLOSE}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CLOSE}</Icon>
     </StoryPage>
   );
 };

@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import {
   IDialogBodyProp,
   IMessage,
-  ESizeIcon,
+  SizeIconEnums,
+  IconEnums,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -62,7 +63,7 @@ function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   if (!messages || messages.length === 0) return <></>;
 
   const dialogContent = messages.map(
-    ({ type, icon, caption, body, closable = true, dialogId }, index) => {
+    ({ type, icon=IconEnums.MESSAGE, caption, body, closable = true, dialogId }, index) => {
       return (
         <div
           key={index}
@@ -77,11 +78,11 @@ function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
               className={styles[`Close-${theme}`]}
               onClick={hideMessage.bind({ dialogId })}
             >
-              <Icon size={ESizeIcon.SMALL}>close</Icon>
+              <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
             </div>
           )}
           <div className={styles[`Icon-${theme}`]}>
-            <Icon size={ESizeIcon.SMALL}>{icon}</Icon>
+            <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>
           </div>
 
           <div className={styles[`Caption-${theme}`]}>{caption}</div>

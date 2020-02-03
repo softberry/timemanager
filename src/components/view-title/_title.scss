@@ -1,3 +1,5 @@
 .ViewTitle-#{$theme} {
-  font-size: rem(2);
+  display: flex;
+  align-items: center;
+  font-size: rem(1.5);
 }

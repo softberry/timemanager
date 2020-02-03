@@ -10,12 +10,12 @@
 .Badge-#{$theme} {
   &-primary {
     @include badge();
-    color: color-palette("primary","background");
-    background-color: color-palette("primary","color");
+    color: color-palette("primary", "main", "background");
+    background-color: color-palette("primary", "main", "text");
   }
   &-secondary {
     @include badge();
-    color: color-palette("secondary","background");
-    background-color: color-palette("secondary","color");
+    color: color-palette("secondary", "main","background");
+    background-color: color-palette("secondary", "main", "text");
   }
 }

@@ -9,6 +9,7 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
+import { IconEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -22,7 +23,7 @@ function NavBack({ index, goBack, theme, styles }: any) {
       className={styles[`HistoryNav-${theme}-Arrow`]}
       data-disabled={disabled}
     >
-      <Icon onClick={goBack}>arrow_back</Icon>
+      <Icon onClick={goBack}>{IconEnums.ARROW_BACK}</Icon>
     </div>
   );
 }
@@ -34,7 +35,7 @@ function NavForward({ index, length, goForward, theme, styles }: any) {
       className={styles[`HistoryNav-${theme}-Arrow`]}
       data-disabled={disabled}
     >
-      <Icon onClick={goForward}>arrow_forward</Icon>
+      <Icon onClick={goForward}>{IconEnums.ARROW_FORWARD}</Icon>
     </div>
   );
 }

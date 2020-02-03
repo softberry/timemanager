@@ -2,7 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import {
   IContactDetailsComponent,
   IworkTableModel,
-  EButtonActionClasses,
+  ButtonTypeEnums,
+  SizeIconEnums,
+  ButtonAlignmentEnums,
+  IReadOnlyContactProps,
+  IconEnums,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -10,9 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TYPES from "../../store/action-types";
 import Input, { MultipleInput } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
-import { H3 } from "../../__ui/headline";
-
-import Toolbar from "../toolbar";
+import { H1, H3 } from "../../__ui/headline";
 
 import Worklogs from "../worklogs";
 
@@ -21,25 +23,41 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views/index";
+import Icon from "../../__ui/icon";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function ReadOnlyDetails({ contact }: any) {
-  const { street, zip, city, tel, mobile } = contact;
+function ReadOnlyDetails({ contact, propsClass }: IReadOnlyContactProps) {
+  const { street, zip, city, tel, mobile, mail } = contact;
+  const { styles, theme, view } = propsClass;
   return (
     <>
       <div>
-        {street}, {zip} - {city}{" "}
+        <div>
+          <H1>{`${contact.name} ${contact.surname}`}</H1>
+          <address className={styles[`ReadOnly-${theme}-${view}-Address`]}>
+            <div>
+              {street}, {zip} - {city}{" "}
+            </div>
+            <a href={`mailto:${mail}`}>
+              <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.MAIL}</Icon>
+            </a>
+            <a href={`tel:${mobile}`}>
+              <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.SMART_PHONE}</Icon>
+            </a>
+            <a href={`tel:${tel}`}>
+              <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.PHONE}</Icon>
+            </a>
+          </address>
+        </div>
       </div>
-      <div>{tel}</div>
-      <div>{mobile}</div>
     </>
   );
 }
 
-function EditableDetails({ contact }: any) {
+function EditableDetails<T>(contact: T) {
   const nonRenderedItems = ["id"];
 
   return (
@@ -55,9 +73,10 @@ function EditableDetails({ contact }: any) {
         );
       })}
       <Button
-        icon="save"
+        icon={IconEnums.SAVE}
+        align={ButtonAlignmentEnums.CENTER}
         onClick={() => {}}
-        actionClass={EButtonActionClasses.SIMPLE}
+        type={ButtonTypeEnums.SIMPLE}
       >
         Save
       </Button>
@@ -139,11 +158,16 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
   }, [setFullName, setIsNewContact, fullName, contact, type]);
 
   if (isReadOnly) {
-    dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: fullName });
+    dispatch({
+      type: TYPES.VIEWSETTINGS.UPDATE_TITLE,
+      title: "Contact Details",
+    });
     return (
       <div className={viewClass}>
-        <Toolbar />
-        <ReadOnlyDetails contact={contact} />
+        <ReadOnlyDetails
+          contact={contact}
+          propsClass={{ styles, theme, view }}
+        />
         <Worklogs show={true} contact={contact} />
       </div>
     );

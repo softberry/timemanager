@@ -1,17 +1,6 @@
 .List-#{$theme} {
   height: 100%;
-  &-Title {
-    display: flex;
 
-    &-Text {
-      flex-grow: 1;
-      font-weight: $font-weight-bold;
-      text-transform: capitalize;
-    }
-    &-AddIcon {
-      border: 1px solid;
-    }
-  }
 
 }
 
@@ -23,7 +12,7 @@
   padding: 2px 0;
   background-color: rgba(#fff, 0.75);
   margin-bottom: 0;
-  box-shadow: 1px 1px 1px 0px darken(color-palette("secondary","background"), 24%);
+  box-shadow: 1px 1px 1px 0px darken(color-palette("secondary","main", "background"), 24%);
 
   &-Contact,
   &-Duration {

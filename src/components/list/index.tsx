@@ -7,7 +7,7 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 import { useSelector } from "react-redux";
-import Toolbar from "../toolbar";
+
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -63,9 +63,7 @@ function List({ type, list = [], view }: any) {
   return (
     <>
       <section className={styles[`List-${theme}`]}>
-        <div className={styles[`List-${theme}-Title`]}>
-          <Toolbar />
-        </div>
+
         {type === "CONTACTS_LIST" &&
           contactsList({ list, theme, styles, view })}
       </section>

@@ -8,7 +8,13 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
-import { IWorkListItemEntry } from "../../__typings/interfaces";
+import {
+  IWorkListItemEntry,
+  ButtonTypeEnums,
+  ButtonAlignmentEnums,
+  IconEnums,
+} from "../../__typings/interfaces.d";
+import Button from "../../__ui/buttons/button";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -33,9 +39,7 @@ function WorkListItem({ entry, theme, styles }: any) {
           className={styles[`WorkLogs-${theme}-Icon`]}
           onClick={expandCollapse}
         >
-          <Icon>
-            {showDetails ? "keyboard_arrow_down" : "keyboard_arrow_up"}
-          </Icon>
+          <Icon>{showDetails ? IconEnums.ARROW_DOWN : IconEnums.ARROW_UP}</Icon>
         </div>
         {showDetails && (
           <WorkListItemEditForm entry={entry} styles={styles} theme={theme} />
@@ -76,7 +80,7 @@ function WorkListTimeEntries({ entries, styles, theme }: any) {
       <div className={styles[`WorkLogs-${theme}-EditForm-Title`]}>
         <div>Time Logs</div>
         <div>
-          <Icon>add</Icon>
+          <Icon>{IconEnums.ADD}</Icon>
         </div>
       </div>
 
@@ -96,7 +100,7 @@ function WorkListWorkEntries({ entries, styles, theme }: any) {
   );
 }
 
-function WorksLogs({ show, contact }: any) {
+function WorksLogs<T>(show: T, contact: T) {
   //  const [workLogs, setWorkLogs] = useState({ state: "INITIAL", data: [] });
 
   const worklogs = useSelector((state: any) => state.worklogs.worklogs);
@@ -113,17 +117,28 @@ function WorksLogs({ show, contact }: any) {
     if (worklogs.length === 0) return;
   }, [show, worklogs]);
 
-  return show && worklogs.length > 0 ? (
+  if (!show) return <></>;
+
+  return (
     <>
       <H2>Worklog</H2>
+
       {worklogs.map((entry: any, key: number) => {
         return (
           <WorkListItem key={key} entry={entry} styles={styles} theme={theme} />
         );
       })}
+      <div>
+        <Button
+          icon={IconEnums.ADD}
+          align={ButtonAlignmentEnums.CENTER}
+          type={ButtonTypeEnums.POISITIVE}
+          onClick={() => {}}
+        >
+          Create Worklog
+        </Button>
+      </div>
     </>
-  ) : (
-    <></>
   );
 }
 

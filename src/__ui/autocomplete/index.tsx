@@ -5,6 +5,7 @@ import { VDESIGN } from "../../store/constant-enums";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+import { IconEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -16,9 +17,7 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
  * Set ViewState from store
  * https://github.com/softberry/timemanager/issues/37
  */
-function AutoComplete({
-  variant = VDESIGN.DESIGN_VIEW_PRIMARY,
-}: any) {
+function AutoComplete({ variant = VDESIGN.DESIGN_VIEW_PRIMARY }: any) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -31,7 +30,7 @@ function AutoComplete({
       <div
         className={styles[`AutoComplete-${theme}-${variant}-inputSearchIcon`]}
       >
-        <Icon>search</Icon>
+        <Icon>{IconEnums.SEARCH}</Icon>
       </div>
     </div>
   );

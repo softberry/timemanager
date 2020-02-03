@@ -3,7 +3,11 @@ import { withKnobs, text, select } from "@storybook/addon-knobs";
 
 import Button from "../../__ui/buttons/button";
 import StoryPage from "../story-page";
-import { EButtonActionClasses } from "../../__typings/interfaces";
+import {
+  ButtonTypeEnums,
+  ButtonAlignmentEnums,
+  IconEnums,
+} from "../../__typings/interfaces.d";
 
 export default {
   title: "Form Elements/Buttons/Default Buttons",
@@ -17,16 +21,45 @@ export default {
 const BaseButtonStory = () => (
   <>
     <Button
-      icon={select("Icons", ["add", "close", "add", "edit", "save"], "add")}
-      actionClass={select(
+      icon={select(
+        "Icons",
+        [
+          IconEnums.ADD,
+          IconEnums.ARROW_BACK,
+          IconEnums.ARROW_FORWARD,
+          IconEnums.CALENDAR,
+          IconEnums.CHECKBOX_ON,
+          IconEnums.CHECKBOX_OFF,
+          IconEnums.EDIT,
+          IconEnums.PHONE,
+          IconEnums.RADIO_ON,
+          IconEnums.RADIO_OFF,
+          IconEnums.SEARCH,
+          IconEnums.SETTINGS,
+          IconEnums.SMART_PHONE,
+          IconEnums.TIMER,
+        ],
+        IconEnums.ADD
+      )}
+      type={select(
         "Button Types",
         [
-          EButtonActionClasses.SIMPLE,
-          EButtonActionClasses.POISITIVE,
-          EButtonActionClasses.NEGATIVE,
-          EButtonActionClasses.ERROR,
+          ButtonTypeEnums.SIMPLE,
+          ButtonTypeEnums.POISITIVE,
+          ButtonTypeEnums.NEGATIVE,
+          ButtonTypeEnums.ERROR,
         ],
-        EButtonActionClasses.SIMPLE
+        ButtonTypeEnums.SIMPLE
+      )}
+      align={select(
+        "Alignment",
+        [
+          ButtonAlignmentEnums.LEFT,
+          ButtonAlignmentEnums.CENTER,
+          ButtonAlignmentEnums.RIGHT,
+          ButtonAlignmentEnums.STRECH,
+        ],
+        ButtonAlignmentEnums.CENTER
       )}
       onClick={() => false}
     >

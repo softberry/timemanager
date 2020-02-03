@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from "react";
 import {
   ICheckBoxComponentProps,
-  ESizeIcon,
+  SizeIconEnums,
+  IconEnums,
 } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -43,9 +44,9 @@ function Checkbox({
         className={styles[`Checkbox-${theme}`]}
         onClick={checkOnChangeHandler}
       >
-        {isChecked && <Icon size={ESizeIcon.SMALL}>check_box</Icon>}
+        {isChecked && <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_ON}</Icon>}
         {!isChecked && (
-          <Icon size={ESizeIcon.SMALL}>check_box_outline_blank</Icon>
+          <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_ON}</Icon>
         )}
         <div className={styles[`Checkbox-${theme}-Label`]}>{label}</div>
         {children && (

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import {
   IInputProps,
-  ESizeIcon,
-  ELabelTypes,
-  //EValidationKinds,
+  SizeIconEnums,
+  LabelTypeEnums,
+  IconEnums,
+  //ValidationTypeEnums,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
@@ -18,11 +19,11 @@ import { uuid } from "@nano-sql/core/lib/utilities";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import isPostalCode from "validator/lib/isPostalCode";
-// EValidationKinds.MAIL
-// EValidationKinds.MOBILE
-// EValidationKinds.PHONE
-// EValidationKinds.TEXT
-// EValidationKinds.ZIP
+// ValidationTypeEnums.MAIL
+// ValidationTypeEnums.MOBILE
+// ValidationTypeEnums.PHONE
+// ValidationTypeEnums.TEXT
+// ValidationTypeEnums.ZIP
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -49,8 +50,8 @@ function Input({
   /*********************************************** */
 
   const [hasFocus, setHasFocus] = useState<boolean>(false);
-  const [labelType, setLabelType] = useState<ELabelTypes>(
-    `${val}`.length === 0 ? ELabelTypes.PLACEHOLDER : ELabelTypes.LABEL
+  const [labelType, setLabelType] = useState<LabelTypeEnums>(
+    `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
   );
   const [isValid, setIsValid] = useState<boolean>(true);
   const type = getTypeFromFieldName(name); // input type (text, tel, mail etc...)
@@ -92,15 +93,15 @@ function Input({
     !hasFocus && setHasFocus(true);
     setVal(val);
     setLabelType(
-      `${val}`.length === 0 ? ELabelTypes.PLACEHOLDER : ELabelTypes.LABEL
+      `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
     );
   }
 
   function handleOnFocus(e: React.FocusEvent<HTMLInputElement>) {
     setLabelType(
       `${e.target.value}`.length === 0
-        ? ELabelTypes.PLACEHOLDER
-        : ELabelTypes.LABEL
+        ? LabelTypeEnums.PLACEHOLDER
+        : LabelTypeEnums.LABEL
     );
     setHasFocus(true);
     fieldState(true);
@@ -110,8 +111,8 @@ function Input({
   function handleOnBlur(e: React.FocusEvent<HTMLInputElement>) {
     setLabelType(
       `${e.target.value}`.length === 0
-        ? ELabelTypes.PLACEHOLDER
-        : ELabelTypes.LABEL
+        ? LabelTypeEnums.PLACEHOLDER
+        : LabelTypeEnums.LABEL
     );
     fieldState(false);
     setTimeout(() => {
@@ -128,7 +129,7 @@ function Input({
   useEffect(() => {
     if (val === null) return;
     setLabelType(
-      `${val}`.length === 0 ? ELabelTypes.PLACEHOLDER : ELabelTypes.LABEL
+      `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
     );
   }, [val]);
 
@@ -159,7 +160,7 @@ function Input({
             className={styles[`Input-${theme}-btn-clear`]}
             onClick={handleClear}
           >
-            <Icon size={ESizeIcon.SMALL}>highlight_off</Icon>
+            <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLEAR}</Icon>
           </div>
         )}
       </div>

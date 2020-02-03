@@ -7,8 +7,9 @@ import themeOcean from "./theme-ocean.module.scss";
 
 import Icon from "../../icon";
 import {
-  ESizeIcon,
-  EButtonActionClasses,
+  SizeIconEnums,
+  ButtonAlignmentEnums,
+  ButtonTypeEnums,
   IButtonProps,
 } from "../../../__typings/interfaces.d";
 import ViewContext from "../../../views";
@@ -21,24 +22,25 @@ function Button({
   children,
   icon,
   onClick,
-  actionClass = EButtonActionClasses.SIMPLE,
+  align = ButtonAlignmentEnums.CENTER,
+  type = ButtonTypeEnums.SIMPLE,
 }: IButtonProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
 
   return (
-    <>
+    <div className={styles["Button-Container"]} data-align={align}>
       <div
-        className={styles[`Btn-${theme}-${view}--${actionClass}`]}
+        className={styles[`Btn-${theme}-${view}--${type}`]}
         onClick={onClick}
       >
         <button>
-          {icon && <Icon size={ESizeIcon.SMALL}>{icon}</Icon>}
+          {icon && <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>}
           <span>{children}</span>
         </button>
       </div>
-    </>
+    </div>
   );
 }
 

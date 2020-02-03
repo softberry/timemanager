@@ -2,6 +2,14 @@
   @include view;
 }
 
+@mixin read-only() {
+  &-Address {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 .ContactDetails-#{$theme} {
   &-primary {
     @include layer-bg("primary");
@@ -13,5 +21,16 @@
     @include layer-bg("secondary");
     @include layer-color("secondary");
     @include contact-details();
+  }
+}
+
+.ReadOnly {
+  &-#{$theme} {
+    &-primary {
+      @include read-only();
+    }
+    &-secondary {
+      @include read-only();
+    }
   }
 }

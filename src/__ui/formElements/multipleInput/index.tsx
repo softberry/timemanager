@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import { IMultiInputProps, ESizeIcon } from "../../../__typings/interfaces.d";
+import {
+  IMultiInputProps,
+  SizeIconEnums,
+  IconEnums,
+} from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -73,7 +77,7 @@ function MultipleInput(props: IMultiInputProps): any {
       <AllInputs {...props} getStateFromChildren={getActiveStateFromChilds} />
 
       <div className={styles[`MultipleInputContainer-${theme}-add-new`]}>
-        <Icon size={ESizeIcon.SMALL}>add</Icon>
+        <Icon size={SizeIconEnums.SMALL}>{IconEnums.ADD}</Icon>
         Add new {props.name} field
       </div>
     </div>

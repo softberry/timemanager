@@ -1,3 +1,28 @@
+export enum IconEnums {
+  ADD = "add",
+  ARROW_BACK = "arrow_back",
+  ARROW_DOWN = "keyboard_arrow_down",
+  ARROW_FORWARD = "arrow_forward",
+  ARROW_UP = "keyboard_arrow_up",
+  CALENDAR = "date_range",
+  CHECKBOX_OFF = "checkbox_outline_blank",
+  CHECKBOX_ON = "check_box",
+  CLEAR = "highlight_off",
+  CLOSE = "close",
+  CONTACTS = "contacts",
+  EDIT = "edit",
+  MAIL = "mail_outline",
+  MESSAGE = "chat_bubble_outline",
+  PHONE = "local_phone",
+  RADIO_OFF = "radio_button_unchecked",
+  RADIO_ON = "radio_button_checked",
+  SAVE = "save",
+  SEARCH = "search",
+  SETTINGS = "settings",
+  SMART_PHONE = "smartphone",
+  TIMER = "timer",
+  TRASH = "delete_outline",
+}
 export interface IDesignModel {
   view: string;
 }
@@ -48,12 +73,12 @@ export interface IRadioGroupProps {
   onChange: any;
 }
 /** Input labels can be visually label or placeholder */
-export enum ELabelTypes {
+export enum LabelTypeEnums {
   LABEL = "LABEL",
   PLACEHOLDER = "PLACEHOLDER",
 }
 
-export enum EValidationKinds {
+export enum ValidationTypeEnums {
   TEXT = "TEXT",
   ZIP = "ZIP",
   MAIL = "MAIL",
@@ -91,21 +116,28 @@ export interface IStartStopButtonProps {
   waitForSeconds?: number;
 }
 
-export enum EButtonActionClasses {
+export enum ButtonTypeEnums {
   "SIMPLE" = "simple",
   "NEGATIVE" = "negative",
   "POISITIVE" = "positive",
   "ERROR" = "error",
 }
+export enum ButtonAlignmentEnums {
+  LEFT = "left",
+  CENTER = "center",
+  RIGHT = "right",
+  STRECH = "strech",
+}
 export interface IButtonProps {
   children?: any;
-  icon?: string;
+  icon?: IconEnums;
+  align: ButtonAlignmentEnums;
   onClick: () => void;
-  actionClass: EButtonActionClasses;
+  type: ButtonTypeEnums;
 }
 
 export interface IMessage {
-  icon?: string;
+  icon: IconEnums;
   type: string;
   caption?: string;
   body: object;
@@ -123,7 +155,7 @@ export interface IConfirmDeleteContact extends IMessage {
 }
 
 export interface IToolbarButton {
-  type: string;
+  type: IconEnums;
   label?: string;
   disabled?: boolean;
   hidden?: boolean;
@@ -196,6 +228,10 @@ export interface IContactsTableQuerie {
   call: any;
 }
 
+export interface IReadOnlyContactProps {
+  contact: IContactsTableModel;
+  propsClass: any;
+}
 export interface IworkTableModel {
   id: string;
   contactID: string;
@@ -262,16 +298,16 @@ export interface IHeadlineBuilderProps extends IHeadlineProps {
   size: number;
 }
 /** Size enums for Material Icons */
-export enum ESizeIcon {
+export enum SizeIconEnums {
   SMALL = "SMALL",
   MEDIUM = "MEDIUM",
   LARGE = "LARGE",
 }
 /** Material Icon properties */
 export interface IIconProps {
-  children?: any;
+  children: IconEnums;
   onClick?: () => any;
-  size?: ESizeIcon;
+  size?: SizeIconEnums;
 }
 
 export interface IBadgeProps {

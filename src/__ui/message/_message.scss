@@ -29,7 +29,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.1);
-  
+
 }
 
 .Dialog-#{$theme} {
@@ -38,10 +38,10 @@
   &__MESSAGES_ERROR,
   &__CONFIRM_DELETE_CONTACT {
     &--primary {
-      @include dialog(color-palette("primary","background"), color-palette("primary","color"));
+      @include dialog(color-palette("primary","main", "background"), color-palette("primary","main", "text"));
     }
     &--secondary {
-      @include dialog(color-palette("secondary","background"), color-palette("secondary","color"));
+      @include dialog(color-palette("secondary","main", "background"), color-palette("secondary","main", "text"));
     }
   }
 }

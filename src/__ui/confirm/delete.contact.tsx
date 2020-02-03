@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  IConfirmDeleteContact,
-  IContactsTableModel,
-} from "../../__typings/interfaces";
 
 import { useHistory } from "react-router-dom";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
@@ -12,7 +8,12 @@ import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../store/constant-enums";
 
 import TYPES from "../../store/action-types";
-import { EButtonActionClasses } from "../../__typings/interfaces.d";
+import {
+  IConfirmDeleteContact,
+  IContactsTableModel,
+  ButtonAlignmentEnums,
+  ButtonTypeEnums,
+} from "../../__typings/interfaces.d";
 import { Checkbox } from "../formElements";
 import Button from "../buttons/button";
 
@@ -104,7 +105,8 @@ function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
       )}
       <div className={styles[`Footer-${theme}`]}>
         <Button
-          actionClass={EButtonActionClasses.SIMPLE}
+          type={ButtonTypeEnums.SIMPLE}
+          align={ButtonAlignmentEnums.RIGHT}
           onClick={onDeleteButtonSubmit.bind({}, nSQL, contact.id)}
         >
           Delete

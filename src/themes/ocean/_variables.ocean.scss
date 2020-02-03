@@ -9,23 +9,57 @@ $font-weight-normal: 200;
 $font-weight-bold: 600;
 
 $primary-color-pallete: (
-  "background": #115171,
-  "color": #bddaf3,
-  "simple": #5e6b80,
-  "selected": #ed7bed,
-  "positive": #7c6a80,
-  "negative": #b7adb9,
-  "error": #e83570,
+  "main": (
+    "background": #115171,
+    "text": #bddaf3,
+  ),
+  "simple": (
+    "background": #5e6b80,
+    "text": #bddaf3,
+  ),
+  "selected": (
+    "background": #ed7bed,
+    "text": #bddaf3,
+  ),
+  "positive": (
+    "background": #7c6a80,
+    "text": #bddaf3,
+  ),
+  "negative": (
+    "background": #b7adb9,
+    "text": #bddaf3,
+  ),
+  "error": (
+    "background": #e83570,
+    "text": #bddaf3,
+  ),
 );
 
 $secondary-color-pallete: (
-  "background": #e9efef,
-  "color": #225058,
-  "simple": #242633,
-  "selected": #7bedac,
-  "positive": #6c4182,
-  "negative": #c9b9d1,
-  "error": #91143e,
+  "main": (
+    "background": #e9efef,
+    "text": #225058,
+  ),
+  "simple": (
+    "background": #242633,
+    "text": #e9efef,
+  ),
+  "selected": (
+    "background": #7bedac,
+    "text": #225058,
+  ),
+  "positive": (
+    "background": #367111,
+    "text": #e9efef,
+  ),
+  "negative": (
+    "background": #c9b9d1,
+    "text": #e9efef,
+  ),
+  "error": (
+    "background": #91143e,
+    "text": #e9efef,
+  ),
 );
 
 $break-points: (

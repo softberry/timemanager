@@ -9,8 +9,8 @@ $base-size: $font-size;
   align-items: center;
   justify-content: center;
   position: relative;
-  box-shadow: darken(color-palette("primary","background"), 50%) 0 0 rem(1) 2px,
-    inset lighten(color-palette("primary","background"), 10%) 0 0 rem(1) 2px;
+  box-shadow: darken(color-palette("primary","main", "background"), 50%) 0 0 rem(1) 2px,
+    inset lighten(color-palette("primary","main", "background"), 10%) 0 0 rem(1) 2px;
   font-size: 1.25 * $base-size;
   transition: all 300ms;
   margin: 1 * $base-size;
@@ -54,8 +54,8 @@ $base-size: $font-size;
 }
 
 .active-#{$theme} {
-  box-shadow: lighten(color-palette("primary","background"), 10%) 0 0 0.25em 4px,
-    inset darken(color-palette("primary","background"), 50%) 0 0 0.25em 4px;
+  box-shadow: lighten(color-palette("primary","main", "background"), 10%) 0 0 0.25em 4px,
+    inset darken(color-palette("primary","main", "background"), 50%) 0 0 0.25em 4px;
 }
 
 .CountDown-#{$theme} {

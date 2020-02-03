@@ -1,5 +1,9 @@
 import React from "react";
-import { IRadioItemProps, ESizeIcon } from "../../../__typings/interfaces.d";
+import {
+  IRadioItemProps,
+  SizeIconEnums,
+  IconEnums,
+} from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
@@ -33,9 +37,12 @@ function Radio({
         onClick={() => onChange(value)}
         data-value={value}
       >
-
-        {checked && <Icon size={ESizeIcon.SMALL}>radio_button_checked</Icon>}
-        {!checked && <Icon size={ESizeIcon.SMALL}>radio_button_unchecked</Icon>}
+        {checked && (
+          <Icon size={SizeIconEnums.SMALL}>{IconEnums.RADIO_ON}</Icon>
+        )}
+        {!checked && (
+          <Icon size={SizeIconEnums.SMALL}>{IconEnums.RADIO_OFF}</Icon>
+        )}
         <div className={styles[`Radio-${theme}-Label`]}>{label}</div>
         <div className={styles[`Radio-${theme}-Content`]}>{children}</div>
       </div>
