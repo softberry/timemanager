@@ -6,6 +6,7 @@ module.exports = {
     "@storybook/addon-docs/register",
     "@storybook/addon-notes/register",
     "@storybook/addon-knobs/register",
+    "@storybook/addon-actions/register",
     {
       name: "@storybook/addon-docs",
       options: { configureJSX: true },

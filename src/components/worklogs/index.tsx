@@ -155,6 +155,7 @@ function WorksLogs<T>(contact: IContactsTableModel) {
           align={ButtonAlignmentEnums.CENTER}
           type={ButtonTypeEnums.POISITIVE}
           onClick={addWorkLogFor}
+          isDisabled={false}
         >
           Create Worklog
         </Button>

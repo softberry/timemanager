@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router";
 import {
   IContactDetailsComponent,
   IworkTableModel,
@@ -31,43 +32,51 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 function ReadOnlyDetails({ contact, propsClass }: IReadOnlyContactProps) {
   const { street, zip, city, tel, mobile, mail } = contact;
   const { styles, theme, view } = propsClass;
+  const history = useHistory();
   return (
     <>
       <div className={styles[`ReadOnly-${theme}-${view}-Cart`]}>
-        <H1>{`${contact.name} ${contact.surname}`}</H1>
-        <address className={styles[`ReadOnly-${theme}-${view}-Address`]}>
-          <div>
-            {street}, {zip} - {city}{" "}
-          </div>
-          <div className={styles[`ReadOnly-${theme}-${view}-Contact-Buttons`]}>
-            <ButtonLink
-              align={ButtonAlignmentEnums.INLINE}
-              icon={IconEnums.MAIL}
-              href={`mailto:${mail}`}
-              type={ButtonTypeEnums.SIMPLE}
-            />
+        <div className={styles[`ReadOnly-${theme}-${view}-Cart-Title`]}>
+          <H1>{`${contact.name} ${contact.surname}`}</H1>
+          <Button
+            align={ButtonAlignmentEnums.INLINE}
+            icon={IconEnums.EDIT}
+            onClick={() => history.push(`/contact/edit/${contact.id}`)}
+            type={ButtonTypeEnums.SIMPLE}
+            isDisabled={false}
+          />
+        </div>
+        <div className={styles[`ReadOnly-${theme}-${view}-Address`]}>
+          {street}, <br />
+          {zip} - {city}{" "}
+        </div>
+      </div>
+      <div className={styles[`ReadOnly-${theme}-${view}-Cart`]}>
+        <div className={styles[`ReadOnly-${theme}-${view}-Contact-Buttons`]}>
+          <ButtonLink
+            align={ButtonAlignmentEnums.INLINE}
+            icon={IconEnums.MAIL}
+            href={`mailto:${mail}`}
+            type={ButtonTypeEnums.SIMPLE}
+            isDisabled={mail === undefined}
+          />
 
-            <ButtonLink
-              align={ButtonAlignmentEnums.INLINE}
-              icon={IconEnums.SMART_PHONE}
-              href={`tel:${mobile}`}
-              type={ButtonTypeEnums.SIMPLE}
-            />
+          <ButtonLink
+            align={ButtonAlignmentEnums.INLINE}
+            icon={IconEnums.SMART_PHONE}
+            href={`tel:${mobile}`}
+            type={ButtonTypeEnums.SIMPLE}
+            isDisabled={mobile === undefined}
+          />
 
-            <ButtonLink
-              align={ButtonAlignmentEnums.INLINE}
-              icon={IconEnums.PHONE}
-              href={`tel:${tel}`}
-              type={ButtonTypeEnums.SIMPLE}
-            />
-            <ButtonLink
-              align={ButtonAlignmentEnums.INLINE}
-              icon={IconEnums.EDIT}
-              href={`/contact/edit/${contact.id}`}
-              type={ButtonTypeEnums.SIMPLE}
-            />
-          </div>
-        </address>
+          <ButtonLink
+            align={ButtonAlignmentEnums.INLINE}
+            icon={IconEnums.PHONE}
+            href={`tel:${tel}`}
+            type={ButtonTypeEnums.SIMPLE}
+            isDisabled={tel === undefined}
+          />
+        </div>
       </div>
     </>
   );
@@ -75,12 +84,14 @@ function ReadOnlyDetails({ contact, propsClass }: IReadOnlyContactProps) {
 
 function EditableDetails<T>(contact: IContactsTableModel) {
   const nonRenderedItems = ["id"];
-
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+  const view = useContext(ViewContext);
+  const history = useHistory();
   return (
     <div>
       {Object.keys(contact).map((fieldName, key) => {
         const props = { fieldName, contact };
-
         return (
           <div key={key}>
             {!nonRenderedItems.includes(fieldName) && (
@@ -89,23 +100,26 @@ function EditableDetails<T>(contact: IContactsTableModel) {
           </div>
         );
       })}
-      <Button
-        icon={IconEnums.CLEAR}
-        align={ButtonAlignmentEnums.INLINE}
-        onClick={() => {}}
-        type={ButtonTypeEnums.NEGATIVE}
-      >
-        Cancel
-      </Button>
-      <Button
-        icon={IconEnums.CHECK_CIRCLE}
-        align={ButtonAlignmentEnums.INLINE}
-        onClick={() => {}}
-        type={ButtonTypeEnums.POISITIVE}
-      >
-        Save
-      </Button>
-
+      <div className={styles[`ContactDetails-${theme}-${view}-Footer`]}>
+        <Button
+          icon={IconEnums.CLEAR}
+          align={ButtonAlignmentEnums.INLINE}
+          onClick={history.goBack}
+          type={ButtonTypeEnums.NEGATIVE}
+          isDisabled={false}
+        >
+          Cancel
+        </Button>
+        <Button
+          icon={IconEnums.CHECK_CIRCLE}
+          align={ButtonAlignmentEnums.INLINE}
+          onClick={() => {}}
+          type={ButtonTypeEnums.POISITIVE}
+          isDisabled={true}
+        >
+          Save
+        </Button>
+      </div>
     </div>
   );
 }
@@ -153,9 +167,6 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
-
-  isReadOnly && dispatch({ type: TYPES.TOOLBAR_EDIT_CONTACT, contact });
-  !isReadOnly && dispatch({ type: TYPES.TOOLBAR_SAVE_CONTACT, contact });
 
   const [fullName, setFullName] = useState(
     `${contact.name} ${contact.surname}`

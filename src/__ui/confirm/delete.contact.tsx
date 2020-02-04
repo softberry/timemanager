@@ -108,6 +108,7 @@ function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
           type={ButtonTypeEnums.SIMPLE}
           align={ButtonAlignmentEnums.RIGHT}
           onClick={onDeleteButtonSubmit.bind({}, nSQL, contact.id)}
+          isDisabled={false}
         >
           Delete
         </Button>

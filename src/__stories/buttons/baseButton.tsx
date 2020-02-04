@@ -1,59 +1,57 @@
-import React from "react"
-import { ButtonLink } from "../../__ui/buttons/button";
-import { IconEnums, ButtonTypeEnums, ButtonAlignmentEnums } from "../../__typings/interfaces.d";
-import { select, text } from "@storybook/addon-knobs";
+/**
+ * @file Basic button of available types, so this can be used to create stories.
+ */
+import React from "react";
+import Button, { ButtonLink } from "../../__ui/buttons/button";
+import { action } from "@storybook/addon-actions";
+import {
+  IconEnums,
+  ButtonTypeEnums,
+  ButtonAlignmentEnums,
+} from "../../__typings/interfaces.d";
+import { select, text, boolean } from "@storybook/addon-knobs";
 
 const BaseButton = () => (
   <>
-    <ButtonLink
-      icon={select(
-        "Icons",
-        [
-          IconEnums.ADD,
-          IconEnums.ARROW_BACK,
-          IconEnums.ARROW_FORWARD,
-          IconEnums.BLANK,
-          IconEnums.CALENDAR,
-          IconEnums.CHECK_CIRCLE,
-          IconEnums.CHECKBOX_ON,
-          IconEnums.CHECKBOX_OFF,
-          IconEnums.EDIT,
-          IconEnums.PHONE,
-          IconEnums.RADIO_ON,
-          IconEnums.RADIO_OFF,
-          IconEnums.SEARCH,
-          IconEnums.SETTINGS,
-          IconEnums.SMART_PHONE,
-          IconEnums.TIMER,
-        ],
-        IconEnums.ADD
-      )}
+    <Button
+      icon={select("Icons", Object.values(IconEnums), IconEnums.ADD)}
       type={select(
         "Button Types",
-        [
-          ButtonTypeEnums.SIMPLE,
-          ButtonTypeEnums.POISITIVE,
-          ButtonTypeEnums.NEGATIVE,
-          ButtonTypeEnums.ERROR,
-        ],
+        Object.values(ButtonTypeEnums),
         ButtonTypeEnums.SIMPLE
       )}
       align={select(
         "Alignment",
-        [
-          ButtonAlignmentEnums.LEFT,
-          ButtonAlignmentEnums.CENTER,
-          ButtonAlignmentEnums.RIGHT,
-          ButtonAlignmentEnums.STRECH,
-          ButtonAlignmentEnums.INLINE,
-        ],
+        Object.values(ButtonAlignmentEnums),
         ButtonAlignmentEnums.CENTER
       )}
-      href=""
+      isDisabled={Boolean(boolean("Disabled", false))}
+      onClick={action("button-click")}
+    >
+      {text("Label", "Click here!!!")}
+    </Button>
+  </>
+);
+const BaseButtonLink = () => (
+  <>
+    <ButtonLink
+      icon={select("Icons", Object.values(IconEnums), IconEnums.ADD)}
+      type={select(
+        "Button Types",
+        Object.values(ButtonTypeEnums),
+        ButtonTypeEnums.SIMPLE
+      )}
+      align={select(
+        "Alignment",
+        Object.values(ButtonAlignmentEnums),
+        ButtonAlignmentEnums.CENTER
+      )}
+      isDisabled={Boolean(boolean("Disabled", false))}
+      href="/"
     >
       {text("Label", "Click here!!!")}
     </ButtonLink>
   </>
 );
 
-export default BaseButton;
+export { BaseButton as default, BaseButtonLink };

@@ -137,9 +137,11 @@ export interface IButtonProps {
   align: ButtonAlignmentEnums;
   onClick: () => void;
   type: ButtonTypeEnums;
+  isDisabled: boolean;
 }
+
 export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
-  href: string;
+  href: any;
 }
 export interface IMessage {
   icon: IconEnums;

@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter as Router } from "react-router-dom";
 import { withKnobs } from "@storybook/addon-knobs";
 
 import BaseButton from "./baseButton";
@@ -6,7 +7,7 @@ import Button from "../../__ui/buttons/button";
 import StoryPage from "../story-page";
 
 export default {
-  title: "Form Elements/Buttons/Default Buttons",
+  title: "Form Elements/Buttons/Standart Buttons",
   component: Button,
   decorators: [withKnobs],
   parameters: {
@@ -17,7 +18,9 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <BaseButton />
+      <Router>
+        <BaseButton />
+      </Router>
     </StoryPage>
   );
 };
@@ -25,7 +28,9 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <BaseButton />
+      <Router>
+        <BaseButton />
+      </Router>
     </StoryPage>
   );
 };

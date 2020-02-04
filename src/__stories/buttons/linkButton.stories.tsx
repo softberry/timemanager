@@ -1,7 +1,8 @@
 import React from "react";
+import { MemoryRouter as Router } from "react-router-dom";
 import { withKnobs } from "@storybook/addon-knobs";
 
-import BaseButton from "./baseButton";
+import { BaseButtonLink } from "./baseButton";
 import { ButtonLink } from "../../__ui/buttons/button";
 
 import StoryPage from "../story-page";
@@ -18,8 +19,9 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <BaseButton />
-      <BaseButton />
+      <Router>
+        <BaseButtonLink />
+      </Router>
     </StoryPage>
   );
 };
@@ -27,8 +29,9 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <BaseButton />
-      <BaseButton />
+      <Router>
+        <BaseButtonLink />
+      </Router>
     </StoryPage>
   );
 };

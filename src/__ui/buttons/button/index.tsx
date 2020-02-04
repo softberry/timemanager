@@ -25,22 +25,30 @@ function Button({
   onClick,
   align = ButtonAlignmentEnums.CENTER,
   type = ButtonTypeEnums.SIMPLE,
+  isDisabled = true,
 }: IButtonProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   const iconOnly = children === undefined || children.toString().length === 0;
 
+  const clickHandler = isDisabled ? () => {} : onClick;
+
   return (
     <div className={styles["Button-Container"]} data-align={align}>
       <div
         className={styles[`Btn-${theme}-${view}--${type}`]}
-        onClick={onClick}
+        onClick={clickHandler}
         data-icon-only={iconOnly}
+        data-disabled={isDisabled}
       >
         <button>
           {icon && <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>}
-          {!iconOnly && <span className={styles[`Btn-${theme}-${view}--${type}-innerText`]}>{children}</span>}
+          {!iconOnly && (
+            <span className={styles[`Btn-${theme}-${view}--${type}-innerText`]}>
+              {children}
+            </span>
+          )}
         </button>
       </div>
     </div>
@@ -53,6 +61,7 @@ function ButtonLink({
   href,
   align = ButtonAlignmentEnums.CENTER,
   type = ButtonTypeEnums.SIMPLE,
+  isDisabled = true,
 }: IButtonLinkProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -67,8 +76,14 @@ function ButtonLink({
       <div
         className={styles[`Btn-${theme}-${view}--${type}`]}
         data-icon-only={iconOnly}
+        data-disabled={isDisabled}
       >
-        <Link to={href}>
+        <Link
+          to={href}
+          onClick={e => {
+            isDisabled && e.preventDefault();
+          }}
+        >
           {icon && <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>}
           <span>{children}</span>
         </Link>
