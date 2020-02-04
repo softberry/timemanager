@@ -9,4 +9,8 @@
   &[data-size="LARGE"] {
     @include materialIconLarge();
   }
+  &[data-blank="true"] {
+    visibility: hidden;
+    width: 0;
+  }
 }

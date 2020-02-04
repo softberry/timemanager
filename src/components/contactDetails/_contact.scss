@@ -2,7 +2,14 @@
   @include view;
 }
 
-@mixin read-only() {
+@mixin read-only($variant: "primary") {
+  &-Cart {
+    background-color: color-palette($variant, "cart", "background");
+    color: color-palette($variant, "cart", "text");
+    padding: 0.5rem 1rem;
+    box-shadow: inset 0 0 4px 0;
+    border-radius: 4px;
+  }
   &-Address {
     display: flex;
     align-items: center;
@@ -30,10 +37,10 @@
 .ReadOnly {
   &-#{$theme} {
     &-primary {
-      @include read-only();
+      @include read-only("primary");
     }
     &-secondary {
-      @include read-only();
+      @include read-only("secondary");
     }
   }
 }

@@ -2,7 +2,11 @@ import React from "react";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import { IIconProps, SizeIconEnums } from "../../__typings/interfaces.d";
+import {
+  IIconProps,
+  SizeIconEnums,
+  IconEnums,
+} from "../../__typings/interfaces.d";
 import { VDESIGN } from "../../store/constant-enums";
 import { useTheme, useThemeStyle } from "../typography";
 
@@ -13,8 +17,14 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 function Icon({ children, size = SizeIconEnums.MEDIUM, ...rest }: IIconProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
+
   return (
-    <span className={styles[`Icon-${theme}`]} {...rest} data-size={size}>
+    <span
+      className={styles[`Icon-${theme}`]}
+      {...rest}
+      data-size={size}
+      data-blank={children === IconEnums.BLANK}
+    >
       {children}
     </span>
   );

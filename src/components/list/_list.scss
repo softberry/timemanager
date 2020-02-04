@@ -1,10 +1,4 @@
-.List-#{$theme} {
-  height: 100%;
-
-
-}
-
-.ListItem-#{$theme} {
+@mixin ListItem($variant) {
   display: grid;
   align-items: center;
   grid-template-areas: "list-item-contact badge";
@@ -12,11 +6,11 @@
   padding: 2px 0;
   background-color: rgba(#fff, 0.75);
   margin-bottom: 0;
-  box-shadow: 1px 1px 1px 0px darken(color-palette("secondary","main", "background"), 24%);
+  box-shadow: 1px 1px 1px 0px
+    darken(color-palette($variant, "main", "background"), 24%);
 
-  &-Contact,
-  &-Duration {
-    line-height: 2;
+  &-Contact {
+    line-height: 2.5;
     padding: 0 1 * $font-size;
     box-sizing: border-box;
   }
@@ -30,11 +24,20 @@
     text-overflow: ellipsis;
   }
 
-  &-Duration {
-    grid-area: list-item-duration;
-  }
-
   &-Badge {
     grid-area: badge;
+  }
+}
+
+.List-#{$theme} {
+  height: 100%;
+}
+
+.ListItem-#{$theme} {
+  &-primary {
+    @include ListItem("primary");
+  }
+  &-secondary {
+    @include ListItem("secondary");
   }
 }

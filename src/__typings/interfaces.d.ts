@@ -5,12 +5,14 @@ export enum IconEnums {
   ARROW_FORWARD = "arrow_forward",
   ARROW_UP = "keyboard_arrow_up",
   CALENDAR = "date_range",
+  CHECK_CIRCLE = "check_circle",
   CHECKBOX_OFF = "check_box_outline_blank",
   CHECKBOX_ON = "check_box",
   CLEAR = "highlight_off",
   CLOSE = "close",
   CONTACTS = "contacts",
   EDIT = "edit",
+  BLANK = "blank",
   MAIL = "mail_outline",
   MESSAGE = "chat_bubble_outline",
   PHONE = "local_phone",
@@ -127,6 +129,7 @@ export enum ButtonAlignmentEnums {
   CENTER = "center",
   RIGHT = "right",
   STRECH = "strech",
+  INLINE = "inline",
 }
 export interface IButtonProps {
   children?: any;
@@ -135,7 +138,9 @@ export interface IButtonProps {
   onClick: () => void;
   type: ButtonTypeEnums;
 }
-
+export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
+  href: string;
+}
 export interface IMessage {
   icon: IconEnums;
   type: string;

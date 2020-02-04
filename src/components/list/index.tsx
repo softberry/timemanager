@@ -8,7 +8,6 @@ import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 import { useSelector } from "react-redux";
 
-
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
@@ -42,12 +41,12 @@ function contactsList({ list, theme, styles, view }: any) {
         <Link
           to={`/contact/details/${item.id}`}
           key={key}
-          className={styles[`ListItem-${theme}`]}
+          className={styles[`ListItem-${theme}-${view}`]}
         >
-          <div className={styles[`ListItem-${theme}-Contact`]}>
+          <div className={styles[`ListItem-${theme}-${view}-Contact`]}>
             {item.name} {item.surname}
           </div>
-          <div className={styles[`ListItem-${theme}-Badge`]}>
+          <div className={styles[`ListItem-${theme}-${view}-Badge`]}>
             <WorkLogBadgeFromID view={view} contactID={item.id} />
           </div>
         </Link>
@@ -63,7 +62,6 @@ function List({ type, list = [], view }: any) {
   return (
     <>
       <section className={styles[`List-${theme}`]}>
-
         {type === "CONTACTS_LIST" &&
           contactsList({ list, theme, styles, view })}
       </section>

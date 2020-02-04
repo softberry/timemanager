@@ -6,14 +6,15 @@ import {
   ButtonAlignmentEnums,
   IReadOnlyContactProps,
   IconEnums,
+  IContactsTableModel,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import TYPES from "../../store/action-types";
 import Input, { MultipleInput } from "../../__ui/formElements";
-import Button from "../../__ui/buttons/button";
-import { H1, H3 } from "../../__ui/headline";
+import Button, { ButtonLink } from "../../__ui/buttons/button";
+import { H1 } from "../../__ui/headline";
 
 import Worklogs from "../worklogs";
 
@@ -32,55 +33,54 @@ function ReadOnlyDetails({ contact, propsClass }: IReadOnlyContactProps) {
   const { styles, theme, view } = propsClass;
   return (
     <>
-      <div>
-        <div>
-          <H1>{`${contact.name} ${contact.surname}`}</H1>
-          <address className={styles[`ReadOnly-${theme}-${view}-Address`]}>
-            <div>
-              {street}, {zip} - {city}{" "}
-            </div>
-            <div
-              className={styles[`ReadOnly-${theme}-${view}-Contact-Buttons`]}
-            >
-              <a href={`mailto:${mail}`}>
-                <Button
-                  align={ButtonAlignmentEnums.LEFT}
-                  icon={IconEnums.MAIL}
-                  onClick={() => {}}
-                  type={ButtonTypeEnums.SIMPLE}
-                />
-              </a>
-              <a href={`tel:${mobile}`}>
-                <Button
-                  align={ButtonAlignmentEnums.LEFT}
-                  icon={IconEnums.SMART_PHONE}
-                  onClick={() => {}}
-                  type={ButtonTypeEnums.SIMPLE}
-                />
-              </a>
-              <a href={`tel:${tel}`}>
-                <Button
-                  align={ButtonAlignmentEnums.LEFT}
-                  icon={IconEnums.PHONE}
-                  onClick={() => {}}
-                  type={ButtonTypeEnums.SIMPLE}
-                />
-              </a>
-            </div>
-          </address>
-        </div>
+      <div className={styles[`ReadOnly-${theme}-${view}-Cart`]}>
+        <H1>{`${contact.name} ${contact.surname}`}</H1>
+        <address className={styles[`ReadOnly-${theme}-${view}-Address`]}>
+          <div>
+            {street}, {zip} - {city}{" "}
+          </div>
+          <div className={styles[`ReadOnly-${theme}-${view}-Contact-Buttons`]}>
+            <ButtonLink
+              align={ButtonAlignmentEnums.INLINE}
+              icon={IconEnums.MAIL}
+              href={`mailto:${mail}`}
+              type={ButtonTypeEnums.SIMPLE}
+            />
+
+            <ButtonLink
+              align={ButtonAlignmentEnums.INLINE}
+              icon={IconEnums.SMART_PHONE}
+              href={`tel:${mobile}`}
+              type={ButtonTypeEnums.SIMPLE}
+            />
+
+            <ButtonLink
+              align={ButtonAlignmentEnums.INLINE}
+              icon={IconEnums.PHONE}
+              href={`tel:${tel}`}
+              type={ButtonTypeEnums.SIMPLE}
+            />
+            <ButtonLink
+              align={ButtonAlignmentEnums.INLINE}
+              icon={IconEnums.EDIT}
+              href={`/contact/edit/${contact.id}`}
+              type={ButtonTypeEnums.SIMPLE}
+            />
+          </div>
+        </address>
       </div>
     </>
   );
 }
 
-function EditableDetails<T>(contact: T) {
+function EditableDetails<T>(contact: IContactsTableModel) {
   const nonRenderedItems = ["id"];
 
   return (
     <div>
       {Object.keys(contact).map((fieldName, key) => {
         const props = { fieldName, contact };
+
         return (
           <div key={key}>
             {!nonRenderedItems.includes(fieldName) && (
@@ -90,13 +90,22 @@ function EditableDetails<T>(contact: T) {
         );
       })}
       <Button
-        icon={IconEnums.SAVE}
-        align={ButtonAlignmentEnums.CENTER}
+        icon={IconEnums.CLEAR}
+        align={ButtonAlignmentEnums.INLINE}
         onClick={() => {}}
-        type={ButtonTypeEnums.SIMPLE}
+        type={ButtonTypeEnums.NEGATIVE}
+      >
+        Cancel
+      </Button>
+      <Button
+        icon={IconEnums.CHECK_CIRCLE}
+        align={ButtonAlignmentEnums.INLINE}
+        onClick={() => {}}
+        type={ButtonTypeEnums.POISITIVE}
       >
         Save
       </Button>
+
     </div>
   );
 }
@@ -193,12 +202,14 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
   const EditableDetailTitle = isNewContact
     ? "Create New Contact"
     : "Edit Contact Details";
+  dispatch({
+    type: TYPES.VIEWSETTINGS.UPDATE_TITLE,
+    title: EditableDetailTitle,
+  });
 
   return (
     <div className={viewClass}>
-      <H3>{EditableDetailTitle}</H3>
-      <EditableDetails contact={contact} />
-
+      <EditableDetails {...contact} />
     </div>
   );
 }
