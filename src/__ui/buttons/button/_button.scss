@@ -30,6 +30,7 @@
   &-innerText {
     margin: 0 rem(0.5);
   }
+
   &[data-icon-only="true"] {
     border-radius: 50%;
     padding: rem(0.5);
@@ -74,7 +75,7 @@
 
 .Button-Container {
   display: flex;
-  &[data-icon-only="true"] {
+  &[data-align="inline"] {
     display: inline-flex;
   }
   &[data-align="left"] {
