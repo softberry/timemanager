@@ -2,6 +2,7 @@
   "name": "timemanager",
   "version": "0.1.0",
   "private": true,
+  "homepage":"./",
   "dependencies": {
     "@csstools/normalize.css": "^10.1.0",
     "@fullcalendar/core": "^4.3.1",
