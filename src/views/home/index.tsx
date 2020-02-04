@@ -9,7 +9,9 @@ import Timer from "../../components/timer";
 import ViewContext from "../index";
 
 function HomeView() {
-  useDispatch()({ type: TYPES.TOOLBAR_HOME });
+  const dispatch = useDispatch();
+  dispatch({ type: TYPES.TOOLBAR_HOME });
+  dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: "" });
 
   return (
     <ViewContext.Provider value={VDESIGN.DESIGN_VIEW_PRIMARY}>

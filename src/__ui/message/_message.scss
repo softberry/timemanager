@@ -5,7 +5,7 @@
     "icon caption close"
     "text text text"
     ". . footer";
-  grid-template-columns: auto 1fr 1 * $font-size;
+  grid-template-columns: auto 1fr min-content;
   grid-template-rows: max-content max-content;
   padding: rem(0.5) 1 * $font-size;
   width: 90vw;
@@ -29,6 +29,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.1);
+
 }
 
 .Dialog-#{$theme} {
@@ -37,10 +38,10 @@
   &__MESSAGES_ERROR,
   &__CONFIRM_DELETE_CONTACT {
     &--primary {
-      @include dialog(color-palette("primary","background"), color-palette("primary","color"));
+      @include dialog(color-palette("primary","main", "background"), color-palette("primary","main", "text"));
     }
     &--secondary {
-      @include dialog(color-palette("secondary","background"), color-palette("secondary","color"));
+      @include dialog(color-palette("secondary","main", "background"), color-palette("secondary","main", "text"));
     }
   }
 }
@@ -59,7 +60,7 @@
 
 .Close-#{$theme} {
   grid-area: close;
-  width: 1 * $font-size;
+  width: auto;
   font-size: 1 * $font-size;
   line-height: 1;
   display: flex;

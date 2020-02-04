@@ -1,24 +1,25 @@
 import {
   IToolbarButton,
   IToolbarButtonState,
-} from "../../__typings/interfaces";
+  IconEnums,
+} from "../../__typings/interfaces.d";
 import TYPES from "../action-types";
 
 const home: IToolbarButton[] = [];
 const contacts: IToolbarButton[] = [
   {
-    type: "add",
+    type: IconEnums.ADD,
     label: "New Contact",
     disabled: false,
     hidden: false,
     clickAction: TYPES.EVENT_CREATE_CONTACT,
   },
-  { type: "delete", disabled: true, hidden: true },
-  { type: "edit", disabled: true, hidden: true },
+  { type: IconEnums.CLOSE, disabled: true, hidden: true },
+  { type: IconEnums.EDIT, disabled: true, hidden: true },
 ];
 const saveContact: IToolbarButton[] = [
   {
-    type: "save",
+    type: IconEnums.SAVE,
     label: "Save Contact",
     disabled: true,
     hidden: false,
@@ -28,21 +29,21 @@ const saveContact: IToolbarButton[] = [
 
 const editContact: IToolbarButton[] = [
   {
-    type: "edit",
+    type: IconEnums.EDIT,
     label: "Edit",
     disabled: false,
     hidden: false,
     clickAction: TYPES.EVENT_EDIT_CONTACT,
   },
   {
-    type: "delete",
+    type: IconEnums.TRASH,
     label: "Delete Contact",
     disabled: false,
     hidden: false,
     clickAction: TYPES.EVENT_DELETE_CONTACT,
   },
   {
-    type: "add",
+    type: IconEnums.ADD,
     label: "New Worklog",
     disabled: false,
     hidden: false,

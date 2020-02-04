@@ -1,6 +1,7 @@
 import React from "react";
 import AutoComplete from "../../__ui/autocomplete";
-import Toolbar from "../toolbar";
+
+import ViewTitle from "../view-title";
 import Icon from "../../__ui/icon";
 import { useHistory } from "react-router-dom";
 
@@ -8,6 +9,7 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
+import { IconEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -21,7 +23,7 @@ function NavBack({ index, goBack, theme, styles }: any) {
       className={styles[`HistoryNav-${theme}-Arrow`]}
       data-disabled={disabled}
     >
-      <Icon onClick={goBack}>arrow_back</Icon>
+      <Icon onClick={goBack}>{IconEnums.ARROW_BACK}</Icon>
     </div>
   );
 }
@@ -33,7 +35,7 @@ function NavForward({ index, length, goForward, theme, styles }: any) {
       className={styles[`HistoryNav-${theme}-Arrow`]}
       data-disabled={disabled}
     >
-      <Icon onClick={goForward}>arrow_forward</Icon>
+      <Icon onClick={goForward}>{IconEnums.ARROW_FORWARD}</Icon>
     </div>
   );
 }
@@ -50,8 +52,8 @@ function Nav() {
         <NavBack {...history} styles={styles} theme={theme} />
         <NavForward {...history} styles={styles} theme={theme} />
       </div>
-      <div className={styles[`ToolsNav-${theme}`]}>
-        <Toolbar />
+      <div className={styles[`ViewTitle-${theme}`]}>
+        <ViewTitle />
       </div>
       <div className={styles[`SearchNav-${theme}`]}>
         <AutoComplete variant={VDESIGN.DESIGN_VIEW_PRIMARY} />

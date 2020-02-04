@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "../../__ui/icon";
 import StoryPage from "../story-page";
 
-import { ESizeIcon } from "../../__typings/interfaces.d";
+import { SizeIconEnums, IconEnums } from "../../__typings/interfaces.d";
 export default {
   title: "Icons Set / Check Box",
   parameters: {
@@ -15,12 +15,12 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <Icon size={ESizeIcon.SMALL}>check_box_outline_blank</Icon>
-      <Icon size={ESizeIcon.SMALL}>check_box</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>check_box_outline_blank</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>check_box</Icon>
-      <Icon size={ESizeIcon.LARGE}>check_box_outline_blank</Icon>
-      <Icon size={ESizeIcon.LARGE}>check_box</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_ON}</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_OFF}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CHECKBOX_ON}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CHECKBOX_OFF}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CHECKBOX_ON}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CHECKBOX_OFF}</Icon>
     </StoryPage>
   );
 };
@@ -28,12 +28,12 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <Icon size={ESizeIcon.SMALL}>check_box_outline_blank</Icon>
-      <Icon size={ESizeIcon.SMALL}>check_box</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>check_box_outline_blank</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>check_box</Icon>
-      <Icon size={ESizeIcon.LARGE}>check_box_outline_blank</Icon>
-      <Icon size={ESizeIcon.LARGE}>check_box</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_ON}</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_OFF}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CHECKBOX_ON}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CHECKBOX_OFF}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CHECKBOX_ON}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CHECKBOX_OFF}</Icon>
     </StoryPage>
   );
 };

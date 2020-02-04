@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { H1 } from "../../__ui/headline";
 import Badge from "../../__ui/badge";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -42,12 +41,12 @@ function contactsList({ list, theme, styles, view }: any) {
         <Link
           to={`/contact/details/${item.id}`}
           key={key}
-          className={styles[`ListItem-${theme}`]}
+          className={styles[`ListItem-${theme}-${view}`]}
         >
-          <div className={styles[`ListItem-${theme}-Contact`]}>
+          <div className={styles[`ListItem-${theme}-${view}-Contact`]}>
             {item.name} {item.surname}
           </div>
-          <div className={styles[`ListItem-${theme}-Badge`]}>
+          <div className={styles[`ListItem-${theme}-${view}-Badge`]}>
             <WorkLogBadgeFromID view={view} contactID={item.id} />
           </div>
         </Link>
@@ -63,9 +62,6 @@ function List({ type, list = [], view }: any) {
   return (
     <>
       <section className={styles[`List-${theme}`]}>
-        <div className={styles[`List-${theme}-Title`]}>
-          <H1>Contacts</H1>
-        </div>
         {type === "CONTACTS_LIST" &&
           contactsList({ list, theme, styles, view })}
       </section>

@@ -2,16 +2,17 @@ import React from "react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { withKnobs } from "@storybook/addon-knobs";
 
-import BaseButton from "./baseButton";
-import Button from "../../__ui/buttons/button";
+import { BaseButtonLink } from "./baseButton";
+import { ButtonLink } from "../../__ui/buttons/button";
+
 import StoryPage from "../story-page";
 
 export default {
-  title: "Form Elements/Buttons/Standart Buttons",
-  component: Button,
+  title: "Form Elements/Buttons/Link Buttons",
+  component: ButtonLink,
   decorators: [withKnobs],
   parameters: {
-    componentSubtitle: "Project wide buttons",
+    componentSubtitle: "Buttons as anchor links",
   },
 };
 
@@ -19,7 +20,7 @@ export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Router>
-        <BaseButton />
+        <BaseButtonLink />
       </Router>
     </StoryPage>
   );
@@ -29,7 +30,7 @@ export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <Router>
-        <BaseButton />
+        <BaseButtonLink />
       </Router>
     </StoryPage>
   );

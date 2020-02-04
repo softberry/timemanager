@@ -13,10 +13,6 @@ import ContactDetails from "../../components/contactDetails";
 
 import ViewContext from "../index";
 
-/**
- * Renders editable form from given values in given table
- * @param {Object} props
- */
 
 function ContactView({ match }: IContactViewProps) {
   const [table, setTable] = useState<IContactsTableModel>({

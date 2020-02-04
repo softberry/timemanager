@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  IConfirmDeleteContact,
-  IContactsTableModel,
-} from "../../__typings/interfaces";
 
 import { useHistory } from "react-router-dom";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
@@ -12,7 +8,14 @@ import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../store/constant-enums";
 
 import TYPES from "../../store/action-types";
+import {
+  IConfirmDeleteContact,
+  IContactsTableModel,
+  ButtonAlignmentEnums,
+  ButtonTypeEnums,
+} from "../../__typings/interfaces.d";
 import { Checkbox } from "../formElements";
+import Button from "../buttons/button";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -32,7 +35,7 @@ function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
     setDeleteWorklogsToo(checked);
   }
 
-  function onDeleteButtonSubmit(nSQL: any, id: string, e: any) {
+  function onDeleteButtonSubmit(nSQL: any, id: string) {
     if (deleteWorklogsToo) {
       nSQL("workTable")
         .query("delete")
@@ -85,27 +88,31 @@ function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
 
   return (
     <>
-      Are you sure to delete&nbsp;
-      <strong>
-        {contact.name} {contact.surname}
-      </strong>
-      ?
-      <br />
+      <div className={styles[`Content-${theme}`]}>
+        Are you sure to delete&nbsp;
+        <strong>
+          {contact.name} {contact.surname}
+        </strong>
+        ?
+      </div>
       {worklogsCount > 0 && (
-        <>
+        <div className={styles[`Content-${theme}`]}>
           <Checkbox
             onChange={checkBoxOnChangeHandler}
             label={`Delete also ${worklogsCount} of saved works.`}
           ></Checkbox>
-        </>
+        </div>
       )}
       <div className={styles[`Footer-${theme}`]}>
-        <button onClick={onDeleteButtonSubmit.bind({}, nSQL, contact.id)}>
+        <Button
+          type={ButtonTypeEnums.SIMPLE}
+          align={ButtonAlignmentEnums.RIGHT}
+          onClick={onDeleteButtonSubmit.bind({}, nSQL, contact.id)}
+          isDisabled={false}
+        >
           Delete
-        </button>
+        </Button>
       </div>
-      {/*TODO:  Custom Buttons
-              https://github.com/softberry/timemanager/issues/19 */}
     </>
   );
 }

@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "../../__ui/icon";
 import StoryPage from "../story-page";
 
-import { ESizeIcon } from "../../__typings/interfaces.d";
+import { SizeIconEnums, IconEnums } from "../../__typings/interfaces.d";
 export default {
   title: "Icons Set / Highlights",
   parameters: {
@@ -15,9 +15,9 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <Icon size={ESizeIcon.SMALL}>highlight_off</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>highlight_off</Icon>
-      <Icon size={ESizeIcon.LARGE}>highlight_off</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLEAR}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CLEAR}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CLEAR}</Icon>
     </StoryPage>
   );
 };
@@ -25,9 +25,9 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <Icon size={ESizeIcon.SMALL}>highlight_off</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>highlight_off</Icon>
-      <Icon size={ESizeIcon.LARGE}>highlight_off</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLEAR}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CLEAR}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CLEAR}</Icon>
     </StoryPage>
   );
 };

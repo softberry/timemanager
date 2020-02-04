@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "../../__ui/icon";
 import StoryPage from "../story-page";
 
-import { ESizeIcon } from "../../__typings/interfaces.d";
+import { SizeIconEnums, IconEnums } from "../../__typings/interfaces.d";
 export default {
   title: "Icons Set / Arrows",
   parameters: {
@@ -15,12 +15,12 @@ export default {
 export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <Icon size={ESizeIcon.SMALL}>arrow_back</Icon>
-      <Icon size={ESizeIcon.SMALL}>arrow_forward</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>arrow_back</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>arrow_forward</Icon>
-      <Icon size={ESizeIcon.LARGE}>arrow_back</Icon>
-      <Icon size={ESizeIcon.LARGE}>arrow_forward</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.ARROW_BACK}</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.ARROW_FORWARD}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.ARROW_BACK}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.ARROW_FORWARD}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.ARROW_BACK}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.ARROW_FORWARD}</Icon>
     </StoryPage>
   );
 };
@@ -28,12 +28,12 @@ export const primary = () => {
 export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <Icon size={ESizeIcon.SMALL}>arrow_back</Icon>
-      <Icon size={ESizeIcon.SMALL}>arrow_forward</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>arrow_back</Icon>
-      <Icon size={ESizeIcon.MEDIUM}>arrow_forward</Icon>
-      <Icon size={ESizeIcon.LARGE}>arrow_back</Icon>
-      <Icon size={ESizeIcon.LARGE}>arrow_forward</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.ARROW_BACK}</Icon>
+      <Icon size={SizeIconEnums.SMALL}>{IconEnums.ARROW_FORWARD}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.ARROW_BACK}</Icon>
+      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.ARROW_FORWARD}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.ARROW_BACK}</Icon>
+      <Icon size={SizeIconEnums.LARGE}>{IconEnums.ARROW_FORWARD}</Icon>
     </StoryPage>
   );
 };

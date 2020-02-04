@@ -10,23 +10,65 @@ $font-weight-bold: 600;
 
 // COLOR PALETTE
 $primary-color-pallete: (
-  "background": #3d4346,
-  "color": #dbdcdd,
-  "simple": #3f303f,
-  "selected": #ed7bed,
-  "positive": #215d41,
-  "negative": #b7adb9,
-  "error": #e83570,
+  "main": (
+    "background": #3d4346,
+    "text": #dbdcdd,
+  ),
+  "simple": (
+    "background": #dbdcdd,
+    "text": #3d4346,
+  ),
+  "selected": (
+    "background": #ed7bed,
+    "text": #dbdcdd,
+  ),
+  "positive": (
+    "background": #215d41,
+    "text": #dbdcdd,
+  ),
+  "negative": (
+    "background": #b7adb9,
+    "text": #dbdcdd,
+  ),
+  "error": (
+    "background": #e83570,
+    "text": #dbdcdd,
+  ),
+  "cart": (
+    "background": #24221e,
+    "text": #e4d9c4,
+  ),
 );
 
 $secondary-color-pallete: (
-  "background": #efebe9,
-  "color": #38302c,
-  "simple": #38302c,
-  "selected": #7bedac,
-  "positive": #87ad2c,
-  "negative": #c3c3b3,
-  "error": #91143e,
+  "main": (
+    "background": #efebe9,
+    "text": #38302c,
+  ),
+  "simple": (
+    "background": #38302c,
+    "text": #efebe9,
+  ),
+  "selected": (
+    "background": #7bedac,
+    "text": #38302c,
+  ),
+  "positive": (
+    "background": #87ad2c,
+    "text": #38302c,
+  ),
+  "negative": (
+    "background": #c3c3b3,
+    "text": #38302c,
+  ),
+  "error": (
+    "background": #91143e,
+    "text": #efebe9,
+  ),
+  "cart": (
+    "background": #f9f8f6,
+    "text": #24221e,
+  ),
 );
 
 $break-points: (

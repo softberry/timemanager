@@ -12,7 +12,7 @@
     font-size: $font-size;
     background-color: $bg;
     &::selection {
-      background-color: color-palette("primary","selected");
+      background-color: color-palette("primary","selected","background");
     }
   }
 }
@@ -32,6 +32,7 @@
   &-Label {
     grid-area: label;
     font-weight: 700;
+    align-self: center;
   }
 
   &-Content {

@@ -1,14 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router";
 import {
   IContactDetailsComponent,
   IworkTableModel,
+  ButtonTypeEnums,
+  ButtonAlignmentEnums,
+  IReadOnlyContactProps,
+  IconEnums,
+  IContactsTableModel,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import TYPES from "../../store/action-types";
 import Input, { MultipleInput } from "../../__ui/formElements";
-import Button from "../../__ui/buttons/button";
+import Button, { ButtonLink } from "../../__ui/buttons/button";
 import { H1 } from "../../__ui/headline";
 
 import Worklogs from "../worklogs";
@@ -23,22 +29,65 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function ReadOnlyDetails({ contact }: any) {
-  const { street, zip, city, tel, mobile } = contact;
+function ReadOnlyDetails({ contact, propsClass }: IReadOnlyContactProps) {
+  const { street, zip, city, tel, mobile, mail } = contact;
+  const { styles, theme, view } = propsClass;
+  const history = useHistory();
   return (
     <>
-      <div>
-        {street}, {zip} - {city}{" "}
+      <div className={styles[`ReadOnly-${theme}-${view}-Cart`]}>
+        <div className={styles[`ReadOnly-${theme}-${view}-Cart-Title`]}>
+          <H1>{`${contact.name} ${contact.surname}`}</H1>
+          <Button
+            align={ButtonAlignmentEnums.INLINE}
+            icon={IconEnums.EDIT}
+            onClick={() => history.push(`/contact/edit/${contact.id}`)}
+            type={ButtonTypeEnums.SIMPLE}
+            isDisabled={false}
+          />
+        </div>
+        <div className={styles[`ReadOnly-${theme}-${view}-Address`]}>
+          {street}, <br />
+          {zip} - {city}{" "}
+        </div>
       </div>
-      <div>{tel}</div>
-      <div>{mobile}</div>
+      <div className={styles[`ReadOnly-${theme}-${view}-Cart`]}>
+        <div className={styles[`ReadOnly-${theme}-${view}-Contact-Buttons`]}>
+          <ButtonLink
+            align={ButtonAlignmentEnums.INLINE}
+            icon={IconEnums.MAIL}
+            href={`mailto:${mail}`}
+            type={ButtonTypeEnums.SIMPLE}
+            isDisabled={mail === undefined}
+          />
+
+          <ButtonLink
+            align={ButtonAlignmentEnums.INLINE}
+            icon={IconEnums.SMART_PHONE}
+            href={`tel:${mobile}`}
+            type={ButtonTypeEnums.SIMPLE}
+            isDisabled={mobile === undefined}
+          />
+
+          <ButtonLink
+            align={ButtonAlignmentEnums.INLINE}
+            icon={IconEnums.PHONE}
+            href={`tel:${tel}`}
+            type={ButtonTypeEnums.SIMPLE}
+            isDisabled={tel === undefined}
+          />
+        </div>
+      </div>
     </>
   );
 }
 
-function EditableDetails({ contact }: any) {
+function EditableDetails<T>(contact: IContactsTableModel) {
   const nonRenderedItems = ["id"];
-
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+  const view = useContext(ViewContext);
+  const history = useHistory();
   return (
     <div>
       {Object.keys(contact).map((fieldName, key) => {
@@ -51,7 +100,26 @@ function EditableDetails({ contact }: any) {
           </div>
         );
       })}
-      <Button icon="save">Save</Button>
+      <div className={styles[`ContactDetails-${theme}-${view}-Footer`]}>
+        <Button
+          icon={IconEnums.CLEAR}
+          align={ButtonAlignmentEnums.INLINE}
+          onClick={history.goBack}
+          type={ButtonTypeEnums.NEGATIVE}
+          isDisabled={false}
+        >
+          Cancel
+        </Button>
+        <Button
+          icon={IconEnums.CHECK_CIRCLE}
+          align={ButtonAlignmentEnums.INLINE}
+          onClick={() => {}}
+          type={ButtonTypeEnums.POISITIVE}
+          isDisabled={true}
+        >
+          Save
+        </Button>
+      </div>
     </div>
   );
 }
@@ -100,9 +168,6 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
 
-  isReadOnly && dispatch({ type: TYPES.TOOLBAR_EDIT_CONTACT, contact });
-  !isReadOnly && dispatch({ type: TYPES.TOOLBAR_SAVE_CONTACT, contact });
-
   const [fullName, setFullName] = useState(
     `${contact.name} ${contact.surname}`
   );
@@ -130,23 +195,32 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
   }, [setFullName, setIsNewContact, fullName, contact, type]);
 
   if (isReadOnly) {
+    dispatch({
+      type: TYPES.VIEWSETTINGS.UPDATE_TITLE,
+      title: "Contact Details",
+    });
+
     return (
       <div className={viewClass}>
-        <H1>{fullName}</H1>
-        <ReadOnlyDetails contact={contact} />
-        <Worklogs show={true} contact={contact} />
+        <ReadOnlyDetails
+          contact={contact}
+          propsClass={{ styles, theme, view }}
+        />
+        <Worklogs {...contact} />
       </div>
     );
   }
   const EditableDetailTitle = isNewContact
     ? "Create New Contact"
     : "Edit Contact Details";
+  dispatch({
+    type: TYPES.VIEWSETTINGS.UPDATE_TITLE,
+    title: EditableDetailTitle,
+  });
 
   return (
     <div className={viewClass}>
-      <H1>{EditableDetailTitle}</H1>
-      <EditableDetails contact={contact} />
-      <Worklogs show={false} contact={contact} />
+      <EditableDetails {...contact} />
     </div>
   );
 }

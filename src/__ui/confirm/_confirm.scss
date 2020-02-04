@@ -1,6 +1,13 @@
+.Content {
+  &-#{$theme} {
+    margin-bottom: rem(1);
+  }
+}
+
 .Footer {
-  &-#{$theme}{
+  &-#{$theme} {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: rem(1);
   }
 }

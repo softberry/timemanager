@@ -45,6 +45,9 @@ const WORKLOGS = {
   WORKLOGS_UPDATE: "WORKLOGS_UPDATE",
 };
 
+const VIEWSETTINGS = {
+  UPDATE_TITLE: "UPDATE_TITLE",
+};
 const TYPES = {
   ...DATABASE,
   ...TOOLBAR,
@@ -53,6 +56,7 @@ const TYPES = {
   ...CONFIRM,
   ...DESIGN,
   ...WORKLOGS,
+  VIEWSETTINGS,
 };
 
 export {
@@ -64,4 +68,5 @@ export {
   CONFIRM,
   DESIGN,
   WORKLOGS,
+  VIEWSETTINGS,
 };
