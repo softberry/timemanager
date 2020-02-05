@@ -58,6 +58,7 @@ function WorkListItemEditForm({ entry, styles, theme }: any) {
     name: "name",
     value: entry.name,
     required: true,
+    validate:true,
   };
   return (
     <div className={styles[`WorkLogs-${theme}-EditForm`]}>
@@ -65,7 +66,7 @@ function WorkListItemEditForm({ entry, styles, theme }: any) {
         <Input {...nameField} />
       </div>
       <div className={styles[`WorkLogs-${theme}-EditForm-Description`]}>
-        <Input name="description" value={entry.description} required={false} />
+        <Input name="description" value={entry.description} required={false} validate={true}  />
       </div>
       <div className={styles[`WorkLogs-${theme}-EditForm-Times`]}>
         <WorkListTimeEntries entries={entry} styles={styles} theme={theme} />

@@ -31,7 +31,6 @@ function Button({
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   const iconOnly = children === undefined || children.toString().length === 0;
-
   const clickHandler = isDisabled ? () => {} : onClick;
 
   return (
@@ -67,6 +66,7 @@ function ButtonLink({
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   const iconOnly = children === undefined || children.toString().length === 0;
+
   return (
     <div
       className={styles["Button-Container"]}

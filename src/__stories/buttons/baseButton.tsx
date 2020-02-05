@@ -10,6 +10,7 @@ import {
   ButtonAlignmentEnums,
 } from "../../__typings/interfaces.d";
 import { select, text, boolean } from "@storybook/addon-knobs";
+const notes = require("./notes.md");
 
 const BaseButton = () => (
   <>
@@ -54,4 +55,4 @@ const BaseButtonLink = () => (
   </>
 );
 
-export { BaseButton as default, BaseButtonLink };
+export { BaseButton as default, BaseButtonLink, notes };

@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useHistory } from "react-router-dom";
 import List from "../list";
-
+import Button from "../../__ui/buttons/button";
 import TYPES from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
-import { IContactsTableModel } from "../../__typings/interfaces";
+import {
+  IContactsTableModel,
+  ButtonAlignmentEnums,
+  ButtonTypeEnums,
+  IconEnums,
+} from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
 
@@ -24,9 +29,15 @@ function ContactsList() {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const dispatch = useDispatch();
-
-  const viewClass = styles[`Contacts-${theme}-${view}`];
-
+  const history = useHistory();
+  const createContactClickHandler = () => {
+    nSQL("contactsTable")
+      .presetQuery("createNewEmptyUserEntryForEdit")
+      .exec()
+      .then((row: []) => {
+        history.push("/contact/edit/new-contact-to-edit");
+      });
+  };
   useEffect(() => {
     if (typeof nSQL !== "function") return;
 
@@ -49,7 +60,19 @@ function ContactsList() {
   dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: "Contacts" });
 
   return (
-    <div className={viewClass}>
+    <div className={styles[`Contacts-${theme}-${view}`]}>
+      <div className={styles[`Contacts-${theme}-${view}-Create-New`]}>
+        <Button
+          icon={IconEnums.ADD}
+          align={ButtonAlignmentEnums.RIGHT}
+          isDisabled={false}
+          onClick={createContactClickHandler}
+          type={ButtonTypeEnums.POISITIVE}
+        >
+          Create Contact
+        </Button>
+      </div>
+
       <List title="Contacts" list={contacts} type="CONTACTS_LIST" view={view} />
     </div>
   );

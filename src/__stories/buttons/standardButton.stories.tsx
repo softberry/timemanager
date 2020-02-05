@@ -2,7 +2,7 @@ import React from "react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { withKnobs } from "@storybook/addon-knobs";
 
-import BaseButton from "./baseButton";
+import BaseButton, { notes } from "./baseButton";
 import Button from "../../__ui/buttons/button";
 import StoryPage from "../story-page";
 
@@ -36,8 +36,8 @@ export const secondary = () => {
 };
 
 primary.story = {
-  parameters: { notes: " //TODO: Add Notes for Stories" },
+  parameters: { notes },
 };
 secondary.story = {
-  parameters: { notes: " //TODO: Add Notes for Stories" },
+  parameters: { notes },
 };

@@ -87,24 +87,26 @@ export enum ValidationTypeEnums {
   MOBILE = "MOBILE",
   PHONE = "PHONE",
 }
+
+export interface IFieldInfo {
+  name: string;
+  validate: boolean;
+  required: boolean;
+  type:string;
+}
 export interface IInputProps {
   /** Name of the input field */
   name: string;
   /** Value  of the input field */
   value: string;
-  /** Callback funtion that sets parents active state. Used in Multifield only */
-  fieldState?: (n: boolean) => void;
   /** Define whether this field should have a value */
   required: boolean;
   /** Should be value of field to be validated. */
-  validate?: boolean;
+  validate: boolean;
 }
 
 export interface IMultiInputProps extends IInputProps {
-  name: string;
   value: string[];
-  fieldState?: never;
-  getStateFromChildren?: (n: boolean) => any;
 }
 /**
  * props for StartStopButton
@@ -128,7 +130,7 @@ export enum ButtonAlignmentEnums {
   LEFT = "left",
   CENTER = "center",
   RIGHT = "right",
-  STRECH = "strech",
+  STRETCH = "stretch",
   INLINE = "inline",
 }
 export interface IButtonProps {

@@ -4,7 +4,6 @@ import {
   SizeIconEnums,
   LabelTypeEnums,
   IconEnums,
-  //ValidationTypeEnums,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
@@ -19,11 +18,6 @@ import { uuid } from "@nano-sql/core/lib/utilities";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import isPostalCode from "validator/lib/isPostalCode";
-// ValidationTypeEnums.MAIL
-// ValidationTypeEnums.MOBILE
-// ValidationTypeEnums.PHONE
-// ValidationTypeEnums.TEXT
-// ValidationTypeEnums.ZIP
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -35,19 +29,13 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 function Input({
   name,
   value,
-  fieldState = () => {},
   required,
-  validate = true,
+  validate = true
 }: IInputProps) {
   const id = uuid();
   const [inputElement, setInputElement] = useState<any>(null);
   const [val, setVal] = useState<string>(value);
   const view = useContext(ViewContext);
-  /*********************************************** */
-  //TODO:  Use debounced validation rule.
-  //       If validation type define use it, if not use default validation rule
-  //TODO:  Define Required style
-  /*********************************************** */
 
   const [hasFocus, setHasFocus] = useState<boolean>(false);
   const [labelType, setLabelType] = useState<LabelTypeEnums>(
@@ -78,13 +66,11 @@ function Input({
           default:
             setIsValid(`${val}`.length > 0);
         }
-      }
-    } else {
-      if (required) {
-        setIsValid(`${val}`.length > 0);
       } else {
         setIsValid(true);
       }
+    } else {
+      setIsValid(true);
     }
   }, [setIsValid, required, type, val, validate]);
 
@@ -104,7 +90,6 @@ function Input({
         : LabelTypeEnums.LABEL
     );
     setHasFocus(true);
-    fieldState(true);
     setInputElement(null);
   }
 
@@ -114,7 +99,6 @@ function Input({
         ? LabelTypeEnums.PLACEHOLDER
         : LabelTypeEnums.LABEL
     );
-    fieldState(false);
     setTimeout(() => {
       setHasFocus(false);
     }, 300);

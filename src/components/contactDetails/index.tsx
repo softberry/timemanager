@@ -8,6 +8,7 @@ import {
   IReadOnlyContactProps,
   IconEnums,
   IContactsTableModel,
+  IInputProps
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -83,7 +84,7 @@ function ReadOnlyDetails({ contact, propsClass }: IReadOnlyContactProps) {
 }
 
 function EditableDetails<T>(contact: IContactsTableModel) {
-  const nonRenderedItems = ["id"];
+  const excludedItems = ["id"];
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
@@ -94,9 +95,7 @@ function EditableDetails<T>(contact: IContactsTableModel) {
         const props = { fieldName, contact };
         return (
           <div key={key}>
-            {!nonRenderedItems.includes(fieldName) && (
-              <EditableInput {...props} />
-            )}
+            {!excludedItems.includes(fieldName) && <EditableInput {...props} />}
           </div>
         );
       })}
@@ -130,6 +129,7 @@ function EditableInput({ fieldName, contact }: any) {
       name: fieldName,
       value: contact[fieldName],
       required: fieldName === "surname",
+      validate: true,
     };
     return (
       <>
@@ -138,7 +138,7 @@ function EditableInput({ fieldName, contact }: any) {
     );
   }
 
-  const field = {
+  const field: IInputProps = {
     name: fieldName,
     value: contact[fieldName],
     required: fieldName === "surname",

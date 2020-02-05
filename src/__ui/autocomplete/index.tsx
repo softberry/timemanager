@@ -26,11 +26,13 @@ function AutoComplete({ variant = VDESIGN.DESIGN_VIEW_PRIMARY }: any) {
   }
   return (
     <div className={styles[`AutoComplete-${theme}`]} onClick={handleAutoFocus}>
-      <input className={styles[`AutoComplete-${theme}-${variant}-input`]} />
-      <div
-        className={styles[`AutoComplete-${theme}-${variant}-inputSearchIcon`]}
-      >
-        <Icon>{IconEnums.SEARCH}</Icon>
+      <div className={styles[`AutoComplete-${theme}-inner`]}>
+        <input className={styles[`AutoComplete-${theme}-${variant}-input`]} />
+        <div
+          className={styles[`AutoComplete-${theme}-${variant}-inputSearchIcon`]}
+        >
+          <Icon>{IconEnums.SEARCH}</Icon>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,8 @@
 @mixin contacts() {
   @include view;
+  &-Create-New {
+    margin-bottom: rem(0.5);
+  }
 }
 
 .Contacts-#{$theme} {

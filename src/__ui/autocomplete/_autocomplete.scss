@@ -7,24 +7,29 @@
   font-size: inherit;
   line-height: $font-size;
   border-radius: rem(1.5);
-  padding-left: rem(.5);
+  padding-left: rem(0.5);
   outline: none;
   transition: background-color, width 300ms;
   background-color: darken($BG, 5%);
   box-shadow: inset 0 0 $font-size 0 $BG;
-  color: $C;
+  color: rgba($C, 0.1);
   max-width: 100%;
   width: rem(5);
+  height: 100%;
+  position: relative;
+  transition: all 300ms;
 
   &:focus {
     background-color: lighten($BG, 5%);
     box-shadow: inset 0 0 2px 0 invert($C, 25%);
     width: rem(10);
+    color: $C;
   }
 
   &SearchIcon {
     position: absolute;
-    right:rem(.5);
+    right: rem(0.5);
+    top: 0;
     color: darken($C, 25%);
     margin: auto 0;
   }
@@ -36,18 +41,22 @@
   vertical-align: middle;
   position: relative;
   transition: width 300ms;
+
+  &-inner {
+    position: absolute;
+    right: 0;
+    height: 100%;
+  }
 }
 
 .AutoComplete-#{$theme} {
+  @include auto-complete();
 
-      @include  auto-complete ();
+  &-primary-input {
+    @include text-input("primary");
+  }
 
-      &-primary-input {
-        @include text-input("primary");
-      }
-
-      &-secondary-input {
-        @include text-input("secondary");
-      }
-
+  &-secondary-input {
+    @include text-input("secondary");
+  }
 }

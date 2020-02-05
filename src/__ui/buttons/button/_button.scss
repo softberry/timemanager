@@ -77,7 +77,8 @@
   &[data-align="center"] {
     justify-content: center;
   }
-  &[data-align="strech"] {
+  &[data-align="stretch"]:not([data-icon-only="true"]) {
+    flex-basis: 100%;
     & > div {
       display: flex;
       flex-grow: 1;
