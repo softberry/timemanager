@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { DESIGN } from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
 
-import { H1 } from "../../__ui/headline";
+import TYPES from "../../store/action-types";
+
 import { RadioGroup, Radio } from "../../__ui/formElements";
 
 import { IDesignModel } from "../../__typings/interfaces";
@@ -22,18 +23,10 @@ function Settings({ view }: IDesignModel) {
   const viewClass = styles[`Settings-${theme}-${view}`];
   const dispatch = useDispatch();
   const currentTheme = useSelector((state: any) => state.design.theme);
+  dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: "Settings" });
   return (
     <section className={viewClass}>
-      <div className={styles[`SettingsHeader-${theme}`]}>
-        <H1>Settings</H1>
-      </div>
-      <div className={styles[`SettingsColLeft-${theme}`]}>
-        <div className={styles[`OptionListName-${theme}-Active`]}>Theme</div>
-        <div className={styles[`OptionListName-${theme}`]}>Time Settings</div>
-        <div className={styles[`OptionListName-${theme}`]}>
-          Material List Settings
-        </div>
-      </div>
+      <div className={styles[`OptionListName-${theme}`]}>Theme</div>
       <div className={styles[`SettingsColRight-${theme}`]}>
         <RadioGroup
           onChange={(val: string) => {

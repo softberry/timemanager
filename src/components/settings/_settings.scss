@@ -1,11 +1,5 @@
 @mixin settings() {
   @include view();
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "left right";
-  grid-template-columns: 160px 1fr;
-  grid-template-rows: min-content auto;
 }
 
 @mixin option-name {
@@ -26,25 +20,7 @@
   }
 }
 
-.SettingsHeader-#{$theme} {
-  grid-area: header;
-  padding: 0.5 * $font-size;
-}
-.SettingsColLeft-#{$theme} {
-  grid-area: left;
-  overflow: hidden scroll;
-  background-color: color-palette("primary", "main", "background");
-  color: color-palette("primary", "main", "text");
-}
-.SettingsColRight-#{$theme} {
-  grid-area: right;
-}
-
 .OptionListName-#{$theme} {
   @include option-name();
-
-  &-Active {
-    @include option-name();
-    background-color: rgba(255, 255, 255, 0.1);
-  }
+  font-weight: $font-weight-bold;
 }
