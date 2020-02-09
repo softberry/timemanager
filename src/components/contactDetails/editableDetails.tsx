@@ -5,7 +5,7 @@ import {
   ButtonAlignmentEnums,
   ButtonTypeEnums,
   IInputProps,
-  IInputCallback
+  IInputCallback,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { useHistory } from "react-router-dom";
@@ -65,12 +65,12 @@ function EditableDetails<T>(contact: IContactsTableModel) {
     canBeSavedMemoized();
   }
 
-  function getContactsMap(obj: {}) {
-    return new Map(Object.entries(obj));
+  function getContactsKeyMap(oContact: IContactsTableModel): any[] {
+    return Object.keys(oContact);
   }
   return (
     <div>
-      {getContactsMap(contact).forEach((fieldName, key) => {
+      {getContactsKeyMap(contact).map((fieldName, key) => {
         const props: IEditableInputProps = {
           fieldName,
           contact,
@@ -118,7 +118,6 @@ function EditableInput({
   infoCallback,
 }: IEditableInputProps) {
   if (Array.isArray(contact[fieldName])) {
-
     const multiField: IInputProps = {
       name: fieldName,
       uniqueName: fieldName,
