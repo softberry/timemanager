@@ -3,7 +3,7 @@ import React from "react";
 import { MultipleInput } from "../../__ui/formElements";
 import StoryPage from "../story-page";
 import { phone } from "faker";
-import { IMultiInputProps } from "../../__typings/interfaces";
+import { IInputProps } from "../../__typings/interfaces";
 
 export default {
   title: "Form Elements/Multiple Input",
@@ -13,7 +13,7 @@ export default {
   },
 };
 
-const fields: IMultiInputProps = {
+const fields: IInputProps = {
   name: "Mobile",
   uniqueName: "Mobile",
   required: false,

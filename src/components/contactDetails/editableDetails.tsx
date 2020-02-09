@@ -1,10 +1,11 @@
-import React, { useContext, useState, useCallback, useEffect } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import {
   IContactsTableModel,
   IconEnums,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
   IInputProps,
+  IInputCallback
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { useHistory } from "react-router-dom";
@@ -18,7 +19,6 @@ import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views/index";
 import Input, { MultipleInput } from "../../__ui/formElements";
 
-
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
@@ -30,41 +30,52 @@ function EditableDetails<T>(contact: IContactsTableModel) {
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
 
-  interface IInputCallback {
-    name: string;
-    valid: boolean;
-  }
   const fieldStateMap = new Map();
+  /** Keep Contact Details form in a map */
   const [contactsFormFieldsState, setContactsFormFieldsState] = useState(
     fieldStateMap
   );
+  /** Active State of save button */
   const [canBeSaved, setCanBeSaved] = useState(false);
 
-  const saveStateCallback = useCallback(() => {
-    setCanBeSaved(!Object.values(contactsFormFieldsState).includes(false));
-    // console.log(canBeSaved);
-  }, [contactsFormFieldsState]);
+  /**
+   * Use memoized callback to avoid unnecessary re-renders
+   */
+  const canBeSavedMemoized = useCallback(() => {
+    const currentCanBeSaved = (() => {
+      const result = Array.from(contactsFormFieldsState.values()).filter(
+        ({ valid }) => valid === false
+      );
+      return result.length === 0;
+    })();
 
+    setCanBeSaved(currentCanBeSaved);
+  }, [setCanBeSaved, contactsFormFieldsState]);
+  /**
+   * Handler to update form from input elements.
+   * This funcition is given to all child input/multiinput elements as prop
+   * @param returnedValue
+   */
   function infoCallbackHandler(returnedValue: IInputCallback) {
-    console.log(contactsFormFieldsState);
-    const { name, valid } = returnedValue;
+    const { name, uniqueName, value, valid } = returnedValue;
 
-    if (contactsFormFieldsState.get(name) === valid) return;
-
-    const s = contactsFormFieldsState;
-    s.set(name, valid);
-
-    setContactsFormFieldsState(s);
-    saveStateCallback();
+    const updatedFieldState = contactsFormFieldsState;
+    updatedFieldState.set(uniqueName, { valid, value, name });
+    setContactsFormFieldsState(updatedFieldState);
+    canBeSavedMemoized();
   }
 
-  useEffect(() => {
-    console.log(contactsFormFieldsState);
-  }, [contactsFormFieldsState]);
+  function getContactsMap(obj: {}) {
+    return new Map(Object.entries(obj));
+  }
   return (
     <div>
-      {Object.keys(contact).map((fieldName, key) => {
-        const props = { fieldName, contact, infoCallback: infoCallbackHandler };
+      {getContactsMap(contact).forEach((fieldName, key) => {
+        const props: IEditableInputProps = {
+          fieldName,
+          contact,
+          infoCallback: infoCallbackHandler,
+        };
         return (
           <div key={key}>
             {!excludedItems.includes(fieldName) && <EditableInput {...props} />}
@@ -95,13 +106,24 @@ function EditableDetails<T>(contact: IContactsTableModel) {
   );
 }
 
-function EditableInput({ fieldName, contact, infoCallback }: any) {
+interface IEditableInputProps {
+  fieldName: keyof IContactsTableModel;
+  contact: IContactsTableModel;
+  infoCallback: (returnedValue: IInputCallback) => any;
+}
+
+function EditableInput({
+  fieldName,
+  contact,
+  infoCallback,
+}: IEditableInputProps) {
   if (Array.isArray(contact[fieldName])) {
-    const multiField = {
+
+    const multiField: IInputProps = {
       name: fieldName,
       uniqueName: fieldName,
       value: contact[fieldName],
-      required: fieldName === "tel",
+      required: false,
       validate: true,
       infoCallback,
     };

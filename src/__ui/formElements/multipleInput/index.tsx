@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
 import {
-  IMultiInputProps,
+  IInputProps,
   IconEnums,
   ButtonTypeEnums,
   ButtonAlignmentEnums,
-  IInputProps,
 } from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -24,9 +23,10 @@ function AllInputs({
   required,
   validate,
   infoCallback,
-}: IMultiInputProps): any {
-  const InputElements = value.map((val, keyIndex) => {
-    const field:IInputProps = {
+}: IInputProps): any {
+  const valuesArray: string[] = Array.isArray(value) ? value : [];
+  const InputElements = valuesArray.map((val, keyIndex) => {
+    const field: IInputProps = {
       name: `${name}`,
       uniqueName: `${name}-${keyIndex}`,
       value: val,
@@ -45,13 +45,16 @@ function AllInputs({
   return InputElements;
 }
 
-function MultipleInput(props: IMultiInputProps): any {
+function MultipleInput(props: IInputProps): any {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const [inputProps, setInputProps] = useState(props);
 
   function addNewFieldHandler() {
-    setInputProps({ ...inputProps, value: [...inputProps.value, ""] });
+    const values: string[] = Array.isArray(inputProps.value)
+      ? inputProps.value
+      : [];
+    setInputProps({ ...inputProps, value: [...values, ""] });
   }
 
   return (

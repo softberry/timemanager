@@ -88,6 +88,13 @@ export enum ValidationTypeEnums {
   PHONE = "PHONE",
 }
 
+export interface IInputCallback {
+  name: string;
+  uniqueName: string;
+  valid: boolean;
+  value: string;
+}
+
 export interface IFieldInfo {
   name: string;
   validate: boolean;
@@ -101,7 +108,7 @@ export interface IInputProps {
   /**  */
   uniqueName: string;
   /** Value  of the input field */
-  value: string;
+  value?: string | string[];
   /** Define whether this field should have a value */
   required: boolean;
   /** Set correct validation type */
@@ -111,9 +118,9 @@ export interface IInputProps {
   infoCallback?: (any) => any;
 }
 
-export interface IMultiInputProps extends IInputProps {
-  value: string[];
-}
+// export interface IMultiInputProps extends Omit<IInputProps>, "value" {
+//   values?: string[];
+// }
 /**
  * props for StartStopButton
  */
@@ -232,9 +239,9 @@ export interface IContactsTableModel {
   street?: string;
   zip?: string;
   city?: string;
-  tel?: [string];
-  mobile?: [string];
-  mail?: [string];
+  tel?: string[];
+  mobile?: string[];
+  mail?: string[];
 }
 
 export interface IContactsTableQuerie {
@@ -251,8 +258,8 @@ export interface IworkTableModel {
   id: string;
   contactID: string;
   name: string;
-  labour: [string];
-  materials: [string];
+  labour: string[];
+  materials: string[];
   description: string;
 }
 

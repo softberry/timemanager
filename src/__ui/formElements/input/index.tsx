@@ -5,6 +5,7 @@ import {
   LabelTypeEnums,
   IconEnums,
   ValidationTypeEnums,
+  IInputCallback,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
@@ -37,8 +38,9 @@ function Input({
   infoCallback,
 }: IInputProps) {
   const id = uuid();
+  const stringValueOfField: string = value ? value.toString() : "";
   const [inputElement, setInputElement] = useState<any>(null);
-  const [val, setVal] = useState<string>(value);
+  const [val, setVal] = useState<string>(stringValueOfField);
   const view = useContext(ViewContext);
 
   const [hasFocus, setHasFocus] = useState<boolean>(false);
@@ -53,9 +55,15 @@ function Input({
 
   const updateParentCallback = useCallback(() => {
     if (typeof infoCallback === "function") {
-      infoCallback({ name: uniqueName, valid: isValid });
+      const changedValueState: IInputCallback = {
+        uniqueName,
+        name,
+        valid: isValid,
+        value: val,
+      };
+      infoCallback(changedValueState);
     }
-  }, [isValid, uniqueName, infoCallback]);
+  }, [isValid, uniqueName, infoCallback, name, val]);
 
   useEffect(() => {
     if (validate) {
@@ -118,6 +126,7 @@ function Input({
   }
 
   function handleOnBlur(e: React.FocusEvent<HTMLInputElement>) {
+    e.persist();
     setLabelType(
       `${e.target.value}`.length === 0
         ? LabelTypeEnums.PLACEHOLDER
@@ -150,6 +159,7 @@ function Input({
         data-type={labelType}
       >
         {name}
+        {required ? "*" : ""}
       </label>
       <div
         className={styles[`Input-${theme}-Wrapper`]}
