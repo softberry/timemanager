@@ -92,17 +92,23 @@ export interface IFieldInfo {
   name: string;
   validate: boolean;
   required: boolean;
-  type:string;
+  type: string;
 }
+
 export interface IInputProps {
   /** Name of the input field */
   name: string;
+  /**  */
+  uniqueName: string;
   /** Value  of the input field */
   value: string;
   /** Define whether this field should have a value */
   required: boolean;
+  /** Set correct validation type */
+  validationType?: ValidationTypeEnums;
   /** Should be value of field to be validated. */
   validate: boolean;
+  infoCallback?: (any) => any;
 }
 
 export interface IMultiInputProps extends IInputProps {

@@ -15,6 +15,7 @@ export default {
 
 const fields: IMultiInputProps = {
   name: "Mobile",
+  uniqueName: "Mobile",
   required: false,
   value: [phone.phoneNumber(), phone.phoneNumber()],
   validate: true,
