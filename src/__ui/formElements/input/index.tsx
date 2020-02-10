@@ -107,6 +107,7 @@ function Input({
   ]);
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    e.persist();
     const val: string = e.currentTarget.value;
     !hasFocus && setHasFocus(true);
     setVal(val);
@@ -116,6 +117,7 @@ function Input({
   }
 
   function handleOnFocus(e: React.FocusEvent<HTMLInputElement>) {
+    e.persist();
     setLabelType(
       `${e.target.value}`.length === 0
         ? LabelTypeEnums.PLACEHOLDER

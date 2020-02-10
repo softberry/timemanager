@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import {
   IInputProps,
   IconEnums,
   ButtonTypeEnums,
   ButtonAlignmentEnums,
+  IInputCallback,
 } from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -17,6 +18,7 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
+/** render All input elements from the list of values  */
 function AllInputs({
   name,
   value = [],
@@ -45,15 +47,49 @@ function AllInputs({
   return InputElements;
 }
 
+/** Creates a group of input elements, which behaves like an  independent form element.
+ * Children inputs inherits valid and required props from ``MultipleInput``.
+ * As long as all child elements passes validations test, ``MultipleInput`` will be valid.
+ */
 function MultipleInput(props: IInputProps): any {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-  const [inputProps, setInputProps] = useState(props);
+  const [inputProps, setInputProps] = useState({
+    ...props,
+    infoCallback: multifieldInfoCallback,
+  });
+
+  const fieldState = new Map();
+  const [childrenInputsState, setChildrenInputsState] = useState(fieldState);
+
+  function multifieldInfoCallback(returnedValue: IInputCallback) {
+    const { name, uniqueName, value, valid } = returnedValue;
+
+    const updatedFieldState = childrenInputsState;
+    updatedFieldState.set(uniqueName, { valid, value, name });
+    setChildrenInputsState(updatedFieldState);
+    memoizedMultiFieldValidState();
+  }
+
+  const memoizedMultiFieldValidState = useCallback(() => {
+    if (typeof props.infoCallback === "function") {
+      const valid =
+        Array.from(childrenInputsState.values()).filter(
+          ({ valid }) => valid === false
+        ).length === 0;
+      const extractValueArray = Array.from(childrenInputsState.values()).map(
+        ({ value }) => value
+      );
+      const filteredValue = extractValueArray.filter(v => v.length > 0);
+
+      props.infoCallback({ ...props, value: filteredValue, valid });
+    }
+  }, [childrenInputsState, props]);
 
   function addNewFieldHandler() {
     const values: string[] = Array.isArray(inputProps.value)
       ? inputProps.value
-      : [];
+      : [""];
     setInputProps({ ...inputProps, value: [...values, ""] });
   }
 
@@ -68,7 +104,7 @@ function MultipleInput(props: IInputProps): any {
           isDisabled={false}
           align={ButtonAlignmentEnums.STRETCH}
         >
-          Add new {props.name} field
+          New {props.name} field
         </Button>
       </div>
     </div>

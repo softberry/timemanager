@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from "react";
+import React, { useContext, useState, useCallback, useEffect } from "react";
 import {
   IContactsTableModel,
   IconEnums,
@@ -6,6 +6,8 @@ import {
   ButtonTypeEnums,
   IInputProps,
   IInputCallback,
+  ICounterTableModel,
+  IEditableInputProps,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { useHistory } from "react-router-dom";
@@ -18,6 +20,7 @@ import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views/index";
 import Input, { MultipleInput } from "../../__ui/formElements";
+import { useSelector } from "react-redux";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -29,6 +32,11 @@ function EditableDetails<T>(contact: IContactsTableModel) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
+  const nSQL = useSelector((state: any) => state.db.nSQL);
+
+  useEffect(() => {
+    if (typeof nSQL !== "function") return;
+  }, [nSQL]);
 
   const fieldStateMap = new Map();
   /** Keep Contact Details form in a map */
@@ -65,6 +73,25 @@ function EditableDetails<T>(contact: IContactsTableModel) {
     canBeSavedMemoized();
   }
 
+  function saveContactDetailsToDatabase(e: any) {
+    e.currentTarget.focus();
+    const updatedContact = (() => {
+      const obj: any = {};
+      contactsFormFieldsState.forEach((data: any, key: string) => {
+        obj[key] = data.value;
+      });
+      return obj;
+    })();
+
+    nSQL("contactsTable")
+      .query("upsert", updatedContact)
+      .where(["id", "=", contact.id])
+      .exec()
+      .then((current: [ICounterTableModel]) => {
+        history.replace(`/contact/details/${current[0].id}`);
+      });
+  }
+
   function getContactsKeyMap(oContact: IContactsTableModel): any[] {
     return Object.keys(oContact);
   }
@@ -95,7 +122,7 @@ function EditableDetails<T>(contact: IContactsTableModel) {
         <Button
           icon={IconEnums.CHECK_CIRCLE}
           align={ButtonAlignmentEnums.INLINE}
-          onClick={() => {}}
+          onClick={saveContactDetailsToDatabase}
           type={ButtonTypeEnums.POISITIVE}
           isDisabled={!canBeSaved}
         >
@@ -104,12 +131,6 @@ function EditableDetails<T>(contact: IContactsTableModel) {
       </div>
     </div>
   );
-}
-
-interface IEditableInputProps {
-  fieldName: keyof IContactsTableModel;
-  contact: IContactsTableModel;
-  infoCallback: (returnedValue: IInputCallback) => any;
 }
 
 function EditableInput({

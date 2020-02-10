@@ -87,6 +87,12 @@ export enum ValidationTypeEnums {
   MOBILE = "MOBILE",
   PHONE = "PHONE",
 }
+export interface IEditableInputProps {
+  fieldName: keyof IContactsTableModel;
+  contact: IContactsTableModel;
+  infoCallback: (returnedValue: IInputCallback) => any;
+}
+
 
 export interface IInputCallback {
   name: string;
@@ -150,7 +156,7 @@ export interface IButtonProps {
   children?: any;
   icon?: IconEnums;
   align: ButtonAlignmentEnums;
-  onClick: () => void;
+  onClick: (e:any) => void;
   type: ButtonTypeEnums;
   isDisabled: boolean;
 }
