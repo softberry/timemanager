@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import {
   IInputProps,
   SizeIconEnums,
   LabelTypeEnums,
   IconEnums,
+  ValidationTypeEnums,
+  IInputCallback,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
-import { getTypeFromFieldName } from "../../../lib/input.helpers";
+import getFormElementType from "../../../lib/input.helpers";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
@@ -18,6 +20,7 @@ import { uuid } from "@nano-sql/core/lib/utilities";
 import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import isPostalCode from "validator/lib/isPostalCode";
+import isNumeric from "validator/lib/isNumeric";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
@@ -28,13 +31,16 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
  */
 function Input({
   name,
+  uniqueName,
   value,
   required,
-  validate = true
+  validate = false,
+  infoCallback,
 }: IInputProps) {
   const id = uuid();
+  const stringValueOfField: string = value ? value.toString() : "";
   const [inputElement, setInputElement] = useState<any>(null);
-  const [val, setVal] = useState<string>(value);
+  const [val, setVal] = useState<string>(stringValueOfField);
   const view = useContext(ViewContext);
 
   const [hasFocus, setHasFocus] = useState<boolean>(false);
@@ -42,24 +48,42 @@ function Input({
     `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
   );
   const [isValid, setIsValid] = useState<boolean>(true);
-  const type = getTypeFromFieldName(name); // input type (text, tel, mail etc...)
+  const { type, ValidationType } = getFormElementType(name); // input type (text, tel, mail etc...)
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
+  const updateParentCallback = useCallback(() => {
+    if (typeof infoCallback === "function") {
+      const changedValueState: IInputCallback = {
+        uniqueName,
+        name,
+        valid: isValid,
+        value: val,
+      };
+      infoCallback(changedValueState);
+    }
+  }, [isValid, uniqueName, infoCallback, name, val]);
+
   useEffect(() => {
     if (validate) {
       if (required || `${val}`.length > 0) {
-        switch (type) {
-          case "mail": {
+        switch (ValidationType) {
+          case ValidationTypeEnums.MAIL: {
             setIsValid(isEmail(`${val}`));
             break;
           }
-          case "phone": {
+          case ValidationTypeEnums.MOBILE: {
             setIsValid(isMobilePhone(`${val}`, "de-DE"));
             break;
           }
-          case "zip": {
+          case ValidationTypeEnums.PHONE: {
+            //TODO: Use phone number validation as as you type from :
+            //https://www.npmjs.com/package/libphonenumber-js
+            setIsValid(isNumeric(`${val}`));
+            break;
+          }
+          case ValidationTypeEnums.ZIP: {
             setIsValid(isPostalCode(`${val}`, "DE"));
             break;
           }
@@ -72,10 +96,19 @@ function Input({
     } else {
       setIsValid(true);
     }
-  }, [setIsValid, required, type, val, validate]);
+    updateParentCallback();
+  }, [
+    setIsValid,
+    required,
+    ValidationType,
+    val,
+    validate,
+    updateParentCallback,
+  ]);
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const val: string = e.target.value;
+    e.persist();
+    const val: string = e.currentTarget.value;
     !hasFocus && setHasFocus(true);
     setVal(val);
     setLabelType(
@@ -84,6 +117,7 @@ function Input({
   }
 
   function handleOnFocus(e: React.FocusEvent<HTMLInputElement>) {
+    e.persist();
     setLabelType(
       `${e.target.value}`.length === 0
         ? LabelTypeEnums.PLACEHOLDER
@@ -94,12 +128,14 @@ function Input({
   }
 
   function handleOnBlur(e: React.FocusEvent<HTMLInputElement>) {
+    e.persist();
     setLabelType(
       `${e.target.value}`.length === 0
         ? LabelTypeEnums.PLACEHOLDER
         : LabelTypeEnums.LABEL
     );
     setTimeout(() => {
+      e.persist();
       setHasFocus(false);
     }, 300);
 
@@ -125,6 +161,7 @@ function Input({
         data-type={labelType}
       >
         {name}
+        {required ? "*" : ""}
       </label>
       <div
         className={styles[`Input-${theme}-Wrapper`]}

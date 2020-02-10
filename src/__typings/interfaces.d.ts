@@ -87,27 +87,46 @@ export enum ValidationTypeEnums {
   MOBILE = "MOBILE",
   PHONE = "PHONE",
 }
+export interface IEditableInputProps {
+  fieldName: keyof IContactsTableModel;
+  contact: IContactsTableModel;
+  infoCallback: (returnedValue: IInputCallback) => any;
+}
+
+
+export interface IInputCallback {
+  name: string;
+  uniqueName: string;
+  valid: boolean;
+  value: string;
+}
 
 export interface IFieldInfo {
   name: string;
   validate: boolean;
   required: boolean;
-  type:string;
+  type: string;
 }
+
 export interface IInputProps {
   /** Name of the input field */
   name: string;
+  /**  */
+  uniqueName: string;
   /** Value  of the input field */
-  value: string;
+  value?: string | string[];
   /** Define whether this field should have a value */
   required: boolean;
+  /** Set correct validation type */
+  validationType?: ValidationTypeEnums;
   /** Should be value of field to be validated. */
   validate: boolean;
+  infoCallback?: (any) => any;
 }
 
-export interface IMultiInputProps extends IInputProps {
-  value: string[];
-}
+// export interface IMultiInputProps extends Omit<IInputProps>, "value" {
+//   values?: string[];
+// }
 /**
  * props for StartStopButton
  */
@@ -137,7 +156,7 @@ export interface IButtonProps {
   children?: any;
   icon?: IconEnums;
   align: ButtonAlignmentEnums;
-  onClick: () => void;
+  onClick: (e:any) => void;
   type: ButtonTypeEnums;
   isDisabled: boolean;
 }
@@ -226,9 +245,9 @@ export interface IContactsTableModel {
   street?: string;
   zip?: string;
   city?: string;
-  tel?: [string];
-  mobile?: [string];
-  mail?: [string];
+  tel?: string[];
+  mobile?: string[];
+  mail?: string[];
 }
 
 export interface IContactsTableQuerie {
@@ -245,8 +264,8 @@ export interface IworkTableModel {
   id: string;
   contactID: string;
   name: string;
-  labour: [string];
-  materials: [string];
+  labour: string[];
+  materials: string[];
   description: string;
 }
 

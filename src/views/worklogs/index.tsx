@@ -6,7 +6,7 @@ import styles from "./worklogs.module.scss";
 import List from "../../components/list";
 import DefaultLayout from "../../layout/layout.default";
 
-import EventsCalendar from "../../components/eventsCalendar";
+
 
 // TODO: This module currently not being used and must be re-written according to following issues:
 //  https://github.com/softberry/timemanager/issues/40
@@ -35,7 +35,7 @@ function WorklogsView() {
   return (
     <DefaultLayout>
       <div className={styles.WorkLogs}>
-        <EventsCalendar />
+        
 
         <List list={worklog} type="WORK_HISTORY" />
       </div>

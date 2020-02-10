@@ -16,18 +16,21 @@ export const primary = () => {
     <StoryPage viewType="PrimaryView">
       <Input
         name="name"
+        uniqueName="name"
         value={name.firstName()}
         required={true}
         validate={true}
       ></Input>
       <Input
         name="Surname"
+        uniqueName="Surname"
         value={name.lastName()}
         required={false}
         validate={true}
       ></Input>
       <Input
         name="City"
+        uniqueName="City"
         value={address.city()}
         required={false}
         validate={true}
@@ -41,18 +44,21 @@ export const secondary: any = () => {
     <StoryPage viewType="SecondaryView">
       <Input
         name="name"
+        uniqueName="name"
         value={name.firstName()}
         required={true}
         validate={true}
       ></Input>
       <Input
         name="Surname"
+        uniqueName="Surname"
         value={name.lastName()}
         required={false}
         validate={true}
       ></Input>
       <Input
         name="City"
+        uniqueName="City"
         value={address.city()}
         required={false}
         validate={true}
