@@ -134,10 +134,6 @@ function Input({
         ? LabelTypeEnums.PLACEHOLDER
         : LabelTypeEnums.LABEL
     );
-    setTimeout(() => {
-      e.persist();
-      setHasFocus(false);
-    }, 300);
 
     setInputElement(e.target);
   }
