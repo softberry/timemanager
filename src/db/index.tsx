@@ -57,7 +57,7 @@ const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps) => {
           mode: "PERM", // save changes to IndexedDB, WebSQL or SnapDB!
           tables: [
             // tables can be created as part of createDatabase or created later with create table queries
-            ...counterModelTables
+            ...counterModelTables,
           ],
           version: 3, // current schema/database version
           onVersionUpdate: (prevVersion: number) => {
@@ -78,7 +78,7 @@ const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps) => {
                   );
               }
             });
-          }
+          },
         })
         .then(() => {
           // ready to query!
@@ -99,7 +99,7 @@ const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps) => {
         if (isPROD || items.length > 0) {
           dispatch({
             type: TYPES.DATABASE_REGISTER_DATABASE,
-            nSQL: nSQL
+            nSQL: nSQL,
           });
         } else {
           const contacts = createRandomContacts(50);
@@ -110,7 +110,7 @@ const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps) => {
             .then(() => {
               dispatch({
                 type: TYPES.DATABASE_REGISTER_DATABASE,
-                nSQL: nSQL
+                nSQL: nSQL,
               });
             });
         }
