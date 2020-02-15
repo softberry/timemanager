@@ -4,7 +4,7 @@
 
 ## Under Development
 
-__This project is still in early phase of development and not suitable for production.__
+**This project is still in early phase of development and not suitable for production.**
 
 ## A powerfull time logger for all craftmen
 
