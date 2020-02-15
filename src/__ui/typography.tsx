@@ -18,11 +18,16 @@ function Typography({ theme = "default", children }: ITypographyProps) {
 
   const webFontsConfig = {
     google: {
-      families: ["Allerta Stencil:400", "Exo:300,600", "Dosis:200,600", "Audiowide"]
+      families: [
+        "Allerta Stencil:400",
+        "Exo:300,600",
+        "Dosis:200,600",
+        "Audiowide",
+      ],
     },
     custom: {
       families: ["Material+Icons"],
-      urls: [process.env.PUBLIC_URL + "/material-icons.css"]
+      urls: [process.env.PUBLIC_URL + "/material-icons.css"],
     },
     active: () => {
       setFontsReady("LOADED");
@@ -30,7 +35,7 @@ function Typography({ theme = "default", children }: ITypographyProps) {
     inactive: () => {
       setFontsReady("ERRORED");
     },
-    classes: false
+    classes: false,
   };
 
   webfontloader.load(webFontsConfig);
@@ -52,7 +57,7 @@ function Typography({ theme = "default", children }: ITypographyProps) {
           </a>
         </>
       ),
-      closable: true
+      closable: true,
     });
   }
   return fontsReady === "LOADED" ? <>{children}</> : <div></div>;
