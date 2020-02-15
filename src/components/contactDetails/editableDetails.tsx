@@ -87,13 +87,19 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
       return obj;
     })();
 
-    nSQL("contactsTable")
-      .query("upsert", updatedContact)
-      .where(["id", "=", contact.id])
-      .exec()
-      .then((current: [IContactsTableModel]) => {
-        updateContact(current[0], true);
-      });
+    const saveUserQuery = nSQL("contactsTable").query("upsert", updatedContact);
+    if (contact.id !== "new-contact-to-edit") {
+      saveUserQuery.where(["id", "=", contact.id]);
+    }
+
+    saveUserQuery.exec().then((current: [IContactsTableModel]) => {
+      if (current[0].id === "new-contact-to-edit") {
+        nSQL("contactsTable")
+          .query("delete")
+          .where(["id", "=", "new-contact-to-edit"]);
+      }
+      updateContact(current[0], true);
+    });
   }
 
   function getContactsKeyMap(oContact: IContactsTableModel): any[] {
