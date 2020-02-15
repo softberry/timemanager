@@ -13,7 +13,6 @@ function Typography({ theme = "default", children }: ITypographyProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log(currentTheme);
     //TODO: theme should be apllied too!!!!
   }, [currentTheme]);
 

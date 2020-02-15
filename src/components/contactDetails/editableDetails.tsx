@@ -6,7 +6,6 @@ import {
   ButtonTypeEnums,
   IInputProps,
   IInputCallback,
-  ICounterTableModel,
   IEditableInputProps,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
@@ -22,11 +21,15 @@ import ViewContext from "../../views/index";
 import Input, { MultipleInput } from "../../__ui/formElements";
 import { useSelector } from "react-redux";
 
+interface IEditableDetailsProps {
+  contact: IContactsTableModel;
+  updateContact: (contact: IContactsTableModel, readOnly?: boolean) => any;
+}
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function EditableDetails<T>(contact: IContactsTableModel) {
+function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
   const history = useHistory();
   const excludedItems = ["id"];
   const theme = useTheme();
@@ -80,6 +83,7 @@ function EditableDetails<T>(contact: IContactsTableModel) {
       contactsFormFieldsState.forEach((data: any, key: string) => {
         obj[key] = data.value;
       });
+
       return obj;
     })();
 
@@ -87,8 +91,8 @@ function EditableDetails<T>(contact: IContactsTableModel) {
       .query("upsert", updatedContact)
       .where(["id", "=", contact.id])
       .exec()
-      .then((current: [ICounterTableModel]) => {
-        history.replace(`/contact/details/${current[0].id}`);
+      .then((current: [IContactsTableModel]) => {
+        updateContact(current[0], true);
       });
   }
 

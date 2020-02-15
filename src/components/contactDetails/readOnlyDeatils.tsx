@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import {
   IReadOnlyContactProps,
   ButtonAlignmentEnums,
@@ -9,10 +8,14 @@ import {
 
 import Button, { ButtonLink } from "../../__ui/buttons/button";
 import { H1 } from "../../__ui/headline/index";
-function ReadOnlyDetails({ contact, propsClass }: IReadOnlyContactProps) {
+function ReadOnlyDetails({
+  contact,
+  propsClass,
+  editContactHandler,
+}: IReadOnlyContactProps) {
   const { street, zip, city, tel, mobile, mail } = contact;
   const { styles, theme, view } = propsClass;
-  const history = useHistory();
+
   return (
     <>
       <div className={styles[`ReadOnly-${theme}-${view}-Cart`]}>
@@ -21,7 +24,9 @@ function ReadOnlyDetails({ contact, propsClass }: IReadOnlyContactProps) {
           <Button
             align={ButtonAlignmentEnums.INLINE}
             icon={IconEnums.EDIT}
-            onClick={() => history.push(`/contact/edit/${contact.id}`)}
+            onClick={() => {
+              editContactHandler(contact, false);
+            }}
             type={ButtonTypeEnums.SIMPLE}
             isDisabled={false}
           />

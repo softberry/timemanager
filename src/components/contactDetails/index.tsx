@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import {
   IContactDetailsComponent,
   IworkTableModel,
+  IContactsTableModel,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -27,6 +28,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
   const view = useContext(ViewContext);
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isNewContact, setIsNewContact] = useState(false);
+  const [currentContact, setCurrentContact] = useState(contact);
   const dispatch = useDispatch();
 
   const theme = useTheme();
@@ -35,35 +37,41 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const viewClass = styles[`ContactDetails-${theme}-${view}`];
 
+  function switchView(contact: IContactsTableModel, readOnly?: boolean) {
+    setCurrentContact(contact);
+    if (typeof readOnly === undefined) return;
+    setIsReadOnly(readOnly === true);
+  }
+
   useEffect(() => {
     if (typeof nSQL !== "function") return;
   }, [nSQL]);
 
   const [fullName, setFullName] = useState(
-    `${contact.name} ${contact.surname}`
+    `${currentContact.name} ${currentContact.surname}`
   );
 
   nSQL("workTable")
     .query("select")
-    .where(["contactID", "=", contact.id])
+    .where(["contactID", "=", currentContact.id])
     .exec()
     .then((worklogs: [IworkTableModel]) => {
       dispatch({ type: TYPES.WORKLOGS_UPDATE, worklogs });
     });
 
   useEffect(() => {
-    if (contact.id === null) return;
-    if (contact.id === "new-contact-to-edit") {
+    if (currentContact.id === null) return;
+    if (currentContact.id === "new-contact-to-edit") {
       setIsReadOnly(false);
       setIsNewContact(true);
     } else {
       setIsReadOnly(type === "details");
     }
     if (fullName.length > 10) {
-      const shortName = `${contact.name}`.slice(0, 1);
-      setFullName(`${shortName}. ${contact.surname}`);
+      const shortName = `${currentContact.name}`.slice(0, 1);
+      setFullName(`${shortName}. ${currentContact.surname}`);
     }
-  }, [setFullName, setIsNewContact, fullName, contact, type]);
+  }, [setFullName, setIsNewContact, fullName, currentContact, type]);
 
   if (isReadOnly) {
     dispatch({
@@ -74,10 +82,11 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
     return (
       <div className={viewClass}>
         <ReadOnlyDetails
-          contact={contact}
+          contact={currentContact}
           propsClass={{ styles, theme, view }}
+          editContactHandler={switchView}
         />
-        <Worklogs {...contact} />
+        <Worklogs {...currentContact} />
       </div>
     );
   }
@@ -91,7 +100,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
 
   return (
     <div className={viewClass}>
-      <EditableDetails {...contact} />
+      <EditableDetails contact={currentContact} updateContact={switchView} />
     </div>
   );
 }
