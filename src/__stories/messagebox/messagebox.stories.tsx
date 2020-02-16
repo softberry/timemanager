@@ -21,16 +21,14 @@ export const primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <p>{lorem.paragraphs(5)}</p>
-      <Message />
     </StoryPage>
   );
 };
 
-export const secondary = () => {
+export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <p>{lorem.paragraphs(5)}</p>
-      <Message />
     </StoryPage>
   );
 };

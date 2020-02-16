@@ -14,7 +14,7 @@ export default {
 };
 const content = random.number(99);
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Badge content={content} view={VDESIGN.DESIGN_VIEW_PRIMARY} />
@@ -22,7 +22,7 @@ export const primary = () => {
   );
 };
 
-export const secondary = () => {
+export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <Badge content={content} view={VDESIGN.DESIGN_VIEW_SECONDARY} />

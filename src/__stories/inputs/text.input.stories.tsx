@@ -11,7 +11,7 @@ export default {
   },
 };
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Input

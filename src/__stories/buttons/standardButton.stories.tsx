@@ -24,7 +24,7 @@ export default {
   },
 };
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Button
@@ -48,7 +48,7 @@ export const primary = () => {
   );
 };
 
-export const secondary = () => {
+export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <Button
@@ -72,9 +72,9 @@ export const secondary = () => {
   );
 };
 
-primary.story = {
+Primary.story = {
   parameters: { notes },
 };
-secondary.story = {
+Secondary.story = {
   parameters: { notes },
 };

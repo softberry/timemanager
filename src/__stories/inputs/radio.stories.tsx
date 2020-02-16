@@ -28,7 +28,7 @@ const radioGroup = (({ len }) => {
   });
 })({ len: 3 });
 
-export const primary = function() {
+export const Primary = function() {
   return (
     <StoryPage viewType="PrimaryView">
       <RadioGroup

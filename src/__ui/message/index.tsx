@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import {
   IDialogBodyProp,
   IMessage,
@@ -38,6 +38,12 @@ function DialogBody({ type, props }: IDialogBodyProp) {
   }
 }
 
+/**
+ * ``<Message  /> `` is always available in page and listens actions type of ``MESSAGES``.
+ * All available Message types can be found here :  ``./src/store/action-types.ts``
+ * ``MESSAGES`` action types decides style of the dialog.
+ *
+ */
 function Message() {
   const messages: IMessage[] = useSelector(
     ({ messages }: any) => messages.messages
@@ -56,10 +62,6 @@ function Message() {
       dialogId,
     });
   }
-
-  useEffect(() => {
-    if (!messages || messages.length === 0) return;
-  }, [messages]);
 
   if (!messages || messages.length === 0) return <></>;
 

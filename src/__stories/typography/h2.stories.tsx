@@ -13,7 +13,7 @@ export default {
 };
 const sentence = lorem.sentence(5);
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <H2>{sentence}</H2>
@@ -21,7 +21,7 @@ export const primary = () => {
   );
 };
 
-export const secondary = () => {
+export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <H2>{sentence}</H2>

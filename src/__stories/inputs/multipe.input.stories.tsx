@@ -21,7 +21,7 @@ const fields: IInputProps = {
   validate: true,
 };
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <MultipleInput {...fields} />

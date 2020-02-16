@@ -9,7 +9,7 @@ export default {
   component: Autocomplete,
 };
 
-export const primary = function() {
+export const Primary = function() {
   return (
     <StoryPage viewType="PrimaryView">
       <Autocomplete variant="primary" />
