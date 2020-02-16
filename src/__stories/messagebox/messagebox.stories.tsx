@@ -17,7 +17,7 @@ export default {
   },
 };
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <p>{lorem.paragraphs(5)}</p>
