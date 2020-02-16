@@ -9,17 +9,17 @@ import {
   IEditableInputProps,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
-import { useHistory } from "react-router-dom";
 
 import Button from "../../__ui/buttons/button";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
+import TYPES from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views/index";
 import Input, { MultipleInput } from "../../__ui/formElements";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 interface IEditableDetailsProps {
   contact: IContactsTableModel;
@@ -30,12 +30,12 @@ stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
-  const history = useHistory();
   const excludedItems = ["id"];
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   const nSQL = useSelector((state: any) => state.db.nSQL);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (typeof nSQL !== "function") return;
@@ -102,6 +102,14 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
     });
   }
 
+  function deleteContacthandler() {
+    dispatch({
+      type: TYPES.CONFIRM_DELETE_CONTACT,
+      caption: "Want to delete?",
+      body: { contact: contact },
+      closable: true,
+    });
+  }
   function getContactsKeyMap(oContact: IContactsTableModel): any[] {
     return Object.keys(oContact);
   }
@@ -123,11 +131,11 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
         <Button
           icon={IconEnums.CLEAR}
           align={ButtonAlignmentEnums.INLINE}
-          onClick={history.goBack}
-          type={ButtonTypeEnums.NEGATIVE}
+          onClick={deleteContacthandler}
+          type={ButtonTypeEnums.WARNING}
           isDisabled={false}
         >
-          Cancel
+          Delete
         </Button>
         <Button
           icon={IconEnums.CHECK_CIRCLE}

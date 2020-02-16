@@ -14,6 +14,10 @@
     $BG: color-palette($variant, "error", "background");
     $C: color-palette($variant, "error", "text");
   }
+  @if ($action-class== "warning") {
+    $BG: color-palette($variant, "warning", "background");
+    $C: color-palette($variant, "warning", "text");
+  }
 
   font-family: inherit;
   background-color: $BG;
@@ -101,6 +105,9 @@
     &--error {
       @include basicButton("primary", "error");
     }
+    &--warning {
+      @include basicButton("primary", "warning");
+    }
   }
 
   &-secondary {
@@ -115,6 +122,9 @@
     }
     &--error {
       @include basicButton("secondary", "error");
+    }
+    &--warning {
+      @include basicButton("primary", "warning");
     }
   }
 }

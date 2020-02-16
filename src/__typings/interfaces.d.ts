@@ -143,6 +143,7 @@ export enum ButtonTypeEnums {
   "NEGATIVE" = "negative",
   "POISITIVE" = "positive",
   "ERROR" = "error",
+  "WARNING" = "warning",
 }
 export enum ButtonAlignmentEnums {
   LEFT = "left",
