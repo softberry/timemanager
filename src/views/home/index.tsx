@@ -10,7 +10,6 @@ import ViewContext from "../index";
 
 function HomeView() {
   const dispatch = useDispatch();
-  dispatch({ type: TYPES.TOOLBAR_HOME });
   dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: "" });
 
   return (

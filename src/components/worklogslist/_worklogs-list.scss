@@ -1,0 +1,20 @@
+@mixin worklogslist() {
+  @include view;
+  &-Create-New {
+    margin-bottom: rem(0.5);
+  }
+}
+
+.Worklogslist-#{$theme} {
+  &-primary {
+    @include layer-bg("primary");
+    @include layer-color("primary");
+    @include worklogslist();
+  }
+
+  &-secondary {
+    @include layer-bg("secondary");
+    @include layer-color("secondary");
+    @include worklogslist();
+  }
+}

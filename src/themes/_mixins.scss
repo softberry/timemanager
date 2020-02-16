@@ -3,11 +3,11 @@
 }
 
 @mixin layer-bg($type) {
-  background-color: color-palette($type, "main","background");
+  background-color: color-palette($type, "main", "background");
 }
 
 @mixin layer-color($type) {
-  color: color-palette($type,"main", "text");
+  color: color-palette($type, "main", "text");
 }
 
 @mixin WidthUp($break) {
@@ -34,10 +34,8 @@
 @mixin zIndex($item) {
   $indexList: (
     "main": 100,
-    "cart-inline": 900,
     "nav": 1000,
     "footer": 1000,
-    "cart-full": 1100,
     "message": 2000,
   );
   z-index: map-get($indexList, $item);
@@ -83,7 +81,11 @@
   @include materialIcon(3);
 }
 
-@function color-palette($variantName:"primary", $param:"main", $type: "background") {
+@function color-palette(
+  $variantName: "primary",
+  $param: "main",
+  $type: "background"
+) {
   $variant: (
     "primary": $primary-color-pallete,
     "secondary": $secondary-color-pallete,
@@ -91,8 +93,7 @@
   $selectedVariant: map-get($variant, $variantName);
   $selectedVariantType: map-get($selectedVariant, $param);
 
-   @return map-get($selectedVariantType, $type);
-
+  @return map-get($selectedVariantType, $type);
 }
 
 @mixin nav-button() {

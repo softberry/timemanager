@@ -7,26 +7,7 @@
 }
 
 @mixin read-only($variant: "primary") {
-  &-Cart {
-    background-color: color-palette($variant, "cart", "background");
-    color: color-palette($variant, "cart", "text");
-    padding: 0.5rem 1rem;
-    box-shadow: inset 0 0 2px 0;
-    border-radius: 4px;
-    margin-bottom: rem(0.5);
-    &-Title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
-  &-Address {
-    display: block;
-  }
-  &-Contact-Buttons {
-    display: flex;
-    justify-content: space-evenly;
-  }
+
 }
 
 .ContactDetails-#{$theme} {

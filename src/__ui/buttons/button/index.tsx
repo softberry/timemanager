@@ -23,7 +23,7 @@ function Button({
   children,
   icon,
   onClick,
-  align = ButtonAlignmentEnums.CENTER,
+  align = undefined,
   type = ButtonTypeEnums.SIMPLE,
   isDisabled = true,
 }: IButtonProps) {

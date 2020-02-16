@@ -129,6 +129,7 @@ function Input({
 
   function handleOnBlur(e: React.FocusEvent<HTMLInputElement>) {
     e.persist();
+    setHasFocus(false);
     setLabelType(
       `${e.target.value}`.length === 0
         ? LabelTypeEnums.PLACEHOLDER
@@ -148,7 +149,6 @@ function Input({
       `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
     );
   }, [val]);
-
   return (
     <div className={styles[`Input-${theme}-${view}`]} data-valid={isValid}>
       <label

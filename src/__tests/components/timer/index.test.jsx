@@ -16,4 +16,3 @@ it("renders without crashing", () => {
   ReactDOM.render(<TimerTest />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
-

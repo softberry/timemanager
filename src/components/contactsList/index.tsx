@@ -56,7 +56,6 @@ function ContactsList() {
     if (!ready) return;
   }, [ready]);
 
-  dispatch({ type: TYPES.TOOLBAR_CONTACTS });
   dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: "Contacts" });
 
   return (
