@@ -44,7 +44,9 @@ function Checkbox({
         className={styles[`Checkbox-${theme}`]}
         onClick={checkOnChangeHandler}
       >
-        {isChecked && <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_ON}</Icon>}
+        {isChecked && (
+          <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_ON}</Icon>
+        )}
         {!isChecked && (
           <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_OFF}</Icon>
         )}

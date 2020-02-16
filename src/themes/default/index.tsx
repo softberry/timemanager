@@ -9,7 +9,7 @@ export default () => {
   const dispatch = useDispatch();
   const webFontsConfig = {
     google: {
-      families: ["Allerta Stencil:400", "Exo:300,600"]
+      families: ["Allerta Stencil:400", "Exo:300,600"],
     },
     inactive: () => {
       dispatch({
@@ -24,10 +24,10 @@ export default () => {
             </a>
           </>
         ),
-        closable: true
+        closable: true,
       });
     },
-    classes: false
+    classes: false,
   };
 
   webfontloader.load(webFontsConfig);

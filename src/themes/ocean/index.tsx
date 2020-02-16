@@ -9,7 +9,7 @@ export default () => {
   const dispatch = useDispatch();
   const webFontsConfig = {
     google: {
-      families: ["Shadows+Into+Light", "Audiowide"]
+      families: ["Shadows+Into+Light", "Audiowide"],
     },
     inactive: () => {
       dispatch({
@@ -24,10 +24,10 @@ export default () => {
             </a>
           </>
         ),
-        closable: true
+        closable: true,
       });
     },
-    classes: false
+    classes: false,
   };
 
   webfontloader.load(webFontsConfig);

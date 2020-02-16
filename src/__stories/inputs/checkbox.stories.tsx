@@ -5,7 +5,7 @@ import { lorem, random } from "faker";
 
 export default {
   title: "Form Elements/Checkbox",
-  component: Checkbox
+  component: Checkbox,
 };
 
 const checkBoxes = (({ len }) => {

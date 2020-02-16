@@ -1,6 +1,6 @@
 import React from "react";
 
-import { withKnobs, } from "@storybook/addon-knobs";
+import { withKnobs } from "@storybook/addon-knobs";
 
 // import BaseButton, { notes } from "./baseButton";
 import Button from "../../__ui/buttons/button";

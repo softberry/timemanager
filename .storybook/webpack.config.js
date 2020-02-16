@@ -8,9 +8,7 @@ module.exports = ({ config }) => ({
       {
         test: /\.(ts|tsx)?$/,
         include: path.resolve(__dirname, "../src"),
-        use: [
-          require.resolve("react-docgen-typescript-loader"),
-        ],
+        use: [require.resolve("react-docgen-typescript-loader")],
       },
     ],
   },

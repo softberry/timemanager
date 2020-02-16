@@ -7,8 +7,8 @@ export default {
   title: "Form Elements/Buttons/Start Stop Button/Idle",
   component: StartStopButton,
   parameters: {
-    componentSubtitle: "Delayed callback button"
-  }
+    componentSubtitle: "Delayed callback button",
+  },
 };
 
 export const primary = () => {

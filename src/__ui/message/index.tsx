@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import {
   IDialogBodyProp,
   IMessage,
@@ -6,6 +6,7 @@ import {
   IconEnums,
 } from "../../__typings/interfaces.d";
 
+import ViewContext from "../../views/index";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "../../__ui/icon";
 import ConfirmDeleteContact from "../confirm/delete.contact";
@@ -37,13 +38,13 @@ function DialogBody({ type, props }: IDialogBodyProp) {
   }
 }
 
-function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
+function Message() {
   const messages: IMessage[] = useSelector(
     ({ messages }: any) => messages.messages
   );
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-
+  const view = useContext(ViewContext);
   const dispatch = useDispatch();
   /**
    * Dispatches dialogId of binded object(action) to be removed from
@@ -63,11 +64,21 @@ function Message({ variant = VDESIGN.DESIGN_VIEW_SECONDARY }) {
   if (!messages || messages.length === 0) return <></>;
 
   const dialogContent = messages.map(
-    ({ type, icon=IconEnums.MESSAGE, caption, body, closable = true, dialogId }, index) => {
+    (
+      {
+        type,
+        icon = IconEnums.MESSAGE,
+        caption,
+        body,
+        closable = true,
+        dialogId,
+      },
+      index
+    ) => {
       return (
         <div
           key={index}
-          className={styles[`Dialog-${theme}__${type}--${variant}`]}
+          className={styles[`Dialog-${theme}__${type}--${view}`]}
           style={{
             marginLeft: `${index * 0.5}rem`,
             marginTop: `${index * 0.5}rem`,

@@ -8,8 +8,8 @@ export default {
   title: "Form Elements/Radio Group",
   component: RadioGroup,
   parameters: {
-    componentSubtitle: "Custom Radio group component"
-  }
+    componentSubtitle: "Custom Radio group component",
+  },
 };
 
 const radioGroup = (({ len }) => {

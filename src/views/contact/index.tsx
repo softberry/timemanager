@@ -13,7 +13,6 @@ import ContactDetails from "../../components/contactDetails";
 
 import ViewContext from "../index";
 
-
 function ContactView({ match }: IContactViewProps) {
   const [table, setTable] = useState<IContactsTableModel>({
     id: "",

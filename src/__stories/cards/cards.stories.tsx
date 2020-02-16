@@ -63,8 +63,9 @@ export const secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <Card view={VDESIGN.DESIGN_VIEW_PRIMARY}>
-        <CardTitle>{lorem.words(3)}
-        <Button
+        <CardTitle>
+          {lorem.words(3)}
+          <Button
             icon={IconEnums.CLOSE}
             isDisabled={false}
             onClick={action("button-click")}
