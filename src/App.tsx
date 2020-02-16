@@ -13,9 +13,10 @@ import { VDESIGN, USERSETTINGS } from "./store/constant-enums";
 import "./index.scss";
 
 import Home from "./views/home";
-import CalendarView from "./views/calendar";
-import ContactsView from "./views/contacts";
+import ContactsListView from "./views/contactslist";
+import WorklogsListView from "./views/worklogs";
 import SettingsView from "./views/settings";
+//---
 import ContactView from "./views/contact";
 import Message from "./__ui/message";
 
@@ -43,8 +44,8 @@ function Page() {
         <NanoDataBase>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/contacts" component={ContactsView} />
-            <Route exact path="/calendar" component={CalendarView} />
+            <Route exact path="/contacts" component={ContactsListView} />
+            <Route exact path="/worklogs" component={WorklogsListView} />
             <Route exact path="/settings" component={SettingsView} />
             <Route exact path="/contact/:type/:id" component={ContactView} />
           </Switch>

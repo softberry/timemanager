@@ -155,7 +155,7 @@ export enum ButtonAlignmentEnums {
 export interface IButtonProps {
   children?: any;
   icon?: IconEnums;
-  align: ButtonAlignmentEnums;
+  align?: ButtonAlignmentEnums;
   onClick: (e: any) => void;
   type: ButtonTypeEnums;
   isDisabled: boolean;
@@ -258,7 +258,6 @@ export interface IContactsTableQuerie {
 
 export interface IReadOnlyContactProps {
   contact: IContactsTableModel;
-  propsClass: any;
   editContactHandler: (contact: IContactsTableModel, readOnly?: boolean) => any;
 }
 export interface IworkTableModel {

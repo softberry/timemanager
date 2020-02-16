@@ -12,7 +12,7 @@ import TYPES from "../../store/action-types";
 import ReadOnlyDetails from "./readOnlyDeatils";
 import EditableDetails from "./editableDetails";
 
-import Worklogs from "../worklogs";
+import Worklogs from "../worklogs/index";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -83,7 +83,6 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
       <div className={viewClass}>
         <ReadOnlyDetails
           contact={currentContact}
-          propsClass={{ styles, theme, view }}
           editContactHandler={switchView}
         />
         <Worklogs {...currentContact} />

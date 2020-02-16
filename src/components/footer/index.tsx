@@ -34,7 +34,7 @@ function Footer() {
         <Icon>{IconEnums.CONTACTS}</Icon>
       </NavLink>
       <NavLink
-        to="/calendar"
+        to="/worklogs"
         className={styles[`Footer-${theme}-Button`]}
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >

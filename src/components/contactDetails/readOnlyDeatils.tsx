@@ -6,21 +6,20 @@ import {
   ButtonTypeEnums,
 } from "../../__typings/interfaces.d";
 
+import Card, { CardTitle, CardBody } from "../../__ui/card";
 import Button, { ButtonLink } from "../../__ui/buttons/button";
-import { H1 } from "../../__ui/headline/index";
+
 function ReadOnlyDetails({
   contact,
-  propsClass,
   editContactHandler,
 }: IReadOnlyContactProps) {
   const { street, zip, city, tel, mobile, mail } = contact;
-  const { styles, theme, view } = propsClass;
 
   return (
     <>
-      <div className={styles[`ReadOnly-${theme}-${view}-Cart`]}>
-        <div className={styles[`ReadOnly-${theme}-${view}-Cart-Title`]}>
-          <H1>{`${contact.name} ${contact.surname}`}</H1>
+      <Card>
+        <CardTitle>
+          {`${contact.name} ${contact.surname}`}
           <Button
             align={ButtonAlignmentEnums.INLINE}
             icon={IconEnums.EDIT}
@@ -30,14 +29,15 @@ function ReadOnlyDetails({
             type={ButtonTypeEnums.SIMPLE}
             isDisabled={false}
           />
-        </div>
-        <div className={styles[`ReadOnly-${theme}-${view}-Address`]}>
+        </CardTitle>
+        <CardBody>
           {street}, <br />
-          {zip} - {city}{" "}
-        </div>
-      </div>
-      <div className={styles[`ReadOnly-${theme}-${view}-Cart`]}>
-        <div className={styles[`ReadOnly-${theme}-${view}-Contact-Buttons`]}>
+          {zip} - {city}
+        </CardBody>
+      </Card>
+
+      <Card>
+        <CardTitle>
           <ButtonLink
             align={ButtonAlignmentEnums.INLINE}
             icon={IconEnums.MAIL}
@@ -61,8 +61,8 @@ function ReadOnlyDetails({
             type={ButtonTypeEnums.SIMPLE}
             isDisabled={tel === undefined}
           />
-        </div>
-      </div>
+        </CardTitle>
+      </Card>
     </>
   );
 }

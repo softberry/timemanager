@@ -27,12 +27,14 @@
   margin: 0 rem(0.5);
   display: inline-flex;
   align-items: center;
+
   justify-content: space-between;
   transition: all 300ms;
   position: relative;
 
   &-innerText {
     margin: 0 rem(0.5);
+    text-transform: capitalize;
   }
 
   &[data-icon-only="true"] {
