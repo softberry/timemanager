@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import {
   IContactViewProps,
   IContactsTableModel,
-} from "../../__typings/interfaces";
+  IMessageTypeEnums,
+} from "../../__typings/interfaces.d";
 import { useSelector, useDispatch } from "react-redux";
-import TYPES from "../../store/action-types";
+
 import { VDESIGN } from "../../store/constant-enums";
 
 import DefaultLayout from "../../layout/layout.default";
@@ -38,7 +39,7 @@ function ContactView({ match }: IContactViewProps) {
       .catch((err: any) => {
         setQueryState("ERRORED");
         dispatch({
-          type: TYPES.MESSAGES_ERROR,
+          type: IMessageTypeEnums.ERROR,
           caption: err.toString(),
           body: <>{err.stack.toString()}</>,
           closable: true,

@@ -164,6 +164,21 @@ export interface IButtonProps {
 export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
   href: any;
 }
+
+/** Style definition enums of Message boxes*/
+export enum IMessageTypeEnums {
+  INFO = "MESSAGES_INFO",
+  WARNING = "MESSAGES_WARNING",
+  ERROR = "MESSAGES_ERROR",
+  HIDE_MESSAGE = "MESSAGES_HIDE_MESSAGE",
+  HIDE_ALL_MESSAGES = "MESSAGES_HIDE_ALL_MESSAGES",
+  DELETE_ALL_MESSAGES = "MESSAGES_DELETE_ALL_MESSAGES",
+}
+
+/** Confirm dialog box types. Extended to Message box, allows users to make a decision. */
+export enum IConfirmTypeEnums {
+  DELETE_CONTACT = "CONFIRM_DELETE_CONTACT",
+}
 export interface IMessage {
   icon: IconEnums;
   type: string;

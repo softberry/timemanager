@@ -7,12 +7,13 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../store/constant-enums";
 
-import TYPES from "../../store/action-types";
+
 import {
   IConfirmDeleteContact,
   IContactsTableModel,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
+  IMessageTypeEnums,
 } from "../../__typings/interfaces.d";
 import { Checkbox } from "../formElements";
 import Button from "../buttons/button";
@@ -69,7 +70,7 @@ function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
       })
       .catch((err: any) => {});
     dispatch({
-      type: TYPES.MESSAGES_HIDE_MESSAGE,
+      type: IMessageTypeEnums.HIDE_MESSAGE,
       dialogId: dialogId,
     });
   }

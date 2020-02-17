@@ -7,6 +7,7 @@ import {
   IInputProps,
   IInputCallback,
   IEditableInputProps,
+  IConfirmTypeEnums,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -15,7 +16,6 @@ import Button from "../../__ui/buttons/button";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import TYPES from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views/index";
 import Input, { MultipleInput } from "../../__ui/formElements";
@@ -104,7 +104,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
 
   function deleteContacthandler() {
     dispatch({
-      type: TYPES.CONFIRM_DELETE_CONTACT,
+      type: IConfirmTypeEnums.DELETE_CONTACT,
       caption: "Want to delete?",
       body: { contact: contact },
       closable: true,

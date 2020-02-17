@@ -4,6 +4,8 @@ import {
   IMessage,
   SizeIconEnums,
   IconEnums,
+  IMessageTypeEnums,
+  IConfirmTypeEnums,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
@@ -15,23 +17,21 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { VDESIGN } from "../../store/constant-enums";
 
-import TYPES from "../../store/action-types";
-
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
 function DialogBody({ type, props }: IDialogBodyProp) {
   switch (type) {
-    case TYPES.CONFIRM_DELETE_CONTACT:
+    case IConfirmTypeEnums.DELETE_CONTACT:
       return (
         <>
           <ConfirmDeleteContact {...props} />
         </>
       );
-    case TYPES.MESSAGES_INFO:
-    case TYPES.MESSAGES_WARNING:
-    case TYPES.MESSAGES_ERROR:
+    case IMessageTypeEnums.INFO:
+    case IMessageTypeEnums.WARNING:
+    case IMessageTypeEnums.ERROR:
       return <>{props}</>;
     default:
       return <div>{type}</div>;
@@ -40,8 +40,9 @@ function DialogBody({ type, props }: IDialogBodyProp) {
 
 /**
  * ``<Message  /> `` is always available in page and listens actions type of ``MESSAGES``.
- * All available Message types can be found here :  ``./src/store/action-types.ts``
- * ``MESSAGES`` action types decides style of the dialog.
+ *  Message are typeof :  ``IMessageTypeEnums`` or ``IConfirmTypeEnums``
+ * ``IMessageTypeEnums`` action types decides style/design of the dialog.
+ * ``IConfirmTypeEnums`` has it's fixed desing so just extends Message box where user can make a decision.
  *
  */
 function Message() {
@@ -58,7 +59,7 @@ function Message() {
    */
   function hideMessage({ dialogId }: any): void {
     dispatch({
-      type: TYPES.MESSAGES_HIDE_MESSAGE,
+      type: IMessageTypeEnums.HIDE_MESSAGE,
       dialogId,
     });
   }

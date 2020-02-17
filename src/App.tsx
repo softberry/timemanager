@@ -63,4 +63,4 @@ function App() {
     </Provider>
   );
 }
-export default App;
+export { App as default, TimerAppStore };

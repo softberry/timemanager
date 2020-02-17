@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import webfontloader from "webfontloader";
-import TYPES from "../../store/action-types";
+
 
 import "./index.scss";
+import { IMessageTypeEnums } from "../../__typings/interfaces.d";
 
 export default () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default () => {
     },
     inactive: () => {
       dispatch({
-        type: TYPES.MESSAGES_ERROR,
+        type: IMessageTypeEnums.ERROR,
         caption: "Error loading Webfonts",
         body: (
           <>
