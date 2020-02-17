@@ -10,7 +10,7 @@ function createRandomContacts(num = 0) {
       city: address.city(),
       tel: [phone.phoneNumber()],
       mobile: [phone.phoneNumber()],
-      mail: [internet.email()]
+      mail: [internet.email()],
     };
   }
   return new Array(num).fill("").map(() => model());

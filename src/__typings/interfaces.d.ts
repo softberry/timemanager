@@ -14,7 +14,7 @@ export enum IconEnums {
   CONTACTS = "contacts",
   EDIT = "edit",
   ERROR = "error",
-  INFO="info",
+  INFO = "info",
   MAIL = "mail_outline",
   MESSAGE = "chat_bubble_outline",
   PHONE = "local_phone",

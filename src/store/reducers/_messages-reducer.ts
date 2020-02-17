@@ -21,7 +21,6 @@ icons.set(IMessageTypeEnums.WARNING, "warning");
 icons.set(IMessageTypeEnums.ERROR, "error");
 icons.set(IConfirmTypeEnums.DELETE_CONTACT, "assignment_turned_in");
 
-
 /**
  *
  * @param state messagebox state
