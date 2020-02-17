@@ -101,7 +101,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
       updateContact(current[0], true);
     });
   }
-
+  //  <ConfirmDeleteContactBody {...props} />
   function deleteContacthandler() {
     dispatch({
       type: IConfirmTypeEnums.DELETE_CONTACT,

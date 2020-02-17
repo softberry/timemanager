@@ -11,7 +11,7 @@ import {
 import ViewContext from "../../views/index";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "../../__ui/icon";
-import ConfirmDeleteContact from "../confirm/delete.contact";
+import ConfirmDeleteContactBody from "../confirm/delete.contact";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
@@ -26,7 +26,7 @@ function DialogBody({ type, props }: IDialogBodyProp) {
     case IConfirmTypeEnums.DELETE_CONTACT:
       return (
         <>
-          <ConfirmDeleteContact {...props} />
+          <ConfirmDeleteContactBody {...props} />
         </>
       );
     case IMessageTypeEnums.INFO:
@@ -43,8 +43,10 @@ function DialogBody({ type, props }: IDialogBodyProp) {
  *  Message are typeof :  ``IMessageTypeEnums`` or ``IConfirmTypeEnums``
  * ``IMessageTypeEnums`` action types decides style/design of the dialog.
  * ``IConfirmTypeEnums`` has it's fixed desing so just extends Message box where user can make a decision.
+ * More info see Notes tab in storybook
  *
  */
+
 function Message() {
   const messages: IMessage[] = useSelector(
     ({ messages }: any) => messages.messages
@@ -90,7 +92,7 @@ function Message() {
           {closable && (
             <div
               className={styles[`Close-${theme}`]}
-              onClick={hideMessage.bind({ dialogId })}
+              onClick={hideMessage.bind({}, { dialogId })}
             >
               <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
             </div>
@@ -104,6 +106,7 @@ function Message() {
           <div className={styles[`Text-${theme}`]}>
             <DialogBody type={type} props={{ ...body, dialogId }} />
           </div>
+          <div className={styles[`Footer-${theme}`]}>abc</div>
         </div>
       );
     }

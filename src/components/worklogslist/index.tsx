@@ -32,7 +32,7 @@ function WorklogsList() {
     .orderBy(["start ASC"])
     .exec()
     .then((list: [any]) => {
-      console.log(list);
+      // console.log(list);
     });
 
   return (

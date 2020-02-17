@@ -79,3 +79,7 @@
   max-height: 8 * $font-size;
   padding-top: 0.5 * $font-size;
 }
+
+.Footer-#{$theme} {
+  grid-area: footer;
+}

@@ -4,7 +4,6 @@ import {
   IConfirmTypeEnums,
 } from "../../__typings/interfaces.d";
 
-
 /**
  * Assign a unique key for each message to make it easy to remove later
  * @param {Object} payload payload to be extended with  a unique key(dialogId)
@@ -22,8 +21,12 @@ icons.set(IMessageTypeEnums.WARNING, "warning");
 icons.set(IMessageTypeEnums.ERROR, "error");
 icons.set(IConfirmTypeEnums.DELETE_CONTACT, "assignment_turned_in");
 
-//type, caption, body, closable, dialogId
 
+/**
+ *
+ * @param state messagebox state
+ * @param payload type, caption, body, closable, dialogId
+ */
 function message(state: any = { messages: [] }, payload: any) {
   switch (payload.type) {
     case IMessageTypeEnums.INFO:
@@ -43,8 +46,9 @@ function message(state: any = { messages: [] }, payload: any) {
       };
     case IMessageTypeEnums.HIDE_MESSAGE:
       const messageToHide: IMessage[] = state.messages.filter(
-        (message: IMessage) => message.key !== payload.key
+        (message: IMessage) => message.dialogId !== payload.dialogId
       );
+
       return {
         ...state,
         messages: messageToHide,

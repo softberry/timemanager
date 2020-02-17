@@ -21,7 +21,10 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
+function ConfirmDeleteContactBody({
+  contact,
+  dialogId,
+}: IConfirmDeleteContact) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -117,4 +120,4 @@ function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
   );
 }
 
-export default ConfirmDeleteContact;
+export default ConfirmDeleteContactBody;

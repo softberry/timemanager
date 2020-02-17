@@ -4,6 +4,7 @@ export enum IconEnums {
   ARROW_DOWN = "keyboard_arrow_down",
   ARROW_FORWARD = "arrow_forward",
   ARROW_UP = "keyboard_arrow_up",
+  BLANK = "blank",
   CALENDAR = "date_range",
   CHECK_CIRCLE = "check_circle",
   CHECKBOX_OFF = "check_box_outline_blank",
@@ -12,7 +13,8 @@ export enum IconEnums {
   CLOSE = "close",
   CONTACTS = "contacts",
   EDIT = "edit",
-  BLANK = "blank",
+  ERROR = "error",
+  INFO="info",
   MAIL = "mail_outline",
   MESSAGE = "chat_bubble_outline",
   PHONE = "local_phone",
@@ -24,6 +26,7 @@ export enum IconEnums {
   SMART_PHONE = "smartphone",
   TIMER = "timer",
   TRASH = "delete_outline",
+  WARNING = "warning",
 }
 export interface IDesignModel {
   view: string;

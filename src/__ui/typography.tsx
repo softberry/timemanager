@@ -39,10 +39,6 @@ function Typography({ theme = "default", children }: ITypographyProps) {
 
   webfontloader.load(webFontsConfig);
 
-  useEffect(() => {
-    if (fontsReady === "LOADING") return;
-  });
-
   if (fontsReady === "ERRORED") {
     dispatch({
       type: IMessageTypeEnums.ERROR,
