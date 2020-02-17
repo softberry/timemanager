@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import webfontloader from "webfontloader";
 
-
 import "./index.scss";
 import { IMessageTypeEnums } from "../../__typings/interfaces.d";
 

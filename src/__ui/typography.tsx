@@ -4,7 +4,6 @@ import { ITypographyProps, IMessageTypeEnums } from "../__typings/interfaces.d";
 import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
 
-
 import { VDESIGN } from "../store/constant-enums";
 
 function Typography({ theme = "default", children }: ITypographyProps) {

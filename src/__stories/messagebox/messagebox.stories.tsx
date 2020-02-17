@@ -39,7 +39,11 @@ const MessageContent: any = ({ type }: IMessageContentProps) => {
     dispatch({
       type,
       caption: "Want to delete?",
-      body: <><p>{lorem.sentence}</p></>,
+      body: (
+        <>
+          <p>{lorem.sentence}</p>
+        </>
+      ),
       closable: true,
     });
   }

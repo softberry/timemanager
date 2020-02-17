@@ -7,7 +7,6 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../store/constant-enums";
 
-
 import {
   IConfirmDeleteContact,
   IContactsTableModel,
