@@ -129,7 +129,6 @@ function Input({
 
   function handleOnBlur(e: React.FocusEvent<HTMLInputElement>) {
     e.persist();
-    setHasFocus(false);
     setLabelType(
       `${e.target.value}`.length === 0
         ? LabelTypeEnums.PLACEHOLDER
@@ -137,9 +136,12 @@ function Input({
     );
 
     setInputElement(e.target);
+    setTimeout(() => {
+      setHasFocus(false);
+    }, 1);
   }
 
-  function handleClear() {
+  function handleClear(e: React.MouseEvent<HTMLDivElement>) {
     inputElement && inputElement.focus && inputElement.focus();
     setVal("");
   }
