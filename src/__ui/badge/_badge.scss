@@ -15,7 +15,7 @@
   }
   &-secondary {
     @include badge();
-    color: color-palette("secondary", "main","background");
+    color: color-palette("secondary", "main", "background");
     background-color: color-palette("secondary", "main", "text");
   }
 }

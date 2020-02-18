@@ -5,7 +5,7 @@ import { lorem, random } from "faker";
 
 export default {
   title: "Form Elements/Checkbox",
-  component: Checkbox
+  component: Checkbox,
 };
 
 const checkBoxes = (({ len }) => {
@@ -26,7 +26,7 @@ const checkBoxes = (({ len }) => {
 function onChangeHandler(checked: boolean) {
   console.log(checked);
 }
-export const primary: any = function() {
+export const Primary: any = function() {
   return <StoryPage viewType="PrimaryView">{checkBoxes}</StoryPage>;
 };
 

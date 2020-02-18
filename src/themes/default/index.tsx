@@ -1,19 +1,19 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import webfontloader from "webfontloader";
-import TYPES from "../../store/action-types";
 
 import "./index.scss";
+import { IMessageTypeEnums } from "../../__typings/interfaces.d";
 
 export default () => {
   const dispatch = useDispatch();
   const webFontsConfig = {
     google: {
-      families: ["Allerta Stencil:400", "Exo:300,600"]
+      families: ["Allerta Stencil:400", "Exo:300,600"],
     },
     inactive: () => {
       dispatch({
-        type: TYPES.MESSAGES_ERROR,
+        type: IMessageTypeEnums.ERROR,
         caption: "Error loading Webfonts",
         body: (
           <>
@@ -24,10 +24,10 @@ export default () => {
             </a>
           </>
         ),
-        closable: true
+        closable: true,
       });
     },
-    classes: false
+    classes: false,
   };
 
   webfontloader.load(webFontsConfig);

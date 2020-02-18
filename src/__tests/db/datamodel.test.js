@@ -5,10 +5,10 @@ const materialItemTable = {
   description: "aciklama",
   price: "1.1",
   amount: "2.1",
-  unit: "ml"
+  unit: "ml",
 };
 
-const materialListTable = {items:[materialItemTable]};
+const materialListTable = { items: [materialItemTable] };
 
 describe("Delay Bar ", () => {
   test("Initialize db", () => {
@@ -19,9 +19,9 @@ describe("Delay Bar ", () => {
         mode: "TEMP", // save changes to IndexedDB, WebSQL or SnapDB!
         tables: [
           // tables can be created as part of createDatabase or created later with create table queries
-          ...counterModelTables
+          ...counterModelTables,
         ],
-        version: 3 // current schema/database version
+        version: 3, // current schema/database version
       })
       .then(e => {
         expect(nSQL().selectedDB).toEqual("shoplist_test");
@@ -44,7 +44,7 @@ describe("Delay Bar ", () => {
       .query("upsert", materialListTable)
       .exec()
       .then(m => {
-        expect('materialitem').toBe("materialitem");
+        expect("materialitem").toBe("materialitem");
       });
   });
 });

@@ -27,8 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 5000 -s ./public",
-    "prettify:write": "prettier --write .prettierrc ./**/*/*{.scss,.yml,.tsx,.js,.jsx,.json}",
-    "prettify:check": "prettier --check .prettierrc ./**/*/*{.scss,.yml,.tsx,.js,.jsx,.json}"
+    "prettify:write": "prettier --write \"./**/*/*{.scss,.yml,.ts,.tsx,.js,.jsx,.json,.md}\"",
+    "prettify:check": "prettier --check \"./**/*/*{.scss,.yml,.ts,.tsx,.js,.jsx,.json,.md}\""
   },
   "eslintConfig": {
     "extends": "react-app"

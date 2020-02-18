@@ -29,7 +29,6 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.1);
-
 }
 
 .Dialog-#{$theme} {
@@ -38,10 +37,16 @@
   &__MESSAGES_ERROR,
   &__CONFIRM_DELETE_CONTACT {
     &--primary {
-      @include dialog(color-palette("primary","main", "background"), color-palette("primary","main", "text"));
+      @include dialog(
+        color-palette("primary", "simple", "background"),
+        color-palette("primary", "simple", "text")
+      );
     }
     &--secondary {
-      @include dialog(color-palette("secondary","main", "background"), color-palette("secondary","main", "text"));
+      @include dialog(
+        color-palette("secondary", "simple", "background"),
+        color-palette("secondary", "simple", "text")
+      );
     }
   }
 }
@@ -73,4 +78,8 @@
   overflow-y: scroll;
   max-height: 8 * $font-size;
   padding-top: 0.5 * $font-size;
+}
+
+.Footer-#{$theme} {
+  grid-area: footer;
 }

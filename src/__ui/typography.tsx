@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ITypographyProps } from "../__typings/interfaces";
+import { ITypographyProps, IMessageTypeEnums } from "../__typings/interfaces.d";
 
 import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
 
-import TYPES from "../store/action-types";
 import { VDESIGN } from "../store/constant-enums";
 
 function Typography({ theme = "default", children }: ITypographyProps) {
@@ -40,13 +39,9 @@ function Typography({ theme = "default", children }: ITypographyProps) {
 
   webfontloader.load(webFontsConfig);
 
-  useEffect(() => {
-    if (fontsReady === "LOADING") return;
-  });
-
   if (fontsReady === "ERRORED") {
     dispatch({
-      type: TYPES.MESSAGES_ERROR,
+      type: IMessageTypeEnums.ERROR,
       caption: "Error loading Webfonts",
       body: (
         <>

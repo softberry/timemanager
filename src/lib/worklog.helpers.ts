@@ -4,7 +4,7 @@ function createWorkLog({
   nSQL,
   start,
   finish,
-  description = ""
+  description = "",
 }: IWorklogInput): Promise<any> {
   return new Promise((res, rej) => {
     const startISO: Date = new Date(start);
@@ -17,7 +17,7 @@ function createWorkLog({
     const WorkDurationEntry = {
       start: toISO(startISO),
       finish: toISO(endISO),
-      description
+      description,
     };
     res(
       nSQL("workDurationTable")
@@ -49,7 +49,7 @@ function createWorkLogFromCurrentCounter(
           nSQL,
           start: item[0].start,
           finish: item[0].current,
-          description
+          description,
         };
         res(createWorkLog(data));
       })

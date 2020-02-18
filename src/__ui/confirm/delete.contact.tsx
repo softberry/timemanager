@@ -7,12 +7,12 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { VDESIGN } from "../../store/constant-enums";
 
-import TYPES from "../../store/action-types";
 import {
   IConfirmDeleteContact,
   IContactsTableModel,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
+  IMessageTypeEnums,
 } from "../../__typings/interfaces.d";
 import { Checkbox } from "../formElements";
 import Button from "../buttons/button";
@@ -21,7 +21,10 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
+function ConfirmDeleteContactBody({
+  contact,
+  dialogId,
+}: IConfirmDeleteContact) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -69,7 +72,7 @@ function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
       })
       .catch((err: any) => {});
     dispatch({
-      type: TYPES.MESSAGES_HIDE_MESSAGE,
+      type: IMessageTypeEnums.HIDE_MESSAGE,
       dialogId: dialogId,
     });
   }
@@ -82,7 +85,6 @@ function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
     });
 
   useEffect(() => {
-    if (typeof nSQL !== "function") return;
     if (worklogsCount < 0) return;
   }, [worklogsCount, nSQL]);
 
@@ -117,4 +119,4 @@ function ConfirmDeleteContact({ contact, dialogId }: IConfirmDeleteContact) {
   );
 }
 
-export default ConfirmDeleteContact;
+export default ConfirmDeleteContactBody;

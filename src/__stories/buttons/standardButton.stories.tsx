@@ -1,7 +1,5 @@
 import React from "react";
 
-import { withKnobs, } from "@storybook/addon-knobs";
-
 // import BaseButton, { notes } from "./baseButton";
 import Button from "../../__ui/buttons/button";
 import StoryPage from "../story-page";
@@ -12,7 +10,7 @@ import {
   ButtonTypeEnums,
   ButtonAlignmentEnums,
 } from "../../__typings/interfaces.d";
-import { select, text, boolean } from "@storybook/addon-knobs";
+import { withKnobs, select, text, boolean } from "@storybook/addon-knobs";
 
 const notes = require("./notes.md");
 export default {
@@ -24,7 +22,7 @@ export default {
   },
 };
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Button
@@ -48,7 +46,7 @@ export const primary = () => {
   );
 };
 
-export const secondary = () => {
+export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <Button
@@ -72,9 +70,9 @@ export const secondary = () => {
   );
 };
 
-primary.story = {
+Primary.story = {
   parameters: { notes },
 };
-secondary.story = {
+Secondary.story = {
   parameters: { notes },
 };

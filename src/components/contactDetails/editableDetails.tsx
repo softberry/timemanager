@@ -7,6 +7,7 @@ import {
   IInputProps,
   IInputCallback,
   IEditableInputProps,
+  IConfirmTypeEnums,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -15,7 +16,6 @@ import Button from "../../__ui/buttons/button";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import TYPES from "../../store/action-types";
 import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views/index";
 import Input, { MultipleInput } from "../../__ui/formElements";
@@ -37,9 +37,8 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (typeof nSQL !== "function") return;
-  }, [nSQL]);
+  const isNewContact = contact.id === "new-contact-to-edit";
+  useEffect(() => {}, [nSQL]);
 
   const fieldStateMap = new Map();
   /** Keep Contact Details form in a map */
@@ -101,10 +100,10 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
       updateContact(current[0], true);
     });
   }
-
+  //  <ConfirmDeleteContactBody {...props} />
   function deleteContacthandler() {
     dispatch({
-      type: TYPES.CONFIRM_DELETE_CONTACT,
+      type: IConfirmTypeEnums.DELETE_CONTACT,
       caption: "Want to delete?",
       body: { contact: contact },
       closable: true,
@@ -128,15 +127,17 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
         );
       })}
       <div className={styles[`ContactDetails-${theme}-${view}-Footer`]}>
-        <Button
-          icon={IconEnums.CLEAR}
-          align={ButtonAlignmentEnums.INLINE}
-          onClick={deleteContacthandler}
-          type={ButtonTypeEnums.WARNING}
-          isDisabled={false}
-        >
-          Delete
-        </Button>
+        {!isNewContact && (
+          <Button
+            icon={IconEnums.CLEAR}
+            align={ButtonAlignmentEnums.INLINE}
+            onClick={deleteContacthandler}
+            type={ButtonTypeEnums.WARNING}
+            isDisabled={false}
+          >
+            Delete
+          </Button>
+        )}
         <Button
           icon={IconEnums.CHECK_CIRCLE}
           align={ButtonAlignmentEnums.INLINE}

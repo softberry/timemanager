@@ -12,7 +12,7 @@ export default {
   },
 };
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
@@ -22,7 +22,7 @@ export const primary = () => {
   );
 };
 
-export const secondary = () => {
+export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>

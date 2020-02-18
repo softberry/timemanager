@@ -7,11 +7,11 @@ export default {
   title: "Form Elements/Buttons/Start Stop Button/Idle",
   component: StartStopButton,
   parameters: {
-    componentSubtitle: "Delayed callback button"
-  }
+    componentSubtitle: "Delayed callback button",
+  },
 };
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <StartStopButton
@@ -24,7 +24,7 @@ export const primary = () => {
   );
 };
 
-export const secondary = () => {
+export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <StartStopButton

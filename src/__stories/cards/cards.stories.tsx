@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const primary = () => {
+export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Card view={VDESIGN.DESIGN_VIEW_PRIMARY}>
@@ -59,12 +59,13 @@ export const primary = () => {
   );
 };
 
-export const secondary = () => {
+export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <Card view={VDESIGN.DESIGN_VIEW_PRIMARY}>
-        <CardTitle>{lorem.words(3)}
-        <Button
+        <CardTitle>
+          {lorem.words(3)}
+          <Button
             icon={IconEnums.CLOSE}
             isDisabled={false}
             onClick={action("button-click")}

@@ -140,9 +140,7 @@ function WorksLogs<T>(contact: IContactsTableModel) {
       });
   }
 
-  useEffect(() => {
-    if (typeof nSQL !== "function") return;
-  }, [nSQL]);
+  useEffect(() => {}, [nSQL]);
 
   useEffect(() => {
     if (worklogs.length === 0) return;

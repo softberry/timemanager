@@ -52,6 +52,7 @@ function Input({
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
+  let timeoutId: any = -1;
 
   const updateParentCallback = useCallback(() => {
     if (typeof infoCallback === "function") {
@@ -64,6 +65,12 @@ function Input({
       infoCallback(changedValueState);
     }
   }, [isValid, uniqueName, infoCallback, name, val]);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [timeoutId, hasFocus]);
 
   useEffect(() => {
     if (validate) {
@@ -124,22 +131,23 @@ function Input({
         : LabelTypeEnums.LABEL
     );
     setHasFocus(true);
-    setInputElement(null);
+    setInputElement(e.target);
   }
 
   function handleOnBlur(e: React.FocusEvent<HTMLInputElement>) {
-    e.persist();
-    setHasFocus(false);
     setLabelType(
       `${e.target.value}`.length === 0
         ? LabelTypeEnums.PLACEHOLDER
         : LabelTypeEnums.LABEL
     );
 
-    setInputElement(e.target);
+    timeoutId = setTimeout(() => {
+      setInputElement(null);
+      setHasFocus(false);
+    }, 300);
   }
 
-  function handleClear() {
+  function handleClear(e: React.MouseEvent<HTMLDivElement>) {
     inputElement && inputElement.focus && inputElement.focus();
     setVal("");
   }

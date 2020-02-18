@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import {
   IContactViewProps,
   IContactsTableModel,
-} from "../../__typings/interfaces";
+  IMessageTypeEnums,
+} from "../../__typings/interfaces.d";
 import { useSelector, useDispatch } from "react-redux";
-import TYPES from "../../store/action-types";
+
 import { VDESIGN } from "../../store/constant-enums";
 
 import DefaultLayout from "../../layout/layout.default";
@@ -12,7 +13,6 @@ import DefaultLayout from "../../layout/layout.default";
 import ContactDetails from "../../components/contactDetails";
 
 import ViewContext from "../index";
-
 
 function ContactView({ match }: IContactViewProps) {
   const [table, setTable] = useState<IContactsTableModel>({
@@ -22,9 +22,6 @@ function ContactView({ match }: IContactViewProps) {
   const [queryState, setQueryState] = useState<string>("INITIAL");
   const nSQL: any = useSelector((state: any) => state.db.nSQL);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (typeof nSQL === "undefined") return;
-  }, [nSQL]);
 
   if (queryState === "INITIAL") {
     setQueryState("TRYING");
@@ -39,7 +36,7 @@ function ContactView({ match }: IContactViewProps) {
       .catch((err: any) => {
         setQueryState("ERRORED");
         dispatch({
-          type: TYPES.MESSAGES_ERROR,
+          type: IMessageTypeEnums.ERROR,
           caption: err.toString(),
           body: <>{err.stack.toString()}</>,
           closable: true,

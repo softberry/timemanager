@@ -57,7 +57,6 @@ export function Timer(): JSX.Element {
   };
 
   useEffect(() => {
-    if (typeof nSQL !== "function") return;
     nSQL("counterTable")
       .query("select")
       .where(["id", "=", "active-counter-0"])

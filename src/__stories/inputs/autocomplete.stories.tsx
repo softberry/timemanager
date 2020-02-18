@@ -6,10 +6,10 @@ import StoryPage from "../story-page";
 
 export default {
   title: "Autocomplete",
-  component: Autocomplete
+  component: Autocomplete,
 };
 
-export const primary = function() {
+export const Primary = function() {
   return (
     <StoryPage viewType="PrimaryView">
       <Autocomplete variant="primary" />

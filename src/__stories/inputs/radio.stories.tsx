@@ -8,8 +8,8 @@ export default {
   title: "Form Elements/Radio Group",
   component: RadioGroup,
   parameters: {
-    componentSubtitle: "Custom Radio group component"
-  }
+    componentSubtitle: "Custom Radio group component",
+  },
 };
 
 const radioGroup = (({ len }) => {
@@ -28,7 +28,7 @@ const radioGroup = (({ len }) => {
   });
 })({ len: 3 });
 
-export const primary = function() {
+export const Primary = function() {
   return (
     <StoryPage viewType="PrimaryView">
       <RadioGroup
