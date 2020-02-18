@@ -106,7 +106,7 @@ function Message() {
           <div className={styles[`Text-${theme}`]}>
             <DialogBody type={type} props={{ ...body, dialogId }} />
           </div>
-          <div className={styles[`Footer-${theme}`]}>abc</div>
+          <div className={styles[`Footer-${theme}`]}>&nbsp;</div>
         </div>
       );
     }
