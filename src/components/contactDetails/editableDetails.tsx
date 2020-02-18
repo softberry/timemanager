@@ -37,6 +37,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const dispatch = useDispatch();
 
+  const isNewContact = contact.id === "new-contact-to-edit";
   useEffect(() => {}, [nSQL]);
 
   const fieldStateMap = new Map();
@@ -126,15 +127,17 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
         );
       })}
       <div className={styles[`ContactDetails-${theme}-${view}-Footer`]}>
-        <Button
-          icon={IconEnums.CLEAR}
-          align={ButtonAlignmentEnums.INLINE}
-          onClick={deleteContacthandler}
-          type={ButtonTypeEnums.WARNING}
-          isDisabled={false}
-        >
-          Delete
-        </Button>
+        {!isNewContact && (
+          <Button
+            icon={IconEnums.CLEAR}
+            align={ButtonAlignmentEnums.INLINE}
+            onClick={deleteContacthandler}
+            type={ButtonTypeEnums.WARNING}
+            isDisabled={false}
+          >
+            Delete
+          </Button>
+        )}
         <Button
           icon={IconEnums.CHECK_CIRCLE}
           align={ButtonAlignmentEnums.INLINE}
