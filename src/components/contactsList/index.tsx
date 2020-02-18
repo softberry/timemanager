@@ -39,8 +39,6 @@ function ContactsList() {
       });
   };
   useEffect(() => {
-    if (typeof nSQL !== "function") return;
-
     nSQL("contactsTable")
       .query("select")
       .where(["id", "!=", "new-contact-to-edit"])

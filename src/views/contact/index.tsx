@@ -22,9 +22,6 @@ function ContactView({ match }: IContactViewProps) {
   const [queryState, setQueryState] = useState<string>("INITIAL");
   const nSQL: any = useSelector((state: any) => state.db.nSQL);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (typeof nSQL === "undefined") return;
-  }, [nSQL]);
 
   if (queryState === "INITIAL") {
     setQueryState("TRYING");

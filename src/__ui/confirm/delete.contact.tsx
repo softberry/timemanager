@@ -85,7 +85,6 @@ function ConfirmDeleteContactBody({
     });
 
   useEffect(() => {
-    if (typeof nSQL !== "function") return;
     if (worklogsCount < 0) return;
   }, [worklogsCount, nSQL]);
 

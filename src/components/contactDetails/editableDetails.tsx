@@ -37,9 +37,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (typeof nSQL !== "function") return;
-  }, [nSQL]);
+  useEffect(() => {}, [nSQL]);
 
   const fieldStateMap = new Map();
   /** Keep Contact Details form in a map */

@@ -43,9 +43,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
     setIsReadOnly(readOnly === true);
   }
 
-  useEffect(() => {
-    if (typeof nSQL !== "function") return;
-  }, [nSQL]);
+  useEffect(() => {}, [nSQL]);
 
   const [fullName, setFullName] = useState(
     `${currentContact.name} ${currentContact.surname}`
