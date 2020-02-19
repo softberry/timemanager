@@ -1,24 +1,33 @@
-@mixin dialog($bgColor, $color) {
-  position: absolute;
+@mixin content($bgColor, $color) {
+  position: relative;
   display: grid;
   grid-template-areas:
     "caption close"
     "text text";
-  grid-template-columns: auto 1fr min-content;
-  grid-template-rows: max-content max-content;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: max-content auto;
   padding: rem(0.5) 1 * $font-size;
   width: 90%;
+  height: calc(100% - #{rem(3)});
+  margin: rem(3) auto;
   background-color: lighten($bgColor, 10);
   color: lighten($color, 10);
   left: 0;
-  top: 0;
-  margin: rem(3) auto;
+  top: 100%;
   box-shadow: 0 0 4px 1px;
-  border-radius: 3px;
+  border-radius: 3px 3px 0 0;
+  animation: subPageSlideIn 300ms;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  animation-delay: 100ms;
+
+  &[data-hide-subpage="true"] {
+    animation: subPageSlideOut 300ms;
+  }
 }
 
 .SubPageView-#{$theme} {
-  @include zIndex("message");
+  @include zIndex("subpage");
   font-family: $font-default;
   font-size: 1 * $font-size;
   position: fixed;
@@ -27,25 +36,21 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.Dialog-#{$theme} {
-  &__MESSAGES_INFO,
-  &__MESSAGES_WARNING,
-  &__MESSAGES_ERROR,
-  &__CONFIRM_DELETE_CONTACT {
-    &--primary {
-      @include dialog(
-        color-palette("primary", "simple", "background"),
-        color-palette("primary", "simple", "text")
-      );
-    }
-    &--secondary {
-      @include dialog(
-        color-palette("secondary", "simple", "background"),
-        color-palette("secondary", "simple", "text")
-      );
-    }
+.Content-#{$theme} {
+  &--primary {
+    @include content(
+      color-palette("primary", "simple", "background"),
+      color-palette("primary", "simple", "text")
+    );
+  }
+  &--secondary {
+    @include content(
+      color-palette("secondary", "simple", "background"),
+      color-palette("secondary", "simple", "text")
+    );
   }
 }
 
@@ -74,10 +79,24 @@
   grid-area: text;
   line-height: 1.5 * $font-size;
   overflow-y: scroll;
-  max-height: 8 * $font-size;
   padding-top: 0.5 * $font-size;
+  max-height: 100%;
 }
 
-.Footer-#{$theme} {
-  grid-area: footer;
+@keyframes subPageSlideIn {
+  from {
+    top: 100%;
+  }
+  to {
+    top: 0;
+  }
+}
+
+@keyframes subPageSlideOut {
+  from {
+    top: 0;
+  }
+  to {
+    top: 100%;
+  }
 }

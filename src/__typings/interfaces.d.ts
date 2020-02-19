@@ -366,3 +366,15 @@ export interface IWorkListItemEntry {
   labour: [{}];
   materials: [{}];
 }
+
+export enum ISubPageViewActionTypes {
+  SHOW = "SHOW",
+  OUT = "OUT",
+  HIDE = "HIDE",
+}
+
+export interface ISubpageState {
+  type: ISubPageViewActionTypes;
+  caption: string;
+  content?: ReactChild;
+}

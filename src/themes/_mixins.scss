@@ -36,6 +36,7 @@
     "main": 100,
     "nav": 1000,
     "footer": 1000,
+    "subpage": 1500,
     "message": 2000,
   );
   z-index: map-get($indexList, $item);
