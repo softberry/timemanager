@@ -14,8 +14,8 @@ import {
   ButtonTypeEnums,
   IMessageTypeEnums,
 } from "../../__typings/interfaces.d";
-import { Checkbox } from "../formElements";
-import Button from "../buttons/button";
+import { Checkbox } from "../../__ui/formElements";
+import Button from "../../__ui/buttons/button";
 
 const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);

@@ -18,7 +18,7 @@ import WorklogsListView from "./views/worklogs";
 import SettingsView from "./views/settings";
 //---
 import ContactView from "./views/contact";
-import Message from "./__ui/message";
+import Message from "./components/message";
 
 const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
 
