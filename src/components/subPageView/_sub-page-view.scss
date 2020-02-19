@@ -1,0 +1,83 @@
+@mixin dialog($bgColor, $color) {
+  position: absolute;
+  display: grid;
+  grid-template-areas:
+    "caption close"
+    "text text";
+  grid-template-columns: auto 1fr min-content;
+  grid-template-rows: max-content max-content;
+  padding: rem(0.5) 1 * $font-size;
+  width: 90%;
+  background-color: lighten($bgColor, 10);
+  color: lighten($color, 10);
+  left: 0;
+  top: 0;
+  margin: rem(3) auto;
+  box-shadow: 0 0 4px 1px;
+  border-radius: 3px;
+}
+
+.SubPageView-#{$theme} {
+  @include zIndex("message");
+  font-family: $font-default;
+  font-size: 1 * $font-size;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.Dialog-#{$theme} {
+  &__MESSAGES_INFO,
+  &__MESSAGES_WARNING,
+  &__MESSAGES_ERROR,
+  &__CONFIRM_DELETE_CONTACT {
+    &--primary {
+      @include dialog(
+        color-palette("primary", "simple", "background"),
+        color-palette("primary", "simple", "text")
+      );
+    }
+    &--secondary {
+      @include dialog(
+        color-palette("secondary", "simple", "background"),
+        color-palette("secondary", "simple", "text")
+      );
+    }
+  }
+}
+
+.Caption-#{$theme} {
+  grid-area: caption;
+  font-weight: 700;
+  padding: 0.5 * $font-size;
+}
+
+.Icon-#{$theme} {
+  grid-area: icon;
+  display: flex;
+  align-items: center;
+}
+
+.Close-#{$theme} {
+  grid-area: close;
+  width: auto;
+  font-size: 1 * $font-size;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.Text-#{$theme} {
+  grid-area: text;
+  line-height: 1.5 * $font-size;
+  overflow-y: scroll;
+  max-height: 8 * $font-size;
+  padding-top: 0.5 * $font-size;
+}
+
+.Footer-#{$theme} {
+  grid-area: footer;
+}
