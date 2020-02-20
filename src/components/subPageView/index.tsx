@@ -9,7 +9,7 @@ import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { useSelector, useDispatch } from "react-redux";
 import {
   ISubpageState,
-  ISubPageViewActionTypes,
+  SubPageViewActionTypes,
   SizeIconEnums,
   IconEnums,
   DesignEnums,
@@ -34,25 +34,25 @@ function SubPageView() {
   );
 
   useEffect(() => {
-    if (subPage.type === ISubPageViewActionTypes.OUT) {
+    if (subPage.type === SubPageViewActionTypes.OUT) {
       setTimeout(() => {
-        dispatch({ type: ISubPageViewActionTypes.HIDE });
+        dispatch({ type: SubPageViewActionTypes.HIDE });
       }, 280);
     }
   }, [subPage, dispatch]);
 
-  if (subPage.type === ISubPageViewActionTypes.HIDE) return <></>;
+  if (subPage.type === SubPageViewActionTypes.HIDE) return <></>;
   return (
     <div className={styles[`SubPageView-${theme}`]}>
       <div
         className={styles[`Content-${theme}--${view}`]}
-        data-hide-subpage={subPage.type === ISubPageViewActionTypes.OUT}
+        data-hide-subpage={subPage.type === SubPageViewActionTypes.OUT}
       >
         <div className={styles[`Caption-${theme}`]}>{subPage.caption}</div>
         <div
           className={styles[`Close-${theme}`]}
           onClick={() => {
-            dispatch({ type: ISubPageViewActionTypes.OUT });
+            dispatch({ type: SubPageViewActionTypes.OUT });
           }}
         >
           <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>

@@ -65,14 +65,6 @@ export interface IInputCallback {
   valid: boolean;
   value: string;
 }
-/**
-export interface IFieldInfo {
-  name: string;
-  validate: boolean;
-  required: boolean;
-  type: string;
-}
- */
 
 export interface IInputProps {
   /** Name of the input field */
@@ -80,7 +72,7 @@ export interface IInputProps {
   /**  */
   uniqueName: string;
   /** Value  of the input field */
-  value?: string | string[];
+  value?: string | string[] | Date;
   /** Define whether this field should have a value */
   required: boolean;
   /** Set correct validation type */
@@ -220,9 +212,9 @@ export interface IworkTableModel {
   id: string;
   contactID: string;
   name: string;
-  labour: string[];
-  materials: string[];
   description: string;
+  labour: IWorkDurationTableModel[];
+  materials: IMaterialListTableModel[];
 }
 
 export interface IworkTableQueryArguments {
@@ -245,7 +237,7 @@ export interface IWorkDurationTableModel {
 
 export interface IMaterialListTableModel {
   id: string;
-  items: [materialItemTableModel];
+  items: materialItemTableModel[];
   workID: string;
 }
 
@@ -301,9 +293,14 @@ export interface IWorkListItemEntry {
 }
 
 export interface ISubpageState {
-  type: ISubPageViewActionTypes;
+  type: SubPageViewActionTypes;
   caption: string;
   content?: ReactChild;
+}
+
+export interface IFieldNameToType {
+  type: "text" | "number" | "phone" | "mail" | "datetime-local";
+  validationType: ValidationTypeEnums;
 }
 
 /**
@@ -318,7 +315,7 @@ export enum IDesign {
   VIEW = uuid(),
   THEME = uuid(),
 }
-export enum ISubPageViewActionTypes {
+export enum SubPageViewActionTypes {
   SHOW = uuid(), // "SHOW",
   OUT = uuid(), // "OUT",
   HIDE = uuid(), // "HIDE",
@@ -407,6 +404,7 @@ export enum ValidationTypeEnums {
   MAIL = "MAIL",
   MOBILE = "MOBILE",
   PHONE = "PHONE",
+  DATE = "DATE",
 }
 
 export enum ButtonTypeEnums {

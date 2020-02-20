@@ -20,6 +20,7 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import ViewContext from "../../views/index";
+import WorkLogs from "../worklogs";
 
 const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
@@ -48,6 +49,8 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
     `${currentContact.name} ${currentContact.surname}`
   );
 
+  // TODO: create custom query to have complete worklog including start/finish times and materials
+  // IworkTableModel should be returned properly
   nSQL("workTable")
     .query("select")
     .where(["contactID", "=", currentContact.id])
@@ -83,6 +86,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
           contact={currentContact}
           editContactHandler={switchView}
         />
+        <WorkLogs contactId={currentContact.id} />
         {/* <Worklogs {...currentContact} /> */}
       </div>
     );

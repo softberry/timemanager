@@ -1,13 +1,13 @@
-import { ISubPageViewActionTypes } from "../../__typings/interfaces.d";
+import { SubPageViewActionTypes } from "../../__typings/interfaces.d";
 
 function subPageViewReducer(
-  state: any = { type: ISubPageViewActionTypes.HIDE },
+  state: any = { type: SubPageViewActionTypes.HIDE },
   action: any
 ) {
   switch (action.type) {
-    case ISubPageViewActionTypes.HIDE:
-    case ISubPageViewActionTypes.OUT:
-    case ISubPageViewActionTypes.SHOW:
+    case SubPageViewActionTypes.HIDE:
+    case SubPageViewActionTypes.OUT:
+    case SubPageViewActionTypes.SHOW:
       return {
         ...state,
         ...action,
@@ -15,7 +15,7 @@ function subPageViewReducer(
     default:
       return {
         ...state,
-        type: ISubPageViewActionTypes.HIDE,
+        type: SubPageViewActionTypes.HIDE,
       };
   }
 }

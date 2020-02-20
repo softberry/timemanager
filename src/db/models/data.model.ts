@@ -115,8 +115,14 @@ const workDurationTable: InanoSQLTableConfig = {
   name: "workDurationTable",
   model: {
     "id:uuid": { pk: true },
-    "start:date": { notNull: true },
-    "finish:date": { notNull: true },
+    "start:date": {
+      notNull: true,
+      default: new Date(Date.now()).toISOString(),
+    },
+    "finish:date": {
+      notNull: true,
+      default: new Date(Date.now()).toISOString(),
+    },
     "description:string": {},
     "workID:string": {},
   },

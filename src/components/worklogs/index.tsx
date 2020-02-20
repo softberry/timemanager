@@ -1,4 +1,57 @@
-import React from "react";
+import React, { ReactElement, ReactNode } from "react";
+import Button from "../../__ui/buttons/button";
+import {
+  ButtonTypeEnums,
+  ButtonAlignmentEnums,
+  IconEnums,
+  SubPageViewActionTypes,
+  ValidationTypeEnums,
+} from "../../__typings/interfaces.d";
+import { useDispatch } from "react-redux";
+import Input from "../../__ui/formElements";
+
+interface IWorkLogsProps {
+  children?: ReactNode;
+  contactId: string;
+}
+
+const WorkLogs = ({ children, contactId }: IWorkLogsProps): ReactElement => {
+  const dispatch = useDispatch();
+  return (
+    <>
+      <Button
+        icon={IconEnums.ADD}
+        isDisabled={false}
+        onClick={() => {
+          dispatch({
+            type: SubPageViewActionTypes.SHOW,
+            caption: "New Worklog",
+            content: (
+              <>
+                <Input
+                  name="start"
+                  required={true}
+                  validate={true}
+                  validationType={ValidationTypeEnums.DATE}
+                  uniqueName={"abc"}
+                  value={new Date(Date.now())}
+                />
+              </>
+            ),
+          });
+        }}
+        align={ButtonAlignmentEnums.CENTER}
+        type={ButtonTypeEnums.SIMPLE}
+      >
+        Create Worklog
+      </Button>
+
+      <div>List of Works</div>
+    </>
+  );
+};
+
+export default WorkLogs;
 // i
 // mport { useSelector, useDispatch } from "react-redux";
 // import Icon from "../../__ui/icon";
@@ -15,7 +68,7 @@ import React from "react";
 //   ButtonAlignmentEnums,
 //   IconEnums,
 //   IContactsTableModel,
-//   ISubPageViewActionTypes,
+//   SubPageViewActionTypes,
 //   //  IworkTableModel,
 // } from "../../__typings/interfaces.d";
 // import Button from "../../__ui/buttons/button";
@@ -123,7 +176,7 @@ import React from "react";
 
 //   function addWorkLogFor(): void {
 //     dispatch({
-//       type: ISubPageViewActionTypes.SHOW,
+//       type: SubPageViewActionTypes.SHOW,
 //     });
 //     // nSQL("workTable")
 //     //   .presetQuery("createNewWorkLogForContact", {
