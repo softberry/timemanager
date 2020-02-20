@@ -40,7 +40,6 @@ function SubPageView() {
     }
   }, [subPage, dispatch]);
 
-
   if (subPage.type === ISubPageViewActionTypes.HIDE) return <></>;
   return (
     <div className={styles[`SubPageView-${theme}`]}>
