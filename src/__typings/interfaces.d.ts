@@ -91,24 +91,28 @@ export enum ValidationTypeEnums {
   PHONE = "PHONE",
 }
 export interface IEditableInputProps {
+  /** Name of the Input element, which must be uniqe in its parent */
   fieldName: keyof IContactsTableModel;
+  /** A Contact from Databse */
   contact: IContactsTableModel;
+  /** Callback funtion that helps to input validation state to sync with its parent */
   infoCallback: (returnedValue: IInputCallback) => any;
 }
-
+/** Reaturn value of ``infoCallback`` */
 export interface IInputCallback {
   name: string;
   uniqueName: string;
   valid: boolean;
   value: string;
 }
-
+/**
 export interface IFieldInfo {
   name: string;
   validate: boolean;
   required: boolean;
   type: string;
 }
+ */
 
 export interface IInputProps {
   /** Name of the input field */
@@ -123,6 +127,7 @@ export interface IInputProps {
   validationType?: ValidationTypeEnums;
   /** Should be value of field to be validated. */
   validate: boolean;
+  /** Callback funtion that helps to input validation state to sync with its parent */
   infoCallback?: (any) => any;
 }
 
