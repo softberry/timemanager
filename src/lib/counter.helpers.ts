@@ -1,4 +1,4 @@
-import { IDiff } from "../__typings/interfaces";
+import { IDiff } from "../__typings/interfaces.d";
 function twoDigit(n = "0") {
   const input = Math.max(parseInt(n, 10), 0);
 

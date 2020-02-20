@@ -7,8 +7,6 @@ import thunk from "redux-thunk";
 import { Provider, useSelector, useDispatch } from "react-redux";
 
 import rootReducer from "./store/reducers";
-import { DESIGN } from "./store/action-types";
-import { VDESIGN, USERSETTINGS } from "./store/constant-enums";
 
 import "./index.scss";
 
@@ -20,6 +18,7 @@ import SettingsView from "./views/settings";
 import ContactView from "./views/contact";
 import Message from "./components/message";
 import SubPageView from "./components/subPageView";
+import { IDesign, DesignEnums, UserInfo } from "./__typings/interfaces.d";
 
 const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -29,12 +28,12 @@ function Page() {
   };
   const theme = useSelector((state: any) => state.design.theme);
   const savedTheme =
-    window.localStorage.getItem(USERSETTINGS.USERSETTINGS_SELECTED_THEME) ||
-    VDESIGN.DESIGN_THEME_DEFAULT;
+    window.localStorage.getItem(UserInfo.SELECTED_THEME) ||
+    DesignEnums.DEFAULT_THEME;
   const dispatch = useDispatch();
   if (theme !== savedTheme) {
     dispatch({
-      type: DESIGN.DESIGN_THEME,
+      type: IDesign.THEME,
       theme: savedTheme,
     });
   }

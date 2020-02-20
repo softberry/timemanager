@@ -3,12 +3,12 @@ import React, { useContext, FunctionComponent, ReactElement } from "react";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../typography";
-import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views";
+import { DesignEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 const Card: FunctionComponent = ({ children }): ReactElement => {
   const theme = useTheme();

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { ITypographyProps, IMessageTypeEnums } from "../__typings/interfaces.d";
+import {
+  ITypographyProps,
+  IMessageTypeEnums,
+  DesignEnums,
+} from "../__typings/interfaces.d";
 
 import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
-
-import { VDESIGN } from "../store/constant-enums";
 
 function Typography({ theme = "default", children }: ITypographyProps) {
   const currentTheme = useSelector((state: any) => state.design.theme);
@@ -64,12 +66,12 @@ function Typography({ theme = "default", children }: ITypographyProps) {
 function useTheme() {
   const theme = useSelector((state: any) => {
     switch (state.design.theme) {
-      case VDESIGN.DESIGN_THEME_DEFAULT:
-        return VDESIGN.DESIGN_THEME_DEFAULT;
-      case VDESIGN.DESIGN_THEME_OCEAN:
-        return VDESIGN.DESIGN_THEME_OCEAN;
+      case DesignEnums.DEFAULT_THEME:
+        return DesignEnums.DEFAULT_THEME;
+      case DesignEnums.OCEAN_THEME:
+        return DesignEnums.OCEAN_THEME;
       default:
-        return VDESIGN.DESIGN_THEME_DEFAULT;
+        return DesignEnums.DEFAULT_THEME;
     }
   });
   return theme;

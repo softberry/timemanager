@@ -1,11 +1,11 @@
 import React from "react";
 import DefaultLayout from "../../layout/layout.default";
 import ContactsList from "../../components/contactsList";
-import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../index";
+import { DesignEnums } from "../../__typings/interfaces.d";
 function ContactsView() {
   return (
-    <ViewContext.Provider value={VDESIGN.DESIGN_VIEW_SECONDARY}>
+    <ViewContext.Provider value={DesignEnums.SECONDARY_VIEW}>
       <DefaultLayout>
         <ContactsList />
       </DefaultLayout>

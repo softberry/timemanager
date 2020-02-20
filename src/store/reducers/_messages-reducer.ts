@@ -2,6 +2,8 @@ import {
   IMessage,
   IMessageTypeEnums,
   IConfirmTypeEnums,
+  IconEnums,
+  DialogTypes,
 } from "../../__typings/interfaces.d";
 
 /**
@@ -16,10 +18,16 @@ function setUniqueDialogIdFor(payload: IMessage, dialogIds: [number]): void {
 }
 
 const icons = new Map();
-icons.set(IMessageTypeEnums.INFO, "info");
-icons.set(IMessageTypeEnums.WARNING, "warning");
-icons.set(IMessageTypeEnums.ERROR, "error");
-icons.set(IConfirmTypeEnums.DELETE_CONTACT, "assignment_turned_in");
+icons.set(IMessageTypeEnums.INFO, IconEnums.INFO);
+icons.set(IMessageTypeEnums.WARNING, IconEnums.WARNING);
+icons.set(IMessageTypeEnums.ERROR, IconEnums.ERROR);
+icons.set(IConfirmTypeEnums.DELETE_CONTACT, IconEnums.CONFIRM);
+
+const dialogTypes = new Map();
+dialogTypes.set(IMessageTypeEnums.INFO, DialogTypes.INFO);
+dialogTypes.set(IMessageTypeEnums.WARNING, DialogTypes.WARNING);
+dialogTypes.set(IMessageTypeEnums.ERROR, DialogTypes.ERROR);
+dialogTypes.set(IConfirmTypeEnums.DELETE_CONTACT, DialogTypes.CONFIRM);
 
 /**
  *
@@ -40,7 +48,11 @@ function message(state: any = { messages: [] }, payload: any) {
         ...state,
         messages: [
           ...state.messages,
-          { ...payload, icon: icons.get(payload.type) },
+          {
+            ...payload,
+            icon: icons.get(payload.type),
+            dialogType: dialogTypes.get(payload.type),
+          },
         ],
       };
     case IMessageTypeEnums.HIDE_MESSAGE:

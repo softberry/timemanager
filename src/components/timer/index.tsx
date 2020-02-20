@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import { ICounterTableModel, IDiff } from "../../__typings/interfaces";
+import {
+  ICounterTableModel,
+  IDiff,
+  DesignEnums,
+} from "../../__typings/interfaces.d";
 
 import { useSelector } from "react-redux";
 import { timeDiff } from "../../lib/counter.helpers";
@@ -11,12 +15,11 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
-import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 let timerID: number;
 

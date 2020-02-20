@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-import { VDESIGN } from "../../../store/constant-enums";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import { IStartStopButtonProps } from "../../../__typings/interfaces";
+import {
+  IStartStopButtonProps,
+  DesignEnums,
+} from "../../../__typings/interfaces.d";
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Special button delays onclick event for a given time.

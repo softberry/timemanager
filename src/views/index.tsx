@@ -1,6 +1,7 @@
 import { createContext } from "react";
-import { VDESIGN } from "../store/constant-enums";
 
-const ViewContext = createContext(VDESIGN.DESIGN_VIEW_PRIMARY);
+import { DesignEnums } from "../__typings/interfaces.d";
+
+const ViewContext = createContext(DesignEnums.PRIMARY_VIEW);
 
 export default ViewContext;

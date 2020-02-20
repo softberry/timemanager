@@ -1,4 +1,4 @@
-import { IWorklogInput } from "../__typings/interfaces";
+import { IWorklogInput } from "../__typings/interfaces.d";
 
 function createWorkLog({
   nSQL,

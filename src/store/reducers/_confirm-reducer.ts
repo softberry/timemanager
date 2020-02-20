@@ -1,6 +1,4 @@
-enum IConfirmActionsEnums {
-  DELETE_CONTACT = "DELETE_CONTACT",
-}
+import { IConfirmTypeEnums } from "../../__typings/interfaces.d";
 
 /**
  *
@@ -9,7 +7,7 @@ enum IConfirmActionsEnums {
  */
 function confirm(state: any = { confirm: {} }, payload: any) {
   switch (payload.type) {
-    case IConfirmActionsEnums.DELETE_CONTACT:
+    case IConfirmTypeEnums.DELETE_CONTACT:
       return {
         ...state,
       };

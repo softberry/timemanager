@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback, useEffect } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import {
   IContactsTableModel,
   IconEnums,
@@ -8,6 +8,8 @@ import {
   IInputCallback,
   IEditableInputProps,
   IConfirmTypeEnums,
+  NewEntryEnums,
+  DesignEnums,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -16,7 +18,6 @@ import Button from "../../__ui/buttons/button";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views/index";
 import Input, { MultipleInput } from "../../__ui/formElements";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,8 +27,8 @@ interface IEditableDetailsProps {
   updateContact: (contact: IContactsTableModel, readOnly?: boolean) => any;
 }
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
   const excludedItems = ["id"];
@@ -37,8 +38,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
   const nSQL = useSelector((state: any) => state.db.nSQL);
   const dispatch = useDispatch();
 
-  const isNewContact = contact.id === "new-contact-to-edit";
-  useEffect(() => {}, [nSQL]);
+  const isNewContact = contact.id === NewEntryEnums.NEW_CONTACT_ID;
 
   const fieldStateMap = new Map();
   /** Keep Contact Details form in a map */
@@ -87,15 +87,15 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
     })();
 
     const saveUserQuery = nSQL("contactsTable").query("upsert", updatedContact);
-    if (contact.id !== "new-contact-to-edit") {
+    if (contact.id !== NewEntryEnums.NEW_CONTACT_ID) {
       saveUserQuery.where(["id", "=", contact.id]);
     }
 
     saveUserQuery.exec().then((current: [IContactsTableModel]) => {
-      if (current[0].id === "new-contact-to-edit") {
+      if (current[0].id === NewEntryEnums.NEW_CONTACT_ID) {
         nSQL("contactsTable")
           .query("delete")
-          .where(["id", "=", "new-contact-to-edit"]);
+          .where(["id", "=", NewEntryEnums.NEW_CONTACT_ID]);
       }
       updateContact(current[0], true);
     });

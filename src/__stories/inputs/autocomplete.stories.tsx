@@ -3,8 +3,7 @@ import React from "react";
 import Autocomplete from "../../__ui/autocomplete";
 
 import StoryPage from "../story-page";
-
-import { VDESIGN } from "../../store/constant-enums";
+import { DesignEnums } from "../../__typings/interfaces.d";
 
 export default {
   title: "Autocomplete",
@@ -22,7 +21,7 @@ export const Primary = function() {
           justifyContent: "center",
         }}
       >
-        <Autocomplete variant={VDESIGN.DESIGN_VIEW_PRIMARY} />
+        <Autocomplete variant={DesignEnums.PRIMARY_VIEW} />
       </div>
     </StoryPage>
   );
@@ -38,7 +37,7 @@ export const secondary = function() {
           justifyContent: "center",
         }}
       >
-        <Autocomplete variant={VDESIGN.DESIGN_VIEW_SECONDARY} />
+        <Autocomplete variant={DesignEnums.SECONDARY_VIEW} />
       </div>
     </StoryPage>
   );

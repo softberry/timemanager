@@ -6,13 +6,13 @@ import {
   IIconProps,
   SizeIconEnums,
   IconEnums,
+  DesignEnums,
 } from "../../__typings/interfaces.d";
-import { VDESIGN } from "../../store/constant-enums";
 import { useTheme, useThemeStyle } from "../typography";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 function Icon({ children, size = SizeIconEnums.MEDIUM, ...rest }: IIconProps) {
   const theme = useTheme();

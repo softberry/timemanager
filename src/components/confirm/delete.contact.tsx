@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
-import { VDESIGN } from "../../store/constant-enums";
 
 import {
   IConfirmDeleteContact,
@@ -13,13 +12,14 @@ import {
   ButtonAlignmentEnums,
   ButtonTypeEnums,
   IMessageTypeEnums,
+  DesignEnums,
 } from "../../__typings/interfaces.d";
 import { Checkbox } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 function ConfirmDeleteContactBody({
   contact,

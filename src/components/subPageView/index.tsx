@@ -5,19 +5,20 @@ import ViewContext from "../../views/index";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
-import { VDESIGN } from "../../store/constant-enums";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   ISubpageState,
   ISubPageViewActionTypes,
   SizeIconEnums,
   IconEnums,
+  DesignEnums,
 } from "../../__typings/interfaces.d";
 import Icon from "../../__ui/icon";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 /**
  *

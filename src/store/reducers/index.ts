@@ -3,7 +3,6 @@ import { default as messages } from "./_messages-reducer";
 import { default as confirm } from "./_confirm-reducer";
 import { default as subpageview } from "./_subpageview-reducer";
 import { default as design } from "./_design-reducer";
-import { default as worklogs } from "./_worklogs-reducers";
 import { default as viewSettings } from "./_view-reducers";
 import { combineReducers } from "redux";
 
@@ -13,7 +12,6 @@ const rootReducer = combineReducers({
   confirm,
   subpageview,
   design,
-  worklogs,
   viewSettings,
 });
 

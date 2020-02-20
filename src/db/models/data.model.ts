@@ -1,4 +1,5 @@
 import { InanoSQLTableConfig } from "@nano-sql/core/lib/interfaces";
+import { NewEntryEnums } from "../../__typings/interfaces.d";
 
 /**
  * Contact-Table
@@ -59,7 +60,7 @@ const contactsTable: InanoSQLTableConfig = {
       name: "createNewEmptyUserEntryForEdit",
       args: {},
       call: (db: any, args: any) => {
-        return db.query("upsert", { id: "new-contact-to-edit" }).emit();
+        return db.query("upsert", { id: NewEntryEnums.NEW_CONTACT_ID }).emit();
       },
     },
   ],

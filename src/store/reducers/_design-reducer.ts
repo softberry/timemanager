@@ -1,26 +1,22 @@
-import { IDesignActionTypes } from "../../__typings/interfaces";
+import {
+  IDesignActionTypes,
+  IDesign,
+  DesignEnums,
+  UserInfo,
+} from "../../__typings/interfaces.d";
 
-import TYPES from "../action-types";
-import { VDESIGN, USERSETTINGS } from "../constant-enums";
-
-function designReducer(
-  state = {
-    view: VDESIGN.DESIGN_VIEW_PRIMARY,
-    theme: VDESIGN.DESIGN_THEME_DEFAULT,
-  },
-  action: IDesignActionTypes
-) {
+function designReducer(state = {}, action: IDesignActionTypes) {
   switch (action.type) {
-    case TYPES.DESIGN_THEME:
+    case IDesign.THEME:
       window.localStorage.setItem(
-        USERSETTINGS.USERSETTINGS_SELECTED_THEME,
-        action.theme || VDESIGN.DESIGN_THEME_DEFAULT
+        UserInfo.SELECTED_THEME,
+        action.theme || DesignEnums.DEFAULT_THEME
       );
       return {
         ...state,
         theme: action.theme,
       };
-    case TYPES.DESIGN_VIEW:
+    case IDesign.VIEW:
       return {
         ...state,
         view: action.view,

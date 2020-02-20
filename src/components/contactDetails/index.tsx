@@ -4,25 +4,26 @@ import {
   IContactDetailsComponent,
   IworkTableModel,
   IContactsTableModel,
+  NewEntryEnums,
+  ViewSettingsEnums,
+  DesignEnums,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import TYPES from "../../store/action-types";
 import ReadOnlyDetails from "./readOnlyDeatils";
 import EditableDetails from "./editableDetails";
 
-import Worklogs from "../worklogs/index";
+// import Worklogs from "../worklogs/index";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
-import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views/index";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 function ContactDetails({ contact, type }: IContactDetailsComponent) {
   const view = useContext(ViewContext);
@@ -43,8 +44,6 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
     setIsReadOnly(readOnly === true);
   }
 
-  useEffect(() => {}, [nSQL]);
-
   const [fullName, setFullName] = useState(
     `${currentContact.name} ${currentContact.surname}`
   );
@@ -54,12 +53,13 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
     .where(["contactID", "=", currentContact.id])
     .exec()
     .then((worklogs: [IworkTableModel]) => {
-      dispatch({ type: TYPES.WORKLOGS_UPDATE, worklogs });
+      //      dispatch({ type: TYPES.WORKLOGS_UPDATE, worklogs });
+      //TODO: get all worklogs for the current contact and dispatch result , so list of worklogs in this view should always be uptodate
     });
 
   useEffect(() => {
     if (currentContact.id === null) return;
-    if (currentContact.id === "new-contact-to-edit") {
+    if (currentContact.id === NewEntryEnums.NEW_CONTACT_ID) {
       setIsReadOnly(false);
       setIsNewContact(true);
     } else {
@@ -73,7 +73,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
 
   if (isReadOnly) {
     dispatch({
-      type: TYPES.VIEWSETTINGS.UPDATE_TITLE,
+      type: ViewSettingsEnums.UPDATE_TITLE,
       title: "Contact Details",
     });
 
@@ -83,7 +83,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
           contact={currentContact}
           editContactHandler={switchView}
         />
-        <Worklogs {...currentContact} />
+        {/* <Worklogs {...currentContact} /> */}
       </div>
     );
   }
@@ -91,7 +91,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
     ? "Create New Contact"
     : "Edit Contact Details";
   dispatch({
-    type: TYPES.VIEWSETTINGS.UPDATE_TITLE,
+    type: ViewSettingsEnums.UPDATE_TITLE,
     title: EditableDetailTitle,
   });
 

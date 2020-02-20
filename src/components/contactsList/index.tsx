@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import List from "../list";
 import Button from "../../__ui/buttons/button";
-import TYPES from "../../store/action-types";
-import { VDESIGN } from "../../store/constant-enums";
+
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
@@ -13,13 +12,16 @@ import {
   ButtonAlignmentEnums,
   ButtonTypeEnums,
   IconEnums,
+  NewEntryEnums,
+  ViewSettingsEnums,
+  DesignEnums,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 function ContactsList() {
   const view = useContext(ViewContext);
@@ -35,13 +37,13 @@ function ContactsList() {
       .presetQuery("createNewEmptyUserEntryForEdit")
       .exec()
       .then((row: []) => {
-        history.push("/contact/edit/new-contact-to-edit");
+        history.push(`/contact/edit/${NewEntryEnums.NEW_CONTACT_ID}`);
       });
   };
   useEffect(() => {
     nSQL("contactsTable")
       .query("select")
-      .where(["id", "!=", "new-contact-to-edit"])
+      .where(["id", "!=", NewEntryEnums.NEW_CONTACT_ID])
       .orderBy(["name ASC", "surname ASC"])
       .exec()
       .then((list: [IContactsTableModel]) => {
@@ -54,7 +56,7 @@ function ContactsList() {
     if (!ready) return;
   }, [ready]);
 
-  dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: "Contacts" });
+  dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Contacts" });
 
   return (
     <div className={styles[`Contacts-${theme}-${view}`]}>

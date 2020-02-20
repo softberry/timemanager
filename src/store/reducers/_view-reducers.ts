@@ -1,8 +1,8 @@
-import TYPES from "../action-types";
+import { ViewSettingsEnums } from "../../__typings/interfaces.d";
 
 function viewReducers(state = { title: "" }, action: any) {
   switch (action.type) {
-    case TYPES.VIEWSETTINGS.UPDATE_TITLE:
+    case ViewSettingsEnums.UPDATE_TITLE:
       return {
         ...state,
         title: action.title,

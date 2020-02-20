@@ -6,6 +6,7 @@ import {
   IconEnums,
   ValidationTypeEnums,
   IInputCallback,
+  DesignEnums,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
@@ -13,7 +14,6 @@ import getFormElementType from "../../../lib/input.helpers";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
-import { VDESIGN } from "../../../store/constant-enums";
 import ViewContext from "../../../views";
 import { uuid } from "@nano-sql/core/lib/utilities";
 
@@ -23,8 +23,8 @@ import isPostalCode from "validator/lib/isPostalCode";
 import isNumeric from "validator/lib/isNumeric";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Input element:
