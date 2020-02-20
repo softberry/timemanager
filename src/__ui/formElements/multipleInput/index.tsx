@@ -6,17 +6,17 @@ import {
   ButtonTypeEnums,
   ButtonAlignmentEnums,
   IInputCallback,
+  DesignEnums,
 } from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
-import { VDESIGN } from "../../../store/constant-enums";
 
 import Button from "../../buttons/button";
 import Input from "../index";
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 /** render All input elements from the list of values  */
 function AllInputs({

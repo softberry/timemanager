@@ -1,46 +1,38 @@
-import { ValidationTypeEnums } from "../__typings/interfaces.d";
+import {
+  ValidationTypeEnums,
+  IFieldNameToType,
+} from "../__typings/interfaces.d";
 
-const text = ["name", "surname", "street", "city"]; // <input type="text" ...
-const zip = ["zip"]; // <input type="text" ...
-const date = ["start", "finish"]; // <input type="date" ...
-const phone = ["tel", "mobile"]; // <input type="phone" ...
-const mail = ["mail"]; // <input type="mail" ...
+const Text: IFieldNameToType = {
+  type: "text",
+  validationType: ValidationTypeEnums.TEXT,
+};
 
-const inputTypes: any = { text, phone, mail, date, zip };
+const DateTimeLocal: IFieldNameToType = {
+  type: "datetime-local",
+  validationType: ValidationTypeEnums.DATE,
+};
+const Phone: IFieldNameToType = {
+  type: "phone",
+  validationType: ValidationTypeEnums.PHONE,
+};
+const Mail: IFieldNameToType = {
+  type: "mail",
+  validationType: ValidationTypeEnums.MAIL,
+};
 
-/**
- *
- * @param fieldName {string}
- */
-function getTypeFromFieldName(fieldName: string): string {
-  let fieldNamesAsString: string[] = Object.keys(inputTypes).filter(key => {
-    return inputTypes[key].includes(fieldName) ? key : false;
-  });
+const fieldNameToType = new Map();
 
-  return fieldNamesAsString[0] || "text";
-}
+fieldNameToType.set("name", Text);
+fieldNameToType.set("surname", Text);
+fieldNameToType.set("street", Text);
+fieldNameToType.set("city", Text);
+fieldNameToType.set("zip", Text);
+fieldNameToType.set("tel", Phone);
+fieldNameToType.set("mobile", Phone);
+fieldNameToType.set("mail", Mail);
 
-function getValidationTypeFromFieldName(
-  fieldName: string
-): ValidationTypeEnums {
-  switch (fieldName) {
-    case "zip":
-      return ValidationTypeEnums.ZIP;
-    case "tel":
-      return ValidationTypeEnums.PHONE;
-    case "mobile":
-      return ValidationTypeEnums.MOBILE;
-    case "mail":
-      return ValidationTypeEnums.MAIL;
-    default:
-      return ValidationTypeEnums.TEXT;
-  }
-}
+fieldNameToType.set("start", DateTimeLocal);
+fieldNameToType.set("finsih", DateTimeLocal);
 
-function getFormElementType(fieldName: string) {
-  return {
-    type: getTypeFromFieldName(fieldName),
-    ValidationType: getValidationTypeFromFieldName(fieldName),
-  };
-}
-export { getFormElementType as default };
+export { fieldNameToType as default };

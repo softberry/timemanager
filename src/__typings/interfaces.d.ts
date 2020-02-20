@@ -1,39 +1,11 @@
-export enum IconEnums {
-  ADD = "add",
-  ARROW_BACK = "arrow_back",
-  ARROW_DOWN = "keyboard_arrow_down",
-  ARROW_FORWARD = "arrow_forward",
-  ARROW_UP = "keyboard_arrow_up",
-  BLANK = "blank",
-  CALENDAR = "date_range",
-  CHECK_CIRCLE = "check_circle",
-  CHECKBOX_OFF = "check_box_outline_blank",
-  CHECKBOX_ON = "check_box",
-  CLEAR = "highlight_off",
-  CLOSE = "close",
-  CONTACTS = "contacts",
-  EDIT = "edit",
-  ERROR = "error",
-  INFO = "info",
-  MAIL = "mail_outline",
-  MESSAGE = "chat_bubble_outline",
-  PHONE = "local_phone",
-  RADIO_OFF = "radio_button_unchecked",
-  RADIO_ON = "radio_button_checked",
-  SAVE = "save",
-  SEARCH = "search",
-  SETTINGS = "settings",
-  SMART_PHONE = "smartphone",
-  TIMER = "timer",
-  TRASH = "delete_outline",
-  WARNING = "warning",
-}
+import { uuid } from "@nano-sql/core/lib/utilities";
+
 export interface IDesignModel {
   view: string;
 }
 
 export interface IDesignActionTypes {
-  type: string;
+  type: IDesign;
   view?: string;
   theme?: string;
 }
@@ -77,37 +49,21 @@ export interface IRadioGroupProps {
   children?: any;
   onChange: any;
 }
-/** Input labels can be visually label or placeholder */
-export enum LabelTypeEnums {
-  LABEL = "LABEL",
-  PLACEHOLDER = "PLACEHOLDER",
-}
 
-export enum ValidationTypeEnums {
-  TEXT = "TEXT",
-  ZIP = "ZIP",
-  MAIL = "MAIL",
-  MOBILE = "MOBILE",
-  PHONE = "PHONE",
-}
 export interface IEditableInputProps {
+  /** Name of the Input element, which must be uniqe in its parent */
   fieldName: keyof IContactsTableModel;
+  /** A Contact from Database */
   contact: IContactsTableModel;
+  /** Callback funtion that helps to input validation state to sync with its parent */
   infoCallback: (returnedValue: IInputCallback) => any;
 }
-
+/** Reaturn value of ``infoCallback`` */
 export interface IInputCallback {
   name: string;
   uniqueName: string;
   valid: boolean;
   value: string;
-}
-
-export interface IFieldInfo {
-  name: string;
-  validate: boolean;
-  required: boolean;
-  type: string;
 }
 
 export interface IInputProps {
@@ -116,13 +72,14 @@ export interface IInputProps {
   /**  */
   uniqueName: string;
   /** Value  of the input field */
-  value?: string | string[];
+  value?: string | string[] | Date;
   /** Define whether this field should have a value */
   required: boolean;
   /** Set correct validation type */
   validationType?: ValidationTypeEnums;
   /** Should be value of field to be validated. */
   validate: boolean;
+  /** Callback funtion that helps to input validation state to sync with its parent */
   infoCallback?: (any) => any;
 }
 
@@ -141,20 +98,6 @@ export interface IStartStopButtonProps {
   waitForSeconds?: number;
 }
 
-export enum ButtonTypeEnums {
-  "SIMPLE" = "simple",
-  "NEGATIVE" = "negative",
-  "POISITIVE" = "positive",
-  "ERROR" = "error",
-  "WARNING" = "warning",
-}
-export enum ButtonAlignmentEnums {
-  LEFT = "left",
-  CENTER = "center",
-  RIGHT = "right",
-  STRETCH = "stretch",
-  INLINE = "inline",
-}
 export interface IButtonProps {
   children?: any;
   icon?: IconEnums;
@@ -168,23 +111,10 @@ export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
   href: any;
 }
 
-/** Style definition enums of Message boxes*/
-export enum IMessageTypeEnums {
-  INFO = "MESSAGES_INFO",
-  WARNING = "MESSAGES_WARNING",
-  ERROR = "MESSAGES_ERROR",
-  HIDE_MESSAGE = "MESSAGES_HIDE_MESSAGE",
-  HIDE_ALL_MESSAGES = "MESSAGES_HIDE_ALL_MESSAGES",
-  DELETE_ALL_MESSAGES = "MESSAGES_DELETE_ALL_MESSAGES",
-}
-
-/** Confirm dialog box types. Extended to Message box, allows users to make a decision. */
-export enum IConfirmTypeEnums {
-  DELETE_CONTACT = "CONFIRM_DELETE_CONTACT",
-}
 export interface IMessage {
   icon: IconEnums;
-  type: string;
+  type: IMessageTypeEnums;
+  dialogType: DialogTypes;
   caption?: string;
   body: object;
   closable?: boolean;
@@ -192,7 +122,7 @@ export interface IMessage {
   key: any;
 }
 export interface IDialogBodyProp {
-  type: string;
+  type: IMessageTypeEnums | IConfirmTypeEnums | DialogTypes;
   props: any;
 }
 
@@ -220,7 +150,7 @@ export interface IToolbarButtonState {
   contact: any;
 }
 export interface IStateDatabase {
-  type: string;
+  type: DatabaseActionEnums;
   nSQL: any;
 }
 
@@ -282,9 +212,9 @@ export interface IworkTableModel {
   id: string;
   contactID: string;
   name: string;
-  labour: string[];
-  materials: string[];
   description: string;
+  labour: IWorkDurationTableModel[];
+  materials: IMaterialListTableModel[];
 }
 
 export interface IworkTableQueryArguments {
@@ -307,7 +237,7 @@ export interface IWorkDurationTableModel {
 
 export interface IMaterialListTableModel {
   id: string;
-  items: [materialItemTableModel];
+  items: materialItemTableModel[];
   workID: string;
 }
 
@@ -343,12 +273,7 @@ export interface IHeadlineBuilderProps extends IHeadlineProps {
   /** Size of Headline elements valid values are 1-6 */
   size: number;
 }
-/** Size enums for Material Icons */
-export enum SizeIconEnums {
-  SMALL = "SMALL",
-  MEDIUM = "MEDIUM",
-  LARGE = "LARGE",
-}
+
 /** Material Icon properties */
 export interface IIconProps {
   children: IconEnums;
@@ -365,4 +290,147 @@ export interface IWorkListItemEntry {
   name: string;
   labour: [{}];
   materials: [{}];
+}
+
+export interface ISubpageState {
+  type: SubPageViewActionTypes;
+  caption: string;
+  content?: ReactChild;
+}
+
+export interface IFieldNameToType {
+  type: "text" | "number" | "phone" | "mail" | "datetime-local";
+  validationType: ValidationTypeEnums;
+}
+
+/**
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * ******************     Unique Action Types of Store
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ */
+export enum DatabaseActionEnums {
+  REGISTER_DATABASE = uuid(), // "DATABASE_REGISTER_DATABASE",
+}
+export enum IDesign {
+  VIEW = uuid(),
+  THEME = uuid(),
+}
+export enum SubPageViewActionTypes {
+  SHOW = uuid(), // "SHOW",
+  OUT = uuid(), // "OUT",
+  HIDE = uuid(), // "HIDE",
+}
+
+export enum ViewSettingsEnums {
+  UPDATE_TITLE = uuid(),
+}
+
+/** Style definition enums of Message boxes*/
+export enum IMessageTypeEnums {
+  INFO = uuid(), //"MESSAGES_INFO",
+  WARNING = uuid(), //"MESSAGES_INFO",
+  ERROR = uuid(), //"MESSAGES_ERROR",
+  HIDE_MESSAGE = uuid(), //"MESSAGES_HIDE_MESSAGE",
+  HIDE_ALL_MESSAGES = uuid(), //"MESSAGES_HIDE_ALL_MESSAGES",
+  DELETE_ALL_MESSAGES = uuid(), //"MESSAGES_DELETE_ALL_MESSAGES",
+}
+
+/** Confirm dialog box types. Extended to Message box, allows users to make a decision. */
+export enum IConfirmTypeEnums {
+  DELETE_CONTACT = uuid(), //"CONFIRM_DELETE_CONTACT",
+}
+
+/**
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * ******************     Enums as Constant Values
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ */
+export enum DesignEnums {
+  DEFAULT_THEME = "default",
+  OCEAN_THEME = "ocean",
+  PRIMARY_VIEW = "primary",
+  SECONDARY_VIEW = "secondary",
+}
+
+export enum UserInfo {
+  SELECTED_THEME = "USERSETTINGS_SELECTED_THEME",
+}
+
+export enum IconEnums {
+  ADD = "add",
+  ARROW_BACK = "arrow_back",
+  ARROW_DOWN = "keyboard_arrow_down",
+  ARROW_FORWARD = "arrow_forward",
+  ARROW_UP = "keyboard_arrow_up",
+  BLANK = "blank",
+  CALENDAR = "date_range",
+  CHECK_CIRCLE = "check_circle",
+  CHECKBOX_OFF = "check_box_outline_blank",
+  CHECKBOX_ON = "check_box",
+  CLEAR = "highlight_off",
+  CLOSE = "close",
+  CONTACTS = "contacts",
+  CONFIRM = "assignment_turned_in",
+  EDIT = "edit",
+  ERROR = "error",
+  INFO = "info",
+  MAIL = "mail_outline",
+  MESSAGE = "chat_bubble_outline",
+  PHONE = "local_phone",
+  RADIO_OFF = "radio_button_unchecked",
+  RADIO_ON = "radio_button_checked",
+  SAVE = "save",
+  SEARCH = "search",
+  SETTINGS = "settings",
+  SMART_PHONE = "smartphone",
+  TIMER = "timer",
+  TRASH = "delete_outline",
+  WARNING = "warning",
+}
+
+export enum NewEntryEnums {
+  NEW_CONTACT_ID = "NEW_CONTACT_ID",
+}
+
+/** Input labels can be visually label or placeholder */
+export enum LabelTypeEnums {
+  LABEL = "LABEL",
+  PLACEHOLDER = "PLACEHOLDER",
+}
+
+export enum ValidationTypeEnums {
+  TEXT = "TEXT",
+  ZIP = "ZIP",
+  MAIL = "MAIL",
+  MOBILE = "MOBILE",
+  PHONE = "PHONE",
+  DATE = "DATE",
+}
+
+export enum ButtonTypeEnums {
+  SIMPLE = "simple",
+  NEGATIVE = "negative",
+  POISITIVE = "positive",
+  ERROR = "error",
+  WARNING = "warning",
+}
+export enum ButtonAlignmentEnums {
+  LEFT = "left",
+  CENTER = "center",
+  RIGHT = "right",
+  STRETCH = "stretch",
+  INLINE = "inline",
+}
+/** Size enums for Material Icons */
+export enum SizeIconEnums {
+  SMALL = "SMALL",
+  MEDIUM = "MEDIUM",
+  LARGE = "LARGE",
+}
+
+export enum DialogTypes {
+  INFO = "INFO",
+  WARNING = "WARNING",
+  ERROR = "ERROR",
+  CONFIRM = "CONFIRM",
 }

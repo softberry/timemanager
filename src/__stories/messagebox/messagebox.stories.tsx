@@ -5,7 +5,7 @@ import { withKnobs } from "@storybook/addon-knobs";
 
 import { lorem } from "faker";
 
-import Message from "../../__ui/message";
+import Message from "../../components/message";
 
 import StoryPage from "../story-page";
 

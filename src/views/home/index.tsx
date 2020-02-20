@@ -1,19 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import TYPES from "../../store/action-types";
-import { VDESIGN } from "../../store/constant-enums";
 import DefaultLayout from "../../layout/layout.default";
 import Timer from "../../components/timer";
 
 import ViewContext from "../index";
+import { ViewSettingsEnums, DesignEnums } from "../../__typings/interfaces.d";
 
 function HomeView() {
   const dispatch = useDispatch();
-  dispatch({ type: TYPES.VIEWSETTINGS.UPDATE_TITLE, title: "" });
+  dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "" });
 
   return (
-    <ViewContext.Provider value={VDESIGN.DESIGN_VIEW_PRIMARY}>
+    <ViewContext.Provider value={DesignEnums.PRIMARY_VIEW}>
       <DefaultLayout>
         <Timer />
       </DefaultLayout>

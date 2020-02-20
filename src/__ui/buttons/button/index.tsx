@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { VDESIGN } from "../../../store/constant-enums";
+
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -12,12 +12,13 @@ import {
   ButtonTypeEnums,
   IButtonProps,
   IButtonLinkProps,
+  DesignEnums,
 } from "../../../__typings/interfaces.d";
 import ViewContext from "../../../views";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 function Button({
   children,

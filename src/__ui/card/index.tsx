@@ -1,43 +1,43 @@
-import React, { useContext } from "react";
+import React, { useContext, FunctionComponent, ReactElement } from "react";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../typography";
-import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../../views";
+import { DesignEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function Card({ children }: any) {
+const Card: FunctionComponent = ({ children }): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   return <div className={styles[`Card-${theme}-${view}`]}>{children}</div>;
-}
+};
 
-function CardTitle({ children }: any) {
+const CardTitle: FunctionComponent = ({ children }): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   return <div className={styles[`CardTitle-${theme}-${view}`]}>{children}</div>;
-}
+};
 
-function CardBody({ children }: any) {
+const CardBody: FunctionComponent = ({ children }): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   return <div className={styles[`CardBody-${theme}-${view}`]}>{children}</div>;
-}
+};
 
-function CardFooter({ children }: any) {
+const CardFooter: FunctionComponent = ({ children }) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   return (
     <div className={styles[`CardFooter-${theme}-${view}`]}>{children}</div>
   );
-}
+};
 
 export { Card as default, CardTitle, CardBody, CardFooter };

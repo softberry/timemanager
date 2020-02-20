@@ -6,6 +6,7 @@ import {
   IconEnums,
   IMessageTypeEnums,
   IConfirmTypeEnums,
+  DesignEnums,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
@@ -15,11 +16,10 @@ import ConfirmDeleteContactBody from "../confirm/delete.contact";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
-import { VDESIGN } from "../../store/constant-enums";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 function DialogBody({ type, props }: IDialogBodyProp) {
   switch (type) {
@@ -71,7 +71,7 @@ function Message() {
   const dialogContent = messages.map(
     (
       {
-        type,
+        dialogType,
         icon = IconEnums.MESSAGE,
         caption,
         body,
@@ -83,7 +83,7 @@ function Message() {
       return (
         <div
           key={index}
-          className={styles[`Dialog-${theme}__${type}--${view}`]}
+          className={styles[`Dialog-${theme}__${dialogType}--${view}`]}
           style={{
             marginLeft: `${index * 0.5}rem`,
             marginTop: `${index * 0.5}rem`,
@@ -104,7 +104,7 @@ function Message() {
           <div className={styles[`Caption-${theme}`]}>{caption}</div>
 
           <div className={styles[`Text-${theme}`]}>
-            <DialogBody type={type} props={{ ...body, dialogId }} />
+            <DialogBody type={dialogType} props={{ ...body, dialogId }} />
           </div>
           <div className={styles[`Footer-${theme}`]}>&nbsp;</div>
         </div>

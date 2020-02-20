@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import TYPES from "../store/action-types";
 import Loading from "../components/loading";
 import { nSQL } from "@nano-sql/core";
 
@@ -10,6 +9,7 @@ import counterModelTables from "./models/data.model";
 
 // Dummy Tables: Feke content using fakersJS used during development
 import { createRandomContacts } from "./_dummy/contacts.dev";
+import { DatabaseActionEnums } from "../__typings/interfaces.d";
 
 // const isDEV = process.env.NODE_ENV === "development";
 const isPROD = process.env.NODE_ENV === "production";
@@ -98,7 +98,7 @@ const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps) => {
       .then(items => {
         if (isPROD || items.length > 0) {
           dispatch({
-            type: TYPES.DATABASE_REGISTER_DATABASE,
+            type: DatabaseActionEnums.REGISTER_DATABASE,
             nSQL: nSQL,
           });
         } else {
@@ -109,7 +109,7 @@ const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps) => {
             .exec()
             .then(() => {
               dispatch({
-                type: TYPES.DATABASE_REGISTER_DATABASE,
+                type: DatabaseActionEnums.REGISTER_DATABASE,
                 nSQL: nSQL,
               });
             });

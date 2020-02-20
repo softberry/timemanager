@@ -6,7 +6,6 @@ import Button from "../../__ui/buttons/button";
 import StoryPage from "../story-page";
 import { action } from "@storybook/addon-actions";
 
-import { VDESIGN } from "../../store/constant-enums";
 import { IconEnums, ButtonTypeEnums } from "../../__typings/interfaces.d";
 export default {
   title: "Cards",
@@ -19,7 +18,7 @@ export default {
 export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <Card view={VDESIGN.DESIGN_VIEW_PRIMARY}>
+      <Card>
         <CardTitle>{lorem.words(3)}</CardTitle>
         <CardBody>{lorem.paragraphs(2)}</CardBody>
         <CardFooter>
@@ -62,7 +61,7 @@ export const Primary = () => {
 export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <Card view={VDESIGN.DESIGN_VIEW_PRIMARY}>
+      <Card>
         <CardTitle>
           {lorem.words(3)}
           <Button

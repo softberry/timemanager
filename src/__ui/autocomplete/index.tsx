@@ -1,15 +1,14 @@
 import React from "react";
 import Icon from "../../__ui/icon";
-import { VDESIGN } from "../../store/constant-enums";
 
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
-import { IconEnums } from "../../__typings/interfaces.d";
+import { IconEnums, DesignEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Autocomplete component for search everywhere
@@ -17,7 +16,7 @@ stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
  * Set ViewState from store
  * https://github.com/softberry/timemanager/issues/37
  */
-function AutoComplete({ variant = VDESIGN.DESIGN_VIEW_PRIMARY }: any) {
+function AutoComplete({ variant = DesignEnums.PRIMARY_VIEW }: any) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 

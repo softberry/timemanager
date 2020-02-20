@@ -44,6 +44,7 @@ a:visited {
 }
 
 input[type="date"],
+input[type="datetime-local"],
 input[type="text"],
 input[type="phone"],
 input[type="mail"],
@@ -56,6 +57,8 @@ input[type="number"] {
   display: inline-block;
   color: inherit;
   transition: background-color 300ms;
+  outline: none;
+  appearance: none;
 
   &:focus,
   &:active {

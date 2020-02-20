@@ -6,14 +6,15 @@ import {
   IconEnums,
   ValidationTypeEnums,
   IInputCallback,
+  DesignEnums,
+  IFieldNameToType,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
-import getFormElementType from "../../../lib/input.helpers";
+import fieldNameToType from "../../../lib/input.helpers";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
-import { VDESIGN } from "../../../store/constant-enums";
 import ViewContext from "../../../views";
 import { uuid } from "@nano-sql/core/lib/utilities";
 
@@ -23,8 +24,8 @@ import isPostalCode from "validator/lib/isPostalCode";
 import isNumeric from "validator/lib/isNumeric";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Input element:
@@ -48,7 +49,7 @@ function Input({
     `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
   );
   const [isValid, setIsValid] = useState<boolean>(true);
-  const { type, ValidationType } = getFormElementType(name); // input type (text, tel, mail etc...)
+  const { type, validationType }: IFieldNameToType = fieldNameToType.get(name); // input type (text, tel, mail etc...)
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -75,7 +76,7 @@ function Input({
   useEffect(() => {
     if (validate) {
       if (required || `${val}`.length > 0) {
-        switch (ValidationType) {
+        switch (validationType) {
           case ValidationTypeEnums.MAIL: {
             setIsValid(isEmail(`${val}`));
             break;
@@ -94,6 +95,10 @@ function Input({
             setIsValid(isPostalCode(`${val}`, "DE"));
             break;
           }
+          case ValidationTypeEnums.DATE: {
+            setIsValid(isPostalCode(`${val}`, "DE"));
+            break;
+          }
           default:
             setIsValid(`${val}`.length > 0);
         }
@@ -107,7 +112,7 @@ function Input({
   }, [
     setIsValid,
     required,
-    ValidationType,
+    validationType,
     val,
     validate,
     updateParentCallback,

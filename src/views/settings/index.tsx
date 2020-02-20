@@ -1,13 +1,13 @@
 import React from "react";
 import Settings from "../../components/settings";
 import DefaultLayout from "../../layout/layout.default";
-import { VDESIGN } from "../../store/constant-enums";
 import ViewContext from "../index";
+import { DesignEnums } from "../../__typings/interfaces.d";
 function SettingsView() {
   return (
-    <ViewContext.Provider value={VDESIGN.DESIGN_VIEW_SECONDARY}>
+    <ViewContext.Provider value={DesignEnums.SECONDARY_VIEW}>
       <DefaultLayout>
-        <Settings view={VDESIGN.DESIGN_VIEW_SECONDARY} />
+        <Settings view={DesignEnums.SECONDARY_VIEW} />
       </DefaultLayout>
     </ViewContext.Provider>
   );

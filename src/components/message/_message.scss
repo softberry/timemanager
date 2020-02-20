@@ -32,10 +32,10 @@
 }
 
 .Dialog-#{$theme} {
-  &__MESSAGES_INFO,
-  &__MESSAGES_WARNING,
-  &__MESSAGES_ERROR,
-  &__CONFIRM_DELETE_CONTACT {
+  &__INFO,
+  &__WARNING,
+  &__ERROR,
+  &__CONFIRM {
     &--primary {
       @include dialog(
         color-palette("primary", "simple", "background"),

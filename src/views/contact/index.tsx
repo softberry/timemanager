@@ -3,10 +3,9 @@ import {
   IContactViewProps,
   IContactsTableModel,
   IMessageTypeEnums,
+  DesignEnums,
 } from "../../__typings/interfaces.d";
 import { useSelector, useDispatch } from "react-redux";
-
-import { VDESIGN } from "../../store/constant-enums";
 
 import DefaultLayout from "../../layout/layout.default";
 
@@ -51,7 +50,7 @@ function ContactView({ match }: IContactViewProps) {
   }, [queryState]);
 
   return (
-    <ViewContext.Provider value={VDESIGN.DESIGN_VIEW_SECONDARY}>
+    <ViewContext.Provider value={DesignEnums.SECONDARY_VIEW}>
       <DefaultLayout>
         {queryState === "READY" && (
           <ContactDetails type={match.params.type} contact={table} />

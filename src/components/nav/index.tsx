@@ -8,12 +8,11 @@ import { useHistory } from "react-router-dom";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
-import { VDESIGN } from "../../store/constant-enums";
-import { IconEnums } from "../../__typings/interfaces.d";
+import { IconEnums, DesignEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
-stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
-stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
+stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 function NavBack({ index, goBack, theme, styles }: any) {
   const disabled = !!(index === 0);
@@ -56,7 +55,7 @@ function Nav() {
         <ViewTitle />
       </div>
       <div className={styles[`SearchNav-${theme}`]}>
-        <AutoComplete variant={VDESIGN.DESIGN_VIEW_PRIMARY} />
+        <AutoComplete variant={DesignEnums.PRIMARY_VIEW} />
       </div>
     </nav>
   );

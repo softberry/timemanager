@@ -3,8 +3,8 @@ import React from "react";
 import { random } from "faker";
 import Badge from "../../__ui/badge";
 import StoryPage from "../story-page";
+import { DesignEnums } from "../../__typings/interfaces.d";
 
-import { VDESIGN } from "../../store/constant-enums";
 export default {
   title: "Badges",
   parameters: {
@@ -17,7 +17,7 @@ const content = random.number(99);
 export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <Badge content={content} view={VDESIGN.DESIGN_VIEW_PRIMARY} />
+      <Badge content={content} view={DesignEnums.PRIMARY_VIEW} />
     </StoryPage>
   );
 };
@@ -25,7 +25,7 @@ export const Primary = () => {
 export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <Badge content={content} view={VDESIGN.DESIGN_VIEW_SECONDARY} />
+      <Badge content={content} view={DesignEnums.SECONDARY_VIEW} />
     </StoryPage>
   );
 };
