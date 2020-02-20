@@ -10,7 +10,6 @@ const stylesMap = new Map();
 stylesMap.set(VDESIGN.DESIGN_THEME_OCEAN, themeOcean);
 stylesMap.set(VDESIGN.DESIGN_THEME_DEFAULT, themeDefault);
 
-
 const Card: FunctionComponent = ({ children }): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
