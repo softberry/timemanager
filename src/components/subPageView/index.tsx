@@ -36,7 +36,7 @@ function SubPageView() {
     if (subPage.type === ISubPageViewActionTypes.OUT) {
       setTimeout(() => {
         dispatch({ type: ISubPageViewActionTypes.HIDE });
-      }, 500);
+      }, 280);
     }
   }, [subPage, dispatch]);
 
