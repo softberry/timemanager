@@ -21,18 +21,24 @@ const Mail: IFieldNameToType = {
   validationType: ValidationTypeEnums.MAIL,
 };
 
-const fieldNameToType = new Map();
+const fieldNameToTypeMap = new Map();
 
-fieldNameToType.set("name", Text);
-fieldNameToType.set("surname", Text);
-fieldNameToType.set("street", Text);
-fieldNameToType.set("city", Text);
-fieldNameToType.set("zip", Text);
-fieldNameToType.set("tel", Phone);
-fieldNameToType.set("mobile", Phone);
-fieldNameToType.set("mail", Mail);
+fieldNameToTypeMap.set("name", Text);
+fieldNameToTypeMap.set("surname", Text);
+fieldNameToTypeMap.set("street", Text);
+fieldNameToTypeMap.set("city", Text);
+fieldNameToTypeMap.set("zip", Text);
+fieldNameToTypeMap.set("tel", Phone);
+fieldNameToTypeMap.set("mobile", Phone);
+fieldNameToTypeMap.set("mail", Mail);
 
-fieldNameToType.set("start", DateTimeLocal);
-fieldNameToType.set("finsih", DateTimeLocal);
+fieldNameToTypeMap.set("start", DateTimeLocal);
+fieldNameToTypeMap.set("finsih", DateTimeLocal);
+
+function fieldNameToType(fieldName: string) {
+  if (fieldNameToTypeMap.has(fieldName))
+    return fieldNameToTypeMap.get(fieldName);
+  return Text;
+}
 
 export { fieldNameToType as default };

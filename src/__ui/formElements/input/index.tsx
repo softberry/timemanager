@@ -49,7 +49,7 @@ function Input({
     `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
   );
   const [isValid, setIsValid] = useState<boolean>(true);
-  const { type, validationType }: IFieldNameToType = fieldNameToType.get(name); // input type (text, tel, mail etc...)
+  const { type, validationType }: IFieldNameToType = fieldNameToType(name); // input type (text, tel, mail etc...)
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);

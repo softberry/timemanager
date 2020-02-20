@@ -22,14 +22,14 @@ export const Primary = () => {
         validate={true}
       ></Input>
       <Input
-        name="Surname"
+        name="surname"
         uniqueName="Surname"
         value={name.lastName()}
         required={false}
         validate={true}
       ></Input>
       <Input
-        name="City"
+        name="city"
         uniqueName="City"
         value={address.city()}
         required={false}
@@ -50,14 +50,14 @@ export const secondary: any = () => {
         validate={true}
       ></Input>
       <Input
-        name="Surname"
+        name="surname"
         uniqueName="Surname"
         value={name.lastName()}
         required={false}
         validate={true}
       ></Input>
       <Input
-        name="City"
+        name="city"
         uniqueName="City"
         value={address.city()}
         required={false}
