@@ -35,8 +35,19 @@
   top: 0;
   right: 0;
   bottom: 0;
+}
+.Backdrop-#{$theme} {
   background-color: rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  transition: all 300ms;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  &:active {
+    background-color: rgba(30, 0, 0, 0.25);
+  }
 }
 
 .Content-#{$theme} {
@@ -48,8 +59,8 @@
   }
   &--secondary {
     @include content(
-      color-palette("secondary", "simple", "background"),
-      color-palette("secondary", "simple", "text")
+      color-palette("secondary", "main", "background"),
+      color-palette("secondary", "main", "text")
     );
   }
 }

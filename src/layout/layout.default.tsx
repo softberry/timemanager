@@ -3,6 +3,8 @@ import React, { useState, useContext, useEffect } from "react";
 import Nav from "../components/nav";
 import Footer from "../components/footer";
 
+import SubPageView from "../components/subPageView";
+
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../__ui/typography";
@@ -34,6 +36,7 @@ function DefaultLayout({ children }: any) {
         {children}
       </main>
       <Footer />
+      <SubPageView />
     </section>
   );
 }

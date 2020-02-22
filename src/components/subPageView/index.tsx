@@ -44,6 +44,7 @@ function SubPageView() {
   if (subPage.type === SubPageViewActionTypes.HIDE) return <></>;
   return (
     <div className={styles[`SubPageView-${theme}`]}>
+      <div className={styles[`Backdrop-${theme}`]}></div>
       <div
         className={styles[`Content-${theme}--${view}`]}
         data-hide-subpage={subPage.type === SubPageViewActionTypes.OUT}

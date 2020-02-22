@@ -5,11 +5,11 @@ import {
   ButtonAlignmentEnums,
   IconEnums,
   SubPageViewActionTypes,
-  ValidationTypeEnums,
 } from "../../__typings/interfaces.d";
 import { useDispatch } from "react-redux";
-import Input from "../../__ui/formElements";
 
+import TimeLogs from "./timelogs";
+import MaterialLogs from "./materiallogs";
 interface IWorkLogsProps {
   children?: ReactNode;
   contactId: string;
@@ -17,29 +17,27 @@ interface IWorkLogsProps {
 
 const WorkLogs = ({ children, contactId }: IWorkLogsProps): ReactElement => {
   const dispatch = useDispatch();
+
+  const createWorklogHandler = () => {
+    dispatch({
+      type: SubPageViewActionTypes.SHOW,
+      caption: "New Worklog",
+      content: (
+        <>
+          <p>Work (Assigmnent) Title</p>
+          <p>Work (Assigmnent) Description (Sub Title)</p>
+          <TimeLogs />
+          <MaterialLogs />
+        </>
+      ),
+    });
+  };
   return (
     <>
       <Button
         icon={IconEnums.ADD}
         isDisabled={false}
-        onClick={() => {
-          dispatch({
-            type: SubPageViewActionTypes.SHOW,
-            caption: "New Worklog",
-            content: (
-              <>
-                <Input
-                  name="start"
-                  required={true}
-                  validate={true}
-                  validationType={ValidationTypeEnums.DATE}
-                  uniqueName={"abc"}
-                  value={new Date(Date.now())}
-                />
-              </>
-            ),
-          });
-        }}
+        onClick={createWorklogHandler}
         align={ButtonAlignmentEnums.CENTER}
         type={ButtonTypeEnums.SIMPLE}
       >

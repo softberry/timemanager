@@ -17,7 +17,7 @@ import SettingsView from "./views/settings";
 //---
 import ContactView from "./views/contact";
 import Message from "./components/message";
-import SubPageView from "./components/subPageView";
+
 import { IDesign, DesignEnums, UserInfo } from "./__typings/interfaces.d";
 
 const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
@@ -50,7 +50,6 @@ function Page() {
             <Route exact path="/contact/:type/:id" component={ContactView} />
           </Switch>
         </NanoDataBase>
-        <SubPageView />
         <Message />
       </Typography>
     </Router>

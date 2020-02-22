@@ -1,10 +1,10 @@
 @mixin card($variant, $type) {
-  background-color: color-palette($variant, "cart", "background");
-  color: color-palette($variant, "cart", "text");
+  background-color: color-palette($variant, "card", "background");
+  color: color-palette($variant, "card", "text");
   padding: 0.5rem 1rem;
   box-shadow: 0 0 2px 0;
   border-radius: 4px;
-  margin-bottom: rem(0.5);
+  margin: 0 2px rem(0.5);
 }
 @mixin card-title($variant, $type) {
   font-size: rem(1.2);
