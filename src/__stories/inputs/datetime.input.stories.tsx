@@ -11,9 +11,10 @@ export default {
 };
 
 export const Primary = () => {
+  const props = { step: 15 };
   return (
     <StoryPage viewType="PrimaryView">
-      <DateTime />
+      <DateTime {...props} />
     </StoryPage>
   );
 };
