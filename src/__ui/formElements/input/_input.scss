@@ -1,13 +1,6 @@
 @import "../form-mixins";
 $bg-active: rgba(125, 125, 125, 0.125);
 
-@mixin input-wrapper() {
-  position: relative;
-  border: none;
-  margin-bottom: 0.25 * $font-size;
-  border-bottom: transparent 2px solid;
-}
-
 .Input-#{$theme} {
   &-primary {
     @include input-wrapper();

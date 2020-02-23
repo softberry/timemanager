@@ -8,8 +8,6 @@ import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 import { DesignEnums } from "../../__typings/interfaces.d";
 
-// import TYPES from "../../store/action-types";
-
 const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);

@@ -8,10 +8,6 @@ const Text: IFieldNameToType = {
   validationType: ValidationTypeEnums.TEXT,
 };
 
-const DateTimeLocal: IFieldNameToType = {
-  type: "datetime-local",
-  validationType: ValidationTypeEnums.DATE,
-};
 const Phone: IFieldNameToType = {
   type: "phone",
   validationType: ValidationTypeEnums.PHONE,
@@ -32,13 +28,13 @@ fieldNameToTypeMap.set("tel", Phone);
 fieldNameToTypeMap.set("mobile", Phone);
 fieldNameToTypeMap.set("mail", Mail);
 
-fieldNameToTypeMap.set("start", DateTimeLocal);
-fieldNameToTypeMap.set("finsih", DateTimeLocal);
-
 function fieldNameToType(fieldName: string) {
   if (fieldNameToTypeMap.has(fieldName))
     return fieldNameToTypeMap.get(fieldName);
   return Text;
 }
 
-export { fieldNameToType as default };
+const correctedTimeFromStep = (minutes: number, step: number) => {
+  return minutes + step - (minutes % step);
+};
+export { fieldNameToType as default, correctedTimeFromStep };

@@ -1,0 +1,44 @@
+@import "../form-mixins";
+$bg-active: rgba(125, 125, 125, 0.125);
+
+.DateTime-#{$theme} {
+  &-primary {
+    @include input-wrapper();
+    &[data-valid="false"] {
+      border-bottom: color-palette("primary", "error", "background") 2px solid;
+    }
+  }
+
+  &-secondary {
+    @include input-wrapper();
+    &[data-valid="false"] {
+      border-bottom: color-palette("secondary", "error", "background") 2px solid;
+    }
+  }
+
+  &-Layout {
+    display: grid;
+    grid-template-areas: "date start end diff";
+    grid-template-columns: rem(12) rem(8) rem(8) 1fr;
+  }
+
+  &-Date {
+    grid-area: date;
+  }
+
+  &-Start {
+    grid-area: start;
+  }
+
+  &-End {
+    grid-area: end;
+  }
+
+  &-Diff {
+    grid-area: diff;
+  }
+
+  &-input {
+    @include form-input();
+  }
+}

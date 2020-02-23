@@ -1,5 +1,6 @@
 import React, { ReactElement, ReactNode } from "react";
 import Button from "../../__ui/buttons/button";
+import { CardFooter } from "../../__ui/card";
 import {
   ButtonTypeEnums,
   ButtonAlignmentEnums,
@@ -8,6 +9,7 @@ import {
 } from "../../__typings/interfaces.d";
 import { useDispatch } from "react-redux";
 
+import WorkLogsTitle from "./workLogsTitle";
 import TimeLogs from "./timelogs";
 import MaterialLogs from "./materiallogs";
 interface IWorkLogsProps {
@@ -24,10 +26,29 @@ const WorkLogs = ({ children, contactId }: IWorkLogsProps): ReactElement => {
       caption: "New Worklog",
       content: (
         <>
-          <p>Work (Assigmnent) Title</p>
-          <p>Work (Assigmnent) Description (Sub Title)</p>
+          <WorkLogsTitle />
           <TimeLogs />
           <MaterialLogs />
+          <CardFooter>
+            <Button
+              icon={IconEnums.CLEAR}
+              isDisabled={false}
+              onClick={() => {}}
+              align={ButtonAlignmentEnums.LEFT}
+              type={ButtonTypeEnums.WARNING}
+            >
+              Cancel
+            </Button>
+            <Button
+              icon={IconEnums.ADD}
+              isDisabled={false}
+              onClick={() => {}}
+              align={ButtonAlignmentEnums.RIGHT}
+              type={ButtonTypeEnums.POISITIVE}
+            >
+              Save
+            </Button>
+          </CardFooter>
         </>
       ),
     });

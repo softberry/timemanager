@@ -299,7 +299,7 @@ export interface ISubpageState {
 }
 
 export interface IFieldNameToType {
-  type: "text" | "number" | "phone" | "mail" | "datetime-local";
+  type: "text" | "number" | "phone" | "mail" | "date" | "time";
   validationType: ValidationTypeEnums;
 }
 

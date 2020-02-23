@@ -20,7 +20,7 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import ViewContext from "../../views/index";
-import WorkLogs from "../worklogs";
+import WorkLogs from "../../subViews/subWorkLogs";
 
 const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);

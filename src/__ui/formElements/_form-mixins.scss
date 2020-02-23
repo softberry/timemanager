@@ -2,7 +2,7 @@
   $bg: rgba(0, 0, 0, 0);
 
   &[type="date"],
-  &[type="datetime-local"],
+  &[type="time"],
   &[type="text"],
   &[type="phone"],
   &[type="mail"],
@@ -16,6 +16,13 @@
       background-color: color-palette("primary", "selected", "background");
     }
   }
+}
+
+@mixin input-wrapper() {
+  position: relative;
+  border: none;
+  margin-bottom: 0.25 * $font-size;
+  border-bottom: transparent 2px solid;
 }
 
 @mixin option-container($type: "check") {

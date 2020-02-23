@@ -1,7 +1,7 @@
 import React from "react";
 import AutoComplete from "../../__ui/autocomplete";
 
-import ViewTitle from "../view-title";
+import ViewTitle from "../viewTitle";
 import Icon from "../../__ui/icon";
 import { useHistory } from "react-router-dom";
 
