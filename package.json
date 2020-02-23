@@ -87,5 +87,7 @@
       "pre-commit": "yarn prettify:check && lint-staged"
     }
   },
-  "lint-staged":{}
+  "lint-staged": {
+    "*.tsx": "eslint --fix"
+  }
 }
