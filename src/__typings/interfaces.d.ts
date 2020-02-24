@@ -1,4 +1,5 @@
 import { uuid } from "@nano-sql/core/lib/utilities";
+import { Moment } from "moment";
 
 export interface IDesignModel {
   view: string;
@@ -83,10 +84,21 @@ export interface IInputProps {
   infoCallback?: (any) => any;
 }
 
+interface IDateTimeProps {
+  /** Start property of a Worklog */
+  start?: Moment;
+  /** End property of a Worklog */
+  end?: Moment;
+  /** Increment Steps of work time logs */
+  step: number;
+}
+
 // export interface IMultiInputProps extends Omit<IInputProps>, "value" {
 //   values?: string[];
 // }
+
 /**
+ *
  * props for StartStopButton
  */
 export interface IStartStopButtonProps {
@@ -301,6 +313,12 @@ export interface ISubpageState {
 export interface IFieldNameToType {
   type: "text" | "number" | "phone" | "mail" | "date" | "time";
   validationType: ValidationTypeEnums;
+}
+
+interface ICorrectedTimeFromStep {
+  minutes: number;
+  step: number;
+  immediate: boolean;
 }
 
 /**

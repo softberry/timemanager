@@ -1,6 +1,7 @@
 import {
   ValidationTypeEnums,
   IFieldNameToType,
+  ICorrectedTimeFromStep,
 } from "../__typings/interfaces.d";
 
 const Text: IFieldNameToType = {
@@ -34,7 +35,26 @@ function fieldNameToType(fieldName: string) {
   return Text;
 }
 
-const correctedTimeFromStep = (minutes: number, step: number) => {
-  return minutes + step - (minutes % step);
+const correctedTimeFromStep = ({
+  minutes = 0,
+  step = 0,
+  immediate = false,
+}: ICorrectedTimeFromStep) => {
+  const rest = minutes % step;
+  const increaseImmediately = rest === 0 ? 0 : 1;
+  const increaseAfter = rest >= 0 ? 0 : 1;
+  return (
+    minutes - rest + (immediate ? increaseImmediately : increaseAfter) * step
+  );
 };
-export { fieldNameToType as default, correctedTimeFromStep };
+
+interface ITimeDiff {
+  hours: number;
+  minutes: number;
+}
+const timeDiffToString = ({ hours = 0, minutes = 0 }: ITimeDiff) => {
+  const hoursToString = hours > 0 ? `${hours} Hours ` : "";
+  const minutesToString = minutes > 0 ? `${minutes} Minutes` : "";
+  return `${hoursToString + minutesToString}`;
+};
+export { fieldNameToType as default, correctedTimeFromStep, timeDiffToString };

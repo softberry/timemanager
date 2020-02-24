@@ -18,8 +18,10 @@ $bg-active: rgba(125, 125, 125, 0.125);
 
   &-Layout {
     display: grid;
-    grid-template-areas: "date start end diff";
-    grid-template-columns: rem(12) rem(8) rem(8) 1fr;
+    grid-template-areas:
+      "date start end"
+      "diff diff diff";
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   &-Date {

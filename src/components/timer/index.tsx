@@ -106,6 +106,7 @@ export function Timer(): JSX.Element {
   //TODO: createWorkLogFromCurrentCounter
   // Create new WorkLog when timers stopped #42
   // https://github.com/softberry/timemanager/issues/42
+  // https://github.com/softberry/timemanager/issues/63
 
   const onCompleteEventHandler = () => {
     timerActiveState ? stopTimer() : startTimer();
