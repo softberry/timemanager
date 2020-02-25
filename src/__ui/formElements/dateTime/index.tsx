@@ -44,7 +44,7 @@ function DateTime({
   const [startTime, setStartTime] = useState(moment(start).format("HH:mm"));
   const [finishTime, setEndTime] = useState(moment(finish).format("HH:mm"));
   const [diffTime, setDiffTime] = useState("??:??");
-  const id = { date: uuid(), start: uuid(), finish: uuid() };
+  const id = { date: uuid(), start: uuid(), finish: uuid(), diff: uuid() };
 
   const diffTimeCallback = useCallback(() => {
     const startTimeFromString = moment(`${currentDate} ${startTime}`);
@@ -153,7 +153,14 @@ function DateTime({
           />
         </div>
         <div className={styles[`DateTime-${theme}-Layout-Diff`]}>
+          <label
+            htmlFor={id.diff}
+            className={styles[`DateTime-${theme}-label`]}
+          >
+            Time
+          </label>
           <input
+            id={id.diff}
             type="text"
             className={styles[`DateTime-${theme}-input`]}
             value={diffTime}

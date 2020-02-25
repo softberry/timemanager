@@ -53,8 +53,8 @@ interface ITimeDiff {
   minutes: number;
 }
 const timeDiffToString = ({ hours = 0, minutes = 0 }: ITimeDiff) => {
-  const hoursToString = hours > 0 ? `${hours} Hours ` : "";
-  const minutesToString = minutes > 0 ? `${minutes} Minutes` : "";
+  const hoursToString = hours > 0 ? `${hours} Hours ` : "--:";
+  const minutesToString = minutes > 0 ? `${minutes} Minutes` : "--";
   return `${hoursToString + minutesToString}`;
 };
 export { fieldNameToType as default, correctedTimeFromStep, timeDiffToString };
