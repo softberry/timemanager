@@ -1,4 +1,4 @@
-@mixin settings() {
+@mixin options() {
   @include view();
 }
 
@@ -6,17 +6,17 @@
   padding: 0.5 * $font-size;
 }
 
-.Settings-#{$theme} {
+.Options-#{$theme} {
   &-primary {
     @include layer-bg("primary");
     @include layer-color("primary");
-    @include settings();
+    @include options();
   }
 
   &-secondary {
     @include layer-bg("secondary");
     @include layer-color("secondary");
-    @include settings();
+    @include options();
   }
 }
 

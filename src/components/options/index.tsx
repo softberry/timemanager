@@ -17,18 +17,18 @@ const stylesMap = new Map();
 
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
-function Settings({ view }: IDesignModel) {
+function Options({ view }: IDesignModel) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const viewClass = styles[`Settings-${theme}-${view}`];
+  const viewClass = styles[`Options-${theme}-${view}`];
   const dispatch = useDispatch();
   const currentTheme = useSelector((state: any) => state.design.theme);
-  dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Settings" });
+  dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Options" });
   return (
     <section className={viewClass}>
-      <div className={styles[`OptionListName-${theme}`]}>Theme</div>
-      <div className={styles[`SettingsColRight-${theme}`]}>
+      <div>Theme</div>
+      <div>
         <RadioGroup
           onChange={(val: string) => {
             dispatch({
@@ -53,4 +53,4 @@ function Settings({ view }: IDesignModel) {
   );
 }
 
-export default Settings;
+export default Options;

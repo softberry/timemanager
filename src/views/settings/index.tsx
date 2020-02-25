@@ -1,5 +1,5 @@
 import React from "react";
-import Settings from "../../components/settings";
+import Settings from "../../components/options";
 import DefaultLayout from "../../layout/layout.default";
 import ViewContext from "../index";
 import { DesignEnums } from "../../__typings/interfaces.d";
