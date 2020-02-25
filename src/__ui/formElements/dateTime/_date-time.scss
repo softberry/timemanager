@@ -1,5 +1,4 @@
 @import "../form-mixins";
-$bg-active: rgba(125, 125, 125, 0.125);
 
 .DateTime-#{$theme} {
   &-primary {
@@ -17,27 +16,40 @@ $bg-active: rgba(125, 125, 125, 0.125);
   }
 
   &-Layout {
+    @include WidthUp("x-small") {
+      grid-template-areas:
+        "date start end"
+        "diff diff diff";
+      grid-template-columns: 1fr auto auto;
+    }
+    @include WidthUp("small") {
+      grid-template-areas: "date start end diff";
+      grid-template-columns: 1fr auto auto auto;
+    }
     display: grid;
     grid-template-areas:
-      "date start end"
-      "diff diff diff";
-    grid-template-columns: 1fr 1fr 1fr;
+      "date start"
+      "diff end";
+    grid-template-columns: min-content auto;
+    &-Date {
+      grid-area: date;
+    }
+
+    &-Start {
+      grid-area: start;
+    }
+
+    &-End {
+      grid-area: end;
+    }
+
+    &-Diff {
+      grid-area: diff;
+    }
   }
 
-  &-Date {
-    grid-area: date;
-  }
-
-  &-Start {
-    grid-area: start;
-  }
-
-  &-End {
-    grid-area: end;
-  }
-
-  &-Diff {
-    grid-area: diff;
+  &-label {
+    @include label();
   }
 
   &-input {

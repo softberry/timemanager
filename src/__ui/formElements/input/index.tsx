@@ -86,8 +86,8 @@ function Input({
             break;
           }
           case ValidationTypeEnums.PHONE: {
-            //TODO: Use phone number validation as as you type from :
-            //https://www.npmjs.com/package/libphonenumber-js
+            //TODO: Phone number validation - Implement as you type #64
+            //https://github.com/softberry/timemanager/issues/64
             setIsValid(isNumeric(`${val}`));
             break;
           }

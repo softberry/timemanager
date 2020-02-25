@@ -17,30 +17,7 @@ $bg-active: rgba(125, 125, 125, 0.125);
   }
 
   &-label {
-    display: block;
-    position: absolute;
-    font-weight: $font-weight-bold;
-    font-size: 0.75 * $font-size;
-    transition: all 300ms;
-    text-transform: capitalize;
-
-    &[data-type="PLACEHOLDER"] {
-      font-size: 1 * $font-size;
-      transform: translateY(50%);
-      font-weight: $font-weight-normal;
-      opacity: 0.5;
-      font-style: italic;
-      text-shadow: 0 0px 1px currentColor;
-      margin: $font-size auto auto $font-size;
-      line-height: 1;
-    }
-
-    &[data-type="LABEL"] {
-      display: block;
-      position: absolute;
-      margin: 0;
-      font-weight: $font-weight-bold;
-    }
+    @include label();
   }
 
   &-Wrapper {

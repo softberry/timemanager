@@ -1,7 +1,7 @@
 import React from "react";
 import { DateTime } from "../../__ui/formElements";
 import StoryPage from "../story-page";
-import { IDateTimeProps } from "../../__typings/interfaces";
+import { IDateTimeProps, DateTimeValue } from "../../__typings/interfaces.d";
 import moment from "moment";
 
 export default {
@@ -14,8 +14,11 @@ export default {
 };
 const props: IDateTimeProps = {
   start: moment(),
-  end: moment().add(16, "minute"),
+  finish: moment().add(16, "minute"),
   step: 15,
+  infoCallback: ({ start, finish }: DateTimeValue) => {
+    console.log(start, finish);
+  },
 };
 export const Primary = () => {
   return (

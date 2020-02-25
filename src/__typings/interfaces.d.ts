@@ -56,7 +56,7 @@ export interface IEditableInputProps {
   fieldName: keyof IContactsTableModel;
   /** A Contact from Database */
   contact: IContactsTableModel;
-  /** Callback funtion that helps to input validation state to sync with its parent */
+  /** Callback function that helps to input validation state to sync with its parent */
   infoCallback: (returnedValue: IInputCallback) => any;
 }
 /** Reaturn value of ``infoCallback`` */
@@ -80,17 +80,24 @@ export interface IInputProps {
   validationType?: ValidationTypeEnums;
   /** Should be value of field to be validated. */
   validate: boolean;
-  /** Callback funtion that helps to input validation state to sync with its parent */
+  /** Callback function that helps to input validation state to sync with its parent */
   infoCallback?: (any) => any;
 }
 
+interface DateTimeValue {
+  start: string;
+  finish: string;
+  valid: boolean;
+}
 interface IDateTimeProps {
   /** Start property of a Worklog */
   start?: Moment;
   /** End property of a Worklog */
-  end?: Moment;
+  finish?: Moment;
   /** Increment Steps of work time logs */
   step: number;
+  /** Callback function that helps to input validation state to sync with its parent */
+  infoCallback: (DateTimeValue) => any;
 }
 
 // export interface IMultiInputProps extends Omit<IInputProps>, "value" {
