@@ -4,7 +4,7 @@ import Input, { DateTime } from "../../__ui/formElements/index";
 import Card, { CardTitle, CardBody } from "../../__ui/card";
 import { DateTimeValue, IInputCallback } from "../../__typings/interfaces.d";
 
-const TimeLogs = ({ id = 0 }) => {
+function TimeLogs({ id = 0 }) {
   function dateTimeLohHandler({ start, finish, valid }: DateTimeValue) {
     console.log(start, finish, valid);
   }
@@ -30,6 +30,6 @@ const TimeLogs = ({ id = 0 }) => {
       </Card>
     </>
   );
-};
+}
 
 export default TimeLogs;
