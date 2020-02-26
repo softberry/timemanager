@@ -5,13 +5,13 @@ import { select, text, boolean } from "@storybook/addon-knobs";
 
 import { ButtonLink } from "../../__ui/buttons/button";
 import {
-  IconEnums,
+  IconNameEnums,
   ButtonTypeEnums,
   ButtonAlignmentEnums,
 } from "../../__typings/interfaces.d";
 
 import StoryPage from "../story-page";
-const notes = require("./notes.md");
+import * as notes from "./notes.md";
 
 export default {
   title: "Form Elements/Buttons/Link Buttons",
@@ -27,7 +27,11 @@ export const Primary = () => {
     <StoryPage viewType="PrimaryView">
       <Router>
         <ButtonLink
-          icon={select("Icons", Object.values(IconEnums), IconEnums.ADD)}
+          icon={select(
+            "Icons",
+            Object.values(IconNameEnums),
+            IconNameEnums.ADD
+          )}
           type={select(
             "Button Types",
             Object.values(ButtonTypeEnums),
@@ -53,7 +57,11 @@ export const Secondary = () => {
     <StoryPage viewType="SecondaryView">
       <Router>
         <ButtonLink
-          icon={select("Icons", Object.values(IconEnums), IconEnums.ADD)}
+          icon={select(
+            "Icons",
+            Object.values(IconNameEnums),
+            IconNameEnums.ADD
+          )}
           type={select(
             "Button Types",
             Object.values(ButtonTypeEnums),

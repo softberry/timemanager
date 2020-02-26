@@ -4,7 +4,7 @@ import Icon from "../../__ui/icon";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
-import { IconEnums, DesignEnums } from "../../__typings/interfaces.d";
+import { IconNameEnums, DesignEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
@@ -30,7 +30,7 @@ function AutoComplete({ variant = DesignEnums.PRIMARY_VIEW }: any) {
         <div
           className={styles[`AutoComplete-${theme}-${variant}-inputSearchIcon`]}
         >
-          <Icon>{IconEnums.SEARCH}</Icon>
+          <Icon>{IconNameEnums.SEARCH}</Icon>
         </div>
       </div>
     </div>

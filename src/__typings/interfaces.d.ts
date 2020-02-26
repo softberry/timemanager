@@ -1,5 +1,6 @@
 import { uuid } from "@nano-sql/core/lib/utilities";
 import { Moment } from "moment";
+import { ReactChildren, ReactNode } from "react";
 
 export interface IDesignModel {
   view: string;
@@ -24,6 +25,11 @@ export interface IContactDetailsComponent {
 export interface IContactViewProps {
   match?: any;
   children?: ReactNode;
+}
+
+export interface IEditableDetailsProps {
+  contact: IContactsTableModel;
+  updateContact: (contact: IContactsTableModel, readOnly?: boolean) => any;
 }
 
 export interface ICheckBoxComponentProps extends IRadioItemProps {
@@ -89,6 +95,7 @@ interface DateTimeValue {
   finish: string;
   valid: boolean;
 }
+
 interface IDateTimeProps {
   /** Start property of a Worklog */
   start?: Moment;
@@ -98,6 +105,8 @@ interface IDateTimeProps {
   step: number;
   /** Callback function that helps to input validation state to sync with its parent */
   infoCallback: (DateTimeValue) => any;
+  /** Should Element collapsed or Exapnded  */
+  collapsed: CollapsedState;
 }
 
 // export interface IMultiInputProps extends Omit<IInputProps>, "value" {
@@ -119,7 +128,7 @@ export interface IStartStopButtonProps {
 
 export interface IButtonProps {
   children?: any;
-  icon?: IconEnums;
+  icon?: IconNameEnums;
   align?: ButtonAlignmentEnums;
   onClick: (e: any) => void;
   type: ButtonTypeEnums;
@@ -131,7 +140,7 @@ export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
 }
 
 export interface IMessage {
-  icon: IconEnums;
+  icon: IconNameEnums;
   type: IMessageTypeEnums;
   dialogType: DialogTypes;
   caption?: string;
@@ -150,7 +159,7 @@ export interface IConfirmDeleteContact extends IMessage {
 }
 
 export interface IToolbarButton {
-  type: IconEnums;
+  type: IconNameEnums;
   label?: string;
   disabled?: boolean;
   hidden?: boolean;
@@ -171,6 +180,9 @@ export interface IToolbarButtonState {
 export interface IStateDatabase {
   type: DatabaseActionEnums;
   nSQL: any;
+}
+export interface IStateDatabaseReducer {
+  db: IStateDatabase;
 }
 interface IWorkLogsProps {
   children?: ReactNode;
@@ -298,14 +310,18 @@ export interface IHeadlineBuilderProps extends IHeadlineProps {
 
 /** Material Icon properties */
 export interface IIconProps {
-  children: IconEnums;
+  children: IconNameEnums;
   onClick?: () => any;
-  size?: SizeIconEnums;
+  size?: IconSizeEnums;
 }
 
 export interface IBadgeProps {
   content: number;
   view?: string;
+}
+
+export interface ITippProps {
+  children: ReactChildren | ReactNode;
 }
 
 export interface IWorkListItemEntry {
@@ -320,6 +336,9 @@ export interface ISubpageState {
   content?: ReactChild;
 }
 
+export interface ISubpageStateReducer {
+  subpageview: ISubpageState;
+}
 export interface IFieldNameToType {
   type: "text" | "number" | "phone" | "mail" | "date" | "time";
   validationType: ValidationTypeEnums;
@@ -353,6 +372,10 @@ export enum ViewSettingsEnums {
   UPDATE_TITLE = uuid(),
 }
 
+export interface IMessageContentProps {
+  type?: IMessageTypeEnums;
+}
+
 /** Style definition enums of Message boxes*/
 export enum IMessageTypeEnums {
   INFO = uuid(), //"MESSAGES_INFO",
@@ -384,7 +407,7 @@ export enum UserInfo {
   SELECTED_THEME = "USERSETTINGS_SELECTED_THEME",
 }
 
-export enum IconEnums {
+export enum IconNameEnums {
   ADD = "add",
   ARROW_BACK = "arrow_back",
   ARROW_DOWN = "keyboard_arrow_down",
@@ -450,7 +473,7 @@ export enum ButtonAlignmentEnums {
   INLINE = "inline",
 }
 /** Size enums for Material Icons */
-export enum SizeIconEnums {
+export enum IconSizeEnums {
   SMALL = "SMALL",
   MEDIUM = "MEDIUM",
   LARGE = "LARGE",
@@ -461,4 +484,9 @@ export enum DialogTypes {
   WARNING = "WARNING",
   ERROR = "ERROR",
   CONFIRM = "CONFIRM",
+}
+
+export enum CollapsedState {
+  COLLAPSED = "collapsed",
+  EXPANDED = "expanded",
 }

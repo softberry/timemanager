@@ -1,50 +1,86 @@
 @import "../form-mixins";
 
+@mixin layout($collapsed: false) {
+  @include WidthUp("small") {
+    grid-template-areas:
+      "date start end"
+      "diff diff diff";
+    grid-template-columns: 1fr auto auto;
+
+    @if ($collapsed) {
+      grid-template-areas: "date diff";
+      grid-template-columns: 1fr auto;
+      @include WidthUp("medium") {
+        grid-template-areas: "date start end diff";
+        grid-template-columns: 1fr auto auto auto;
+      }
+    }
+  }
+  display: grid;
+  grid-template-areas:
+    "date start"
+    "diff end";
+  grid-template-columns: min-content auto;
+  @if ($collapsed) {
+    grid-template-areas: "date diff";
+    grid-template-columns: min-content auto;
+  }
+
+  &-Date {
+    grid-area: date;
+  }
+
+  &-Start {
+    grid-area: start;
+    @if ($collapsed) {
+      display: none;
+      @include WidthUp("medium") {
+        display: block;
+      }
+    }
+  }
+
+  &-End {
+    grid-area: end;
+    @if ($collapsed) {
+      display: none;
+      @include WidthUp("medium") {
+        display: block;
+      }
+    }
+  }
+
+  &-Diff {
+    grid-area: diff;
+  }
+}
+
 .DateTime-#{$theme} {
   &-primary {
-    @include input-wrapper();
-    &[data-valid="false"] {
-      border-bottom: color-palette("primary", "error", "background") 2px solid;
-    }
+    @include input-wrapper("primary");
   }
 
   &-secondary {
-    @include input-wrapper();
-    &[data-valid="false"] {
-      border-bottom: color-palette("secondary", "error", "background") 2px solid;
-    }
+    @include input-wrapper("secondary");
   }
 
   &-Layout {
-    @include WidthUp("x-small") {
-      grid-template-areas:
-        "date start end"
-        "diff diff diff";
-      grid-template-columns: 1fr auto auto;
-    }
-    @include WidthUp("small") {
-      grid-template-areas: "date start end diff";
-      grid-template-columns: 1fr auto auto auto;
-    }
-    display: grid;
-    grid-template-areas:
-      "date start"
-      "diff end";
-    grid-template-columns: min-content auto;
-    &-Date {
-      grid-area: date;
+    &-primary {
+      &-collapsed {
+        @include layout(true);
+      }
+      &-expanded {
+        @include layout(false);
+      }
     }
 
-    &-Start {
-      grid-area: start;
-    }
-
-    &-End {
-      grid-area: end;
-    }
-
-    &-Diff {
-      grid-area: diff;
+    &-secondary {
+      &-collapsed {
+        @include layout(true);
+      }
+      &-expanded {
+        @include layout(false);
+      }
     }
   }
 

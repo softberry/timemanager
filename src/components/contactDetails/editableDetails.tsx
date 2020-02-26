@@ -1,7 +1,7 @@
 import React, { useContext, useState, useCallback } from "react";
 import {
   IContactsTableModel,
-  IconEnums,
+  IconNameEnums,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
   IInputProps,
@@ -10,6 +10,7 @@ import {
   IConfirmTypeEnums,
   NewEntryEnums,
   DesignEnums,
+  IEditableDetailsProps,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -22,10 +23,6 @@ import ViewContext from "../../views/index";
 import Input, { MultipleInput } from "../../__ui/formElements";
 import { useSelector, useDispatch } from "react-redux";
 
-interface IEditableDetailsProps {
-  contact: IContactsTableModel;
-  updateContact: (contact: IContactsTableModel, readOnly?: boolean) => any;
-}
 const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
@@ -129,7 +126,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
       <div className={styles[`ContactDetails-${theme}-${view}-Footer`]}>
         {!isNewContact && (
           <Button
-            icon={IconEnums.CLEAR}
+            icon={IconNameEnums.CLEAR}
             align={ButtonAlignmentEnums.INLINE}
             onClick={deleteContacthandler}
             type={ButtonTypeEnums.WARNING}
@@ -139,7 +136,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
           </Button>
         )}
         <Button
-          icon={IconEnums.CHECK_CIRCLE}
+          icon={IconNameEnums.CHECK_CIRCLE}
           align={ButtonAlignmentEnums.INLINE}
           onClick={saveContactDetailsToDatabase}
           type={ButtonTypeEnums.POISITIVE}

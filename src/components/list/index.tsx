@@ -18,11 +18,12 @@ function List({ children }: any) {
   return (
     <>
       <section className={styles[`List-${theme}`]}>
-        {children.map((child: any, key: number) => (
-          <div className={styles[`List-${theme}-Item-${view}`]} key={key}>
-            {child}
-          </div>
-        ))}
+        {children &&
+          children.map((child: any, key: number) => (
+            <div className={styles[`List-${theme}-Item-${view}`]} key={key}>
+              {child}
+            </div>
+          ))}
       </section>
     </>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import {
   IReadOnlyContactProps,
   ButtonAlignmentEnums,
-  IconEnums,
+  IconNameEnums,
   ButtonTypeEnums,
 } from "../../__typings/interfaces.d";
 
@@ -22,7 +22,7 @@ function ReadOnlyDetails({
           {`${contact.name} ${contact.surname}`}
           <Button
             align={ButtonAlignmentEnums.INLINE}
-            icon={IconEnums.EDIT}
+            icon={IconNameEnums.EDIT}
             onClick={() => {
               editContactHandler(contact, false);
             }}
@@ -40,7 +40,7 @@ function ReadOnlyDetails({
         <CardTitle>
           <ButtonLink
             align={ButtonAlignmentEnums.INLINE}
-            icon={IconEnums.MAIL}
+            icon={IconNameEnums.MAIL}
             href={`mailto:${mail}`}
             type={ButtonTypeEnums.SIMPLE}
             isDisabled={mail === undefined}
@@ -48,7 +48,7 @@ function ReadOnlyDetails({
 
           <ButtonLink
             align={ButtonAlignmentEnums.INLINE}
-            icon={IconEnums.SMART_PHONE}
+            icon={IconNameEnums.SMART_PHONE}
             href={`tel:${mobile}`}
             type={ButtonTypeEnums.SIMPLE}
             isDisabled={mobile === undefined}
@@ -56,7 +56,7 @@ function ReadOnlyDetails({
 
           <ButtonLink
             align={ButtonAlignmentEnums.INLINE}
-            icon={IconEnums.PHONE}
+            icon={IconNameEnums.PHONE}
             href={`tel:${tel}`}
             type={ButtonTypeEnums.SIMPLE}
             isDisabled={tel === undefined}

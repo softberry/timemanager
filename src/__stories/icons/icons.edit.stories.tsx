@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "../../__ui/icon";
 import StoryPage from "../story-page";
 
-import { SizeIconEnums, IconEnums } from "../../__typings/interfaces.d";
+import { IconSizeEnums, IconNameEnums } from "../../__typings/interfaces.d";
 export default {
   title: "Icons Set / Edit",
   parameters: {
@@ -15,9 +15,9 @@ export default {
 export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <Icon size={SizeIconEnums.SMALL}>{IconEnums.EDIT}</Icon>
-      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.EDIT}</Icon>
-      <Icon size={SizeIconEnums.LARGE}>{IconEnums.EDIT}</Icon>
+      <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.EDIT}</Icon>
+      <Icon size={IconSizeEnums.MEDIUM}>{IconNameEnums.EDIT}</Icon>
+      <Icon size={IconSizeEnums.LARGE}>{IconNameEnums.EDIT}</Icon>
     </StoryPage>
   );
 };
@@ -25,9 +25,9 @@ export const Primary = () => {
 export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <Icon size={SizeIconEnums.SMALL}>{IconEnums.EDIT}</Icon>
-      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.EDIT}</Icon>
-      <Icon size={SizeIconEnums.LARGE}>{IconEnums.EDIT}</Icon>
+      <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.EDIT}</Icon>
+      <Icon size={IconSizeEnums.MEDIUM}>{IconNameEnums.EDIT}</Icon>
+      <Icon size={IconSizeEnums.LARGE}>{IconNameEnums.EDIT}</Icon>
     </StoryPage>
   );
 };

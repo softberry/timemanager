@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, ReactElement } from "react";
 
 import ViewContext from "../../views/index";
 
@@ -10,9 +10,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   ISubpageState,
   SubPageViewActionTypes,
-  SizeIconEnums,
-  IconEnums,
+  IconSizeEnums,
+  IconNameEnums,
   DesignEnums,
+  ISubpageStateReducer,
 } from "../../__typings/interfaces.d";
 import Icon from "../../__ui/icon";
 
@@ -24,13 +25,13 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
  *
  */
 
-function SubPageView() {
+function SubPageView(): ReactElement {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   const dispatch = useDispatch();
   const subPage: ISubpageState = useSelector(
-    ({ subpageview }: any) => subpageview
+    ({ subpageview }: ISubpageStateReducer) => subpageview
   );
 
   useEffect(() => {
@@ -52,11 +53,11 @@ function SubPageView() {
         <div className={styles[`Caption-${theme}`]}>{subPage.caption}</div>
         <div
           className={styles[`Close-${theme}`]}
-          onClick={() => {
+          onClick={(): void => {
             dispatch({ type: SubPageViewActionTypes.OUT });
           }}
         >
-          <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
+          <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLOSE}</Icon>
         </div>
         <div className={styles[`Text-${theme}`]}>{subPage.content}</div>
       </div>

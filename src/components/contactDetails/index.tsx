@@ -87,7 +87,6 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
           editContactHandler={switchView}
         />
         <WorkLogs contactId={currentContact.id} />
-        {/* <Worklogs {...currentContact} /> */}
       </div>
     );
   }

@@ -6,7 +6,7 @@ import { withKnobs } from "@storybook/addon-knobs";
 import {
   SubPageViewActionTypes,
   ButtonTypeEnums,
-  IconEnums,
+  IconNameEnums,
   ButtonAlignmentEnums,
 } from "../../__typings/interfaces.d";
 
@@ -17,7 +17,8 @@ import SubPageView from "../../components/subPageView";
 import StoryPage from "../story-page";
 import Button from "../../__ui/buttons/button";
 
-const notes = require("./notes.md");
+import * as notes from "./notes.md";
+
 export default {
   title: "Sub Page View",
   parameters: {
@@ -52,7 +53,7 @@ function SubPageStorySample() {
         isDisabled={false}
         onClick={showSubPage}
         type={ButtonTypeEnums.POISITIVE}
-        icon={IconEnums.ARROW_FORWARD}
+        icon={IconNameEnums.ARROW_FORWARD}
         align={ButtonAlignmentEnums.CENTER}
       ></Button>
     </div>

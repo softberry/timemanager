@@ -1,52 +1,31 @@
 import React, { ReactElement } from "react";
+import Tipp from "../../__ui/tipp";
+import Button from "../../__ui/buttons/button";
+// import Input, { DateTime } from "../../__ui/formElements/index";
 
-import Input, { DateTime } from "../../__ui/formElements/index";
-import { DateTimeValue, IInputCallback } from "../../__typings/interfaces.d";
+import {
+  IconNameEnums,
+  ButtonTypeEnums,
+  ButtonAlignmentEnums,
+} from "../../__typings/interfaces.d";
 
-import List from "../../components/list";
+import { CardTitle } from "../../__ui/card";
 
 function TimeLogs({ id = 0 }): ReactElement {
-  function dateTimeLohHandler({ start, finish, valid }: DateTimeValue): void {
-    console.log(start, finish, valid);
-  }
-  function updateNotesHandler(note: IInputCallback): void {
-    console.log(note);
+  function createTimeLoghandler(): void {
+    console.log("This function is a placeholder.");
   }
   return (
     <>
-      <div>WORKED HOURS</div>
-      <List>
-        <div>
-          <DateTime step={15} infoCallback={dateTimeLohHandler} />
-          <Input
-            infoCallback={updateNotesHandler}
-            name={"Notes"}
-            required={false}
-            validate={false}
-            uniqueName={""}
-          />
-        </div>
-        <div>
-          <DateTime step={15} infoCallback={dateTimeLohHandler} />
-          <Input
-            infoCallback={updateNotesHandler}
-            name={"Notes"}
-            required={false}
-            validate={false}
-            uniqueName={""}
-          />
-        </div>
-        <div>
-          <DateTime step={15} infoCallback={dateTimeLohHandler} />
-          <Input
-            infoCallback={updateNotesHandler}
-            name={"Notes"}
-            required={false}
-            validate={false}
-            uniqueName={""}
-          />
-        </div>
-      </List>
+      <CardTitle>Spent time</CardTitle>
+      <Tipp>Add Remove logs that you spend for this assignment here.</Tipp>
+      <Button
+        icon={IconNameEnums.ADD}
+        isDisabled={false}
+        type={ButtonTypeEnums.SIMPLE}
+        align={ButtonAlignmentEnums.CENTER}
+        onClick={createTimeLoghandler}
+      />
     </>
   );
 }

@@ -1,29 +1,29 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Button from "../../__ui/buttons/button";
+import Tipp from "../../__ui/tipp";
 import {
   ButtonTypeEnums,
   ButtonAlignmentEnums,
-  IconEnums,
+  IconNameEnums,
 } from "../../__typings/interfaces.d";
-import Card, { CardBody, CardTitle } from "../../__ui/card";
-const MaterialLogs = ({ id = 0 }) => {
+import { CardTitle } from "../../__ui/card";
+function MaterialLogs({ id = 0 }): ReactElement {
+  function createMaterialLoghandler(): void {
+    console.log("This function is a placeholder.");
+  }
   return (
     <>
-      <Card>
-        <CardTitle>
-          <div>Materials - Autocomplete</div>
-          <Button
-            isDisabled={false}
-            onClick={() => {}}
-            icon={IconEnums.ADD}
-            align={ButtonAlignmentEnums.RIGHT}
-            type={ButtonTypeEnums.POISITIVE}
-          ></Button>
-        </CardTitle>
-        <CardBody>List of materials</CardBody>
-      </Card>
+      <CardTitle>Used Materials</CardTitle>
+      <Tipp>Add Remove materials that you used for this assignment here.</Tipp>
+      <Button
+        icon={IconNameEnums.ADD}
+        isDisabled={false}
+        type={ButtonTypeEnums.SIMPLE}
+        align={ButtonAlignmentEnums.CENTER}
+        onClick={createMaterialLoghandler}
+      />
     </>
   );
-};
+}
 
 export default MaterialLogs;

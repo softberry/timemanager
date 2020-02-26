@@ -1,8 +1,8 @@
 import React from "react";
 import {
   IRadioItemProps,
-  SizeIconEnums,
-  IconEnums,
+  IconSizeEnums,
+  IconNameEnums,
   DesignEnums,
 } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
@@ -23,7 +23,7 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 function Radio({
   children,
   label = "",
-  onChange = () => {},
+  onChange = (): boolean => false,
   checked = false,
   value,
 }: IRadioItemProps) {
@@ -38,10 +38,10 @@ function Radio({
         data-value={value}
       >
         {checked && (
-          <Icon size={SizeIconEnums.SMALL}>{IconEnums.RADIO_ON}</Icon>
+          <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.RADIO_ON}</Icon>
         )}
         {!checked && (
-          <Icon size={SizeIconEnums.SMALL}>{IconEnums.RADIO_OFF}</Icon>
+          <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.RADIO_OFF}</Icon>
         )}
         <div className={styles[`Radio-${theme}-Label`]}>{label}</div>
         <div className={styles[`Radio-${theme}-Content`]}>{children}</div>

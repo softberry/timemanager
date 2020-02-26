@@ -1,9 +1,10 @@
 import {
   IStateDatabase,
   DatabaseActionEnums,
+  IStateDatabaseReducer,
 } from "../../__typings/interfaces.d";
 
-function db(state: any, payload: IStateDatabase) {
+function db(state: IStateDatabaseReducer, payload: IStateDatabase) {
   switch (payload.type) {
     case DatabaseActionEnums.REGISTER_DATABASE:
       return {

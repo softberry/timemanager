@@ -6,13 +6,13 @@ import StoryPage from "../story-page";
 import { action } from "@storybook/addon-actions";
 
 import {
-  IconEnums,
+  IconNameEnums,
   ButtonTypeEnums,
   ButtonAlignmentEnums,
 } from "../../__typings/interfaces.d";
 import { withKnobs, select, text, boolean } from "@storybook/addon-knobs";
 
-const notes = require("./notes.md");
+import * as notes from "./notes.md";
 export default {
   title: "Form Elements/Buttons/Standart Buttons",
   component: Button,
@@ -26,7 +26,7 @@ export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
       <Button
-        icon={select("Icons", Object.values(IconEnums), IconEnums.ADD)}
+        icon={select("Icons", Object.values(IconNameEnums), IconNameEnums.ADD)}
         type={select(
           "Button Types",
           Object.values(ButtonTypeEnums),
@@ -50,7 +50,7 @@ export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
       <Button
-        icon={select("Icons", Object.values(IconEnums), IconEnums.ADD)}
+        icon={select("Icons", Object.values(IconNameEnums), IconNameEnums.ADD)}
         type={select(
           "Button Types",
           Object.values(ButtonTypeEnums),

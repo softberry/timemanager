@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 
 import {
   IInputProps,
-  IconEnums,
+  IconNameEnums,
   ButtonTypeEnums,
   ButtonAlignmentEnums,
   IInputCallback,
@@ -98,7 +98,7 @@ function MultipleInput(props: IInputProps): any {
       <AllInputs {...inputProps} />
       <div className={styles[`MultipleInputContainer-${theme}-add-new`]}>
         <Button
-          icon={IconEnums.ADD}
+          icon={IconNameEnums.ADD}
           type={ButtonTypeEnums.SIMPLE}
           onClick={addNewFieldHandler}
           isDisabled={false}

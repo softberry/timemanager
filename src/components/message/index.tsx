@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import {
   IDialogBodyProp,
   IMessage,
-  SizeIconEnums,
-  IconEnums,
+  IconSizeEnums,
+  IconNameEnums,
   IMessageTypeEnums,
   IConfirmTypeEnums,
   DesignEnums,
@@ -72,7 +72,7 @@ function Message() {
     (
       {
         dialogType,
-        icon = IconEnums.MESSAGE,
+        icon = IconNameEnums.MESSAGE,
         caption,
         body,
         closable = true,
@@ -94,11 +94,11 @@ function Message() {
               className={styles[`Close-${theme}`]}
               onClick={hideMessage.bind({}, { dialogId })}
             >
-              <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
+              <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLOSE}</Icon>
             </div>
           )}
           <div className={styles[`Icon-${theme}`]}>
-            <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>
+            <Icon size={IconSizeEnums.SMALL}>{icon}</Icon>
           </div>
 
           <div className={styles[`Caption-${theme}`]}>{caption}</div>

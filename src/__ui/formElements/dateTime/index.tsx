@@ -11,7 +11,11 @@ import {
   correctedTimeFromStep,
 } from "../../../lib/input.helpers";
 
-import { DesignEnums, IDateTimeProps } from "../../../__typings/interfaces.d";
+import {
+  DesignEnums,
+  IDateTimeProps,
+  CollapsedState,
+} from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
@@ -31,6 +35,7 @@ function DateTime({
   finish = moment(),
   step = 15,
   infoCallback,
+  collapsed = CollapsedState.COLLAPSED,
 }: IDateTimeProps) {
   const view = useContext(ViewContext);
   const theme = useTheme();
@@ -100,10 +105,15 @@ function DateTime({
   useEffect(() => {
     setDiffTime(diffTimeCallback());
   }, [diffTimeCallback]);
+
   return (
     <div className={styles[`DateTime-${theme}-${view}`]} data-valid={isValid}>
-      <div className={styles[`DateTime-${theme}-Layout`]}>
-        <div className={styles[`DateTime-${theme}-Layout-Date`]}>
+      <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}`]}>
+        <div
+          className={
+            styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Date`]
+          }
+        >
           <label
             htmlFor={id.date}
             className={styles[`DateTime-${theme}-label`]}
@@ -118,7 +128,11 @@ function DateTime({
             onChange={dateOnChangehandler}
           />
         </div>
-        <div className={styles[`DateTime-${theme}-Layout-Start`]}>
+        <div
+          className={
+            styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Start`]
+          }
+        >
           <label
             htmlFor={id.start}
             className={styles[`DateTime-${theme}-label`]}
@@ -135,7 +149,11 @@ function DateTime({
             onChange={startTimeOnChangehandler}
           />
         </div>
-        <div className={styles[`DateTime-${theme}-Layout-End`]}>
+        <div
+          className={
+            styles[`DateTime-${theme}-Layout-${view}-${collapsed}-End`]
+          }
+        >
           <label
             htmlFor={id.finish}
             className={styles[`DateTime-${theme}-label`]}
@@ -152,7 +170,11 @@ function DateTime({
             onChange={finishTimeOnChangehandler}
           />
         </div>
-        <div className={styles[`DateTime-${theme}-Layout-Diff`]}>
+        <div
+          className={
+            styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Diff`]
+          }
+        >
           <label
             htmlFor={id.diff}
             className={styles[`DateTime-${theme}-label`]}

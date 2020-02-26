@@ -2,7 +2,7 @@ import {
   IMessage,
   IMessageTypeEnums,
   IConfirmTypeEnums,
-  IconEnums,
+  IconNameEnums,
   DialogTypes,
 } from "../../__typings/interfaces.d";
 
@@ -18,10 +18,10 @@ function setUniqueDialogIdFor(payload: IMessage, dialogIds: [number]): void {
 }
 
 const icons = new Map();
-icons.set(IMessageTypeEnums.INFO, IconEnums.INFO);
-icons.set(IMessageTypeEnums.WARNING, IconEnums.WARNING);
-icons.set(IMessageTypeEnums.ERROR, IconEnums.ERROR);
-icons.set(IConfirmTypeEnums.DELETE_CONTACT, IconEnums.CONFIRM);
+icons.set(IMessageTypeEnums.INFO, IconNameEnums.INFO);
+icons.set(IMessageTypeEnums.WARNING, IconNameEnums.WARNING);
+icons.set(IMessageTypeEnums.ERROR, IconNameEnums.ERROR);
+icons.set(IConfirmTypeEnums.DELETE_CONTACT, IconNameEnums.CONFIRM);
 
 const dialogTypes = new Map();
 dialogTypes.set(IMessageTypeEnums.INFO, DialogTypes.INFO);

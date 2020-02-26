@@ -13,7 +13,7 @@ import {
   IContactsTableModel,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
-  IconEnums,
+  IconNameEnums,
   NewEntryEnums,
   ViewSettingsEnums,
   DesignEnums,
@@ -77,12 +77,12 @@ function ContactsList() {
   }, [nSQL]);
 
   dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Contacts" });
-  console.log(styles);
+
   return (
     <div className={styles[`Contacts-${theme}-${view}`]}>
       <div className={styles[`Contacts-${theme}-${view}-Create-New`]}>
         <Button
-          icon={IconEnums.ADD}
+          icon={IconNameEnums.ADD}
           align={ButtonAlignmentEnums.RIGHT}
           isDisabled={false}
           onClick={createContactClickHandler}

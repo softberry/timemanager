@@ -13,7 +13,7 @@ import "./index.scss";
 import Home from "./views/home";
 import ContactsListView from "./views/contactslist";
 import WorklogsListView from "./views/worklogs";
-import SettingsView from "./views/settings";
+import SettingsView from "./views/options";
 //---
 import ContactView from "./views/contact";
 import Message from "./components/message";
@@ -46,7 +46,7 @@ function Page() {
             <Route exact path="/" component={Home} />
             <Route exact path="/contacts" component={ContactsListView} />
             <Route exact path="/worklogs" component={WorklogsListView} />
-            <Route exact path="/settings" component={SettingsView} />
+            <Route exact path="/options" component={SettingsView} />
             <Route exact path="/contact/:type/:id" component={ContactView} />
           </Switch>
         </NanoDataBase>

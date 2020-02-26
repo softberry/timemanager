@@ -4,7 +4,7 @@
   box-sizing: border-box;
   background-color: rgba(color-palette($variant, "card", "background"), 0.75);
   margin-bottom: 0;
-  border-bottom: olor-palette($variant, "card", "text") 1px solid;
+  border-bottom: rgba(color-palette($variant, "card", "text"), 0.2) 1px solid;
 }
 
 .List-#{$theme} {

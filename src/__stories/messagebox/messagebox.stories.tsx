@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Provider, useDispatch } from "react-redux";
 import { TimerAppStore } from "../../App";
 import { withKnobs } from "@storybook/addon-knobs";
@@ -12,14 +12,15 @@ import StoryPage from "../story-page";
 import {
   IMessageTypeEnums,
   ButtonTypeEnums,
-  IconEnums,
+  IconNameEnums,
   ButtonAlignmentEnums,
   IConfirmTypeEnums,
+  IMessageContentProps,
 } from "../../__typings/interfaces.d";
 import { H1 } from "../../__ui/headline";
 import Button from "../../__ui/buttons/button";
 
-const notes = require("./notes.md");
+import * as notes from "./notes.md";
 export default {
   title: "Message Box",
   parameters: {
@@ -29,10 +30,7 @@ export default {
   decorators: [withKnobs],
 };
 
-interface IMessageContentProps {
-  type?: IMessageTypeEnums;
-}
-const MessageContent: any = ({ type }: IMessageContentProps) => {
+function MessageContent({ type }: IMessageContentProps): ReactElement {
   const dispatch = useDispatch();
 
   function show(type: IMessageTypeEnums | IConfirmTypeEnums) {
@@ -59,7 +57,7 @@ const MessageContent: any = ({ type }: IMessageContentProps) => {
             show(IMessageTypeEnums.INFO);
           }}
           type={ButtonTypeEnums.SIMPLE}
-          icon={IconEnums.INFO}
+          icon={IconNameEnums.INFO}
           align={ButtonAlignmentEnums.LEFT}
         >
           INFO
@@ -70,7 +68,7 @@ const MessageContent: any = ({ type }: IMessageContentProps) => {
             show(IMessageTypeEnums.ERROR);
           }}
           type={ButtonTypeEnums.ERROR}
-          icon={IconEnums.ERROR}
+          icon={IconNameEnums.ERROR}
           align={ButtonAlignmentEnums.LEFT}
         >
           ERROR
@@ -81,7 +79,7 @@ const MessageContent: any = ({ type }: IMessageContentProps) => {
             show(IMessageTypeEnums.WARNING);
           }}
           type={ButtonTypeEnums.NEGATIVE}
-          icon={IconEnums.WARNING}
+          icon={IconNameEnums.WARNING}
           align={ButtonAlignmentEnums.LEFT}
         >
           WARNING
@@ -89,7 +87,7 @@ const MessageContent: any = ({ type }: IMessageContentProps) => {
       </div>
     </>
   );
-};
+}
 
 export const Primary = () => {
   return (

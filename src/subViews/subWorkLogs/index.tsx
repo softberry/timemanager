@@ -1,10 +1,10 @@
 import React, { ReactElement } from "react";
 import Button from "../../__ui/buttons/button";
-import { CardFooter } from "../../__ui/card";
+
 import {
   ButtonTypeEnums,
   ButtonAlignmentEnums,
-  IconEnums,
+  IconNameEnums,
   SubPageViewActionTypes,
   IWorkLogsProps,
 } from "../../__typings/interfaces.d";
@@ -17,13 +17,13 @@ import MaterialLogs from "./materiallogs";
 const WorkLogs = ({ children, contactId }: IWorkLogsProps): ReactElement => {
   const dispatch = useDispatch();
 
-  const cancelWorkLogViewHandler = () => {
+  const cancelWorkLogViewHandler = (): void => {
     console.log("test");
   };
-  const saveWorkLogViewHandler = () => {
+  const saveWorkLogViewHandler = (): void => {
     console.log("test");
   };
-  const createWorklogHandler = () => {
+  const createWorklogHandler = (): void => {
     dispatch({
       type: SubPageViewActionTypes.SHOW,
       caption: "New Worklog",
@@ -32,9 +32,10 @@ const WorkLogs = ({ children, contactId }: IWorkLogsProps): ReactElement => {
           <WorkLogsTitle />
           <TimeLogs />
           <MaterialLogs />
-          <CardFooter>
+
+          <div>
             <Button
-              icon={IconEnums.CLEAR}
+              icon={IconNameEnums.CLEAR}
               isDisabled={false}
               onClick={cancelWorkLogViewHandler}
               align={ButtonAlignmentEnums.LEFT}
@@ -43,7 +44,7 @@ const WorkLogs = ({ children, contactId }: IWorkLogsProps): ReactElement => {
               Cancel
             </Button>
             <Button
-              icon={IconEnums.ADD}
+              icon={IconNameEnums.ADD}
               isDisabled={false}
               onClick={saveWorkLogViewHandler}
               align={ButtonAlignmentEnums.RIGHT}
@@ -51,7 +52,7 @@ const WorkLogs = ({ children, contactId }: IWorkLogsProps): ReactElement => {
             >
               Save
             </Button>
-          </CardFooter>
+          </div>
         </>
       ),
     });
@@ -59,7 +60,7 @@ const WorkLogs = ({ children, contactId }: IWorkLogsProps): ReactElement => {
   return (
     <>
       <Button
-        icon={IconEnums.ADD}
+        icon={IconNameEnums.ADD}
         isDisabled={false}
         onClick={createWorklogHandler}
         align={ButtonAlignmentEnums.CENTER}
@@ -67,15 +68,13 @@ const WorkLogs = ({ children, contactId }: IWorkLogsProps): ReactElement => {
       >
         Create Worklog
       </Button>
-
-      <div>List of Works</div>
+      {/**TODO: List of Worklogs */}
     </>
   );
 };
 
 export default WorkLogs;
 
-// TODO: - Add collapsed/expanded state to datetIme UI Element
 // TODO: - Add Craete time log button in subpage view
 // TODO: -  - Delete time log button in subpage view
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
 import {
   IInputProps,
-  SizeIconEnums,
+  IconSizeEnums,
   LabelTypeEnums,
-  IconEnums,
+  IconNameEnums,
   ValidationTypeEnums,
   IInputCallback,
   DesignEnums,
@@ -190,7 +190,7 @@ function Input({
             className={styles[`Input-${theme}-btn-clear`]}
             onClick={handleClear}
           >
-            <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLEAR}</Icon>
+            <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLEAR}</Icon>
           </div>
         )}
       </div>

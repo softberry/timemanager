@@ -20,7 +20,7 @@ Message are typeof : `IMessageTypeEnums` or `IConfirmTypeEnums`
 
         dispatch({
           type:IMessageTypeEnums.[INFO|ERROR|WARNING],
-          icon: IconEnums.[ADD|CLOSE|....]
+          icon: IconNameEnums.[ADD|CLOSE|....]
           caption:"Lorem ... ",
           body: HTMLDOMElement | ReactElement
           closable: true | false // show or hide [X] close button

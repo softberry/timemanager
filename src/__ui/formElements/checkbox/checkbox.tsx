@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from "react";
 import {
   ICheckBoxComponentProps,
-  SizeIconEnums,
-  IconEnums,
+  IconSizeEnums,
+  IconNameEnums,
   DesignEnums,
 } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
@@ -45,10 +45,10 @@ function Checkbox({
         onClick={checkOnChangeHandler}
       >
         {isChecked && (
-          <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_ON}</Icon>
+          <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CHECKBOX_ON}</Icon>
         )}
         {!isChecked && (
-          <Icon size={SizeIconEnums.SMALL}>{IconEnums.CHECKBOX_OFF}</Icon>
+          <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CHECKBOX_OFF}</Icon>
         )}
         <div className={styles[`Checkbox-${theme}-Label`]}>{label}</div>
         {children && (

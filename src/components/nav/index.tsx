@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import AutoComplete from "../../__ui/autocomplete";
 
 import ViewTitle from "../viewTitle";
@@ -8,13 +8,13 @@ import { useHistory } from "react-router-dom";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
-import { IconEnums, DesignEnums } from "../../__typings/interfaces.d";
+import { IconNameEnums, DesignEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function NavBack({ index, goBack, theme, styles }: any) {
+function NavBack({ index, goBack, theme, styles }: any): ReactElement {
   const disabled = !!(index === 0);
 
   return (
@@ -22,7 +22,7 @@ function NavBack({ index, goBack, theme, styles }: any) {
       className={styles[`HistoryNav-${theme}-Arrow`]}
       data-disabled={disabled}
     >
-      <Icon onClick={goBack}>{IconEnums.ARROW_BACK}</Icon>
+      <Icon onClick={goBack}>{IconNameEnums.ARROW_BACK}</Icon>
     </div>
   );
 }
@@ -34,7 +34,7 @@ function NavForward({ index, length, goForward, theme, styles }: any) {
       className={styles[`HistoryNav-${theme}-Arrow`]}
       data-disabled={disabled}
     >
-      <Icon onClick={goForward}>{IconEnums.ARROW_FORWARD}</Icon>
+      <Icon onClick={goForward}>{IconNameEnums.ARROW_FORWARD}</Icon>
     </div>
   );
 }

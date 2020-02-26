@@ -3,17 +3,11 @@ $bg-active: rgba(125, 125, 125, 0.125);
 
 .Input-#{$theme} {
   &-primary {
-    @include input-wrapper();
-    &[data-valid="false"] {
-      border-bottom: color-palette("primary", "error", "background") 2px solid;
-    }
+    @include input-wrapper("primary");
   }
 
   &-secondary {
-    @include input-wrapper();
-    &[data-valid="false"] {
-      border-bottom: color-palette("secondary", "error", "background") 2px solid;
-    }
+    @include input-wrapper("secondary");
   }
 
   &-label {

@@ -4,8 +4,8 @@ import themeOcean from "./theme-ocean.module.scss";
 
 import {
   IIconProps,
-  SizeIconEnums,
-  IconEnums,
+  IconSizeEnums,
+  IconNameEnums,
   DesignEnums,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../typography";
@@ -14,7 +14,7 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function Icon({ children, size = SizeIconEnums.MEDIUM, ...rest }: IIconProps) {
+function Icon({ children, size = IconSizeEnums.MEDIUM, ...rest }: IIconProps) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -23,7 +23,7 @@ function Icon({ children, size = SizeIconEnums.MEDIUM, ...rest }: IIconProps) {
       className={styles[`Icon-${theme}`]}
       {...rest}
       data-size={size}
-      data-blank={children === IconEnums.BLANK}
+      data-blank={children === IconNameEnums.BLANK}
     >
       {children}
     </span>

@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "../../__ui/icon";
 import StoryPage from "../story-page";
 
-import { SizeIconEnums, IconEnums } from "../../__typings/interfaces.d";
+import { IconSizeEnums, IconNameEnums } from "../../__typings/interfaces.d";
 export default {
   title: "Icons Set / Close",
   parameters: {
@@ -15,9 +15,9 @@ export default {
 export const Primary = () => {
   return (
     <StoryPage viewType="PrimaryView">
-      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
-      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CLOSE}</Icon>
-      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CLOSE}</Icon>
+      <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLOSE}</Icon>
+      <Icon size={IconSizeEnums.MEDIUM}>{IconNameEnums.CLOSE}</Icon>
+      <Icon size={IconSizeEnums.LARGE}>{IconNameEnums.CLOSE}</Icon>
     </StoryPage>
   );
 };
@@ -25,9 +25,9 @@ export const Primary = () => {
 export const Secondary = () => {
   return (
     <StoryPage viewType="SecondaryView">
-      <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
-      <Icon size={SizeIconEnums.MEDIUM}>{IconEnums.CLOSE}</Icon>
-      <Icon size={SizeIconEnums.LARGE}>{IconEnums.CLOSE}</Icon>
+      <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLOSE}</Icon>
+      <Icon size={IconSizeEnums.MEDIUM}>{IconNameEnums.CLOSE}</Icon>
+      <Icon size={IconSizeEnums.LARGE}>{IconNameEnums.CLOSE}</Icon>
     </StoryPage>
   );
 };

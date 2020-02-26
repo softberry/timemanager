@@ -7,7 +7,7 @@ import themeOcean from "./theme-ocean.module.scss";
 
 import Icon from "../../icon";
 import {
-  SizeIconEnums,
+  IconSizeEnums,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
   IButtonProps,
@@ -32,7 +32,7 @@ function Button({
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   const iconOnly = children === undefined || children.toString().length === 0;
-  const clickHandler = isDisabled ? () => {} : onClick;
+  const clickHandler = isDisabled ? (): boolean => false : onClick;
 
   return (
     <div className={styles["Button-Container"]} data-align={align}>
@@ -43,7 +43,7 @@ function Button({
         data-disabled={isDisabled}
       >
         <button>
-          {icon && <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>}
+          {icon && <Icon size={IconSizeEnums.SMALL}>{icon}</Icon>}
           {!iconOnly && (
             <span className={styles[`Btn-${theme}-${view}--${type}-innerText`]}>
               {children}
@@ -85,7 +85,7 @@ function ButtonLink({
             isDisabled && e.preventDefault();
           }}
         >
-          {icon && <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>}
+          {icon && <Icon size={IconSizeEnums.SMALL}>{icon}</Icon>}
           <span>{children}</span>
         </Link>
       </div>

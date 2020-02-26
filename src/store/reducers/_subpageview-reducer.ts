@@ -1,7 +1,10 @@
-import { SubPageViewActionTypes } from "../../__typings/interfaces.d";
+import {
+  SubPageViewActionTypes,
+  ISubpageState,
+} from "../../__typings/interfaces.d";
 
 function subPageViewReducer(
-  state: any = { type: SubPageViewActionTypes.HIDE },
+  state: ISubpageState = { type: SubPageViewActionTypes.HIDE, caption: "" },
   action: any
 ) {
   switch (action.type) {
