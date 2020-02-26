@@ -172,7 +172,10 @@ export interface IStateDatabase {
   type: DatabaseActionEnums;
   nSQL: any;
 }
-
+interface IWorkLogsProps {
+  children?: ReactNode;
+  contactId: string;
+}
 export interface IWorklogInput {
   nSQL: any;
   start: Date;

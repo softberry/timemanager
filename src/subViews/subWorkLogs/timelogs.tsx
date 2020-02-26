@@ -1,23 +1,22 @@
-import React, { ChangeEvent } from "react";
+import React, { ReactElement } from "react";
 
 import Input, { DateTime } from "../../__ui/formElements/index";
-import Card, { CardTitle, CardBody } from "../../__ui/card";
 import { DateTimeValue, IInputCallback } from "../../__typings/interfaces.d";
 
-function TimeLogs({ id = 0 }) {
-  function dateTimeLohHandler({ start, finish, valid }: DateTimeValue) {
+import List from "../../components/list";
+
+function TimeLogs({ id = 0 }): ReactElement {
+  function dateTimeLohHandler({ start, finish, valid }: DateTimeValue): void {
     console.log(start, finish, valid);
   }
-  function updateNotesHandler(note: IInputCallback) {
+  function updateNotesHandler(note: IInputCallback): void {
     console.log(note);
   }
   return (
     <>
-      <Card>
-        <CardTitle>
-          <div>WORKED HOURS</div>
-        </CardTitle>
-        <CardBody>
+      <div>WORKED HOURS</div>
+      <List>
+        <div>
           <DateTime step={15} infoCallback={dateTimeLohHandler} />
           <Input
             infoCallback={updateNotesHandler}
@@ -26,8 +25,28 @@ function TimeLogs({ id = 0 }) {
             validate={false}
             uniqueName={""}
           />
-        </CardBody>
-      </Card>
+        </div>
+        <div>
+          <DateTime step={15} infoCallback={dateTimeLohHandler} />
+          <Input
+            infoCallback={updateNotesHandler}
+            name={"Notes"}
+            required={false}
+            validate={false}
+            uniqueName={""}
+          />
+        </div>
+        <div>
+          <DateTime step={15} infoCallback={dateTimeLohHandler} />
+          <Input
+            infoCallback={updateNotesHandler}
+            name={"Notes"}
+            required={false}
+            validate={false}
+            uniqueName={""}
+          />
+        </div>
+      </List>
     </>
   );
 }
