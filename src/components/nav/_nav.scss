@@ -10,14 +10,14 @@
   padding: 0 0.5 * $font-size;
 }
 .HistoryNav,
-.ViewTitle,
+.NavTitle,
 .SearchNav {
   &-#{$theme} {
     display: flex;
   }
 }
 
-.ViewTitle-#{$theme} {
+.NavTitle-#{$theme} {
   grid-area: view-title;
 }
 

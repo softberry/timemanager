@@ -12,7 +12,7 @@ import "./index.scss";
 
 import Home from "./views/home";
 import ContactsListView from "./views/contactslist";
-import WorklogsListView from "./views/worklogs";
+import TimelogsListView from "./views/timelogs";
 import SettingsView from "./views/options";
 //---
 import ContactView from "./views/contact";
@@ -45,7 +45,7 @@ function Page() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/contacts" component={ContactsListView} />
-            <Route exact path="/worklogs" component={WorklogsListView} />
+            <Route exact path="/worklogs" component={TimelogsListView} />
             <Route exact path="/options" component={SettingsView} />
             <Route exact path="/contact/:type/:id" component={ContactView} />
           </Switch>

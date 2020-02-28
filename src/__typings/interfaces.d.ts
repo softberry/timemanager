@@ -185,9 +185,17 @@ export interface IStateDatabaseReducer {
   db: IStateDatabase;
 }
 interface IWorkLogsProps {
-  children?: ReactNode;
   contactId: string;
 }
+
+interface IWorkLogsTitleProps {
+  updateTitleCallback: ({
+    name: string,
+    description: string,
+    valid: boolean,
+  }) => void;
+}
+
 export interface IWorklogInput {
   nSQL: any;
   start: Date;

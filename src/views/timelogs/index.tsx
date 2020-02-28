@@ -1,18 +1,18 @@
 import React from "react";
 
-import WorklogsList from "../../components/worklogslist";
+import TimelogList from "../../components/timelogslist";
 import DefaultLayout from "../../layout/layout.default";
 import ViewContext from "../index";
 import { DesignEnums } from "../../__typings/interfaces.d";
 
-function WorklogsListView() {
+function TimelogsListView() {
   return (
     <ViewContext.Provider value={DesignEnums.SECONDARY_VIEW}>
       <DefaultLayout>
-        <WorklogsList />
+        <TimelogList />
       </DefaultLayout>
     </ViewContext.Provider>
   );
 }
 
-export default WorklogsListView;
+export default TimelogsListView;

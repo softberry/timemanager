@@ -1,6 +1,7 @@
 import React, { useContext, ReactElement } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import EditWorkLogsForm from "../../subViews/editWorkLogs";
 import Button from "../../__ui/buttons/button";
 
 import ViewContext from "../../views/index";
@@ -14,6 +15,8 @@ import {
   DesignEnums,
   IStateDatabaseReducer,
   IworkTableModel,
+  SubPageViewActionTypes,
+  IContactsTableModel,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -21,7 +24,7 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function WorklogsList(): ReactElement {
+function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
   const dispatch = useDispatch();
   const view = useContext(ViewContext);
   const theme = useTheme();
@@ -31,7 +34,15 @@ function WorklogsList(): ReactElement {
   dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
 
   function createNewWorklogHandler(): void {
-    console.log("createNewWorklogJHandler : placeholder");
+    dispatch({
+      type: SubPageViewActionTypes.SHOW,
+      caption: "New Worklog",
+      content: (
+        <>
+          <EditWorkLogsForm contactId={id} />
+        </>
+      ),
+    });
   }
 
   nSQL("workDurationTable")
@@ -43,8 +54,8 @@ function WorklogsList(): ReactElement {
     });
 
   return (
-    <div className={styles[`Worklogslist-${theme}-${view}`]}>
-      <div className={styles[`Worklogslist-${theme}-${view}-Create-New`]}>
+    <div className={styles[`TimelogList-${theme}-${view}`]}>
+      <div className={styles[`TimelogList-${theme}-${view}-Create-New`]}>
         <Button
           icon={IconNameEnums.ADD}
           align={ButtonAlignmentEnums.RIGHT}
@@ -59,4 +70,4 @@ function WorklogsList(): ReactElement {
   );
 }
 
-export default WorklogsList;
+export default WorklogListOfContact;

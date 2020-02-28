@@ -1,0 +1,20 @@
+@mixin TimelogList() {
+  @include view;
+  &-Create-New {
+    margin-bottom: rem(0.5);
+  }
+}
+
+.TimelogList-#{$theme} {
+  &-primary {
+    @include layer-bg("primary");
+    @include layer-color("primary");
+    @include TimelogList();
+  }
+
+  &-secondary {
+    @include layer-bg("secondary");
+    @include layer-color("secondary");
+    @include TimelogList();
+  }
+}

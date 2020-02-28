@@ -20,7 +20,7 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import ViewContext from "../../views/index";
-import WorkLogs from "../../subViews/subWorkLogs";
+import WorklogListOfContact from "../../components/workLogsListOfContact";
 
 const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
@@ -86,7 +86,7 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
           contact={currentContact}
           editContactHandler={switchView}
         />
-        <WorkLogs contactId={currentContact.id} />
+        <WorklogListOfContact {...currentContact} />
       </div>
     );
   }

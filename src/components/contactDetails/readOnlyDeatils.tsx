@@ -35,7 +35,6 @@ function ReadOnlyDetails({
           {zip} - {city}
         </CardBody>
       </Card>
-
       <Card>
         <CardTitle>
           <ButtonLink

@@ -51,7 +51,7 @@ function Nav() {
         <NavBack {...history} styles={styles} theme={theme} />
         <NavForward {...history} styles={styles} theme={theme} />
       </div>
-      <div className={styles[`ViewTitle-${theme}`]}>
+      <div className={styles[`NavTitle-${theme}`]}>
         <ViewTitle />
       </div>
       <div className={styles[`SearchNav-${theme}`]}>
