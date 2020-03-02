@@ -1,4 +1,9 @@
-import React, { ReactElement, useReducer, createContext } from "react";
+import React, {
+  ReactElement,
+  useReducer,
+  createContext,
+  useContext,
+} from "react";
 import Button from "../../__ui/buttons/button";
 
 import {
@@ -12,7 +17,7 @@ import WorkLogsTitle from "./workLogsTitle";
 import TimeLogs from "./timelogs";
 import MaterialLogs from "./materiallogs";
 
-const worklog: IworkTableModel = {
+const worklogInitial: IworkTableModel = {
   id: "",
   contactID: "",
   description: "x",
@@ -45,20 +50,9 @@ const worklog: IworkTableModel = {
   ],
 };
 
-const WorklogContext = createContext<IworkTableModel>(worklog);
-function EditWorkLogsForm({ contactId }: any): ReactElement {
-  const [newWorkLog, dispatchNewWorkLogData] = useReducer(
-    newWorkLogState,
-    worklog
-  );
-
-  function newWorkLogState(state: any, action: any) {
-    console.log(action);
-    return {
-      ...state,
-      ...action.payload,
-    };
-  }
+function EditWorkLogsForm(): ReactElement {
+  const worklog = useContext(WorklogContext);
+  const dispatcher = useContext(DispatchContext);
 
   const cancelWorkLogViewHandler = (): void => {
     console.log("test");
@@ -67,14 +61,9 @@ function EditWorkLogsForm({ contactId }: any): ReactElement {
     console.log("test");
   };
 
-  const updateTitleCallback = ({ name, description, valid }: any): void => {
-    console.log("*");
-    dispatchNewWorkLogData({ payload: { name, description, valid } });
-  };
-
   return (
     <>
-      <WorkLogsTitle updateTitleCallback={updateTitleCallback} />
+      <WorkLogsTitle worklog={worklog} dispatcher={dispatcher} />
       <TimeLogs />
       <MaterialLogs />
 
@@ -90,7 +79,7 @@ function EditWorkLogsForm({ contactId }: any): ReactElement {
         </Button>
         <Button
           icon={IconNameEnums.ADD}
-          isDisabled={!newWorkLog.valid}
+          isDisabled={!worklog.valid}
           onClick={saveWorkLogViewHandler}
           align={ButtonAlignmentEnums.RIGHT}
           type={ButtonTypeEnums.POISITIVE}
@@ -102,14 +91,31 @@ function EditWorkLogsForm({ contactId }: any): ReactElement {
   );
 }
 
+const WorklogContext = createContext<any>({});
+const DispatchContext = createContext<any>({});
+const worklogsReducer = (state: any, action: any): any => {
+  console.log("->", action);
+  switch (action.uniqueName) {
+    case "worklogName":
+      return { ...state, name: action.value, valid: action.valid };
+    case "worklogDesc":
+      return { ...state, description: action.value };
+    default:
+      return state;
+  }
+};
 function EditWorkLogs({ contactId }: any) {
+  const [worklog, dispatcher] = useReducer(worklogsReducer, worklogInitial);
+  console.log(worklog, " -- final state");
   return (
-    <WorklogContext.Provider value={worklog}>
-      <EditWorkLogsForm />
-    </WorklogContext.Provider>
+    <DispatchContext.Provider value={dispatcher}>
+      <WorklogContext.Provider value={worklog}>
+        <EditWorkLogsForm />
+      </WorklogContext.Provider>
+    </DispatchContext.Provider>
   );
 }
-export { EditWorkLogs as default, WorklogContext };
+export { EditWorkLogs as default, WorklogContext, DispatchContext };
 
 // TODO: - Add Craete time log button in subpage view
 // TODO: -  - Delete time log button in subpage view
@@ -117,3 +123,10 @@ export { EditWorkLogs as default, WorklogContext };
 // TODO: - Apply finalizes style from time log to materials log
 // TODO: - Save/Update functionality to work log
 // TODO: - Delete worklog from the list
+
+//FIXME:****************************************************************
+//        input doesnt updates parent and results too many re-renders **
+//        useContext /useReducer / forwardRef may help to fix this    **
+//        -- start from the entry point :                             **
+//          src/components/workLogsListOfContact/index.tsx line:66    **
+// *********************************************************************
