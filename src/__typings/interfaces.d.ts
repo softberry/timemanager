@@ -133,18 +133,34 @@ export interface IButtonProps {
 }
 
 export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
-  href: any;
+  href: string;
+}
+export interface IRootReducer {
+  db: IStateDatabaseReducer;
+  msg: IMessageState;
+  confirm: any;
+  subpageview: any;
+  design: any;
+  viewSettings: any;
 }
 
+interface IMessagePayload {
+  type: IMessageTypeEnums | IConfirmTypeEnums;
+  message: IMessage;
+  dialogId?: number;
+}
+
+interface IMessageState {
+  messages: IMessage[];
+}
 export interface IMessage {
   icon: IconNameEnums;
-  type: IMessageTypeEnums;
   dialogType: DialogTypes;
   caption?: string;
   body: object;
   closable?: boolean;
-  dialogId: any;
-  key: any;
+  dialogId: number;
+  key: number;
 }
 export interface IDialogBodyProp {
   type: IMessageTypeEnums | IConfirmTypeEnums | DialogTypes;
@@ -176,11 +192,11 @@ export interface IEditWorkLogTitleProps {
 export interface IWorklogBadgeProp {
   contactID: string;
 }
-interface IWorklogState extends IWorkTableModel {
+export interface IWorklogState extends IWorkTableModel {
   valid: boolean;
 }
 
-interface IWorklogAction {
+export interface IWorklogAction {
   type: AddEditWorklogEnums;
   data: IWorkTableModel;
   input?: IInputCallback;

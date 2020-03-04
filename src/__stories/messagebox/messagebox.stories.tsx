@@ -36,13 +36,15 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
   function show(type: IMessageTypeEnums | IConfirmTypeEnums) {
     dispatch({
       type,
-      caption: lorem.words(2),
-      body: (
-        <>
-          <p>{lorem.sentence()}</p>
-        </>
-      ),
-      closable: true,
+      message: {
+        caption: lorem.words(2),
+        body: (
+          <>
+            <p>{lorem.sentence()}</p>
+          </>
+        ),
+        closable: true,
+      },
     });
   }
 

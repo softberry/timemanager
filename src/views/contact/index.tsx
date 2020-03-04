@@ -38,9 +38,11 @@ function ContactView({ match }: IContactViewProps): ReactElement {
         setQueryState("ERRORED");
         dispatch({
           type: IMessageTypeEnums.ERROR,
-          caption: err.toString(),
-          body: <>{err.toString()}</>,
-          closable: true,
+          message: {
+            caption: err.toString(),
+            body: <>{err.toString()}</>,
+            closable: true,
+          },
         });
       });
   }

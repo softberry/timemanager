@@ -14,17 +14,20 @@ export default (): ReactElement => {
     inactive: (): void => {
       dispatch({
         type: IMessageTypeEnums.ERROR,
-        caption: "Error loading Webfonts",
-        body: (
-          <>
-            WebFonts Could not be loaded. Please check your internet connection.
-            <br />
-            <a href="/" target="_self">
-              <strong>Reload</strong>
-            </a>
-          </>
-        ),
-        closable: true,
+        message: {
+          caption: "Error loading Webfonts",
+          body: (
+            <>
+              WebFonts Could not be loaded. Please check your internet
+              connection.
+              <br />
+              <a href="/" target="_self">
+                <strong>Reload</strong>
+              </a>
+            </>
+          ),
+          closable: true,
+        },
       });
     },
     classes: false,

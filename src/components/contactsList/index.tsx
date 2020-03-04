@@ -80,7 +80,9 @@ const ContactsList = (): ReactElement => {
       });
   }, [nSQL]);
 
-  dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Contacts" });
+  useEffect(() => {
+    dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Contacts" });
+  });
 
   return (
     <div className={styles[`Contacts-${theme}-${view}`]}>

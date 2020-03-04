@@ -1,4 +1,4 @@
-import React, { useContext, ReactElement } from "react";
+import React, { useContext, ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../__ui/buttons/button";
@@ -28,7 +28,9 @@ function TimelogList(): ReactElement {
   const styles = useThemeStyle(stylesMap);
   const nSQL = useSelector((state: IStateDatabaseReducer) => state.db.nSQL);
 
-  dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
+  useEffect(() => {
+    dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
+  });
 
   function createNewWorklogHandler(): void {
     console.log("createNewWorklogHandler : placeholder");

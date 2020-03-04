@@ -1,5 +1,5 @@
 import { default as db } from "./_db-reducer";
-import { default as messages } from "./_messages-reducer";
+import { default as msg } from "./_messages-reducer";
 import { default as confirm } from "./_confirm-reducer";
 import { default as subpageview } from "./_subpageview-reducer";
 import { default as design } from "./_design-reducer";
@@ -8,7 +8,7 @@ import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
   db,
-  messages,
+  msg,
   confirm,
   subpageview,
   design,

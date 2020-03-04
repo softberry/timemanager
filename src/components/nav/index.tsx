@@ -8,33 +8,31 @@ import { useHistory } from "react-router-dom";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
-import {
-  IconNameEnums,
-  DesignEnums,
-  INavProps,
-} from "../../__typings/interfaces.d";
+import { IconNameEnums, DesignEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-const NavBack = ({ goBack, styles, theme }: INavProps): ReactElement => {
+const NavBack = (): ReactElement => {
+  const history = useHistory();
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+
   const disabled = false; //!!(index === 0);
   return (
     <div
       className={styles[`HistoryNav-${theme}-Arrow`]}
       data-disabled={disabled}
     >
-      <Icon onClick={goBack}>{IconNameEnums.ARROW_BACK}</Icon>
+      <Icon onClick={history.goBack}>{IconNameEnums.ARROW_BACK}</Icon>
     </div>
   );
 };
-const NavForward = ({
-  goForward,
-  length,
-  styles,
-  theme,
-}: INavProps): ReactElement => {
+const NavForward = (): ReactElement => {
+  const history = useHistory();
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
   const disabled = false; // !!(index + 1 >= length);
 
   return (
@@ -42,13 +40,12 @@ const NavForward = ({
       className={styles[`HistoryNav-${theme}-Arrow`]}
       data-disabled={disabled}
     >
-      <Icon onClick={goForward}>{IconNameEnums.ARROW_FORWARD}</Icon>
+      <Icon onClick={history.goForward}>{IconNameEnums.ARROW_FORWARD}</Icon>
     </div>
   );
 };
 
 const Nav: FunctionComponent = (): ReactElement => {
-  const history = useHistory();
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -56,8 +53,8 @@ const Nav: FunctionComponent = (): ReactElement => {
     <>
       <nav className={styles[`Nav-${theme}`]}>
         <div className={styles[`HistoryNav-${theme}`]}>
-          <NavBack {...history} theme={theme} styles={styles} />
-          <NavForward {...history} theme={theme} styles={styles} />
+          <NavBack />
+          <NavForward />
         </div>
         <div className={styles[`NavTitle-${theme}`]}>
           <ViewTitle />

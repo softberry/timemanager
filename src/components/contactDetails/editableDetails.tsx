@@ -101,9 +101,11 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
   function deleteContacthandler() {
     dispatch({
       type: IConfirmTypeEnums.DELETE_CONTACT,
-      caption: "Want to delete?",
-      body: { contact: contact },
-      closable: true,
+      message: {
+        caption: "Want to delete?",
+        body: { contact: contact },
+        closable: true,
+      },
     });
   }
   function getContactsKeyMap(oContact: IContactsTableModel): any[] {

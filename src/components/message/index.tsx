@@ -7,6 +7,9 @@ import {
   IMessageTypeEnums,
   IConfirmTypeEnums,
   DesignEnums,
+  IRootReducer,
+  IMessagePayload,
+  IMessageState,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
@@ -49,8 +52,9 @@ const DialogBody = ({ type, props }: IDialogBodyProp): ReactElement => {
 
 const Message = (): ReactElement => {
   const messages: IMessage[] = useSelector(
-    ({ messages }: any) => messages.messages
+    ({ msg }: IRootReducer) => msg.messages
   );
+
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
@@ -59,27 +63,17 @@ const Message = (): ReactElement => {
    * Dispatches dialogId of binded object(action) to be removed from
    * Messages array
    */
-  function hideMessage({ dialogId }: any): void {
+  function hideMessage(dialogId: number): void {
     dispatch({
       type: IMessageTypeEnums.HIDE_MESSAGE,
-      dialogId,
+      message: { dialogId },
     });
   }
 
   if (!messages || messages.length === 0) return <></>;
 
   const dialogContent = messages.map(
-    (
-      {
-        dialogType,
-        icon = IconNameEnums.MESSAGE,
-        caption,
-        body,
-        closable = true,
-        dialogId,
-      },
-      index
-    ) => {
+    ({ dialogType, icon, closable, dialogId, caption, body }, index) => {
       return (
         <div
           key={index}
@@ -92,7 +86,7 @@ const Message = (): ReactElement => {
           {closable && (
             <div
               className={styles[`Close-${theme}`]}
-              onClick={hideMessage.bind({}, { dialogId })}
+              onClick={hideMessage.bind({}, dialogId)}
             >
               <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLOSE}</Icon>
             </div>

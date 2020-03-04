@@ -81,7 +81,7 @@ function ConfirmDeleteContactBody({
       });
     dispatch({
       type: IMessageTypeEnums.HIDE_MESSAGE,
-      dialogId: dialogId,
+      message: { dialogId: dialogId },
     });
   }
 

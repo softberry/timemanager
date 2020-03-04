@@ -68,4 +68,5 @@ const App = (): ReactElement => {
     </Provider>
   );
 };
+
 export { App as default, TimerAppStore };

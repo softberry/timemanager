@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import DefaultLayout from "../../layout/layout.default";
@@ -9,7 +9,10 @@ import { ViewSettingsEnums, DesignEnums } from "../../__typings/interfaces.d";
 
 function HomeView(): ReactElement {
   const dispatch = useDispatch();
-  dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "" });
+
+  useEffect(() => {
+    dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "" });
+  });
 
   return (
     <ViewContext.Provider value={DesignEnums.PRIMARY_VIEW}>
