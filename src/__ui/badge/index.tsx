@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { IBadgeProps, DesignEnums } from "../../__typings/interfaces.d";
 
@@ -13,10 +13,13 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 /**
  * Special button, which can show drop-down like list on click.
  */
-function Badge({ content, view = DesignEnums.PRIMARY_VIEW }: IBadgeProps) {
+const Badge = ({
+  content,
+  view = DesignEnums.PRIMARY_VIEW,
+}: IBadgeProps): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   return <div className={styles[`Badge-${theme}-${view}`]}>{content}</div>;
-}
+};
 
 export default Badge;

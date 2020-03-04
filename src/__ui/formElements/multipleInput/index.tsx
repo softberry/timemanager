@@ -1,4 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, {
+  useState,
+  useCallback,
+  ReactElement,
+  ReactFragment,
+} from "react";
 
 import {
   IInputProps,
@@ -19,42 +24,44 @@ stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 /** render All input elements from the list of values  */
-function AllInputs({
+const AllInputs = ({
   name,
   value = [],
   required,
   validate,
   infoCallback,
-}: IInputProps): any {
+}: IInputProps): ReactElement => {
   const valuesArray: string[] = Array.isArray(value) ? value : [];
-  const InputElements = valuesArray.map((val, keyIndex) => {
-    const field: IInputProps = {
-      name: `${name}`,
-      uniqueName: `${name}-${keyIndex}`,
-      value: val,
-      required,
-      validate,
-      infoCallback,
-    };
+  const InputElements = valuesArray.map(
+    (val, keyIndex): ReactFragment => {
+      const field: IInputProps = {
+        name: `${name}`,
+        uniqueName: `${name}-${keyIndex}`,
+        value: val,
+        required,
+        validate,
+        infoCallback,
+      };
 
-    return (
-      <div key={keyIndex}>
-        <Input {...field} />
-      </div>
-    );
-  });
+      return (
+        <div key={keyIndex}>
+          <Input {...field} />
+        </div>
+      );
+    }
+  );
 
-  return InputElements;
-}
+  return <>{InputElements}</>;
+};
 
 /** Creates a group of input elements, which behaves like an  independent form element.
  * Children inputs inherits valid and required props from ``MultipleInput``.
  * As long as all child elements passes validations test, ``MultipleInput`` will be valid.
  */
-function MultipleInput(props: IInputProps): any {
+const MultipleInput = (props: IInputProps): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-  const [inputProps, setInputProps] = useState({
+  const [inputProps, setInputProps] = useState<IInputProps>({
     ...props,
     infoCallback: multifieldInfoCallback,
   });
@@ -62,7 +69,7 @@ function MultipleInput(props: IInputProps): any {
   const fieldState = new Map();
   const [childrenInputsState, setChildrenInputsState] = useState(fieldState);
 
-  function multifieldInfoCallback(returnedValue: IInputCallback) {
+  function multifieldInfoCallback(returnedValue: IInputCallback): void {
     const { name, uniqueName, value, valid } = returnedValue;
 
     const updatedFieldState = childrenInputsState;
@@ -86,7 +93,7 @@ function MultipleInput(props: IInputProps): any {
     }
   }, [childrenInputsState, props]);
 
-  function addNewFieldHandler() {
+  function addNewFieldHandler(): void {
     const values: string[] = Array.isArray(inputProps.value)
       ? inputProps.value
       : [""];
@@ -109,6 +116,6 @@ function MultipleInput(props: IInputProps): any {
       </div>
     </div>
   );
-}
+};
 
 export default MultipleInput;

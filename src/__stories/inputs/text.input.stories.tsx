@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Input from "../../__ui/formElements";
 import StoryPage from "../story-page";
 import { name, address } from "faker";
@@ -11,7 +11,7 @@ export default {
   },
 };
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <Input
@@ -39,7 +39,7 @@ export const Primary = () => {
   );
 };
 
-export const secondary: any = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <Input

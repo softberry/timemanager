@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  ReactElement,
+  Children,
+} from "react";
 import {
   IRadioGroupProps,
   IRadioItemProps,
@@ -20,8 +26,8 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
  *
  */
 
-function RadioGroup({ children, onChange }: IRadioGroupProps) {
-  const [radioItemsProps, setRadioItemsProps] = useState([]);
+const RadioGroup = ({ children, onChange }: IRadioGroupProps): ReactElement => {
+  const [radioItemsProps, setRadioItemsProps] = useState();
   const [selectedItem, setSelectedItem] = useState("");
   const [initialised, setInitialised] = useState(false);
   const [isValid, setIsValid] = useState("__INITIAL__");
@@ -34,14 +40,13 @@ function RadioGroup({ children, onChange }: IRadioGroupProps) {
     }
   }, [onChange, selectedItem]);
 
-  const onRadioItemChangeHandler = (val: any) => {
+  const onRadioItemChangeHandler = (val: string): void => {
     setSelectedItem(val);
   };
   useEffect(() => {
-    const values = children.filter((child: any) => child.props.value);
-    const selecteds = children.filter(
-      (child: any) => child.props.checked === true
-    );
+    const values = Children.map(children, child => child.props.value);
+    const selecteds = children.filter(child => child.props.checked);
+    // (child: ReactElement) => child.props.checked === true
 
     if (values.length !== children.length) {
       setIsValid("Each Radio in RadioGroup must have a 'value'!");
@@ -63,7 +68,7 @@ function RadioGroup({ children, onChange }: IRadioGroupProps) {
 
   useEffect(() => {
     if (!initialised && radioItemsProps.length === 0 && children.length > 0) {
-      const propsList = children.map((child: any) => {
+      const propsList = children.map((child: ReactElement) => {
         const { children, label, checked, value } = child.props;
         if (checked) {
           setSelectedItem(value);
@@ -99,6 +104,6 @@ function RadioGroup({ children, onChange }: IRadioGroupProps) {
       </div>
     </>
   );
-}
+};
 
 export default RadioGroup;

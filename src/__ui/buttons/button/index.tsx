@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, ReactElement, MouseEvent } from "react";
 import { Link } from "react-router-dom";
 
 import { useTheme, useThemeStyle } from "../../typography";
@@ -20,14 +20,14 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function Button({
+const Button = ({
   children,
   icon,
   onClick,
   align = undefined,
   type = ButtonTypeEnums.SIMPLE,
   isDisabled = true,
-}: IButtonProps) {
+}: IButtonProps): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
@@ -53,16 +53,16 @@ function Button({
       </div>
     </div>
   );
-}
+};
 
-function ButtonLink({
+const ButtonLink = ({
   children,
   icon,
   href,
   align = ButtonAlignmentEnums.CENTER,
   type = ButtonTypeEnums.SIMPLE,
   isDisabled = true,
-}: IButtonLinkProps) {
+}: IButtonLinkProps): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
@@ -81,8 +81,8 @@ function ButtonLink({
       >
         <Link
           to={href}
-          onClick={e => {
-            isDisabled && e.preventDefault();
+          onClick={(event: MouseEvent<HTMLAnchorElement>): void => {
+            isDisabled && event.preventDefault();
           }}
         >
           {icon && <Icon size={IconSizeEnums.SMALL}>{icon}</Icon>}
@@ -91,5 +91,5 @@ function ButtonLink({
       </div>
     </div>
   );
-}
+};
 export { Button as default, ButtonLink };

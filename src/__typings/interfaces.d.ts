@@ -1,12 +1,15 @@
 import { uuid } from "@nano-sql/core/lib/utilities";
 import { Moment } from "moment";
-import { ReactChildren, ReactNode } from "react";
+import { ReactChildren, ReactNode, ReactChild, ReactElement } from "react";
 import { nSQL as nSQLInterface } from "@nano-sql/core";
 
 export interface IDesignModel {
   view: string;
 }
-
+export interface IDesignReducer {
+  view: string;
+  theme: string;
+}
 export interface IDesignActionTypes {
   type: IDesign;
   view?: string;
@@ -54,8 +57,8 @@ export interface IRadioItemProps {
 }
 
 export interface IRadioGroupProps {
-  children?: any;
-  onChange: any;
+  children: ReactElement[];
+  onChange: (s: string) => void;
 }
 
 export interface IEditableInputProps {
@@ -140,7 +143,7 @@ export interface IRootReducer {
   msg: IMessageState;
   confirm: any;
   subpageview: any;
-  design: any;
+  design: IDesignReducer;
   viewSettings: any;
 }
 

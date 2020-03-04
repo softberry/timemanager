@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, ReactElement } from "react";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -10,7 +10,7 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function Calendar({ state }: any) {
+const Calendar = (): ReactElement => {
   const theme = useTheme();
   const style = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
@@ -25,6 +25,6 @@ function Calendar({ state }: any) {
       </ul>
     </div>
   );
-}
+};
 
 export default Calendar;

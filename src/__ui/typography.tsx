@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 import {
   ITypographyProps,
   IMessageTypeEnums,
   DesignEnums,
+  IDesignReducer,
 } from "../__typings/interfaces.d";
 
 import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
 
-function Typography({ theme = "default", children }: ITypographyProps) {
-  const currentTheme = useSelector((state: any) => state.design.theme);
+const Typography = ({ children }: ITypographyProps): ReactElement => {
+  const currentTheme = useSelector(({ theme }: IDesignReducer) => theme);
   const [fontsReady, setFontsReady] = useState<string>("LOADING");
   const dispatch = useDispatch();
 
@@ -30,10 +31,10 @@ function Typography({ theme = "default", children }: ITypographyProps) {
       families: ["Material+Icons"],
       urls: [process.env.PUBLIC_URL + "/material-icons.css"],
     },
-    active: () => {
+    active: (): void => {
       setFontsReady("LOADED");
     },
-    inactive: () => {
+    inactive: (): void => {
       setFontsReady("ERRORED");
     },
     classes: false,
@@ -60,14 +61,14 @@ function Typography({ theme = "default", children }: ITypographyProps) {
     });
   }
   return fontsReady === "LOADED" ? <>{children}</> : <div></div>;
-}
+};
 
 /**
  * @returns Selected theme from store if avaliable, default orherwise
  */
-function useTheme() {
-  const theme = useSelector((state: any) => {
-    switch (state.design.theme) {
+function useTheme(): DesignEnums {
+  const theme = useSelector(({ theme }: IDesignReducer) => {
+    switch (theme) {
       case DesignEnums.DEFAULT_THEME:
         return DesignEnums.DEFAULT_THEME;
       case DesignEnums.OCEAN_THEME:
@@ -78,11 +79,12 @@ function useTheme() {
   });
   return theme;
 }
+
 /**
  * @returns matching style object from given styles map
  * @param options {Map} list of imported styles matching with selected theme
  */
-function useThemeStyle(options: any) {
+function useThemeStyle(options: any): DesignEnums {
   const theme = useTheme();
   return options.get(theme);
 }

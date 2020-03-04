@@ -12,20 +12,22 @@ export default {
   },
 };
 
-const radioGroup = (({ len }) => {
+const radioGroup = (({ len }): ReactElement[] => {
   const seletcedIndex = random.number({ min: 0, max: len });
-  return new Array(len).fill("").map((chk, i) => {
-    return (
-      <Radio
-        key={i}
-        checked={i === seletcedIndex}
-        label={lorem.words(4)}
-        value={`ABC-${i}`}
-      >
-        <span>{lorem.paragraph()}</span>
-      </Radio>
-    );
-  });
+  return new Array(len).fill("").map(
+    (chk: string, i: number): ReactElement => {
+      return (
+        <Radio
+          key={i}
+          checked={i === seletcedIndex}
+          label={lorem.words(4)}
+          value={`ABC-${i}`}
+        >
+          <span>{lorem.paragraph()}</span>
+        </Radio>
+      );
+    }
+  );
 })({ len: 3 });
 
 export const Primary = function(): ReactElement {

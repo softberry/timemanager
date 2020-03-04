@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactFragment } from "react";
 import {
   IReadOnlyContactProps,
   ButtonAlignmentEnums,
@@ -9,10 +9,10 @@ import {
 import Card, { CardTitle, CardBody } from "../../__ui/card";
 import Button, { ButtonLink } from "../../__ui/buttons/button";
 
-function ReadOnlyDetails({
+const ReadOnlyDetails = ({
   contact,
   editContactHandler,
-}: IReadOnlyContactProps) {
+}: IReadOnlyContactProps): ReactFragment => {
   const { street, zip, city, tel, mobile, mail } = contact;
 
   return (
@@ -23,7 +23,7 @@ function ReadOnlyDetails({
           <Button
             align={ButtonAlignmentEnums.INLINE}
             icon={IconNameEnums.EDIT}
-            onClick={() => {
+            onClick={(): void => {
               editContactHandler(contact, false);
             }}
             type={ButtonTypeEnums.SIMPLE}
@@ -64,6 +64,6 @@ function ReadOnlyDetails({
       </Card>
     </>
   );
-}
+};
 
 export default ReadOnlyDetails;

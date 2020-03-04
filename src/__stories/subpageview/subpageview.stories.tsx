@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Provider, useDispatch } from "react-redux";
 import { TimerAppStore } from "../../App";
 
@@ -28,9 +28,9 @@ export default {
   decorators: [withKnobs],
 };
 
-function SubPageStorySample() {
+function SubPageStorySample(): ReactElement {
   const dispatch = useDispatch();
-  const showSubPage = () => {
+  const showSubPage = (): void => {
     dispatch({
       type: SubPageViewActionTypes.SHOW,
       caption: "Subpage Story",
@@ -59,7 +59,7 @@ function SubPageStorySample() {
     </div>
   );
 }
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <Provider store={TimerAppStore}>
       <StoryPage viewType="PrimaryView">
@@ -70,7 +70,7 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <Provider store={TimerAppStore}>
       <StoryPage viewType="SecondaryView">

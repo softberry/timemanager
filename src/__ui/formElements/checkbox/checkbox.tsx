@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, ReactElement } from "react";
 import {
   ICheckBoxComponentProps,
   IconSizeEnums,
@@ -16,12 +16,12 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 /**
  * Checkbox Component
  */
-function Checkbox({
+const Checkbox = ({
   children,
   checked = false,
   label,
   onChange,
-}: ICheckBoxComponentProps) {
+}: ICheckBoxComponentProps): ReactElement => {
   if (typeof onChange !== "function") {
     console.error("Checkbox component must have onChange function.");
   }
@@ -33,7 +33,7 @@ function Checkbox({
     onChange(isChecked);
   }, [isChecked, onChange]);
 
-  function checkOnChangeHandler() {
+  function checkOnChangeHandler(): void {
     setIsChecked(!isChecked);
     memoizedChecked();
   }
@@ -57,6 +57,6 @@ function Checkbox({
       </div>
     </>
   );
-}
+};
 
 export default Checkbox;

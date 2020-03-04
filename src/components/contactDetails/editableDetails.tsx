@@ -1,4 +1,10 @@
-import React, { useContext, useState, useCallback } from "react";
+import React, {
+  useContext,
+  useState,
+  useCallback,
+  ReactElement,
+  MouseEvent,
+} from "react";
 import {
   IContactsTableModel,
   IconNameEnums,
@@ -11,6 +17,7 @@ import {
   NewEntryEnums,
   DesignEnums,
   IEditableDetailsProps,
+  IStateDatabaseReducer,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -27,12 +34,15 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
+function EditableDetails<T>({
+  contact,
+  updateContact,
+}: IEditableDetailsProps): ReactElement {
   const excludedItems = ["id"];
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
-  const nSQL = useSelector((state: any) => state.db.nSQL);
+  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
   const dispatch = useDispatch();
 
   const isNewContact = contact.id === NewEntryEnums.NEW_CONTACT_ID;
@@ -49,7 +59,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
    * Use memoized callback to avoid unnecessary re-renders
    */
   const canBeSavedMemoized = useCallback(() => {
-    const currentCanBeSaved = (() => {
+    const currentCanBeSaved = ((): boolean => {
       const result = Array.from(contactsFormFieldsState.values()).filter(
         ({ valid }) => valid === false
       );
@@ -63,7 +73,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
    * This funcition is given to all child input/multiinput elements as prop
    * @param returnedValue
    */
-  function infoCallbackHandler(returnedValue: IInputCallback) {
+  function infoCallbackHandler(returnedValue: IInputCallback): void {
     const { name, uniqueName, value, valid } = returnedValue;
 
     const updatedFieldState = contactsFormFieldsState;
@@ -72,7 +82,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
     canBeSavedMemoized();
   }
 
-  function saveContactDetailsToDatabase(e: any) {
+  function saveContactDetailsToDatabase(e: MouseEvent<HTMLDivElement>): any {
     e.currentTarget.focus();
     const updatedContact = (() => {
       const obj: any = {};
@@ -98,7 +108,7 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
     });
   }
   //  <ConfirmDeleteContactBody {...props} />
-  function deleteContacthandler() {
+  function deleteContacthandler(): void {
     dispatch({
       type: IConfirmTypeEnums.DELETE_CONTACT,
       message: {
@@ -108,23 +118,28 @@ function EditableDetails<T>({ contact, updateContact }: IEditableDetailsProps) {
       },
     });
   }
-  function getContactsKeyMap(oContact: IContactsTableModel): any[] {
-    return Object.keys(oContact);
+  function getContactsKeyMap(oContact: IContactsTableModel): string[] {
+    const keys = Object.keys(oContact);
+    return keys;
   }
   return (
     <div>
-      {getContactsKeyMap(contact).map((fieldName, key) => {
-        const props: IEditableInputProps = {
-          fieldName,
-          contact,
-          infoCallback: infoCallbackHandler,
-        };
-        return (
-          <div key={key}>
-            {!excludedItems.includes(fieldName) && <EditableInput {...props} />}
-          </div>
-        );
-      })}
+      {getContactsKeyMap(contact).map(
+        (fieldName, key: number): ReactElement => {
+          const props: IEditableInputProps = {
+            fieldName,
+            contact,
+            infoCallback: infoCallbackHandler,
+          };
+          return (
+            <div key={key}>
+              {!excludedItems.includes(fieldName) && (
+                <EditableInput {...props} />
+              )}
+            </div>
+          );
+        }
+      )}
       <div className={styles[`ContactDetails-${theme}-${view}-Footer`]}>
         {!isNewContact && (
           <Button
@@ -155,7 +170,7 @@ function EditableInput({
   fieldName,
   contact,
   infoCallback,
-}: IEditableInputProps) {
+}: IEditableInputProps): ReactElement {
   if (Array.isArray(contact[fieldName])) {
     const multiField: IInputProps = {
       name: fieldName,

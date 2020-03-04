@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 import {
@@ -13,7 +13,7 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function Headline({ children, size }: IHeadlineBuilderProps) {
+function Headline({ children, size }: IHeadlineBuilderProps): ReactElement {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -41,42 +41,42 @@ function Headline({ children, size }: IHeadlineBuilderProps) {
   );
 }
 
-function H1({ children = <></> }: IHeadlineProps) {
+function H1({ children = <></> }: IHeadlineProps): ReactElement {
   return (
     <>
       <Headline size={1}>{children}</Headline>
     </>
   );
 }
-function H2({ children }: IHeadlineProps) {
+function H2({ children }: IHeadlineProps): ReactElement {
   return (
     <>
       <Headline size={2}>{children}</Headline>
     </>
   );
 }
-function H3({ children }: IHeadlineProps) {
+function H3({ children }: IHeadlineProps): ReactElement {
   return (
     <>
       <Headline size={3}>{children}</Headline>
     </>
   );
 }
-function H4({ children }: IHeadlineProps) {
+function H4({ children }: IHeadlineProps): ReactElement {
   return (
     <>
       <Headline size={4}>{children}</Headline>
     </>
   );
 }
-function H5({ children }: IHeadlineProps) {
+function H5({ children }: IHeadlineProps): ReactElement {
   return (
     <>
       <Headline size={5}>{children}</Headline>
     </>
   );
 }
-function H6({ children }: IHeadlineProps) {
+function H6({ children }: IHeadlineProps): ReactElement {
   return (
     <>
       <Headline size={6}>{children}</Headline>

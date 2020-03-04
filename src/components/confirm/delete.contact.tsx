@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactFragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   ButtonTypeEnums,
   IMessageTypeEnums,
   DesignEnums,
+  IStateDatabaseReducer,
 } from "../../__typings/interfaces.d";
 import { Checkbox } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
@@ -21,24 +22,24 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function ConfirmDeleteContactBody({
+const ConfirmDeleteContactBody = ({
   contact,
   dialogId,
-}: IConfirmDeleteContact) {
+}: IConfirmDeleteContact): ReactFragment => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const nSQL = useSelector((state: any) => state.db.nSQL);
+  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
   const [worklogsCount, setWorklogsCount] = useState(-1);
   const [deleteWorklogsToo, setDeleteWorklogsToo] = useState(false);
-  function checkBoxOnChangeHandler(checked: boolean) {
+  function checkBoxOnChangeHandler(checked: boolean): void {
     setDeleteWorklogsToo(checked);
   }
 
-  function onDeleteButtonSubmit(nSQL: any, id: string) {
+  function onDeleteButtonSubmit(id: string): void {
     if (deleteWorklogsToo) {
       nSQL("workTable")
         .query("delete")
@@ -76,7 +77,7 @@ function ConfirmDeleteContactBody({
       .then(() => {
         history.push("/contacts");
       })
-      .catch((err: any) => {
+      .catch((err: Error) => {
         console.log("Contact deleted!");
       });
     dispatch({
@@ -117,7 +118,7 @@ function ConfirmDeleteContactBody({
         <Button
           type={ButtonTypeEnums.SIMPLE}
           align={ButtonAlignmentEnums.RIGHT}
-          onClick={onDeleteButtonSubmit.bind({}, nSQL, contact.id)}
+          onClick={onDeleteButtonSubmit.bind({}, contact.id)}
           isDisabled={false}
         >
           Delete
@@ -125,6 +126,6 @@ function ConfirmDeleteContactBody({
       </div>
     </>
   );
-}
+};
 
 export default ConfirmDeleteContactBody;

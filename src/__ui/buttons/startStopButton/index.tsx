@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -18,11 +18,11 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
  * craftmen must keep button
  * at least given `waitForSeconds` of time.
  */
-function StartStopButton({
+const StartStopButton = ({
   onComplete,
   waitForSeconds = 3,
   isTurning = false,
-}: IStartStopButtonProps) {
+}: IStartStopButtonProps): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -72,18 +72,18 @@ function StartStopButton({
       )}
       <div
         className={stateClass}
-        onMouseDown={() => {
+        onMouseDown={(): void => {
           setCounter(0);
           setIsCountingDown(true);
         }}
-        onMouseUp={() => {
+        onMouseUp={(): void => {
           setIsCountingDown(false);
         }}
-        onTouchStart={() => {
+        onTouchStart={(): void => {
           setCounter(0);
           setIsCountingDown(true);
         }}
-        onTouchEnd={() => {
+        onTouchEnd={(): void => {
           setIsCountingDown(false);
         }}
       >
@@ -97,6 +97,6 @@ function StartStopButton({
       </div>
     </div>
   );
-}
+};
 
 export default StartStopButton;

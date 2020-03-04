@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import "@csstools/normalize.css";
@@ -15,7 +15,7 @@ import { DesignEnums } from "../__typings/interfaces.d";
 
 const store = createStore(rootReducer);
 
-function StoryPage({ children, viewType = "PrimaryView" }: any) {
+function StoryPage({ children, viewType = "PrimaryView" }: any): ReactElement {
   return (
     <ViewContext.Provider
       value={

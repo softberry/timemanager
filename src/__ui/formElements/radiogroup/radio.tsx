@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import {
   IRadioItemProps,
   IconSizeEnums,
@@ -26,7 +26,7 @@ function Radio({
   onChange = (): boolean => false,
   checked = false,
   value,
-}: IRadioItemProps) {
+}: IRadioItemProps): ReactElement {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -34,7 +34,7 @@ function Radio({
     <>
       <div
         className={styles[`Radio-${theme}`]}
-        onClick={() => onChange(value)}
+        onClick={(): void => onChange(value)}
         data-value={value}
       >
         {checked && (

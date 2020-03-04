@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  ReactElement,
+} from "react";
 import {
   IInputProps,
   IconSizeEnums,
@@ -30,17 +36,17 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 /**
  * Input element:
  */
-function Input({
+const Input = ({
   name,
   uniqueName,
   value,
   required,
   validate = false,
   infoCallback,
-}: IInputProps) {
+}: IInputProps): ReactElement => {
   const id = uuid();
   const stringValueOfField: string = value ? value.toString() : "";
-  const [inputElement, setInputElement] = useState<any>(null);
+  const [inputElement, setInputElement] = useState();
   const [val, setVal] = useState<string>(stringValueOfField);
   const view = useContext(ViewContext);
 
@@ -53,7 +59,7 @@ function Input({
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-  let timeoutId: any = -1;
+  let timeoutId = -1;
 
   const updateParentCallback = useCallback(() => {
     if (typeof infoCallback === "function") {
@@ -68,7 +74,7 @@ function Input({
   }, [isValid, uniqueName, infoCallback, name, val]);
 
   useEffect(() => {
-    return () => {
+    return (): void => {
       clearTimeout(timeoutId);
     };
   }, [timeoutId, hasFocus]);
@@ -118,7 +124,7 @@ function Input({
     updateParentCallback,
   ]);
 
-  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>): void {
     e.persist();
     const val: string = e.currentTarget.value;
     !hasFocus && setHasFocus(true);
@@ -128,7 +134,7 @@ function Input({
     );
   }
 
-  function handleOnFocus(e: React.FocusEvent<HTMLInputElement>) {
+  function handleOnFocus(e: React.FocusEvent<HTMLInputElement>): void {
     e.persist();
     setLabelType(
       `${e.target.value}`.length === 0
@@ -139,7 +145,7 @@ function Input({
     setInputElement(e.target);
   }
 
-  function handleOnBlur(e: React.FocusEvent<HTMLInputElement>) {
+  function handleOnBlur(e: React.FocusEvent<HTMLInputElement>): void {
     setLabelType(
       `${e.target.value}`.length === 0
         ? LabelTypeEnums.PLACEHOLDER
@@ -152,7 +158,7 @@ function Input({
     }, 300);
   }
 
-  function handleClear(e: React.MouseEvent<HTMLDivElement>) {
+  function handleClear(e: React.MouseEvent<HTMLDivElement>): void {
     inputElement && inputElement.focus && inputElement.focus();
     setVal("");
   }
@@ -196,6 +202,6 @@ function Input({
       </div>
     </div>
   );
-}
+};
 
 export default Input;

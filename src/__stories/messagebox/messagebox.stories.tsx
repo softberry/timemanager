@@ -33,7 +33,7 @@ export default {
 function MessageContent({ type }: IMessageContentProps): ReactElement {
   const dispatch = useDispatch();
 
-  function show(type: IMessageTypeEnums | IConfirmTypeEnums) {
+  function show(type: IMessageTypeEnums | IConfirmTypeEnums): void {
     dispatch({
       type,
       message: {
@@ -55,7 +55,7 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
       <div style={{ display: "flex" }}>
         <Button
           isDisabled={false}
-          onClick={() => {
+          onClick={(): void => {
             show(IMessageTypeEnums.INFO);
           }}
           type={ButtonTypeEnums.SIMPLE}
@@ -66,7 +66,7 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
         </Button>
         <Button
           isDisabled={false}
-          onClick={() => {
+          onClick={(): void => {
             show(IMessageTypeEnums.ERROR);
           }}
           type={ButtonTypeEnums.ERROR}
@@ -77,7 +77,7 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
         </Button>
         <Button
           isDisabled={false}
-          onClick={() => {
+          onClick={(): void => {
             show(IMessageTypeEnums.WARNING);
           }}
           type={ButtonTypeEnums.NEGATIVE}
@@ -91,7 +91,7 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
   );
 }
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <Provider store={TimerAppStore}>
       <StoryPage viewType="PrimaryView">
@@ -102,7 +102,7 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <Provider store={TimerAppStore}>
       <StoryPage viewType="SecondaryView">

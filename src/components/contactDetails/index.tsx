@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, ReactElement } from "react";
 
 import {
   IContactDetailsComponent,
@@ -7,6 +7,7 @@ import {
   NewEntryEnums,
   ViewSettingsEnums,
   DesignEnums,
+  IStateDatabaseReducer,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -26,7 +27,10 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function ContactDetails({ contact, type }: IContactDetailsComponent) {
+const ContactDetails = ({
+  contact,
+  type,
+}: IContactDetailsComponent): ReactElement => {
   const view = useContext(ViewContext);
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isNewContact, setIsNewContact] = useState(false);
@@ -36,13 +40,14 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const nSQL = useSelector((state: any) => state.db.nSQL);
+  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
   const viewClass = styles[`ContactDetails-${theme}-${view}`];
 
-  function switchView(contact: IContactsTableModel, readOnly?: boolean) {
+  function switchView(contact: IContactsTableModel, readOnly?: boolean): void {
     setCurrentContact(contact);
-    if (typeof readOnly === undefined) return;
-    setIsReadOnly(readOnly === true);
+    if (typeof readOnly !== undefined) {
+      setIsReadOnly(readOnly === true);
+    }
   }
 
   const [fullName, setFullName] = useState(
@@ -103,5 +108,5 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
       <EditableDetails contact={currentContact} updateContact={switchView} />
     </div>
   );
-}
+};
 export default ContactDetails;

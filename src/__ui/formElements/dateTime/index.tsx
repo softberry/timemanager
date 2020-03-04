@@ -4,6 +4,7 @@ import React, {
   ChangeEvent,
   useCallback,
   useEffect,
+  ReactElement,
 } from "react";
 import moment from "moment";
 import {
@@ -30,13 +31,13 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
  * Custom DateTime UI that enables users to define start/ finish time of a work
  * TODO: Implement https://github.com/softberry/timemanager/issues/62
  */
-function DateTime({
+const DateTime = ({
   start = moment(),
   finish = moment(),
   step = 15,
   infoCallback,
   collapsed = CollapsedState.COLLAPSED,
-}: IDateTimeProps) {
+}: IDateTimeProps): ReactElement => {
   const view = useContext(ViewContext);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -92,13 +93,15 @@ function DateTime({
     isValid,
   ]);
 
-  const dateOnChangehandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const dateOnChangehandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setCurrentDate(e.target.value);
   };
-  const startTimeOnChangehandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const startTimeOnChangehandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setStartTime(e.target.value);
   };
-  const finishTimeOnChangehandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const finishTimeOnChangehandler = (
+    e: ChangeEvent<HTMLInputElement>
+  ): void => {
     setEndTime(e.target.value);
   };
 
@@ -192,6 +195,6 @@ function DateTime({
       </div>
     </div>
   );
-}
+};
 
 export default DateTime;

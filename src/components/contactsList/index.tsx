@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, ReactElement } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  ReactElement,
+  ReactFragment,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
@@ -42,7 +48,7 @@ const ContactsList = (): ReactElement => {
   }: IWorklogBadgeProp): ReactElement => {
     const [queried, setQueried] = useState(false);
     const [count, setCount] = useState(0);
-    const nSQL = useSelector((state: any) => state.db.nSQL);
+    const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
 
     useEffect(() => {
       if (typeof nSQL !== "function" || queried) return;
@@ -61,7 +67,7 @@ const ContactsList = (): ReactElement => {
     return <>{count > 0 && <Badge content={count} view={view} />}</>;
   };
 
-  const createContactClickHandler = () => {
+  const createContactClickHandler = (): void => {
     nSQL("contactsTable")
       .presetQuery("createNewEmptyUserEntryForEdit")
       .exec()
@@ -98,20 +104,22 @@ const ContactsList = (): ReactElement => {
         </Button>
       </div>
       <List>
-        {contacts.map((item: any, key: number) => (
-          <Link
-            to={`/contact/details/${item.id}`}
-            key={key}
-            className={styles[`Contacts-${theme}-${view}-Entry`]}
-          >
-            <div className={styles[`Contacts-${theme}-${view}-Entry-Item`]}>
-              {item.name} {item.surname}
-            </div>
-            <div className={styles[`Contacts-${theme}-${view}-Entry-Badge`]}>
-              <WorkLogBadgeFromID contactID={item.id} />
-            </div>
-          </Link>
-        ))}
+        {contacts.map(
+          (item: IContactsTableModel, key: number): ReactFragment => (
+            <Link
+              to={`/contact/details/${item.id}`}
+              key={key}
+              className={styles[`Contacts-${theme}-${view}-Entry`]}
+            >
+              <div className={styles[`Contacts-${theme}-${view}-Entry-Item`]}>
+                {item.name} {item.surname}
+              </div>
+              <div className={styles[`Contacts-${theme}-${view}-Entry-Badge`]}>
+                <WorkLogBadgeFromID contactID={item.id} />
+              </div>
+            </Link>
+          )
+        )}
       </List>
     </div>
   );

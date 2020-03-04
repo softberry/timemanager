@@ -8,8 +8,6 @@ import {
   IConfirmTypeEnums,
   DesignEnums,
   IRootReducer,
-  IMessagePayload,
-  IMessageState,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
