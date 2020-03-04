@@ -26,7 +26,7 @@ import Button from "../../__ui/buttons/button";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import ViewContext from "../../views/index";
+import ViewContext from "../../views";
 import Input, { MultipleInput } from "../../__ui/formElements";
 import { useSelector, useDispatch } from "react-redux";
 
