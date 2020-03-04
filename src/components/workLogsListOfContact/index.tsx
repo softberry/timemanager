@@ -14,7 +14,7 @@ import {
   ViewSettingsEnums,
   DesignEnums,
   IStateDatabaseReducer,
-  IworkTableModel,
+  IWorkTableModel,
   SubPageViewActionTypes,
   IContactsTableModel,
 } from "../../__typings/interfaces.d";
@@ -39,7 +39,7 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
       caption: "New Worklog",
       content: (
         <>
-          <EditWorkLogsForm contactId={id} />
+          <EditWorkLogsForm contactID={id} />
         </>
       ),
     });
@@ -49,7 +49,7 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
     .query("select")
     .orderBy(["start ASC"])
     .exec()
-    .then((list: [IworkTableModel]) => {
+    .then((list: [IWorkTableModel]) => {
       console.log(list);
     });
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 // import BaseButton, { notes } from "./baseButton";
 import Button from "../../__ui/buttons/button";
@@ -22,7 +22,7 @@ export default {
   },
 };
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <Button
@@ -46,7 +46,7 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <Button

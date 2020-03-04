@@ -1,6 +1,7 @@
 import { uuid } from "@nano-sql/core/lib/utilities";
 import { Moment } from "moment";
 import { ReactChildren, ReactNode } from "react";
+import { nSQL as nSQLInterface } from "@nano-sql/core";
 
 export interface IDesignModel {
   view: string;
@@ -109,10 +110,6 @@ interface IDateTimeProps {
   collapsed: CollapsedState;
 }
 
-// export interface IMultiInputProps extends Omit<IInputProps>, "value" {
-//   values?: string[];
-// }
-
 /**
  *
  * props for StartStopButton
@@ -157,47 +154,40 @@ export interface IDialogBodyProp {
 export interface IConfirmDeleteContact extends IMessage {
   contact: IContactsTableModel;
 }
-
-export interface IToolbarButton {
-  type: IconNameEnums;
-  label?: string;
-  disabled?: boolean;
-  hidden?: boolean;
-  clickAction?: string;
-  styles?: any;
-  theme?: any;
-}
-
-export interface IToolbarButtonAction extends IToolbarButton {
-  nSQL?: any;
-  contact: any;
-}
-
-export interface IToolbarButtonState {
-  type: string;
-  contact: any;
-}
 export interface IStateDatabase {
   type: DatabaseActionEnums;
-  nSQL: any;
+  nSQL: nSQLInterface;
 }
 export interface IStateDatabaseReducer {
   db: IStateDatabase;
 }
-interface IWorkLogsProps {
-  contactId: string;
+export interface IEditWorkLogProps {
+  contactID: string;
+  worklogID?: string;
 }
 
-interface IWorkLogsTitleProps {
-  updateTitleCallback: ({
-    name: string,
-    description: string,
-    valid: boolean,
-  }) => void;
+export interface IEditWorkLogTitleProps {
+  name: string;
+  description?: string;
+  valid?: boolean;
+  dispatcher: any;
+}
+
+export interface IWorklogBadgeProp {
+  contactID: string;
+}
+interface IWorklogState extends IWorkTableModel {
+  valid: boolean;
+}
+
+interface IWorklogAction {
+  type: AddEditWorklogEnums;
+  data: IWorkTableModel;
+  input?: IInputCallback;
 }
 
 export interface IWorklogInput {
-  nSQL: any;
+  nSQL: nSQLInterface;
   start: Date;
   finish: Date;
   description?: string;
@@ -250,7 +240,7 @@ export interface IReadOnlyContactProps {
   contact: IContactsTableModel;
   editContactHandler: (contact: IContactsTableModel, readOnly?: boolean) => any;
 }
-export interface IworkTableModel {
+export interface IWorkTableModel {
   id: string;
   contactID: string;
   name: string;
@@ -337,7 +327,13 @@ export interface IWorkListItemEntry {
   labour: [{}];
   materials: [{}];
 }
-
+export interface INavProps {
+  length: number;
+  goBack?: () => void;
+  goForward?: () => void;
+  theme: string;
+  styles: any;
+}
 export interface ISubpageState {
   type: SubPageViewActionTypes;
   caption: string;
@@ -347,12 +343,22 @@ export interface ISubpageState {
 export interface ISubpageStateReducer {
   subpageview: ISubpageState;
 }
+
+export interface IViewState {
+  type: ViewSettingsEnums;
+  title: string;
+}
+export interface IViewStateReducer {
+  // type: never;
+  design: IDesignActionTypes;
+}
+
 export interface IFieldNameToType {
   type: "text" | "number" | "phone" | "mail" | "date" | "time";
   validationType: ValidationTypeEnums;
 }
 
-interface ICorrectedTimeFromStep {
+export interface ICorrectedTimeFromStep {
   minutes: number;
   step: number;
   immediate: boolean;
@@ -449,6 +455,12 @@ export enum IconNameEnums {
 
 export enum NewEntryEnums {
   NEW_CONTACT_ID = "NEW_CONTACT_ID",
+}
+
+export enum AddEditWorklogEnums {
+  INIT = "INIT",
+  TITLE = "TITLE",
+  DESCRIPTION = "DESCRIPTION",
 }
 
 /** Input labels can be visually label or placeholder */

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RadioGroup, Radio } from "../../__ui/formElements";
@@ -8,6 +8,7 @@ import {
   IDesign,
   ViewSettingsEnums,
   DesignEnums,
+  IViewStateReducer,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import themeDefault from "./theme-default.module.scss";
@@ -17,20 +18,22 @@ const stylesMap = new Map();
 
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
-function Options({ view }: IDesignModel) {
+function Options({ view }: IDesignModel): ReactElement {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
   const viewClass = styles[`Options-${theme}-${view}`];
   const dispatch = useDispatch();
-  const currentTheme = useSelector((state: any) => state.design.theme);
+  const currentTheme = useSelector(
+    ({ design }: IViewStateReducer) => design.theme
+  );
   dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Options" });
   return (
     <section className={viewClass}>
       <div>Theme</div>
       <div>
         <RadioGroup
-          onChange={(val: string) => {
+          onChange={(val: string): void => {
             dispatch({
               type: IDesign.THEME,
               theme: val,

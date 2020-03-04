@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import RadioGroup from "../../__ui/formElements/radiogroup/radio-group";
 import Radio from "../../__ui/formElements/radiogroup/radio";
 import StoryPage from "../story-page";
@@ -28,11 +28,11 @@ const radioGroup = (({ len }) => {
   });
 })({ len: 3 });
 
-export const Primary = function() {
+export const Primary = function(): ReactElement {
   return (
     <StoryPage viewType="PrimaryView">
       <RadioGroup
-        onChange={(val: any) => {
+        onChange={(val: string): void => {
           console.log("PrimaryView RadioGroup[1] value", val);
         }}
       >
@@ -40,7 +40,7 @@ export const Primary = function() {
       </RadioGroup>
       <hr />
       <RadioGroup
-        onChange={(val: any) => {
+        onChange={(val: string): void => {
           console.log("PrimaryView RadioGroup[2] value", val);
         }}
       >
@@ -50,11 +50,11 @@ export const Primary = function() {
   );
 };
 
-export const secondary = function() {
+export const Secondary = function(): ReactElement {
   return (
     <StoryPage viewType="SecondaryView">
       <RadioGroup
-        onChange={(val: string) => {
+        onChange={(val: string): void => {
           console.log("SecondaryView RadioGroup[1] value", val);
         }}
       >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { random } from "faker";
 import Badge from "../../__ui/badge";
@@ -14,7 +14,7 @@ export default {
 };
 const content = random.number(99);
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <Badge content={content} view={DesignEnums.PRIMARY_VIEW} />
@@ -22,7 +22,7 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <Badge content={content} view={DesignEnums.SECONDARY_VIEW} />

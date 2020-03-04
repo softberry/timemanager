@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import DefaultLayout from "../../layout/layout.default";
 import Calendar from "../../components/calendar";
 import ViewContext from "../index";
 import { DesignEnums } from "../../__typings/interfaces.d";
-function CalendarView() {
+function CalendarView(): ReactElement {
   return (
     <ViewContext.Provider value={DesignEnums.SECONDARY_VIEW}>
       <DefaultLayout>

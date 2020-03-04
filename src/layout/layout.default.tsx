@@ -1,4 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  FunctionComponent,
+} from "react";
 
 import Nav from "../components/nav";
 import Footer from "../components/footer";
@@ -16,7 +21,7 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function DefaultLayout({ children }: any) {
+const DefaultLayout: FunctionComponent = ({ children }) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const [slideIn, setSlideIn] = useState(false);
@@ -39,6 +44,6 @@ function DefaultLayout({ children }: any) {
       <SubPageView />
     </section>
   );
-}
+};
 
 export default DefaultLayout;

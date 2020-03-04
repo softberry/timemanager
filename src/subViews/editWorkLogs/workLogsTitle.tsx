@@ -2,32 +2,37 @@ import React, { ReactElement } from "react";
 import Input from "../../__ui/formElements";
 import {
   ValidationTypeEnums,
-  IInputCallback,
+  AddEditWorklogEnums,
+  // IWorkTableModel,
+  IEditWorkLogTitleProps,
+  // IInputCallback,
 } from "../../__typings/interfaces.d";
 import Card from "../../__ui/card";
 
-function WorkLogsTitle({ name, description, dispatcher }: any): ReactElement {
-  function updateTitle(result: IInputCallback) {
-    // dispatcher(result);
-  }
-
+function WorkLogsTitle({
+  name,
+  description,
+  dispatcher,
+}: IEditWorkLogTitleProps): ReactElement {
   return (
     <>
       <Card>
         <Input
           name="worklog-name"
-          uniqueName="worklogName"
+          uniqueName={AddEditWorklogEnums.TITLE}
           validate={true}
           required={true}
+          value={name}
           validationType={ValidationTypeEnums.TEXT}
           infoCallback={dispatcher}
         />
         <Input
           name="Worklog Description"
-          uniqueName="worklogDesc"
+          uniqueName={AddEditWorklogEnums.DESCRIPTION}
+          value={description}
           validate={false}
           required={false}
-          infoCallback={updateTitle}
+          infoCallback={dispatcher}
         />
       </Card>
     </>

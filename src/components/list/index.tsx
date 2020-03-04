@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, FunctionComponent, ReactElement } from "react";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -11,7 +11,7 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function List({ children }: any) {
+const List: FunctionComponent = ({ children }): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
@@ -19,7 +19,7 @@ function List({ children }: any) {
     <>
       <section className={styles[`List-${theme}`]}>
         {children &&
-          children.map((child: any, key: number) => (
+          React.Children.map(children, (child, key) => (
             <div className={styles[`List-${theme}-Item-${view}`]} key={key}>
               {child}
             </div>
@@ -27,6 +27,12 @@ function List({ children }: any) {
       </section>
     </>
   );
-}
+};
 
 export default List;
+
+// children.map((child: ReactNode, key: number) => (
+//   <div className={styles[`List-${theme}-Item-${view}`]} key={key}>
+//     {child}
+//   </div>
+// ))}

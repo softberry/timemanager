@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 import {
   IContactDetailsComponent,
-  IworkTableModel,
+  IWorkTableModel,
   IContactsTableModel,
   NewEntryEnums,
   ViewSettingsEnums,
@@ -50,12 +50,12 @@ function ContactDetails({ contact, type }: IContactDetailsComponent) {
   );
 
   // TODO: create custom query to have complete worklog including start/finish times and materials
-  // IworkTableModel should be returned properly
+  // IWorkTableModel should be returned properly
   nSQL("workTable")
     .query("select")
     .where(["contactID", "=", currentContact.id])
     .exec()
-    .then((worklogs: [IworkTableModel]) => {
+    .then((worklogs: [IWorkTableModel]) => {
       //      dispatch({ type: TYPES.WORKLOGS_UPDATE, worklogs });
       //TODO: get all worklogs for the current contact and dispatch result , so list of worklogs in this view should always be uptodate
     });

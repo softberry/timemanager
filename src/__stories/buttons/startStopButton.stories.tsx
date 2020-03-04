@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import StartStopButton from "../../__ui/buttons/startStopButton";
 import StoryPage from "../story-page";
@@ -11,12 +11,12 @@ export default {
   },
 };
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <StartStopButton
         isTurning={true}
-        onComplete={() => {
+        onComplete={(): void => {
           alert("Complete event called at default 3s.");
         }}
       />
@@ -24,12 +24,12 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <StartStopButton
         isTurning={true}
-        onComplete={() => {
+        onComplete={(): void => {
           alert("Complete event called at default 3s.");
         }}
       />

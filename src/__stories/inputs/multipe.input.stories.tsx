@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { MultipleInput } from "../../__ui/formElements";
 import StoryPage from "../story-page";
@@ -21,7 +21,7 @@ const fields: IInputProps = {
   validate: true,
 };
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <MultipleInput {...fields} />
@@ -29,7 +29,7 @@ export const Primary = () => {
   );
 };
 
-export const secondary: any = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <MultipleInput {...fields} />

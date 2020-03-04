@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, ReactElement } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
@@ -17,6 +17,8 @@ import {
   NewEntryEnums,
   ViewSettingsEnums,
   DesignEnums,
+  IStateDatabaseReducer,
+  IWorklogBadgeProp,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
@@ -25,9 +27,9 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function ContactsList() {
+const ContactsList = (): ReactElement => {
   const view = useContext(ViewContext);
-  const nSQL = useSelector((state: any) => state.db.nSQL);
+  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
 
   const [contacts, setContacts] = useState<IContactsTableModel[]>([]);
   const theme = useTheme();
@@ -35,7 +37,9 @@ function ContactsList() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  function WorkLogBadgeFromID({ view, contactID }: any) {
+  const WorkLogBadgeFromID = ({
+    contactID,
+  }: IWorklogBadgeProp): ReactElement => {
     const [queried, setQueried] = useState(false);
     const [count, setCount] = useState(0);
     const nSQL = useSelector((state: any) => state.db.nSQL);
@@ -55,7 +59,7 @@ function ContactsList() {
     }, [count]);
 
     return <>{count > 0 && <Badge content={count} view={view} />}</>;
-  }
+  };
 
   const createContactClickHandler = () => {
     nSQL("contactsTable")
@@ -91,7 +95,7 @@ function ContactsList() {
           Create Contact
         </Button>
       </div>
-      <List title="Contacts" list={contacts} type="CONTACTS_LIST" view={view}>
+      <List>
         {contacts.map((item: any, key: number) => (
           <Link
             to={`/contact/details/${item.id}`}
@@ -102,12 +106,12 @@ function ContactsList() {
               {item.name} {item.surname}
             </div>
             <div className={styles[`Contacts-${theme}-${view}-Entry-Badge`]}>
-              <WorkLogBadgeFromID view={view} contactID={item.id} />
+              <WorkLogBadgeFromID contactID={item.id} />
             </div>
           </Link>
         ))}
       </List>
     </div>
   );
-}
+};
 export default ContactsList;

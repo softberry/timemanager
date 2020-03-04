@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ReactElement } from "react";
 import {
   IContactViewProps,
   IContactsTableModel,
   IMessageTypeEnums,
   DesignEnums,
+  IStateDatabaseReducer,
 } from "../../__typings/interfaces.d";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,13 +14,13 @@ import ContactDetails from "../../components/contactDetails";
 
 import ViewContext from "../index";
 
-function ContactView({ match }: IContactViewProps) {
+function ContactView({ match }: IContactViewProps): ReactElement {
   const [table, setTable] = useState<IContactsTableModel>({
     id: "",
     surname: "",
   });
   const [queryState, setQueryState] = useState<string>("INITIAL");
-  const nSQL: any = useSelector((state: any) => state.db.nSQL);
+  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
   const dispatch = useDispatch();
 
   if (queryState === "INITIAL") {
@@ -32,12 +33,13 @@ function ContactView({ match }: IContactViewProps) {
         setTable(item[0]);
         setQueryState("READY");
       })
-      .catch((err: any) => {
+      .catch((err: Error) => {
+        // TODO: fix type error and use err.stack
         setQueryState("ERRORED");
         dispatch({
           type: IMessageTypeEnums.ERROR,
           caption: err.toString(),
-          body: <>{err.stack.toString()}</>,
+          body: <>{err.toString()}</>,
           closable: true,
         });
       });

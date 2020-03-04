@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { lorem } from "faker";
 import Card, { CardTitle, CardBody, CardFooter } from "../../__ui/card";
@@ -15,7 +15,7 @@ export default {
   },
 };
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <Card>
@@ -58,7 +58,7 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <Card>

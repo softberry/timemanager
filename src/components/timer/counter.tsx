@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { ICounterDiffTime } from "../../__typings/interfaces.d";
 
 import { twoDigit } from "../../lib/counter.helpers";
@@ -10,7 +10,7 @@ function Counter({
   counting = false,
   styles,
   theme,
-}: ICounterDiffTime) {
+}: ICounterDiffTime): ReactElement {
   const beatClass = [styles[`Beats-${theme}`]];
   counting && beatClass.push(styles[`beats-${theme}`]);
   const containerOpacity = { opacity: counting ? 1 : 0.05 };

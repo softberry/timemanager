@@ -13,7 +13,7 @@ import {
   ViewSettingsEnums,
   DesignEnums,
   IStateDatabaseReducer,
-  IworkTableModel,
+  IWorkTableModel,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -38,7 +38,7 @@ function TimelogList(): ReactElement {
     .query("select")
     .orderBy(["start ASC"])
     .exec()
-    .then((list: [IworkTableModel]) => {
+    .then((list: [IWorkTableModel]) => {
       console.log(list);
     });
 

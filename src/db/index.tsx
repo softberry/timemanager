@@ -9,38 +9,29 @@ import counterModelTables from "./models/data.model";
 
 // Dummy Tables: Feke content using fakersJS used during development
 import { createRandomContacts } from "./_dummy/contacts.dev";
-import { DatabaseActionEnums } from "../__typings/interfaces.d";
+import {
+  DatabaseActionEnums,
+  IStateDatabaseReducer,
+} from "../__typings/interfaces.d";
 
 // const isDEV = process.env.NODE_ENV === "development";
 const isPROD = process.env.NODE_ENV === "production";
 
-function dbExists(dbname = "shoplist_local") {
+function dbExists(dbname = "shoplist_local"): boolean {
   const dbList = nSQL().listDatabases();
   return dbList.includes(dbname);
 }
 
-type NanoDatabaseProps = {
-  children?: any;
-};
-
-export function useDataBase() {
-  return nSQL;
-}
-
-/////////////////
-const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps) => {
+const NanoDatabase: FunctionComponent = ({ children }) => {
   const [ready, setReady] = useState<string>("NOT_READY");
-  const _State: any = useSelector(state => state);
+  const _nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (typeof _State === undefined) return;
-    if (typeof _State.db === undefined) return;
-
-    if (typeof _State.db.nSQL === "function") {
+    if (typeof _nSQL === "function") {
       setReady("READY");
     }
-  }, [setReady, _State]);
+  }, [setReady, _nSQL]);
 
   useEffect(() => {
     if (ready === "NOT_READY" && dbExists()) {
@@ -85,7 +76,7 @@ const NanoDatabase: FunctionComponent = ({ children }: NanoDatabaseProps) => {
           nSQL().useDatabase("shoplist_local");
           setReady("BEFORE_READY");
         })
-        .catch((err: any) => {
+        .catch((err: Error) => {
           console.warn(err);
         });
     }

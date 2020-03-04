@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Typography from "./__ui/typography";
 import NanoDataBase from "./db";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
@@ -18,15 +18,20 @@ import SettingsView from "./views/options";
 import ContactView from "./views/contact";
 import Message from "./components/message";
 
-import { IDesign, DesignEnums, UserInfo } from "./__typings/interfaces.d";
+import {
+  IDesign,
+  DesignEnums,
+  UserInfo,
+  IViewStateReducer,
+} from "./__typings/interfaces.d";
 
 const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
 
-function Page() {
-  document.oncontextmenu = function() {
+const Page = (): ReactElement => {
+  document.oncontextmenu = (): boolean => {
     return false;
   };
-  const theme = useSelector((state: any) => state.design.theme);
+  const theme = useSelector(({ design }: IViewStateReducer) => design.theme);
   const savedTheme =
     window.localStorage.getItem(UserInfo.SELECTED_THEME) ||
     DesignEnums.DEFAULT_THEME;
@@ -54,13 +59,13 @@ function Page() {
       </Typography>
     </Router>
   );
-}
+};
 
-function App() {
+const App = (): ReactElement => {
   return (
     <Provider store={TimerAppStore}>
       <Page />
     </Provider>
   );
-}
+};
 export { App as default, TimerAppStore };

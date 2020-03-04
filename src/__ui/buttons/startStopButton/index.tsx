@@ -31,7 +31,7 @@ function StartStopButton({
   const [counter, setCounter] = useState(0);
 
   const [turnWheel, setTurnWheel] = useState<boolean>(isTurning);
-  let strCountDown: string = isCountingDown
+  const strCountDown: string = isCountingDown
     ? (waitForSeconds - counter).toString()
     : "";
 
@@ -44,7 +44,7 @@ function StartStopButton({
   }, [isTurning, turnWheel]);
 
   useEffect(() => {
-    let intervalId: number = -1;
+    let intervalId = -1;
     if (isCountingDown) {
       if (waitForSeconds > counter) {
         intervalId = window.setTimeout(() => {

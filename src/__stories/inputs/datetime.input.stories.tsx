@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { DateTime } from "../../__ui/formElements";
 import StoryPage from "../story-page";
 import { CollapsedState } from "../../__typings/interfaces.d";
@@ -16,7 +16,7 @@ export default {
   },
 };
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <DateTime
@@ -34,7 +34,7 @@ export const Primary = () => {
   );
 };
 
-export const secondary: any = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <DateTime

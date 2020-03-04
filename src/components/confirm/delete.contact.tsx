@@ -44,7 +44,9 @@ function ConfirmDeleteContactBody({
         .query("delete")
         .where(["contactID", "=", id])
         .exec()
-        .then(() => {});
+        .then(() => {
+          console.log("Worklogs of Contact deleted!");
+        });
     } else {
       nSQL("workTable")
         .query("select")
@@ -58,7 +60,11 @@ function ConfirmDeleteContactBody({
               })
               .where(["id", "=", item.id])
               .exec()
-              .then(() => {});
+              .then(() => {
+                console.log(
+                  "contactID removed from Work logs of deleted contact!"
+                );
+              });
           });
         });
     }
@@ -70,7 +76,9 @@ function ConfirmDeleteContactBody({
       .then(() => {
         history.push("/contacts");
       })
-      .catch((err: any) => {});
+      .catch((err: any) => {
+        console.log("Contact deleted!");
+      });
     dispatch({
       type: IMessageTypeEnums.HIDE_MESSAGE,
       dialogId: dialogId,

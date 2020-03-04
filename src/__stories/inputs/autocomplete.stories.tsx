@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import Autocomplete from "../../__ui/autocomplete";
 
@@ -10,7 +10,7 @@ export default {
   component: Autocomplete,
 };
 
-export const Primary = function() {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <div
@@ -26,7 +26,7 @@ export const Primary = function() {
     </StoryPage>
   );
 };
-export const secondary = function() {
+export const secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <div

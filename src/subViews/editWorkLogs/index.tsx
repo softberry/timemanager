@@ -3,6 +3,8 @@ import React, {
   useReducer,
   createContext,
   useContext,
+  useEffect,
+  useState,
 } from "react";
 import Button from "../../__ui/buttons/button";
 
@@ -10,14 +12,22 @@ import {
   ButtonTypeEnums,
   ButtonAlignmentEnums,
   IconNameEnums,
-  IworkTableModel,
+  IEditWorkLogProps,
+  IStateDatabaseReducer,
+  IWorkTableModel,
+  AddEditWorklogEnums,
+  IWorklogState,
+  IWorklogAction,
 } from "../../__typings/interfaces.d";
 
 import WorkLogsTitle from "./workLogsTitle";
 import TimeLogs from "./timelogs";
 import MaterialLogs from "./materiallogs";
+import { useSelector } from "react-redux";
 
-const worklogInitial: IworkTableModel = {
+/*
+
+const worklogInitial: IWorkTableModel = {
   id: "",
   contactID: "",
   description: "x",
@@ -49,6 +59,7 @@ const worklogInitial: IworkTableModel = {
     },
   ],
 };
+*/
 
 function EditWorkLogsForm(): ReactElement {
   const worklog = useContext(WorklogContext);
@@ -63,7 +74,11 @@ function EditWorkLogsForm(): ReactElement {
 
   return (
     <>
-      <WorkLogsTitle worklog={worklog} dispatcher={dispatcher} />
+      <WorkLogsTitle
+        name={worklog.name}
+        description={worklog.description}
+        dispatcher={dispatcher}
+      />
       <TimeLogs />
       <MaterialLogs />
 
@@ -91,22 +106,68 @@ function EditWorkLogsForm(): ReactElement {
   );
 }
 
-const WorklogContext = createContext<any>({});
-const DispatchContext = createContext<any>({});
-const worklogsReducer = (state: any, action: any): any => {
-  console.log("->", action);
-  switch (action.uniqueName) {
-    case "worklogName":
-      return { ...state, name: action.value, valid: action.valid };
-    case "worklogDesc":
-      return { ...state, description: action.value };
+const WorklogContext = createContext<IWorklogState>({
+  id: "",
+  contactID: "",
+  name: "",
+  description: "",
+  labour: [],
+  materials: [],
+  valid: false,
+});
+const DispatchContext = createContext({});
+const worklogsReducer = (
+  state: IWorklogState,
+  action: IWorklogAction
+): IWorklogState => {
+  switch (action.type) {
+    case AddEditWorklogEnums.INIT:
+      return { ...state, ...action.data };
+    case AddEditWorklogEnums.TITLE:
+      return {
+        ...state,
+        name: action.input?.value || "",
+        valid: action.input?.valid || false,
+      };
+    case AddEditWorklogEnums.DESCRIPTION:
+      return { ...state, description: action.input?.value || "" };
     default:
       return state;
   }
 };
-function EditWorkLogs({ contactId }: any) {
-  const [worklog, dispatcher] = useReducer(worklogsReducer, worklogInitial);
-  console.log(worklog, " -- final state");
+
+function EditWorkLogs({
+  contactID,
+  worklogID,
+}: IEditWorkLogProps): ReactElement {
+  const [worklog, dispatcher] = useReducer(worklogsReducer, {
+    id: "",
+    name: "",
+    description: "",
+    valid: false,
+    contactID: "",
+    labour: [],
+    materials: [],
+  });
+  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    if (!isReady) {
+      nSQL("workTable")
+        .presetQuery("createNewWorkLogForContact", {
+          contactID,
+          worklogID,
+        })
+        .exec()
+        .then((logs: IWorkTableModel[]) => {
+          dispatcher({ type: AddEditWorklogEnums.INIT, data: logs[0] });
+          setIsReady(true);
+        });
+    }
+  }, [isReady, contactID, nSQL, worklogID]);
+
+  if (!isReady) return <></>;
   return (
     <DispatchContext.Provider value={dispatcher}>
       <WorklogContext.Provider value={worklog}>
@@ -123,10 +184,3 @@ export { EditWorkLogs as default, WorklogContext, DispatchContext };
 // TODO: - Apply finalizes style from time log to materials log
 // TODO: - Save/Update functionality to work log
 // TODO: - Delete worklog from the list
-
-//FIXME:****************************************************************
-//        input doesnt updates parent and results too many re-renders **
-//        useContext /useReducer / forwardRef may help to fix this    **
-//        -- start from the entry point :                             **
-//          src/components/workLogsListOfContact/index.tsx line:66    **
-// *********************************************************************

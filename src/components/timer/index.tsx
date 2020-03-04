@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, ReactElement } from "react";
 import {
   ICounterTableModel,
   IDiff,
   DesignEnums,
+  IStateDatabaseReducer,
 } from "../../__typings/interfaces.d";
 
 import { useSelector } from "react-redux";
@@ -23,17 +24,17 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
 let timerID: number;
 
-export function Timer(): JSX.Element {
+export function Timer(): ReactElement {
   const view = useContext(ViewContext);
   const [timerActiveState, setTimerActiveState] = useState<boolean>(false);
 
   const [diff, setDiff] = useState<IDiff>(timeDiff(0, 0));
-  const nSQL = useSelector((state: any) => state.db.nSQL);
+  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const startTimer = () => {
+  const startTimer = (): void => {
     const _now = Date.now();
     setTimerActiveState(true);
     nSQL("counterTable")
@@ -48,7 +49,7 @@ export function Timer(): JSX.Element {
         setDiff(timeDiff(current[0].start, current[0].current));
       });
   };
-  const stopTimer = () => {
+  const stopTimer = (): void => {
     setTimerActiveState(false);
     nSQL("counterTable")
       .query("upsert", {
@@ -98,7 +99,7 @@ export function Timer(): JSX.Element {
             : clearTimeout(timerID);
         });
     }, 1000);
-    return () => {
+    return (): void => {
       clearTimeout(timerID);
     };
   }, [timerActiveState, nSQL, setDiff, diff]);
@@ -108,7 +109,7 @@ export function Timer(): JSX.Element {
   // https://github.com/softberry/timemanager/issues/42
   // https://github.com/softberry/timemanager/issues/63
 
-  const onCompleteEventHandler = () => {
+  const onCompleteEventHandler = (): void => {
     timerActiveState ? stopTimer() : startTimer();
   };
 

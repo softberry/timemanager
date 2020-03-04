@@ -91,6 +91,7 @@ const workTable: InanoSQLTableConfig = {
           materials: [],
           description: "",
         };
+
         return db.query("upsert", work).emit();
       },
     },
