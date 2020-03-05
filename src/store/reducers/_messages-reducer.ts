@@ -69,9 +69,7 @@ function message(
         messages: messageToHide,
       };
     default:
-      return {
-        ...state,
-      };
+      return { ...state };
   }
 }
 export default message;

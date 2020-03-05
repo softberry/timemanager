@@ -60,7 +60,7 @@ const Nav: FunctionComponent = (): ReactElement => {
           <ViewTitle />
         </div>
         <div className={styles[`SearchNav-${theme}`]}>
-          <AutoComplete variant={DesignEnums.PRIMARY_VIEW} />
+          <AutoComplete />
         </div>
       </nav>
     </>

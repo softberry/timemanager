@@ -4,6 +4,8 @@ import React, {
   useCallback,
   ReactElement,
   MouseEvent,
+  useReducer,
+  createContext,
 } from "react";
 import {
   IContactsTableModel,
@@ -35,10 +37,7 @@ const stylesMap = new Map();
 stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 
-function EditableDetails<T>({
-  contact,
-  updateContact,
-}: IEditableDetailsProps): ReactElement {
+const EditableDetails = (): ReactElement => {
   const excludedItems = ["id"];
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -46,6 +45,8 @@ function EditableDetails<T>({
   const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
   const dispatch = useDispatch();
 
+  const contact = useContext(EditContactContext);
+  const dispatcher = useContext(EditContactDispatchContext);
   const isNewContact = contact.id === NewEntryEnums.NEW_CONTACT_ID;
 
   const fieldStateMap = new Map();
@@ -105,10 +106,15 @@ function EditableDetails<T>({
           .query("delete")
           .where(["id", "=", NewEntryEnums.NEW_CONTACT_ID]);
       }
-      updateContact(current[0], true);
+      //updateContact(current[0], true);
+      dispatcher({
+        type: "UPDATE",
+        contact: current[0],
+        readOnly: true,
+      });
     });
   }
-  //  <ConfirmDeleteContactBody {...props} />
+
   function deleteContacthandler(): void {
     dispatch({
       type: IConfirmTypeEnums.DELETE_CONTACT,
@@ -119,14 +125,15 @@ function EditableDetails<T>({
       },
     });
   }
-  function getContactsKeyMap(oContact: IContactsTableModel): string[] {
+
+  function getContactsKeyMap(oContact: IContactsTableModel): INameToValueMap {
     const keys = Object.keys(oContact);
     return keys;
   }
   return (
     <div>
       {getContactsKeyMap(contact).map(
-        (fieldName, key: number): ReactElement => {
+        (fieldName: keyof IContactsTableModel, key: number): ReactElement => {
           const props: IEditableInputProps = {
             fieldName,
             contact,
@@ -165,7 +172,7 @@ function EditableDetails<T>({
       </div>
     </div>
   );
-}
+};
 
 function EditableInput({
   fieldName,
@@ -203,5 +210,44 @@ function EditableInput({
     </>
   );
 }
+const EditContactContext = createContext<IContactsTableModel>({
+  id: "",
+  name: "",
+  surname: "",
+  tel: [],
+  mobile: [],
+  mail: [],
+  street: "",
+  city: "",
+  zip: "",
+});
+const EditContactDispatchContext = createContext((action: any): void => {
+  console.log("//TODO: ");
+});
 
-export default EditableDetails;
+const EditableDetailsForm = ({
+  contact,
+  updateContact,
+}: IEditableDetailsProps): ReactElement => {
+  function fnReducer(state: any, action: any) {
+    switch (action.type) {
+      case "UPDATE":
+        updateContact(action.contact, action.readOnly);
+        return state;
+    }
+    return { ...state, ...action };
+  }
+  const [contactForm, dispatcher] = useReducer(fnReducer, contact);
+
+  return (
+    <>
+      <EditContactDispatchContext.Provider value={dispatcher}>
+        <EditContactContext.Provider value={contactForm}>
+          <EditableDetails />
+        </EditContactContext.Provider>
+      </EditContactDispatchContext.Provider>
+    </>
+  );
+};
+
+export default EditableDetailsForm;

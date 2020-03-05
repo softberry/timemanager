@@ -2,15 +2,17 @@ import {
   ViewSettingsEnums,
   IViewState,
   IViewStateReducer,
-  IDesign,
+  DesignEnums,
+  UserInfo,
 } from "../../__typings/interfaces.d";
 
 const initialViewState: IViewStateReducer = {
   design: {
-    type: IDesign.THEME,
-    theme: "",
-    view: "",
+    type: ViewSettingsEnums.UPDATE_TITLE,
+    theme: DesignEnums.DEFAULT_THEME,
+    view: DesignEnums.PRIMARY_VIEW,
   },
+  title: "",
 };
 function viewReducers(state = initialViewState, action: IViewState) {
   switch (action.type) {
@@ -19,8 +21,20 @@ function viewReducers(state = initialViewState, action: IViewState) {
         ...state,
         title: action.title,
       };
+    case ViewSettingsEnums.UPDATE_THEME:
+      window.localStorage.setItem(
+        UserInfo.SELECTED_THEME,
+        action.theme || DesignEnums.DEFAULT_THEME
+      );
+      return {
+        ...state,
+        design: {
+          ...state.design,
+          theme: action.theme,
+        },
+      };
     default:
-      return state;
+      return { ...state };
   }
 }
 

@@ -27,7 +27,7 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
  */
 
 const RadioGroup = ({ children, onChange }: IRadioGroupProps): ReactElement => {
-  const [radioItemsProps, setRadioItemsProps] = useState();
+  const [radioItemsProps, setRadioItemsProps] = useState<IRadioItemProps[]>([]);
   const [selectedItem, setSelectedItem] = useState("");
   const [initialised, setInitialised] = useState(false);
   const [isValid, setIsValid] = useState("__INITIAL__");
@@ -68,7 +68,7 @@ const RadioGroup = ({ children, onChange }: IRadioGroupProps): ReactElement => {
 
   useEffect(() => {
     if (!initialised && radioItemsProps.length === 0 && children.length > 0) {
-      const propsList = children.map((child: ReactElement) => {
+      const propsList = Children.map(children, (child: ReactElement) => {
         const { children, label, checked, value } = child.props;
         if (checked) {
           setSelectedItem(value);

@@ -33,7 +33,6 @@ const DefaultLayout: FunctionComponent = ({ children }) => {
       setSlideIn(true);
     }, 100);
   }, [slideIn]);
-
   return (
     <section className={styles[`Layout-${theme}-${view}`]}>
       <Nav />

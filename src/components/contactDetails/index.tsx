@@ -79,12 +79,23 @@ const ContactDetails = ({
     }
   }, [setFullName, setIsNewContact, fullName, currentContact, type]);
 
+  useEffect(() => {
+    if (isReadOnly) {
+      dispatch({
+        type: ViewSettingsEnums.UPDATE_TITLE,
+        title: "Contact Details",
+      });
+    } else {
+      const EditableDetailTitle = isNewContact
+        ? "Create New Contact"
+        : "Edit Contact Details";
+      dispatch({
+        type: ViewSettingsEnums.UPDATE_TITLE,
+        title: EditableDetailTitle,
+      });
+    }
+  }, [dispatch, isNewContact, isReadOnly]);
   if (isReadOnly) {
-    dispatch({
-      type: ViewSettingsEnums.UPDATE_TITLE,
-      title: "Contact Details",
-    });
-
     return (
       <div className={viewClass}>
         <ReadOnlyDetails
@@ -95,13 +106,6 @@ const ContactDetails = ({
       </div>
     );
   }
-  const EditableDetailTitle = isNewContact
-    ? "Create New Contact"
-    : "Edit Contact Details";
-  dispatch({
-    type: ViewSettingsEnums.UPDATE_TITLE,
-    title: EditableDetailTitle,
-  });
 
   return (
     <div className={viewClass}>

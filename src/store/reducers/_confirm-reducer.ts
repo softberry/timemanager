@@ -13,9 +13,7 @@ function confirm(state: any = { confirm: {} }, payload: any) {
       };
 
     default:
-      return {
-        ...state,
-      };
+      return { ...state };
   }
 }
 export default confirm;

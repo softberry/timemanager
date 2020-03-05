@@ -16,11 +16,6 @@ export interface IDesignReducer {
   view: DesignEnums;
   theme: DesignEnums;
 }
-export interface IDesignActionTypes {
-  type: IDesign;
-  view?: string;
-  theme?: string;
-}
 
 export interface ITypographyProps {
   theme?: string;
@@ -64,7 +59,7 @@ export interface IRadioItemProps {
 
 export interface IRadioGroupProps {
   children: ReactElement[];
-  onChange: (s: string) => void;
+  onChange: (s: any) => void;
 }
 
 export interface IEditableInputProps {
@@ -150,7 +145,7 @@ export interface IRootReducer {
   confirm: any;
   subpageview: any;
   design: IDesignReducer;
-  viewSettings: any;
+  viewSettings: IViewStateReducer;
 }
 
 interface IMessagePayload {
@@ -372,12 +367,19 @@ export interface ISubpageStateReducer {
 export interface IViewState {
   type: ViewSettingsEnums;
   title: string;
-}
-export interface IViewStateReducer {
-  // type: never;
-  design: IDesignActionTypes;
+  theme: DesignEnums;
 }
 
+export interface IViewStateReducer {
+  design: IViewActionTypes;
+  title: string;
+}
+
+export interface IViewActionTypes {
+  type: ViewSettingsEnums;
+  view: string | "primary";
+  theme: string | "default";
+}
 export interface IFieldNameToType {
   type: "text" | "number" | "phone" | "mail" | "date" | "time";
   validationType: ValidationTypeEnums;
@@ -397,10 +399,7 @@ export interface ICorrectedTimeFromStep {
 export enum DatabaseActionEnums {
   REGISTER_DATABASE = uuid(), // "DATABASE_REGISTER_DATABASE",
 }
-export enum IDesign {
-  VIEW = uuid(),
-  THEME = uuid(),
-}
+
 export enum SubPageViewActionTypes {
   SHOW = uuid(), // "SHOW",
   OUT = uuid(), // "OUT",
@@ -408,6 +407,7 @@ export enum SubPageViewActionTypes {
 }
 
 export enum ViewSettingsEnums {
+  UPDATE_THEME = uuid(),
   UPDATE_TITLE = uuid(),
 }
 

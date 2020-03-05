@@ -1,4 +1,4 @@
-import React, { ReactFragment } from "react";
+import React, { ReactElement } from "react";
 import {
   IReadOnlyContactProps,
   ButtonAlignmentEnums,
@@ -12,7 +12,7 @@ import Button, { ButtonLink } from "../../__ui/buttons/button";
 const ReadOnlyDetails = ({
   contact,
   editContactHandler,
-}: IReadOnlyContactProps): ReactFragment => {
+}: IReadOnlyContactProps): ReactElement => {
   const { street, zip, city, tel, mobile, mail } = contact;
 
   return (

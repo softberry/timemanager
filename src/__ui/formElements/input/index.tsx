@@ -46,7 +46,7 @@ const Input = ({
 }: IInputProps): ReactElement => {
   const id = uuid();
   const stringValueOfField: string = value ? value.toString() : "";
-  const [inputElement, setInputElement] = useState();
+  const [inputElement, setInputElement] = useState<HTMLInputElement | null>();
   const [val, setVal] = useState<string>(stringValueOfField);
   const view = useContext(ViewContext);
 
@@ -152,7 +152,7 @@ const Input = ({
         : LabelTypeEnums.LABEL
     );
 
-    timeoutId = setTimeout(() => {
+    timeoutId = window.setTimeout(() => {
       setInputElement(null);
       setHasFocus(false);
     }, 300);

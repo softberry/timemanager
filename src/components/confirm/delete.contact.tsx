@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactFragment } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
@@ -25,7 +25,7 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
 const ConfirmDeleteContactBody = ({
   contact,
   dialogId,
-}: IConfirmDeleteContact): ReactFragment => {
+}: IConfirmDeleteContact): ReactElement => {
   const dispatch = useDispatch();
   const history = useHistory();
 

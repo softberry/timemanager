@@ -2,9 +2,9 @@ import React, { useState, useEffect, ReactElement } from "react";
 import {
   ITypographyProps,
   IMessageTypeEnums,
-  DesignEnums,
   IDesignReducer,
   INameToValueMap,
+  IRootReducer,
 } from "../__typings/interfaces.d";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -67,17 +67,11 @@ const Typography = ({ children }: ITypographyProps): ReactElement => {
 /**
  * @returns Selected theme from store if avaliable, default orherwise
  */
-function useTheme(): DesignEnums {
-  const theme = useSelector(({ theme }: IDesignReducer) => {
-    switch (theme) {
-      case DesignEnums.DEFAULT_THEME:
-        return DesignEnums.DEFAULT_THEME;
-      case DesignEnums.OCEAN_THEME:
-        return DesignEnums.OCEAN_THEME;
-      default:
-        return DesignEnums.DEFAULT_THEME;
-    }
-  });
+function useTheme(): string {
+  const theme = useSelector(
+    ({ viewSettings }: IRootReducer) => viewSettings.design.theme
+  );
+
   return theme;
 }
 
@@ -85,8 +79,9 @@ function useTheme(): DesignEnums {
  * @returns matching style object from given styles map
  * @param options {Map} list of imported styles matching with selected theme
  */
-function useThemeStyle(options: INameToValueMap): DesignEnums {
+function useThemeStyle(options: INameToValueMap): INameToValueMap {
   const theme = useTheme();
+
   return options.get(theme);
 }
 
