@@ -3,12 +3,18 @@ import { Moment } from "moment";
 import { ReactChildren, ReactNode, ReactChild, ReactElement } from "react";
 import { nSQL as nSQLInterface } from "@nano-sql/core";
 
+interface IStoryPageProps {
+  viewType: string;
+}
+export interface INameToValueMap {
+  [key: string]: any;
+}
 export interface IDesignModel {
   view: string;
 }
 export interface IDesignReducer {
-  view: string;
-  theme: string;
+  view: DesignEnums;
+  theme: DesignEnums;
 }
 export interface IDesignActionTypes {
   type: IDesign;

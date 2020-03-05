@@ -4,6 +4,7 @@ import {
   IMessageTypeEnums,
   DesignEnums,
   IDesignReducer,
+  INameToValueMap,
 } from "../__typings/interfaces.d";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -84,7 +85,7 @@ function useTheme(): DesignEnums {
  * @returns matching style object from given styles map
  * @param options {Map} list of imported styles matching with selected theme
  */
-function useThemeStyle(options: any): DesignEnums {
+function useThemeStyle(options: INameToValueMap): DesignEnums {
   const theme = useTheme();
   return options.get(theme);
 }

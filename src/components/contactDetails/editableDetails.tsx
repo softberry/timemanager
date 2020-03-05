@@ -18,6 +18,7 @@ import {
   DesignEnums,
   IEditableDetailsProps,
   IStateDatabaseReducer,
+  INameToValueMap,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -82,11 +83,11 @@ function EditableDetails<T>({
     canBeSavedMemoized();
   }
 
-  function saveContactDetailsToDatabase(e: MouseEvent<HTMLDivElement>): any {
+  function saveContactDetailsToDatabase(e: MouseEvent<HTMLDivElement>): void {
     e.currentTarget.focus();
-    const updatedContact = (() => {
-      const obj: any = {};
-      contactsFormFieldsState.forEach((data: any, key: string) => {
+    const updatedContact = ((): INameToValueMap => {
+      const obj: INameToValueMap = {};
+      contactsFormFieldsState.forEach((data: INameToValueMap, key: string) => {
         obj[key] = data.value;
       });
 

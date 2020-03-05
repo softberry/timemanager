@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, PropsWithChildren } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import "@csstools/normalize.css";
@@ -11,11 +11,14 @@ import Typography from "../__ui/typography";
 import rootReducer from "../store/reducers";
 
 import styles from "./default.module.scss";
-import { DesignEnums } from "../__typings/interfaces.d";
+import { DesignEnums, IStoryPageProps } from "../__typings/interfaces.d";
 
 const store = createStore(rootReducer);
 
-function StoryPage({ children, viewType = "PrimaryView" }: any): ReactElement {
+const StoryPage = ({
+  children,
+  viewType = "PrimaryView",
+}: PropsWithChildren<IStoryPageProps>): ReactElement => {
   return (
     <ViewContext.Provider
       value={
@@ -30,6 +33,6 @@ function StoryPage({ children, viewType = "PrimaryView" }: any): ReactElement {
       </Provider>
     </ViewContext.Provider>
   );
-}
+};
 
 export default StoryPage;
