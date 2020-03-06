@@ -90,7 +90,6 @@
     }
   },
   "lint-staged": {
-
     "**/*.ts": "eslint --fix"
   }
 }
