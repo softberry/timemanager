@@ -8,7 +8,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
   ],
   rules: {
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/no-explicit-any": 2,
+    "@typescript-eslint/interface-name-prefix": 2,
   },
 };
