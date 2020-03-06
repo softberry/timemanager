@@ -1,0 +1,5 @@
+# dont lint these folders
+node_modules
+public
+docs
+build

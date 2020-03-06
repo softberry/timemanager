@@ -32,18 +32,6 @@
     "prettify:check": "prettier --check \"./**/*/*{.scss,.yml,.ts,.tsx,.js,.jsx,.json,.md}\"",
     "eslint-fix": "eslint \"**/*{.tsx,.ts}\" --fix"
   },
-  "eslintConfig": {
-    "root": true,
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "extends": [
-      "react-app",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
