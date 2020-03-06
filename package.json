@@ -74,10 +74,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn prettify:check && lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "**/*.ts": "eslint --fix"
+    "./**/*.{js,ts,tsx}": "eslint --fix",
+    "./**/*/*.{scss,yml,ts,tsx,js,jsx,json,md}": "prettier --write"
   }
 }
