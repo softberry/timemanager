@@ -78,6 +78,6 @@
     }
   },
   "lint-staged": {
-    "**/*.tsx": "eslint --fix"
+    "**/*.ts": "eslint --fix"
   }
 }
