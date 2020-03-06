@@ -3,7 +3,7 @@ import { Moment } from "moment";
 import { ReactChildren, ReactNode, ReactChild, ReactElement } from "react";
 import { nSQL as nSQLInterface } from "@nano-sql/core";
 
-interface IStoryPageProps {
+interface IStoryPageProps  {
   viewType: string;
 }
 export interface INameToValueMap {
