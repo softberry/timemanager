@@ -8,6 +8,7 @@
   line-height: $font-size;
   border-radius: rem(1.5);
   padding-left: rem(0.5);
+  font-family: inherit;
   outline: none;
   transition: background-color, width 300ms;
   background-color: darken($BG, 5%);

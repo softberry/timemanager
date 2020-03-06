@@ -11,7 +11,6 @@ import {
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
-
 import ReadOnlyDetails from "./readOnlyDeatils";
 import EditableDetails from "./editableDetails";
 

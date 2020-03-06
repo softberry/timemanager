@@ -30,7 +30,7 @@
     "storybook": "start-storybook -p 5000 -s ./public",
     "prettify:write": "prettier --write \"./**/*/*{.scss,.yml,.ts,.tsx,.js,.jsx,.json,.md}\"",
     "prettify:check": "prettier --check \"./**/*/*{.scss,.yml,.ts,.tsx,.js,.jsx,.json,.md}\"",
-    "eslint-fix": "eslint \"**/*.tsx\" --fix"
+    "eslint-fix": "eslint \"**/*{.tsx,.ts}\" --fix"
   },
   "eslintConfig": {
     "root": true,

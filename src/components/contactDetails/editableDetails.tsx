@@ -221,6 +221,7 @@ const EditContactContext = createContext<IContactsTableModel>({
   city: "",
   zip: "",
 });
+
 const EditContactDispatchContext = createContext((action: any): void => {
   console.log("//TODO: ");
 });
