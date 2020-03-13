@@ -11,22 +11,22 @@ import {
   ButtonAlignmentEnums,
   ButtonTypeEnums,
   ViewSettingsEnums,
-  DesignEnums,
-  IStateDatabaseReducer,
+  ThemeEnums,
+  IDatabaseReducer,
   IWorkTableModel,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 function TimelogList(): ReactElement {
   const dispatch = useDispatch();
   const view = useContext(ViewContext);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-  const nSQL = useSelector((state: IStateDatabaseReducer) => state.db.nSQL);
+  const nSQL = useSelector((state: IDatabaseReducer) => state.db.action.nSQL);
 
   useEffect(() => {
     dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
@@ -41,7 +41,7 @@ function TimelogList(): ReactElement {
     .orderBy(["start ASC"])
     .exec()
     .then((list: [IWorkTableModel]) => {
-      console.log(list);
+      // console.log(list);
     });
 
   return (

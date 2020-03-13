@@ -12,12 +12,13 @@
 
   &[data-type="PLACEHOLDER"] {
     font-size: 1 * $font-size;
-    transform: translateY(50%);
+    transform: translate(rem(1), 50%);
     font-weight: $font-weight-normal;
     opacity: 0.5;
+    padding: rem(0.25) 0;
     font-style: italic;
     text-shadow: 0 0px 1px currentColor;
-    margin: $font-size auto auto $font-size;
+    width: calc(100% - #{rem(2)});
   }
 
   &[data-type="LABEL"] {
@@ -25,6 +26,7 @@
     position: absolute;
     margin: 0;
     font-weight: $font-weight-bold;
+    width: 100%;
   }
 }
 @mixin form-input() {

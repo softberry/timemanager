@@ -11,16 +11,16 @@ import {
   IContactsTableModel,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
-  IMessageTypeEnums,
-  DesignEnums,
-  IStateDatabaseReducer,
+  ThemeEnums,
+  IDatabaseReducer,
+  IDialogActionEnums,
 } from "../../__typings/interfaces.d";
 import { Checkbox } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const ConfirmDeleteContactBody = ({
   contact,
@@ -32,10 +32,10 @@ const ConfirmDeleteContactBody = ({
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const [worklogsCount, setWorklogsCount] = useState(-1);
   const [deleteWorklogsToo, setDeleteWorklogsToo] = useState(false);
-  function checkBoxOnChangeHandler(checked: boolean): void {
+  function checkBoxOnChangeHandler(checked = false): void {
     setDeleteWorklogsToo(checked);
   }
 
@@ -81,7 +81,7 @@ const ConfirmDeleteContactBody = ({
         console.log("Contact deleted!");
       });
     dispatch({
-      type: IMessageTypeEnums.HIDE_MESSAGE,
+      type: IDialogActionEnums.CLOSE,
       message: { dialogId: dialogId },
     });
   }

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
-import { DesignEnums } from "../__typings/interfaces.d";
+import { ViewEnums } from "../__typings/interfaces.d";
 
-const ViewContext = createContext(DesignEnums.PRIMARY_VIEW);
+const ViewContext = createContext(ViewEnums.PRIMARY_VIEW);
 
 export default ViewContext;

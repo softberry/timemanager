@@ -1,8 +1,11 @@
 import { name, address, phone, internet } from "faker/locale/de";
+import { IContactsTableModel } from "../../__typings/interfaces";
+import { uuid } from "@nano-sql/core/lib/utilities";
 
-function createRandomContacts(num = 0) {
-  function model() {
+function createRandomContacts(num = 0): IContactsTableModel[] {
+  function model(): IContactsTableModel {
     return {
+      id: uuid(),
       name: name.firstName(),
       surname: name.lastName(),
       street: `${address.streetAddress()} ${address.streetSuffix()}`,

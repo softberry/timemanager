@@ -1,4 +1,9 @@
-import { InanoSQLTableConfig } from "@nano-sql/core/lib/interfaces";
+import {
+  InanoSQLTableConfig,
+  InanoSQLInstance,
+  InanoSQLQuery,
+  InanoSQLDataModel,
+} from "@nano-sql/core/lib/interfaces";
 import { NewEntryEnums } from "../../__typings/interfaces.d";
 
 /**
@@ -58,8 +63,15 @@ const contactsTable: InanoSQLTableConfig = {
   queries: [
     {
       name: "createNewEmptyUserEntryForEdit",
-      args: {},
-      call: (db: any, args: any) => {
+      // args: {},
+      call: (
+        db: InanoSQLInstance,
+        args?:
+          | string
+          | {
+              [colAndType: string]: InanoSQLDataModel;
+            }
+      ): InanoSQLQuery => {
         return db.query("upsert", { id: NewEntryEnums.NEW_CONTACT_ID }).emit();
       },
     },
@@ -83,7 +95,10 @@ const workTable: InanoSQLTableConfig = {
       args: {
         "contactID:uuid": {},
       },
-      call: (db: any, args: any) => {
+      call: (
+        db: InanoSQLInstance,
+        args: { contactID: string }
+      ): InanoSQLQuery => {
         const work = {
           name: "New Work Log",
           contactID: args.contactID,
@@ -100,7 +115,10 @@ const workTable: InanoSQLTableConfig = {
       args: {
         "contactID:uuid": {},
       },
-      call: (db: any, args: any) => {
+      call: (
+        db: InanoSQLInstance,
+        args: { contactID: string }
+      ): InanoSQLQuery => {
         return db
           .query("select")
           .where(["contactID", "=", args.contactID])

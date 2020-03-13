@@ -29,7 +29,7 @@ fieldNameToTypeMap.set("tel", Phone);
 fieldNameToTypeMap.set("mobile", Phone);
 fieldNameToTypeMap.set("mail", Mail);
 
-function fieldNameToType(fieldName: string) {
+function fieldNameToType(fieldName: string): IFieldNameToType {
   if (fieldNameToTypeMap.has(fieldName))
     return fieldNameToTypeMap.get(fieldName);
   return Text;
@@ -39,7 +39,7 @@ const correctedTimeFromStep = ({
   minutes = 0,
   step = 0,
   immediate = false,
-}: ICorrectedTimeFromStep) => {
+}: ICorrectedTimeFromStep): number => {
   const rest = minutes % step;
   const increaseImmediately = rest === 0 ? 0 : 1;
   const increaseAfter = rest >= 0 ? 0 : 1;
@@ -52,7 +52,7 @@ interface ITimeDiff {
   hours: number;
   minutes: number;
 }
-const timeDiffToString = ({ hours = 0, minutes = 0 }: ITimeDiff) => {
+const timeDiffToString = ({ hours = 0, minutes = 0 }: ITimeDiff): string => {
   const hoursToString = hours > 0 ? `${hours} Hours ` : "--:";
   const minutesToString = minutes > 0 ? `${minutes} Minutes` : "--";
   return `${hoursToString + minutesToString}`;

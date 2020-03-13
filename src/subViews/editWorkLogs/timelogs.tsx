@@ -13,7 +13,7 @@ import { CardTitle } from "../../__ui/card";
 
 function TimeLogs({ id = 0 }): ReactElement {
   function createTimeLoghandler(): void {
-    console.log("This function is a placeholder.");
+    //TODO: to be done
   }
   return (
     <>

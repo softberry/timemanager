@@ -6,11 +6,11 @@ import themeOcean from "./theme-ocean.module.scss";
 
 import {
   IStartStopButtonProps,
-  DesignEnums,
+  ThemeEnums,
 } from "../../../__typings/interfaces.d";
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Special button delays onclick event for a given time.

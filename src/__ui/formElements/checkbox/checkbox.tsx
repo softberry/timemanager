@@ -1,27 +1,27 @@
-import React, { useState, useCallback, ReactElement } from "react";
+import React, { useState, useCallback, FunctionComponent } from "react";
 import {
   ICheckBoxComponentProps,
   IconSizeEnums,
   IconNameEnums,
-  DesignEnums,
+  ThemeEnums,
 } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
 import Icon from "../../../__ui/icon";
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Checkbox Component
  */
-const Checkbox = ({
+const Checkbox: FunctionComponent<ICheckBoxComponentProps> = ({
   children,
   checked = false,
   label,
   onChange,
-}: ICheckBoxComponentProps): ReactElement => {
+}) => {
   if (typeof onChange !== "function") {
     console.error("Checkbox component must have onChange function.");
   }

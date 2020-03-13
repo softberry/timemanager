@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 
 import { RadioGroup, Radio } from "../../__ui/formElements";
 
-import { ViewSettingsEnums, DesignEnums } from "../../__typings/interfaces.d";
+import { ViewSettingsEnums, ThemeEnums } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
@@ -18,8 +18,8 @@ import themeOcean from "./theme-ocean.module.scss";
 
 const stylesMap = new Map();
 
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 const Options: FunctionComponent = (): ReactElement => {
   const view = useContext(ViewContext);
   const theme = useTheme();
@@ -36,12 +36,14 @@ const Options: FunctionComponent = (): ReactElement => {
   useEffect(() => {
     dispatch({
       type: ViewSettingsEnums.UPDATE_THEME,
-      theme: selectedTheme,
+      design: {
+        theme: selectedTheme,
+      },
     });
   });
 
-  const updateTheme = (t: DesignEnums): void => {
-    (t === DesignEnums.DEFAULT_THEME || t === DesignEnums.OCEAN_THEME) &&
+  const updateTheme = (t: string): void => {
+    (t === ThemeEnums.DEFAULT_THEME || t === ThemeEnums.OCEAN_THEME) &&
       setSelectedTheme(t);
   };
   return (
@@ -51,13 +53,13 @@ const Options: FunctionComponent = (): ReactElement => {
         <RadioGroup onChange={updateTheme}>
           <Radio
             label="Default"
-            value={DesignEnums.DEFAULT_THEME}
-            checked={theme === DesignEnums.DEFAULT_THEME}
+            value={ThemeEnums.DEFAULT_THEME}
+            checked={theme === ThemeEnums.DEFAULT_THEME}
           />
           <Radio
             label="Ocean"
-            value={DesignEnums.OCEAN_THEME}
-            checked={theme === DesignEnums.OCEAN_THEME}
+            value={ThemeEnums.OCEAN_THEME}
+            checked={theme === ThemeEnums.OCEAN_THEME}
           />
         </RadioGroup>
       </div>

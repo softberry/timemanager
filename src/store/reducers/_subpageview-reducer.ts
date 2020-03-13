@@ -1,16 +1,21 @@
 import {
-  SubPageViewActionTypes,
-  ISubpageState,
+  SubPageActionEnums,
+  ISubPageState,
 } from "../../__typings/interfaces.d";
 
 function subPageViewReducer(
-  state: ISubpageState = { type: SubPageViewActionTypes.HIDE, caption: "" },
-  action: any
-) {
+  state: ISubPageState = {
+    type: SubPageActionEnums.HIDE,
+    action: {
+      caption: "",
+    },
+  },
+  action: ISubPageState
+): ISubPageState {
   switch (action.type) {
-    case SubPageViewActionTypes.HIDE:
-    case SubPageViewActionTypes.OUT:
-    case SubPageViewActionTypes.SHOW:
+    case SubPageActionEnums.HIDE:
+    case SubPageActionEnums.OUT:
+    case SubPageActionEnums.SHOW:
       return {
         ...state,
         ...action,
@@ -18,7 +23,6 @@ function subPageViewReducer(
     default:
       return {
         ...state,
-        type: SubPageViewActionTypes.HIDE,
       };
   }
 }

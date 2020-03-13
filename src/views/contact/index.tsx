@@ -2,9 +2,10 @@ import React, { useEffect, useState, ReactElement } from "react";
 import {
   IContactViewProps,
   IContactsTableModel,
-  IMessageTypeEnums,
-  DesignEnums,
-  IStateDatabaseReducer,
+  ViewEnums,
+  IDatabaseReducer,
+  DialogTypes,
+  IDialogActionEnums,
 } from "../../__typings/interfaces.d";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,14 +14,22 @@ import DefaultLayout from "../../layout/layout.default";
 import ContactDetails from "../../components/contactDetails";
 
 import ViewContext from "../index";
+import { uuid } from "@nano-sql/core/lib/utilities";
 
 function ContactView({ match }: IContactViewProps): ReactElement {
   const [table, setTable] = useState<IContactsTableModel>({
     id: "",
     surname: "",
+    name: "",
+    street: "",
+    city: "",
+    zip: "",
+    mail: [],
+    tel: [],
+    mobile: [],
   });
   const [queryState, setQueryState] = useState<string>("INITIAL");
-  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const dispatch = useDispatch();
 
   if (queryState === "INITIAL") {
@@ -37,11 +46,13 @@ function ContactView({ match }: IContactViewProps): ReactElement {
         // TODO: fix type error and use err.stack
         setQueryState("ERRORED");
         dispatch({
-          type: IMessageTypeEnums.ERROR,
+          type: IDialogActionEnums.OPEN,
           message: {
+            dialogType: DialogTypes.ERROR,
             caption: err.toString(),
             body: <>{err.toString()}</>,
             closable: true,
+            dialogId: uuid(),
           },
         });
       });
@@ -54,7 +65,7 @@ function ContactView({ match }: IContactViewProps): ReactElement {
   }, [queryState]);
 
   return (
-    <ViewContext.Provider value={DesignEnums.SECONDARY_VIEW}>
+    <ViewContext.Provider value={ViewEnums.SECONDARY_VIEW}>
       <DefaultLayout>
         {queryState === "READY" && (
           <ContactDetails type={match.params.type} contact={table} />

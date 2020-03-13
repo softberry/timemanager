@@ -2,7 +2,7 @@ import React, { useContext, ReactElement } from "react";
 
 import {
   ITippProps,
-  DesignEnums,
+  ThemeEnums,
   IconSizeEnums,
   IconNameEnums,
 } from "../../__typings/interfaces.d";
@@ -13,8 +13,8 @@ import themeOcean from "./theme-ocean.module.scss";
 import Icon from "../icon";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Inline informaion container, for better usability.

@@ -6,13 +6,13 @@ import {
   IContactsTableModel,
   NewEntryEnums,
   ViewSettingsEnums,
-  DesignEnums,
-  IStateDatabaseReducer,
+  ThemeEnums,
+  IDatabaseReducer,
 } from "../../__typings/interfaces.d";
 
 import { useSelector, useDispatch } from "react-redux";
 import ReadOnlyDetails from "./readOnlyDeatils";
-import EditableDetails from "./editableDetails";
+import EditContact from "./editContact";
 
 // import Worklogs from "../worklogs/index";
 
@@ -23,8 +23,8 @@ import ViewContext from "../../views/index";
 import WorklogListOfContact from "../../components/workLogsListOfContact";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const ContactDetails = ({
   contact,
@@ -39,7 +39,7 @@ const ContactDetails = ({
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const viewClass = styles[`ContactDetails-${theme}-${view}`];
 
   function switchView(contact: IContactsTableModel, readOnly?: boolean): void {
@@ -108,7 +108,8 @@ const ContactDetails = ({
 
   return (
     <div className={viewClass}>
-      <EditableDetails contact={currentContact} updateContact={switchView} />
+      {/* <EditableDetails contact={currentContact} updateContact={switchView} /> */}
+      <EditContact contact={contact} />
     </div>
   );
 };

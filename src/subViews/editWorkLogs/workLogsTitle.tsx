@@ -3,9 +3,8 @@ import Input from "../../__ui/formElements";
 import {
   ValidationTypeEnums,
   AddEditWorklogEnums,
-  // IWorkTableModel,
   IEditWorkLogTitleProps,
-  // IInputCallback,
+  IInputCallback,
 } from "../../__typings/interfaces.d";
 import Card from "../../__ui/card";
 
@@ -14,25 +13,34 @@ function WorkLogsTitle({
   description,
   dispatcher,
 }: IEditWorkLogTitleProps): ReactElement {
+  function dispatchInput(p: IInputCallback): void {
+    dispatcher({
+      type: AddEditWorklogEnums.TITLE,
+      input: p,
+    });
+  }
+
   return (
     <>
       <Card>
         <Input
-          name="worklog-name"
-          uniqueName={AddEditWorklogEnums.TITLE}
+          name="Worklog Name"
+          label="Worklog Name"
+          uniqueName="name"
           validate={true}
           required={true}
           value={name}
           validationType={ValidationTypeEnums.TEXT}
-          infoCallback={dispatcher}
+          infoCallback={dispatchInput}
         />
         <Input
           name="Worklog Description"
-          uniqueName={AddEditWorklogEnums.DESCRIPTION}
+          label="Worklog Description"
+          uniqueName="description"
           value={description}
           validate={false}
           required={false}
-          infoCallback={dispatcher}
+          infoCallback={dispatchInput}
         />
       </Card>
     </>

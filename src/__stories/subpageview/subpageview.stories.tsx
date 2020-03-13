@@ -4,7 +4,7 @@ import { TimerAppStore } from "../../App";
 
 import { withKnobs } from "@storybook/addon-knobs";
 import {
-  SubPageViewActionTypes,
+  SubPageActionEnums,
   ButtonTypeEnums,
   IconNameEnums,
   ButtonAlignmentEnums,
@@ -32,15 +32,17 @@ function SubPageStorySample(): ReactElement {
   const dispatch = useDispatch();
   const showSubPage = (): void => {
     dispatch({
-      type: SubPageViewActionTypes.SHOW,
-      caption: "Subpage Story",
-      content: (
-        <>
-          <p>{lorem.paragraphs(5)}</p>
-          <p>{lorem.paragraphs(5)}</p>
-          <p>{lorem.paragraphs(5)}</p>
-        </>
-      ),
+      type: SubPageActionEnums.SHOW,
+      action: {
+        caption: "Subpage Story",
+        content: (
+          <>
+            <p>{lorem.paragraphs(5)}</p>
+            <p>{lorem.paragraphs(5)}</p>
+            <p>{lorem.paragraphs(5)}</p>
+          </>
+        ),
+      },
     });
   };
 

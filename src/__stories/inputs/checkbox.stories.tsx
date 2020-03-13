@@ -21,7 +21,7 @@ const checkBoxes = new Array(3).fill("").map((chk: string, i: number) => {
   );
 });
 
-function onChangeHandler(checked: boolean): void {
+function onChangeHandler(checked = false): void {
   console.log(checked);
 }
 export const Primary = (): ReactElement => {

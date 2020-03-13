@@ -15,11 +15,11 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../__ui/typography";
 
 import ViewContext from "../views/index";
-import { DesignEnums } from "../__typings/interfaces.d";
+import { ThemeEnums } from "../__typings/interfaces.d";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const DefaultLayout: FunctionComponent = ({ children }) => {
   const theme = useTheme();

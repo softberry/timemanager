@@ -11,7 +11,7 @@ import counterModelTables from "./models/data.model";
 import { createRandomContacts } from "./_dummy/contacts.dev";
 import {
   DatabaseActionEnums,
-  IStateDatabaseReducer,
+  IDatabaseReducer,
 } from "../__typings/interfaces.d";
 
 // const isDEV = process.env.NODE_ENV === "development";
@@ -23,8 +23,10 @@ function dbExists(dbname = "shoplist_local"): boolean {
 }
 
 const NanoDatabase: FunctionComponent = ({ children }) => {
+  // console.log(useSelector(({ db }) => db.db));
+
   const [ready, setReady] = useState<string>("NOT_READY");
-  const _nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
+  const _nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -90,7 +92,7 @@ const NanoDatabase: FunctionComponent = ({ children }) => {
         if (isPROD || items.length > 0) {
           dispatch({
             type: DatabaseActionEnums.REGISTER_DATABASE,
-            nSQL: nSQL,
+            action: { nSQL: nSQL },
           });
         } else {
           const contacts = createRandomContacts(50);
@@ -101,7 +103,7 @@ const NanoDatabase: FunctionComponent = ({ children }) => {
             .then(() => {
               dispatch({
                 type: DatabaseActionEnums.REGISTER_DATABASE,
-                nSQL: nSQL,
+                action: { nSQL: nSQL },
               });
             });
         }

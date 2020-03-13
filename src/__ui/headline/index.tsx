@@ -1,19 +1,21 @@
-import React, { ReactElement } from "react";
+import React, { FunctionComponent } from "react";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 import {
   IHeadlineBuilderProps,
-  IHeadlineProps,
-  DesignEnums,
+  ThemeEnums,
 } from "../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-function Headline({ children, size }: IHeadlineBuilderProps): ReactElement {
+const Headline: FunctionComponent<IHeadlineBuilderProps> = ({
+  children,
+  size,
+}) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -39,49 +41,49 @@ function Headline({ children, size }: IHeadlineBuilderProps): ReactElement {
       )}
     </>
   );
-}
+};
 
-function H1({ children = <></> }: IHeadlineProps): ReactElement {
+const H1: FunctionComponent = ({ children = <></> }) => {
   return (
     <>
       <Headline size={1}>{children}</Headline>
     </>
   );
-}
-function H2({ children }: IHeadlineProps): ReactElement {
+};
+const H2: FunctionComponent = ({ children }) => {
   return (
     <>
       <Headline size={2}>{children}</Headline>
     </>
   );
-}
-function H3({ children }: IHeadlineProps): ReactElement {
+};
+const H3: FunctionComponent = ({ children }) => {
   return (
     <>
       <Headline size={3}>{children}</Headline>
     </>
   );
-}
-function H4({ children }: IHeadlineProps): ReactElement {
+};
+const H4: FunctionComponent = ({ children }) => {
   return (
     <>
       <Headline size={4}>{children}</Headline>
     </>
   );
-}
-function H5({ children }: IHeadlineProps): ReactElement {
+};
+const H5: FunctionComponent = ({ children }) => {
   return (
     <>
       <Headline size={5}>{children}</Headline>
     </>
   );
-}
-function H6({ children }: IHeadlineProps): ReactElement {
+};
+const H6: FunctionComponent = ({ children }) => {
   return (
     <>
       <Headline size={6}>{children}</Headline>
     </>
   );
-}
+};
 
 export { Headline as default, H1, H2, H3, H4, H5, H6 };

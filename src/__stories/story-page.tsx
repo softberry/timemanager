@@ -11,7 +11,7 @@ import Typography from "../__ui/typography";
 import rootReducer from "../store/reducers";
 
 import styles from "./default.module.scss";
-import { DesignEnums, IStoryPageProps } from "../__typings/interfaces.d";
+import { ViewEnums, IStoryPageProps } from "../__typings/interfaces.d";
 
 const store = createStore(rootReducer);
 
@@ -23,8 +23,8 @@ const StoryPage = ({
     <ViewContext.Provider
       value={
         viewType === "PrimaryView"
-          ? DesignEnums.PRIMARY_VIEW
-          : DesignEnums.SECONDARY_VIEW
+          ? ViewEnums.PRIMARY_VIEW
+          : ViewEnums.SECONDARY_VIEW
       }
     >
       <Provider store={store}>

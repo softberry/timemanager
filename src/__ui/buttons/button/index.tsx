@@ -1,4 +1,9 @@
-import React, { useContext, ReactElement, MouseEvent } from "react";
+import React, {
+  useContext,
+  MouseEvent,
+  FunctionComponent,
+  Children,
+} from "react";
 import { Link } from "react-router-dom";
 
 import { useTheme, useThemeStyle } from "../../typography";
@@ -12,26 +17,26 @@ import {
   ButtonTypeEnums,
   IButtonProps,
   IButtonLinkProps,
-  DesignEnums,
+  ThemeEnums,
 } from "../../../__typings/interfaces.d";
 import ViewContext from "../../../views";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const Button = ({
+const Button: FunctionComponent<IButtonProps> = ({
   children,
   icon,
   onClick,
   align = undefined,
   type = ButtonTypeEnums.SIMPLE,
   isDisabled = true,
-}: IButtonProps): ReactElement => {
+}) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
-  const iconOnly = children === undefined || children.toString().length === 0;
+  const iconOnly = children === undefined || Children.count(children) === 0;
   const clickHandler = isDisabled ? (): boolean => false : onClick;
 
   return (
@@ -55,18 +60,18 @@ const Button = ({
   );
 };
 
-const ButtonLink = ({
+const ButtonLink: FunctionComponent<IButtonLinkProps> = ({
   children,
   icon,
   href,
   align = ButtonAlignmentEnums.CENTER,
   type = ButtonTypeEnums.SIMPLE,
   isDisabled = true,
-}: IButtonLinkProps): ReactElement => {
+}) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
-  const iconOnly = children === undefined || children.toString().length === 0;
+  const iconOnly = children === undefined || Children.count(children) === 0;
 
   return (
     <div

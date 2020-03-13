@@ -8,11 +8,11 @@ import { useHistory } from "react-router-dom";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
-import { IconNameEnums, DesignEnums } from "../../__typings/interfaces.d";
+import { IconNameEnums, ThemeEnums } from "../../__typings/interfaces.d";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const NavBack = (): ReactElement => {
   const history = useHistory();

@@ -6,13 +6,13 @@ import {
   IIconProps,
   IconSizeEnums,
   IconNameEnums,
-  DesignEnums,
+  ThemeEnums,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../typography";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const Icon = ({
   children,

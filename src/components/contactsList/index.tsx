@@ -22,20 +22,20 @@ import {
   IconNameEnums,
   NewEntryEnums,
   ViewSettingsEnums,
-  DesignEnums,
-  IStateDatabaseReducer,
+  ThemeEnums,
+  IDatabaseReducer,
   IWorklogBadgeProp,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const ContactsList = (): ReactElement => {
   const view = useContext(ViewContext);
-  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
   const [contacts, setContacts] = useState<IContactsTableModel[]>([]);
   const theme = useTheme();
@@ -48,7 +48,7 @@ const ContactsList = (): ReactElement => {
   }: IWorklogBadgeProp): ReactElement => {
     const [queried, setQueried] = useState(false);
     const [count, setCount] = useState(0);
-    const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
+    const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
     useEffect(() => {
       if (typeof nSQL !== "function" || queried) return;

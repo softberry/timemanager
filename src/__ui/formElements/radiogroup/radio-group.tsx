@@ -4,11 +4,12 @@ import React, {
   useCallback,
   ReactElement,
   Children,
+  FunctionComponent,
 } from "react";
 import {
   IRadioGroupProps,
   IRadioItemProps,
-  DesignEnums,
+  ThemeEnums,
 } from "../../../__typings/interfaces.d";
 
 import Radio from "./radio";
@@ -18,15 +19,18 @@ import themeOcean from "./theme-ocean.module.scss";
 import { useThemeStyle } from "../../typography";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Radio Component
  *
  */
 
-const RadioGroup = ({ children, onChange }: IRadioGroupProps): ReactElement => {
+const RadioGroup: FunctionComponent<IRadioGroupProps> = ({
+  children,
+  onChange,
+}) => {
   const [radioItemsProps, setRadioItemsProps] = useState<IRadioItemProps[]>([]);
   const [selectedItem, setSelectedItem] = useState("");
   const [initialised, setInitialised] = useState(false);
@@ -40,19 +44,22 @@ const RadioGroup = ({ children, onChange }: IRadioGroupProps): ReactElement => {
     }
   }, [onChange, selectedItem]);
 
-  const onRadioItemChangeHandler = (val: string): void => {
-    setSelectedItem(val);
+  const onRadioItemChangeHandler = (val: string | number = ""): void => {
+    setSelectedItem(val.toString());
   };
   useEffect(() => {
     const values = Children.map(children, child => child.props.value);
-    const selecteds = children.filter(child => child.props.checked);
+    let selecteds = 0;
+    Children.forEach(children, child => {
+      if (child.props.checked === true) selecteds++;
+    });
     // (child: ReactElement) => child.props.checked === true
 
     if (values.length !== children.length) {
       setIsValid("Each Radio in RadioGroup must have a 'value'!");
       return;
     }
-    if (selecteds.length > 1) {
+    if (selecteds > 1) {
       setIsValid("Only one Radio can be selected at a time!");
       return;
     }

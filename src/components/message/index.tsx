@@ -1,56 +1,27 @@
 import React, { useContext, ReactElement } from "react";
 import {
-  IDialogBodyProp,
   IMessage,
   IconSizeEnums,
   IconNameEnums,
-  IMessageTypeEnums,
-  IConfirmTypeEnums,
-  DesignEnums,
-  IRootReducer,
+  ThemeEnums,
+  IDialogActionEnums,
+  IMessageReducer,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "../../__ui/icon";
-import ConfirmDeleteContactBody from "../confirm/delete.contact";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
-
-const DialogBody = ({ type, props }: IDialogBodyProp): ReactElement => {
-  switch (type) {
-    case IConfirmTypeEnums.DELETE_CONTACT:
-      return (
-        <>
-          <ConfirmDeleteContactBody {...props} />
-        </>
-      );
-    case IMessageTypeEnums.INFO:
-    case IMessageTypeEnums.WARNING:
-    case IMessageTypeEnums.ERROR:
-      return <>{props}</>;
-    default:
-      return <div>{type}</div>;
-  }
-};
-
-/**
- * ``<Message  /> `` is always available in page and listens actions type of ``MESSAGES``.
- *  Message are typeof :  ``IMessageTypeEnums`` or ``IConfirmTypeEnums``
- * ``IMessageTypeEnums`` action types decides style/design of the dialog.
- * ``IConfirmTypeEnums`` has it's fixed desing so just extends Message box where user can make a decision.
- * More info see Notes tab in storybook
- *
- */
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const Message = (): ReactElement => {
   const messages: IMessage[] = useSelector(
-    ({ msg }: IRootReducer) => msg.messages
+    ({ messages }: IMessageReducer) => messages
   );
 
   const theme = useTheme();
@@ -61,9 +32,9 @@ const Message = (): ReactElement => {
    * Dispatches dialogId of binded object(action) to be removed from
    * Messages array
    */
-  function hideMessage(dialogId: number): void {
+  function hideMessage(dialogId: string): void {
     dispatch({
-      type: IMessageTypeEnums.HIDE_MESSAGE,
+      type: IDialogActionEnums.CLOSE,
       message: { dialogId },
     });
   }
@@ -95,9 +66,7 @@ const Message = (): ReactElement => {
 
           <div className={styles[`Caption-${theme}`]}>{caption}</div>
 
-          <div className={styles[`Text-${theme}`]}>
-            <DialogBody type={dialogType} props={{ ...body, dialogId }} />
-          </div>
+          <div className={styles[`Text-${theme}`]}>{body}</div>
           <div className={styles[`Footer-${theme}`]}>&nbsp;</div>
         </div>
       );

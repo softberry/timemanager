@@ -19,7 +19,7 @@ import ContactView from "./views/contact";
 import Message from "./components/message";
 
 import {
-  DesignEnums,
+  ThemeEnums,
   UserInfo,
   ViewSettingsEnums,
 } from "./__typings/interfaces.d";
@@ -30,17 +30,20 @@ const Page = (): ReactElement => {
   document.oncontextmenu = (): boolean => {
     return false;
   };
+
   const theme = useTheme();
   const savedTheme =
     window.localStorage.getItem(UserInfo.SELECTED_THEME) ||
-    DesignEnums.DEFAULT_THEME;
+    ThemeEnums.DEFAULT_THEME;
 
   const dispatch = useDispatch();
   useEffect(() => {
     if (theme !== savedTheme) {
       dispatch({
         type: ViewSettingsEnums.UPDATE_THEME,
-        theme: savedTheme,
+        design: {
+          theme: savedTheme,
+        },
       });
     }
   }, [dispatch, theme, savedTheme]);

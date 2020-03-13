@@ -34,7 +34,7 @@ export const Primary = function(): ReactElement {
   return (
     <StoryPage viewType="PrimaryView">
       <RadioGroup
-        onChange={(val: string): void => {
+        onChange={(val: string | number): void => {
           console.log("PrimaryView RadioGroup[1] value", val);
         }}
       >
@@ -42,7 +42,7 @@ export const Primary = function(): ReactElement {
       </RadioGroup>
       <hr />
       <RadioGroup
-        onChange={(val: string): void => {
+        onChange={(val: string | number): void => {
           console.log("PrimaryView RadioGroup[2] value", val);
         }}
       >
@@ -56,7 +56,7 @@ export const Secondary = function(): ReactElement {
   return (
     <StoryPage viewType="SecondaryView">
       <RadioGroup
-        onChange={(val: string): void => {
+        onChange={(val: string | number): void => {
           console.log("SecondaryView RadioGroup[1] value", val);
         }}
       >

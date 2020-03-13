@@ -10,12 +10,12 @@ import Message from "../../components/message";
 import StoryPage from "../story-page";
 
 import {
-  IMessageTypeEnums,
   ButtonTypeEnums,
   IconNameEnums,
   ButtonAlignmentEnums,
-  IConfirmTypeEnums,
   IMessageContentProps,
+  DialogTypes,
+  IDialogActionEnums,
 } from "../../__typings/interfaces.d";
 import { H1 } from "../../__ui/headline";
 import Button from "../../__ui/buttons/button";
@@ -33,10 +33,11 @@ export default {
 function MessageContent({ type }: IMessageContentProps): ReactElement {
   const dispatch = useDispatch();
 
-  function show(type: IMessageTypeEnums | IConfirmTypeEnums): void {
+  function show(type: IDialogActionEnums, dialogType: DialogTypes): void {
     dispatch({
       type,
       message: {
+        dialogType,
         caption: lorem.words(2),
         body: (
           <>
@@ -56,7 +57,7 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
         <Button
           isDisabled={false}
           onClick={(): void => {
-            show(IMessageTypeEnums.INFO);
+            show(IDialogActionEnums.OPEN, DialogTypes.INFO);
           }}
           type={ButtonTypeEnums.SIMPLE}
           icon={IconNameEnums.INFO}
@@ -67,7 +68,7 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
         <Button
           isDisabled={false}
           onClick={(): void => {
-            show(IMessageTypeEnums.ERROR);
+            show(IDialogActionEnums.OPEN, DialogTypes.ERROR);
           }}
           type={ButtonTypeEnums.ERROR}
           icon={IconNameEnums.ERROR}
@@ -78,7 +79,7 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
         <Button
           isDisabled={false}
           onClick={(): void => {
-            show(IMessageTypeEnums.WARNING);
+            show(IDialogActionEnums.OPEN, DialogTypes.WARNING);
           }}
           type={ButtonTypeEnums.NEGATIVE}
           icon={IconNameEnums.WARNING}

@@ -1,5 +1,5 @@
 import { IDiff } from "../__typings/interfaces.d";
-function twoDigit(n = "0") {
+function twoDigit(n = "0"): string {
   const input = Math.max(parseInt(n, 10), 0);
 
   if (input > 99 || isNaN(input)) {

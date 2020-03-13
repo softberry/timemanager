@@ -13,7 +13,7 @@ import {
 } from "../../../lib/input.helpers";
 
 import {
-  DesignEnums,
+  ThemeEnums,
   IDateTimeProps,
   CollapsedState,
 } from "../../../__typings/interfaces.d";
@@ -24,8 +24,8 @@ import ViewContext from "../../../views";
 import { uuid } from "@nano-sql/core/lib/utilities";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Custom DateTime UI that enables users to define start/ finish time of a work

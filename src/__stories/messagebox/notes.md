@@ -1,9 +1,6 @@
 # MESSAGE BOX
 
-`<Message />` is always available in page and listens actions type of `MESSAGES`.
-Message are typeof : `IMessageTypeEnums` or `IConfirmTypeEnums`
-`IMessageTypeEnums` action types decides style/design of the dialog.
-`IConfirmTypeEnums` has it's fixed desing so just extends Message box where user can make a decision.
+`<Message />` is always available in page and listens actions type of `IDialogActionEnums.OPEN` and `IDialogActionEnums.CLOSE` .
 
 **_Sample Implemantation_**
 

@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext, ReactElement } from "react";
 import {
   ICounterTableModel,
   IDiff,
-  DesignEnums,
-  IStateDatabaseReducer,
+  ThemeEnums,
+  IDatabaseReducer,
 } from "../../__typings/interfaces.d";
 
 import { useSelector } from "react-redux";
@@ -19,8 +19,8 @@ import { useTheme, useThemeStyle } from "../../__ui/typography";
 import ViewContext from "../../views";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 let timerID: number;
 
@@ -29,7 +29,7 @@ export function Timer(): ReactElement {
   const [timerActiveState, setTimerActiveState] = useState<boolean>(false);
 
   const [diff, setDiff] = useState<IDiff>(timeDiff(0, 0));
-  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);

@@ -1,16 +1,16 @@
-import React, { ReactElement } from "react";
+import React, { FunctionComponent } from "react";
 import { ICounterDiffTime } from "../../__typings/interfaces.d";
 
 import { twoDigit } from "../../lib/counter.helpers";
 
-function Counter({
+const Counter: FunctionComponent<ICounterDiffTime> = ({
   hour,
   minute,
   second,
   counting = false,
   styles,
   theme,
-}: ICounterDiffTime): ReactElement {
+}) => {
   const beatClass = [styles[`Beats-${theme}`]];
   counting && beatClass.push(styles[`beats-${theme}`]);
   const containerOpacity = { opacity: counting ? 1 : 0.05 };
@@ -31,6 +31,6 @@ function Counter({
       )}
     </div>
   );
-}
+};
 
 export default Counter;

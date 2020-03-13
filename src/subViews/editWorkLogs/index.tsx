@@ -5,6 +5,7 @@ import React, {
   useContext,
   useEffect,
   useState,
+  FunctionComponent,
 } from "react";
 import Button from "../../__ui/buttons/button";
 
@@ -13,7 +14,7 @@ import {
   ButtonAlignmentEnums,
   IconNameEnums,
   IEditWorkLogProps,
-  IStateDatabaseReducer,
+  IDatabaseReducer,
   IWorkTableModel,
   AddEditWorklogEnums,
   IWorklogState,
@@ -25,51 +26,15 @@ import TimeLogs from "./timelogs";
 import MaterialLogs from "./materiallogs";
 import { useSelector } from "react-redux";
 
-/*
-
-const worklogInitial: IWorkTableModel = {
-  id: "",
-  contactID: "",
-  description: "x",
-  name: "a",
-  labour: [
-    {
-      id: "",
-      workID: "",
-      start: new Date(),
-      finish: new Date(),
-      description: "",
-    },
-  ],
-  materials: [
-    {
-      id: "",
-      items: [
-        {
-          id: "",
-          name: "",
-          description: "",
-          amount: 0,
-          price: 0,
-          materialListID: "",
-          unit: "",
-        },
-      ],
-      workID: "",
-    },
-  ],
-};
-*/
-
 function EditWorkLogsForm(): ReactElement {
   const worklog = useContext(WorklogContext);
   const dispatcher = useContext(DispatchContext);
 
   const cancelWorkLogViewHandler = (): void => {
-    console.log("test");
+    //TODO: to be done
   };
   const saveWorkLogViewHandler = (): void => {
-    console.log("test");
+    //TODO: to be done
   };
 
   return (
@@ -115,7 +80,9 @@ const WorklogContext = createContext<IWorklogState>({
   materials: [],
   valid: false,
 });
-const DispatchContext = createContext({});
+const DispatchContext = createContext((p: IWorklogAction) => {
+  // do nothing
+});
 const worklogsReducer = (
   state: IWorklogState,
   action: IWorklogAction
@@ -136,10 +103,10 @@ const worklogsReducer = (
   }
 };
 
-function EditWorkLogs({
+const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({
   contactID,
   worklogID,
-}: IEditWorkLogProps): ReactElement {
+}) => {
   const [worklog, dispatcher] = useReducer(worklogsReducer, {
     id: "",
     name: "",
@@ -149,7 +116,7 @@ function EditWorkLogs({
     labour: [],
     materials: [],
   });
-  const nSQL = useSelector(({ db }: IStateDatabaseReducer) => db.nSQL);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -175,7 +142,7 @@ function EditWorkLogs({
       </WorklogContext.Provider>
     </DispatchContext.Provider>
   );
-}
+};
 export { EditWorkLogs as default, WorklogContext, DispatchContext };
 
 // TODO: - Add Craete time log button in subpage view

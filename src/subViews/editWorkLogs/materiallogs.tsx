@@ -9,7 +9,7 @@ import {
 import { CardTitle } from "../../__ui/card";
 function MaterialLogs({ id = 0 }): ReactElement {
   function createMaterialLoghandler(): void {
-    console.log("This function is a placeholder.");
+    //TODO: to be done
   }
   return (
     <>

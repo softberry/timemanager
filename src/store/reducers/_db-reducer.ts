@@ -1,15 +1,22 @@
 import {
-  IStateDatabase,
+  IDatabaseState,
   DatabaseActionEnums,
-  IStateDatabaseReducer,
 } from "../../__typings/interfaces.d";
 
-function db(state: IStateDatabaseReducer, payload: IStateDatabase) {
-  switch (payload.type) {
+function db(
+  state: IDatabaseState = {
+    type: DatabaseActionEnums.UNDEFINED_DATABASE,
+    action: {
+      nSQL: null,
+    },
+  },
+  action: IDatabaseState
+): IDatabaseState {
+  switch (action.type) {
     case DatabaseActionEnums.REGISTER_DATABASE:
       return {
         ...state,
-        nSQL: payload.nSQL,
+        ...action,
       };
     default:
       return {

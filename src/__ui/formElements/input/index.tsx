@@ -12,7 +12,7 @@ import {
   IconNameEnums,
   ValidationTypeEnums,
   IInputCallback,
-  DesignEnums,
+  ThemeEnums,
   IFieldNameToType,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
@@ -30,8 +30,8 @@ import isPostalCode from "validator/lib/isPostalCode";
 import isNumeric from "validator/lib/isNumeric";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Input element:

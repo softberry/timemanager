@@ -16,25 +16,28 @@ export const Primary = (): ReactElement => {
     <StoryPage viewType="PrimaryView">
       <Input
         name="name"
+        label="name"
         uniqueName="name"
         value={name.firstName()}
         required={true}
         validate={true}
-      ></Input>
+      />
       <Input
         name="surname"
-        uniqueName="Surname"
+        label="surname"
+        uniqueName="surname"
         value={name.lastName()}
         required={false}
         validate={true}
-      ></Input>
+      />
       <Input
         name="city"
-        uniqueName="City"
+        label="city"
+        uniqueName="city"
         value={address.city()}
         required={false}
         validate={true}
-      ></Input>
+      />
     </StoryPage>
   );
 };
@@ -44,25 +47,28 @@ export const Secondary = (): ReactElement => {
     <StoryPage viewType="SecondaryView">
       <Input
         name="name"
+        label="name"
         uniqueName="name"
         value={name.firstName()}
         required={true}
         validate={true}
-      ></Input>
+      />
       <Input
         name="surname"
-        uniqueName="Surname"
+        label="surname"
+        uniqueName="surname"
         value={name.lastName()}
         required={false}
         validate={true}
-      ></Input>
+      />
       <Input
         name="city"
-        uniqueName="City"
+        label="city"
+        uniqueName="city"
         value={address.city()}
         required={false}
         validate={true}
-      ></Input>
+      />
     </StoryPage>
   );
 };

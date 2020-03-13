@@ -12,24 +12,24 @@ import {
   ButtonAlignmentEnums,
   ButtonTypeEnums,
   ViewSettingsEnums,
-  DesignEnums,
-  IStateDatabaseReducer,
+  ThemeEnums,
+  IDatabaseReducer,
   IWorkTableModel,
-  SubPageViewActionTypes,
+  SubPageActionEnums,
   IContactsTableModel,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
   const dispatch = useDispatch();
   const view = useContext(ViewContext);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-  const nSQL = useSelector((state: IStateDatabaseReducer) => state.db.nSQL);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
   useEffect(() => {
     dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
@@ -37,13 +37,15 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
 
   function createNewWorklogHandler(): void {
     dispatch({
-      type: SubPageViewActionTypes.SHOW,
-      caption: "New Worklog",
-      content: (
-        <>
-          <EditWorkLogsForm contactID={id} />
-        </>
-      ),
+      type: SubPageActionEnums.SHOW,
+      action: {
+        caption: "New Worklog",
+        content: (
+          <>
+            <EditWorkLogsForm contactID={id} />
+          </>
+        ),
+      },
     });
   }
 
@@ -52,7 +54,7 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
     .orderBy(["start ASC"])
     .exec()
     .then((list: [IWorkTableModel]) => {
-      console.log(list);
+      // console.log(list);
     });
 
   return (

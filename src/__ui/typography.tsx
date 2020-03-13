@@ -1,16 +1,18 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ITypographyProps,
-  IMessageTypeEnums,
   IDesignReducer,
   INameToValueMap,
-  IRootReducer,
+  DialogTypes,
+  IDialogActionEnums,
+  IViewStateReducer,
+  ThemeEnums,
 } from "../__typings/interfaces.d";
 
 import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
 
-const Typography = ({ children }: ITypographyProps): ReactElement => {
+const Typography: React.FC<ITypographyProps> = ({ children }) => {
   const currentTheme = useSelector(({ theme }: IDesignReducer) => theme);
   const [fontsReady, setFontsReady] = useState<string>("LOADING");
   const dispatch = useDispatch();
@@ -45,8 +47,9 @@ const Typography = ({ children }: ITypographyProps): ReactElement => {
 
   if (fontsReady === "ERRORED") {
     dispatch({
-      type: IMessageTypeEnums.ERROR,
+      type: IDialogActionEnums.CLOSE,
       message: {
+        dialogType: DialogTypes.ERROR,
         caption: "Error loading Webfonts",
         body: (
           <>
@@ -67,9 +70,9 @@ const Typography = ({ children }: ITypographyProps): ReactElement => {
 /**
  * @returns Selected theme from store if avaliable, default orherwise
  */
-function useTheme(): string {
+function useTheme(): ThemeEnums {
   const theme = useSelector(
-    ({ viewSettings }: IRootReducer) => viewSettings.design.theme
+    ({ viewSettings }: IViewStateReducer) => viewSettings.design.theme
   );
 
   return theme;

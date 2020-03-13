@@ -9,6 +9,8 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/no-explicit-any": 2,
+    "@typescript-eslint/explicit-function-return-type": 2,
     "@typescript-eslint/interface-name-prefix": 0,
   },
+  
 };

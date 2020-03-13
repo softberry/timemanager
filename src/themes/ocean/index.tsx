@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import webfontloader from "webfontloader";
 
 import "./index.scss";
-import { IMessageTypeEnums } from "../../__typings/interfaces.d";
+import { DialogTypes, IDialogActionEnums } from "../../__typings/interfaces.d";
+import { uuid } from "@nano-sql/core/lib/utilities";
 
 export default (): ReactElement => {
   const dispatch = useDispatch();
@@ -13,8 +14,9 @@ export default (): ReactElement => {
     },
     inactive: (): void => {
       dispatch({
-        type: IMessageTypeEnums.ERROR,
+        type: IDialogActionEnums.OPEN,
         message: {
+          dialogType: DialogTypes.ERROR,
           caption: "Error loading Webfonts",
           body: (
             <>
@@ -27,6 +29,7 @@ export default (): ReactElement => {
             </>
           ),
           closable: true,
+          dialogId: uuid(),
         },
       });
     },
