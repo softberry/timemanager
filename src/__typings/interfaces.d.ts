@@ -101,13 +101,14 @@ export interface IMultiInputProps {
   name: string;
   defaultProps: IInputProps;
   values: string[];
+  valid: boolean[];
+  hash?: string;
   callback: (p: IMultiInputCallback) => void;
 }
 
 export interface IMultiInputCallback {
   name: string;
-  values: string[];
-  valids: boolean[];
+  value: string[];
   valid: boolean;
 }
 

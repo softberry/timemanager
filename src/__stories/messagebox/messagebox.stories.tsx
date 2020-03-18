@@ -87,6 +87,17 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
         >
           WARNING
         </Button>
+        <Button
+          isDisabled={false}
+          onClick={(): void => {
+            show(IDialogActionEnums.OPEN, DialogTypes.CONFIRM);
+          }}
+          type={ButtonTypeEnums.NEGATIVE}
+          icon={IconNameEnums.CONFIRM}
+          align={ButtonAlignmentEnums.LEFT}
+        >
+          CONFIRM
+        </Button>
       </div>
     </>
   );

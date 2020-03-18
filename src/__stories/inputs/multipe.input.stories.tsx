@@ -26,6 +26,7 @@ const defaultProps: IInputProps = {
   validationType: ValidationTypeEnums.MAIL,
 };
 const values = [phone.phoneNumber(), phone.phoneNumber(), phone.phoneNumber()];
+const valids = [false, false, false];
 
 export const Primary = (): ReactElement => {
   return (
@@ -33,6 +34,7 @@ export const Primary = (): ReactElement => {
       <MultipleInput
         defaultProps={defaultProps}
         values={values}
+        valid={valids}
         name="PhoneNumbers"
         callback={(p: IMultiInputCallback): void => {
           // do nothing
@@ -48,6 +50,7 @@ export const Secondary = (): ReactElement => {
       <MultipleInput
         defaultProps={defaultProps}
         values={values}
+        valid={valids}
         name="PhoneNumbers"
         callback={(p: IMultiInputCallback): void => {
           // do nothing

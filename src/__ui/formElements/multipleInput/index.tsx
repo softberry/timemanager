@@ -2,8 +2,7 @@ import React, {
   FunctionComponent,
   useReducer,
   useEffect,
-  useState,
-  useCallback,
+  useMemo,
 } from "react";
 
 import {
@@ -13,7 +12,6 @@ import {
   IInputCallback,
   ThemeEnums,
   IMultiInputProps,
-  IMultiInputCallback,
 } from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -42,7 +40,9 @@ function formReducer(
     case "ADD":
       return {
         ...state,
+        hash: JSON.stringify(state),
         values: [...state.values, ""],
+        valid: [...state.valid, false],
       };
 
     case "REMOVE":
@@ -55,13 +55,16 @@ function formReducer(
 
       return {
         ...state,
+        hash: JSON.stringify(state),
       };
     case "EDIT":
       if (action.index < 0) return state;
       state.values[action.index] = action?.value || "";
+      state.valid[action.index] = action.valid;
 
       return {
         ...state,
+        hash: JSON.stringify(state),
       };
     default: {
       return { ...state };
@@ -77,6 +80,8 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
   name,
   defaultProps,
   values,
+  valid,
+  hash = "",
   callback,
 }) => {
   const theme = useTheme();
@@ -86,18 +91,21 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
     name,
     defaultProps,
     values,
+    valid,
+    hash,
     callback,
   });
-  const [callbackData, setCallbackData] = useState<IMultiInputCallback>();
 
-  const memoizedCallbackData = useCallback((): IMultiInputCallback => {
+  const memoizedCallbackData = useMemo(() => {
+    console.log("x");
     return {
-      name,
-      valid: false,
-      values: [""],
-      valids: [false],
+      name: form.name,
+      valid: form.valid.reduce(
+        (prev: boolean, cur: boolean) => prev === true && cur === true
+      ),
+      value: form.values,
     };
-  }, [name]);
+  }, [form.name, form.values, form.valid]);
 
   function addNewFieldHandler(): void {
     disatchForm({ type: "ADD", index: -1, valid: false });
@@ -111,12 +119,14 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
 
   function updateForm(p: IInputCallback): void {
     const index = parseInt(p.name);
-    if (form.values[index] === p.value) return;
+    if (form.values[index] === p.value && form.valid[index] === p.valid) return;
+
     disatchForm({ type: "EDIT", index, value: p.value, valid: p.valid });
   }
   useEffect(() => {
-    callback(memoizedCallbackData());
-  });
+    console.log("useEffect: ", memoizedCallbackData);
+    callback(memoizedCallbackData);
+  }, [callback, memoizedCallbackData]);
   return (
     <div className={styles[`MultipleInputContainer-${theme}`]}>
       {form.values.map((value: string, i: number) => (

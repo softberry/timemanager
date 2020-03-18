@@ -59,35 +59,32 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
   );
 
   function inputCallbackHandler(inputEl: IInputCallback): void {
+    if (
+      inputEl.value === contactForm[inputEl.name].value &&
+      inputEl.valid === contactForm[inputEl.name].valid
+    )
+      return;
     const action: IEditContactFormAction = {
       type: "UPDATE",
       data: {
         [inputEl.name]: { value: inputEl.value, valid: inputEl.valid },
       },
     };
-    if (
-      inputEl.value === contactForm[inputEl.name].value &&
-      inputEl.valid === contactForm[inputEl.name].valid
-    )
-      return;
     updateContactForm(action);
   }
 
   function multiInputCallbackHandler(inputEl: IMultiInputCallback): void {
-    //FIXME: Multiple input has no unique name.
-    //FIXME: Multiple input values[] insterad of value. doesnt match with input update
     if (
-      JSON.stringify(inputEl.values) ===
+      JSON.stringify(inputEl.value) ===
         JSON.stringify(contactForm[inputEl.name].value) &&
       inputEl.valid === contactForm[inputEl.name].valid
     ) {
       return;
     }
-
     const action: IEditContactFormAction = {
       type: "UPDATE",
       data: {
-        [inputEl.name]: { value: inputEl.values, valid: inputEl.valid },
+        [inputEl.name]: { value: inputEl.value, valid: inputEl.valid },
       },
     };
     updateContactForm(action);
@@ -168,6 +165,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
         }}
         callback={multiInputCallbackHandler}
         values={contact.tel}
+        valid={contact.tel.map(m => false)}
       />
       <MultipleInput
         name="mobile"
@@ -181,6 +179,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
         }}
         callback={multiInputCallbackHandler}
         values={contact.mobile}
+        valid={contact.mobile.map(m => false)}
       />
       <MultipleInput
         name="mail"
@@ -194,6 +193,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
         }}
         callback={multiInputCallbackHandler}
         values={contact.mail}
+        valid={contact.mail.map(m => false)}
       />
     </>
   );
