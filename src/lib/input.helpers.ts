@@ -1,39 +1,4 @@
-import {
-  ValidationTypeEnums,
-  IFieldNameToType,
-  ICorrectedTimeFromStep,
-} from "../__typings/interfaces.d";
-
-const Text: IFieldNameToType = {
-  type: "text",
-  validationType: ValidationTypeEnums.TEXT,
-};
-
-const Phone: IFieldNameToType = {
-  type: "phone",
-  validationType: ValidationTypeEnums.PHONE,
-};
-const Mail: IFieldNameToType = {
-  type: "mail",
-  validationType: ValidationTypeEnums.MAIL,
-};
-
-const fieldNameToTypeMap = new Map();
-
-fieldNameToTypeMap.set("name", Text);
-fieldNameToTypeMap.set("surname", Text);
-fieldNameToTypeMap.set("street", Text);
-fieldNameToTypeMap.set("city", Text);
-fieldNameToTypeMap.set("zip", Text);
-fieldNameToTypeMap.set("tel", Phone);
-fieldNameToTypeMap.set("mobile", Phone);
-fieldNameToTypeMap.set("mail", Mail);
-
-function fieldNameToType(fieldName: string): IFieldNameToType {
-  if (fieldNameToTypeMap.has(fieldName))
-    return fieldNameToTypeMap.get(fieldName);
-  return Text;
-}
+import { ICorrectedTimeFromStep } from "../__typings/interfaces.d";
 
 const correctedTimeFromStep = ({
   minutes = 0,
@@ -57,4 +22,4 @@ const timeDiffToString = ({ hours = 0, minutes = 0 }: ITimeDiff): string => {
   const minutesToString = minutes > 0 ? `${minutes} Minutes` : "--";
   return `${hoursToString + minutesToString}`;
 };
-export { fieldNameToType as default, correctedTimeFromStep, timeDiffToString };
+export { correctedTimeFromStep, timeDiffToString };

@@ -18,9 +18,9 @@ export default {
   },
 };
 const defaultProps: IInputProps = {
-  name: "Test label",
+  name: "Testlabel",
   label: "Test label",
-  uniqueName: "",
+  type: "text",
   required: true,
   validate: true,
   validationType: ValidationTypeEnums.MAIL,

@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import Input from "../../__ui/formElements";
 import StoryPage from "../story-page";
 import { name, address } from "faker";
+import { ValidationTypeEnums } from "../../__typings/interfaces";
 
 export default {
   title: "Form Elements/Input",
@@ -17,26 +18,29 @@ export const Primary = (): ReactElement => {
       <Input
         name="name"
         label="name"
-        uniqueName="name"
+        type="text"
         value={name.firstName()}
         required={true}
         validate={true}
+        validationType={ValidationTypeEnums.TEXT}
       />
       <Input
         name="surname"
         label="surname"
-        uniqueName="surname"
+        type="text"
         value={name.lastName()}
         required={false}
         validate={true}
+        validationType={ValidationTypeEnums.TEXT}
       />
       <Input
         name="city"
         label="city"
-        uniqueName="city"
+        type="text"
         value={address.city()}
         required={false}
         validate={true}
+        validationType={ValidationTypeEnums.TEXT}
       />
     </StoryPage>
   );
@@ -48,26 +52,29 @@ export const Secondary = (): ReactElement => {
       <Input
         name="name"
         label="name"
-        uniqueName="name"
+        type="text"
         value={name.firstName()}
         required={true}
         validate={true}
+        validationType={ValidationTypeEnums.TEXT}
       />
       <Input
         name="surname"
         label="surname"
-        uniqueName="surname"
+        type="text"
         value={name.lastName()}
         required={false}
         validate={true}
+        validationType={ValidationTypeEnums.TEXT}
       />
       <Input
         name="city"
         label="city"
-        uniqueName="city"
+        type="text"
         value={address.city()}
         required={false}
         validate={true}
+        validationType={ValidationTypeEnums.TEXT}
       />
     </StoryPage>
   );

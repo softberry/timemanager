@@ -13,11 +13,9 @@ import {
   ValidationTypeEnums,
   IInputCallback,
   ThemeEnums,
-  IFieldNameToType,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
-import fieldNameToType from "../../../lib/input.helpers";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
@@ -38,16 +36,19 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  */
 const Input = ({
   name,
-  uniqueName,
+  label,
   value,
+  type = "text",
   required,
   validate = false,
+  validationType,
   infoCallback,
 }: IInputProps): ReactElement => {
   const id = uuid();
   const stringValueOfField: string = value ? value.toString() : "";
   const [inputElement, setInputElement] = useState<HTMLInputElement | null>();
   const [val, setVal] = useState<string>(stringValueOfField);
+  const [, setErrorBoundry] = useState();
   const view = useContext(ViewContext);
 
   const [hasFocus, setHasFocus] = useState<boolean>(false);
@@ -55,7 +56,6 @@ const Input = ({
     `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
   );
   const [isValid, setIsValid] = useState<boolean>(true);
-  const { type, validationType }: IFieldNameToType = fieldNameToType(name); // input type (text, tel, mail etc...)
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -64,14 +64,13 @@ const Input = ({
   const updateParentCallback = useCallback(() => {
     if (typeof infoCallback === "function") {
       const changedValueState: IInputCallback = {
-        uniqueName,
         name,
         valid: isValid,
         value: val,
       };
       infoCallback(changedValueState);
     }
-  }, [isValid, uniqueName, infoCallback, name, val]);
+  }, [isValid, infoCallback, name, val]);
 
   useEffect(() => {
     return (): void => {
@@ -82,6 +81,13 @@ const Input = ({
   useEffect(() => {
     if (validate) {
       if (required || `${val}`.length > 0) {
+        if (validationType === undefined) {
+          setErrorBoundry(() => {
+            throw new Error(
+              `Field : "${label}" should be validated. But validationType has not been defined.`
+            );
+          });
+        }
         switch (validationType) {
           case ValidationTypeEnums.MAIL: {
             setIsValid(isEmail(`${val}`));
@@ -115,14 +121,7 @@ const Input = ({
       setIsValid(true);
     }
     updateParentCallback();
-  }, [
-    setIsValid,
-    required,
-    validationType,
-    val,
-    validate,
-    updateParentCallback,
-  ]);
+  }, [setIsValid, required, validationType, val, validate, updateParentCallback, label]);
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>): void {
     e.persist();
@@ -175,7 +174,7 @@ const Input = ({
         className={styles[`Input-${theme}-label`]}
         data-type={labelType}
       >
-        {name}
+        {label}
         {required ? "*" : ""}
       </label>
       <div

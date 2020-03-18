@@ -8,7 +8,8 @@ import {
   IContactsTableModel,
   IInputCallback,
   IMultiInputCallback,
-} from "../../__typings/interfaces";
+  ValidationTypeEnums,
+} from "../../__typings/interfaces.d";
 import Input, { MultipleInput } from "../../__ui/formElements";
 
 interface IEditContactProps {
@@ -61,7 +62,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
     const action: IEditContactFormAction = {
       type: "UPDATE",
       data: {
-        [inputEl.uniqueName]: { value: inputEl.value, valid: inputEl.valid },
+        [inputEl.name]: { value: inputEl.value, valid: inputEl.valid },
       },
     };
     if (
@@ -79,8 +80,10 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
       JSON.stringify(inputEl.values) ===
         JSON.stringify(contactForm[inputEl.name].value) &&
       inputEl.valid === contactForm[inputEl.name].valid
-    )
+    ) {
       return;
+    }
+
     const action: IEditContactFormAction = {
       type: "UPDATE",
       data: {
@@ -92,6 +95,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
 
   useEffect(() => {
     const formKeys = Object.keys(contactForm);
+    console.log(contactForm);
     const invalidItems = formKeys.filter(key => {
       return contactForm[key].valid === false;
     });
@@ -108,7 +112,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
       <Input
         name="name"
         label="name"
-        uniqueName="name"
+        type="text"
         required={false}
         validate={false}
         value={contact.name}
@@ -117,16 +121,17 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
       <Input
         name="surname"
         label="surname"
-        uniqueName="surname"
+        type="text"
         required={true}
         validate={true}
+        validationType={ValidationTypeEnums.TEXT}
         value={contact.surname}
         infoCallback={inputCallbackHandler}
       />
       <Input
         name="street"
         label="street"
-        uniqueName="street"
+        type="text"
         required={false}
         validate={false}
         value={contact.street}
@@ -135,7 +140,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
       <Input
         name="city"
         label="city"
-        uniqueName="city"
+        type="text"
         required={false}
         validate={false}
         value={contact.city}
@@ -144,9 +149,10 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
       <Input
         name="zip"
         label="zip"
-        uniqueName="zip"
+        type="text"
         required={false}
         validate={true}
+        validationType={ValidationTypeEnums.ZIP}
         value={contact.zip}
         infoCallback={inputCallbackHandler}
       />
@@ -155,9 +161,10 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
         defaultProps={{
           name: "tel",
           label: "tel",
-          uniqueName: "tel",
+          type: "phone",
           required: false,
           validate: true,
+          validationType: ValidationTypeEnums.PHONE,
         }}
         callback={multiInputCallbackHandler}
         values={contact.tel}
@@ -167,9 +174,10 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
         defaultProps={{
           name: "mobile",
           label: "mobile",
-          uniqueName: "mobile",
+          type: "phone",
           required: false,
           validate: true,
+          validationType: ValidationTypeEnums.PHONE,
         }}
         callback={multiInputCallbackHandler}
         values={contact.mobile}
@@ -179,9 +187,10 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
         defaultProps={{
           name: "mail",
           label: "mail",
-          uniqueName: "mail",
+          type: "mail",
           required: false,
           validate: true,
+          validationType: ValidationTypeEnums.MAIL,
         }}
         callback={multiInputCallbackHandler}
         values={contact.mail}

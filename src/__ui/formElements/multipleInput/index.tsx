@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useReducer } from "react";
+import React, {
+  FunctionComponent,
+  useReducer,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 
 import {
   IconNameEnums,
@@ -7,6 +13,7 @@ import {
   IInputCallback,
   ThemeEnums,
   IMultiInputProps,
+  IMultiInputCallback,
 } from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -24,6 +31,7 @@ interface IMultiInputActions {
   type: string;
   value?: string;
   index: number;
+  valid: boolean;
 }
 
 function formReducer(
@@ -80,23 +88,35 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
     values,
     callback,
   });
+  const [callbackData, setCallbackData] = useState<IMultiInputCallback>();
+
+  const memoizedCallbackData = useCallback((): IMultiInputCallback => {
+    return {
+      name,
+      valid: false,
+      values: [""],
+      valids: [false],
+    };
+  }, [name]);
 
   function addNewFieldHandler(): void {
-    disatchForm({ type: "ADD", index: -1 });
+    disatchForm({ type: "ADD", index: -1, valid: false });
   }
 
   function removeField(index: number, value: string): void {
     if (form.values[index] === value) {
-      disatchForm({ type: "REMOVE", index, value });
+      disatchForm({ type: "REMOVE", index, value, valid: false });
     }
   }
 
   function updateForm(p: IInputCallback): void {
-    const index = parseInt(p.uniqueName);
+    const index = parseInt(p.name);
     if (form.values[index] === p.value) return;
-    disatchForm({ type: "EDIT", index, value: p.value });
+    disatchForm({ type: "EDIT", index, value: p.value, valid: p.valid });
   }
-
+  useEffect(() => {
+    callback(memoizedCallbackData());
+  });
   return (
     <div className={styles[`MultipleInputContainer-${theme}`]}>
       {form.values.map((value: string, i: number) => (
@@ -104,7 +124,7 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
           <div className={styles["InputWrapper-input"]}>
             <Input
               {...form.defaultProps}
-              uniqueName={`${i}`}
+              name={`${i}`}
               value={value}
               infoCallback={updateForm}
             />

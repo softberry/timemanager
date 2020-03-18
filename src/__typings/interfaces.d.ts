@@ -72,7 +72,6 @@ export interface IEditableInputProps {
 /** Reaturn value of ``infoCallback`` */
 export interface IInputCallback {
   name: string;
-  uniqueName: string;
   valid: boolean;
   value: string;
 }
@@ -83,15 +82,17 @@ export interface IInputProps {
   /** User freindly name of input element to be used as label text*/
   label: string;
   /**  */
-  uniqueName: string;
+  // uniqueName: string;
+  /** Type of input element */
+  type: "text" | "number" | "phone" | "mail" | "date" | "time";
   /** Value  of the input field */
   value?: string | string[] | Date;
   /** Define whether this field should have a value */
   required: boolean;
-  /** Set correct validation type */
-  validationType?: ValidationTypeEnums;
   /** Should be value of field to be validated. */
   validate: boolean;
+  /** Defined the Validation rule which should be applied*/
+  validationType?: ValidationTypeEnums;
   /** Callback function that helps to input validation state to sync with its parent */
   infoCallback?: (p: IInputCallback) => void;
 }
@@ -106,6 +107,7 @@ export interface IMultiInputProps {
 export interface IMultiInputCallback {
   name: string;
   values: string[];
+  valids: boolean[];
   valid: boolean;
 }
 
@@ -393,11 +395,6 @@ export interface IViewStateReducer {
 export interface IViewActionTypes {
   view: ViewEnums;
   theme: ThemeEnums;
-}
-
-export interface IFieldNameToType {
-  type: "text" | "number" | "phone" | "mail" | "date" | "time";
-  validationType: ValidationTypeEnums;
 }
 
 export interface ICorrectedTimeFromStep {

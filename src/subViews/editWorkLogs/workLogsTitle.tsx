@@ -24,9 +24,9 @@ function WorkLogsTitle({
     <>
       <Card>
         <Input
-          name="Worklog Name"
+          name="name"
           label="Worklog Name"
-          uniqueName="name"
+          type="text"
           validate={true}
           required={true}
           value={name}
@@ -34,9 +34,9 @@ function WorkLogsTitle({
           infoCallback={dispatchInput}
         />
         <Input
-          name="Worklog Description"
+          name="description"
           label="Worklog Description"
-          uniqueName="description"
+          type="text"
           value={description}
           validate={false}
           required={false}
