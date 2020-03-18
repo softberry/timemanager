@@ -97,15 +97,15 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
   });
 
   const memoizedCallbackData = useMemo(() => {
-    console.log("x");
     return {
       name: form.name,
       valid: form.valid.reduce(
         (prev: boolean, cur: boolean) => prev === true && cur === true
       ),
       value: form.values,
+      hash: form.hash,
     };
-  }, [form.name, form.values, form.valid]);
+  }, [form.name, form.values, form.valid, form.hash]);
 
   function addNewFieldHandler(): void {
     disatchForm({ type: "ADD", index: -1, valid: false });
@@ -124,9 +124,8 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
     disatchForm({ type: "EDIT", index, value: p.value, valid: p.valid });
   }
   useEffect(() => {
-    console.log("useEffect: ", memoizedCallbackData);
     callback(memoizedCallbackData);
-  }, [callback, memoizedCallbackData]);
+  }, [callback, memoizedCallbackData, form.hash]);
   return (
     <div className={styles[`MultipleInputContainer-${theme}`]}>
       {form.values.map((value: string, i: number) => (

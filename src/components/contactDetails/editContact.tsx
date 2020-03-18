@@ -92,7 +92,6 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
 
   useEffect(() => {
     const formKeys = Object.keys(contactForm);
-    console.log(contactForm);
     const invalidItems = formKeys.filter(key => {
       return contactForm[key].valid === false;
     });
