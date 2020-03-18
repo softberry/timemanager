@@ -168,7 +168,7 @@ export interface IDatabaseAction {
 }
 
 export interface IMessageReducer {
-  messages: IMessage[];
+  msg: IMessageState;
 }
 
 export interface IMessageState {
@@ -182,7 +182,7 @@ export interface IMessageAction {
 }
 
 export interface IMessage {
-  icon: IconNameEnums;
+  // icon: IconNameEnums;
   dialogType: DialogTypes;
   caption?: string;
   body: object;

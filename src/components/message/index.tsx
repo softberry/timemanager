@@ -6,6 +6,7 @@ import {
   ThemeEnums,
   IDialogActionEnums,
   IMessageReducer,
+  DialogTypes,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
@@ -21,7 +22,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const Message = (): ReactElement => {
   const messages: IMessage[] = useSelector(
-    ({ messages }: IMessageReducer) => messages
+    ({ msg }: IMessageReducer) => msg.messages
   );
 
   const theme = useTheme();
@@ -39,10 +40,24 @@ const Message = (): ReactElement => {
     });
   }
 
+  function getIcon(type: DialogTypes): IconNameEnums {
+    switch (type) {
+      case DialogTypes.INFO:
+        return IconNameEnums.INFO;
+      case DialogTypes.CONFIRM:
+        return IconNameEnums.CONFIRM;
+      case DialogTypes.ERROR:
+        return IconNameEnums.ERROR;
+      case DialogTypes.WARNING:
+        return IconNameEnums.WARNING;
+      default:
+        return IconNameEnums.BLANK;
+    }
+  }
   if (!messages || messages.length === 0) return <></>;
 
   const dialogContent = messages.map(
-    ({ dialogType, icon, closable, dialogId, caption, body }, index) => {
+    ({ dialogType, closable, dialogId, caption, body }, index) => {
       return (
         <div
           key={index}
@@ -61,7 +76,7 @@ const Message = (): ReactElement => {
             </div>
           )}
           <div className={styles[`Icon-${theme}`]}>
-            <Icon size={IconSizeEnums.SMALL}>{icon}</Icon>
+            <Icon size={IconSizeEnums.SMALL}>{getIcon(dialogType)}</Icon>
           </div>
 
           <div className={styles[`Caption-${theme}`]}>{caption}</div>
