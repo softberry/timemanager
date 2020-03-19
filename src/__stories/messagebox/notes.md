@@ -5,26 +5,19 @@
 **_Sample Implemantation_**
 
 ```
-    // Import useDispatch first
-    import {  useDispatch } from "react-redux";
-    ..
-    ..
-    ()=>{
-      // in compnent get it on var
-      const dispatch = useDispatch()
-
-     // Then dispatch an action similar to below to show a message dialog
-
-        dispatch({
-          type:IMessageTypeEnums.[INFO|ERROR|WARNING],
-          icon: IconNameEnums.[ADD|CLOSE|....]
-          caption:"Lorem ... ",
-          body: HTMLDOMElement | ReactElement
-          closable: true | false // show or hide [X] close button
-        })
-
-      return <>
-                ...
-            </>
-    }
+    const content: IMessageAction = {
+      type,
+      message: {
+        dialogType,
+        caption: lorem.words(2),
+        body: (
+          <>
+            <p>{lorem.sentence()}</p>
+          </>
+        ),
+        dialogId: uuid(),
+        closable: true,
+      },
+    };
+    dispatch(content);
 ```

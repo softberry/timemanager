@@ -3,31 +3,30 @@ import React, {
   FunctionComponent,
   useEffect,
   useState,
+  MouseEvent,
 } from "react";
 import {
   IContactsTableModel,
   IInputCallback,
   IMultiInputCallback,
   ValidationTypeEnums,
+  IFormData,
+  IEditContactProps,
+  IEditContactFormAction,
+  NewEntryEnums,
+  IconNameEnums,
+  ButtonAlignmentEnums,
+  ButtonTypeEnums,
+  IDatabaseReducer,
+  IMessageAction,
+  DialogTypes,
+  IDialogActionEnums,
 } from "../../__typings/interfaces.d";
 import Input, { MultipleInput } from "../../__ui/formElements";
-
-interface IEditContactProps {
-  contact: IContactsTableModel;
-}
-
-interface IEditContactFormAction {
-  type: string;
-  data: { [key: string]: IFormDataType };
-}
-
-interface IFormData {
-  [key: string]: IFormDataType;
-}
-interface IFormDataType {
-  value: string | string[];
-  valid: boolean;
-}
+import Button from "../../__ui/buttons/button";
+import { useSelector, useDispatch } from "react-redux";
+import { uuid } from "@nano-sql/core/lib/utilities";
+import ConfirmDeleteContactBody from "../confirm/delete.contact";
 function FormData(data: IContactsTableModel): IFormData {
   return {
     name: { value: data.name, valid: false },
@@ -44,7 +43,16 @@ function FormData(data: IContactsTableModel): IFormData {
 /**
  *
  */
-const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
+const EditContact: FunctionComponent<IEditContactProps> = ({
+  contact,
+  theme,
+  styles,
+  view,
+  onComplete,
+}) => {
+  const isNewContact = contact.id === NewEntryEnums.NEW_CONTACT_ID;
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
+  const dispatch = useDispatch();
   const [isFormValid, setIsFormValid] = useState(false);
   function editContactFormReducer(
     state: IFormData,
@@ -89,6 +97,44 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
     };
     updateContactForm(action);
   }
+  function deleteContacthandler(): void {
+    const dialogId = uuid();
+    const dialog: IMessageAction = {
+      type: IDialogActionEnums.OPEN,
+      message: {
+        caption: "Want to delete?",
+        dialogType: DialogTypes.CONFIRM,
+        body: (
+          <ConfirmDeleteContactBody contact={contact} dialogId={dialogId} />
+        ),
+        dialogId,
+        closable: true,
+      },
+    };
+    dispatch(dialog);
+  }
+
+  function saveContactDetailsToDatabase(
+    e: MouseEvent<HTMLButtonElement>
+  ): void {
+    e.currentTarget.focus(); // remove focus from last form element to avoid any delayed function calls (Input on blur)
+    const clonedContactData: IContactsTableModel = Object.assign({}, contact);
+    if (contact.id === NewEntryEnums.NEW_CONTACT_ID) {
+      delete clonedContactData.id;
+    }
+    Object.keys(clonedContactData).forEach((key: string, index: number) => {
+      if (key !== "id") {
+        clonedContactData[key] = contactForm[key].value;
+      }
+    });
+
+    nSQL("contactsTable")
+      .query("upsert", clonedContactData)
+      .exec()
+      .then((/*current: [IContactsTableModel]*/) => {
+        onComplete();
+      });
+  }
 
   useEffect(() => {
     const formKeys = Object.keys(contactForm);
@@ -104,7 +150,6 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
   }, [contactForm, isFormValid]);
   return (
     <>
-      <p>{isFormValid ? "VALID" : "INVALID"}</p>
       <Input
         name="name"
         label="name"
@@ -156,7 +201,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
         name="tel"
         defaultProps={{
           name: "tel",
-          label: "tel",
+          label: "telephone",
           type: "phone",
           required: false,
           validate: true,
@@ -170,7 +215,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
         name="mobile"
         defaultProps={{
           name: "mobile",
-          label: "mobile",
+          label: "mobile phone",
           type: "phone",
           required: false,
           validate: true,
@@ -194,6 +239,28 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact }) => {
         values={contact.mail}
         valid={contact.mail.map(m => false)}
       />
+      <div className={styles[`ContactDetails-${theme}-${view}-Footer`]}>
+        {!isNewContact && (
+          <Button
+            icon={IconNameEnums.CLEAR}
+            align={ButtonAlignmentEnums.INLINE}
+            onClick={deleteContacthandler}
+            type={ButtonTypeEnums.WARNING}
+            isDisabled={false}
+          >
+            Delete
+          </Button>
+        )}
+        <Button
+          icon={IconNameEnums.CHECK_CIRCLE}
+          align={ButtonAlignmentEnums.INLINE}
+          onClick={saveContactDetailsToDatabase}
+          type={ButtonTypeEnums.POISITIVE}
+          isDisabled={!isFormValid}
+        >
+          Save
+        </Button>
+      </div>
     </>
   );
 };

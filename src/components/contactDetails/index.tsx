@@ -14,8 +14,6 @@ import { useSelector, useDispatch } from "react-redux";
 import ReadOnlyDetails from "./readOnlyDeatils";
 import EditContact from "./editContact";
 
-// import Worklogs from "../worklogs/index";
-
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
@@ -105,11 +103,17 @@ const ContactDetails = ({
       </div>
     );
   }
-
   return (
     <div className={viewClass}>
-      {/* <EditableDetails contact={currentContact} updateContact={switchView} /> */}
-      <EditContact contact={contact} />
+      <EditContact
+        contact={contact}
+        theme={theme}
+        styles={styles}
+        view={view}
+        onComplete={(): void => {
+          setIsReadOnly(true);
+        }}
+      />
     </div>
   );
 };

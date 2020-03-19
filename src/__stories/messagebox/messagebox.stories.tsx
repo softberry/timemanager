@@ -16,11 +16,13 @@ import {
   IMessageContentProps,
   DialogTypes,
   IDialogActionEnums,
+  IMessageAction,
 } from "../../__typings/interfaces.d";
 import { H1 } from "../../__ui/headline";
 import Button from "../../__ui/buttons/button";
 
 import * as notes from "./notes.md";
+import { uuid } from "@nano-sql/core/lib/utilities";
 export default {
   title: "Message Box",
   parameters: {
@@ -34,7 +36,7 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
   const dispatch = useDispatch();
 
   function show(type: IDialogActionEnums, dialogType: DialogTypes): void {
-    dispatch({
+    const content: IMessageAction = {
       type,
       message: {
         dialogType,
@@ -44,9 +46,11 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
             <p>{lorem.sentence()}</p>
           </>
         ),
+        dialogId: uuid(),
         closable: true,
       },
-    });
+    };
+    dispatch(content);
   }
 
   return (
@@ -57,6 +61,8 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
         <Button
           isDisabled={false}
           onClick={(): void => {
+            show(IDialogActionEnums.OPEN, DialogTypes.INFO);
+            show(IDialogActionEnums.OPEN, DialogTypes.INFO);
             show(IDialogActionEnums.OPEN, DialogTypes.INFO);
           }}
           type={ButtonTypeEnums.SIMPLE}
@@ -107,6 +113,7 @@ export const Primary = (): ReactElement => {
   return (
     <Provider store={TimerAppStore}>
       <StoryPage viewType="PrimaryView">
+        {/* See notes tab for more information and a sample */}
         <MessageContent />
         <Message />
       </StoryPage>
@@ -119,6 +126,7 @@ export const Secondary = (): ReactElement => {
     <Provider store={TimerAppStore}>
       <StoryPage viewType="SecondaryView">
         <MessageContent />
+        {/* See notes tab for more information and a sample */}
         <Message />
       </StoryPage>
     </Provider>

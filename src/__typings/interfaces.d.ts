@@ -104,7 +104,7 @@ export interface IMultiInputCallback {
   valid: boolean;
 }
 
-interface IMultiInputActions {
+export interface IMultiInputActions {
   type: string;
   value?: string;
   index: number;
@@ -188,7 +188,7 @@ export interface IMessage {
   body: object;
   closable?: boolean;
   dialogId: string;
-  key: number;
+  // key: number;
 }
 
 export interface IConfirmDeleteContact {
@@ -268,6 +268,7 @@ export interface ICounterTableModel {
 }
 
 export interface IContactsTableModel {
+  [x: string]: string | string[];
   id: string;
   name: string;
   surname: string;
@@ -290,6 +291,32 @@ export interface IReadOnlyContactProps {
 export interface IEditContactDispatchState {
   contact: IContactsTableModel;
   readOnly: boolean;
+}
+
+export interface IEditContactProps {
+  /** Database Object which will be edited*/
+  contact: IContactsTableModel;
+  /** Inherit view from parent*/
+  view: ViewEnums;
+  /** Inherit theme from parent */
+  theme: ThemeEnums;
+  /** Inherit styles from parent */
+  styles: { [x: string]: string };
+  /** Callback function to revert form to it's readonly state*/
+  onComplete: () => void;
+}
+
+export interface IEditContactFormAction {
+  type: string;
+  data: { [key: string]: IFormDataType };
+}
+
+export interface IFormData {
+  [key: string]: IFormDataType;
+}
+export interface IFormDataType {
+  value: string | string[];
+  valid: boolean;
 }
 export interface IWorkTableModel {
   id: string;
@@ -356,7 +383,7 @@ export interface IIconProps {
 
 export interface IBadgeProps {
   content: number;
-  view?: string;
+  view?: ViewEnums;
 }
 
 export interface ITippProps {
@@ -373,7 +400,7 @@ export interface INavProps {
   goBack?: () => void;
   goForward?: () => void;
   theme: string;
-  styles: {};
+  styles: { [x: string]: string };
 }
 
 export interface IViewState {
