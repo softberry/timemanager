@@ -10,14 +10,6 @@ export interface IStoryPageProps {
 export interface INameToValueMap {
   [key: string]: string | number | Map;
 }
-export interface IDesignReducer {
-  view: ViewEnums;
-  theme: ViewEnums;
-}
-
-export interface ITypographyProps {
-  theme?: IDesignReducer;
-}
 
 export interface IContactDetailsComponent {
   type: string;
@@ -109,6 +101,13 @@ export interface IMultiInputProps {
 export interface IMultiInputCallback {
   name: string;
   value: string[];
+  valid: boolean;
+}
+
+interface IMultiInputActions {
+  type: string;
+  value?: string;
+  index: number;
   valid: boolean;
 }
 
@@ -286,12 +285,6 @@ export interface IReadOnlyContactProps {
     contact: IContactsTableModel,
     readOnly?: boolean
   ) => void;
-}
-
-export interface IEditContactDispatchProps {
-  type: FieldKey | "UPDATE"; // TODO: remove "UPDATE"
-  contact: IContactsTableModel;
-  readOnly: boolean;
 }
 
 export interface IEditContactDispatchState {

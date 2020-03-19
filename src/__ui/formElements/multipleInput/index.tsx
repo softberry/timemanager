@@ -12,6 +12,7 @@ import {
   IInputCallback,
   ThemeEnums,
   IMultiInputProps,
+  IMultiInputActions,
 } from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -25,12 +26,6 @@ stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 //TODO: move these interfaces to interfaces.d.ts
-interface IMultiInputActions {
-  type: string;
-  value?: string;
-  index: number;
-  valid: boolean;
-}
 
 function formReducer(
   state: IMultiInputProps,

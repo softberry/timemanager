@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, FunctionComponent } from "react";
 import {
-  ITypographyProps,
-  IDesignReducer,
   INameToValueMap,
   DialogTypes,
   IDialogActionEnums,
@@ -12,14 +10,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
 
-const Typography: React.FC<ITypographyProps> = ({ children }) => {
-  const currentTheme = useSelector(({ theme }: IDesignReducer) => theme);
+const Typography: FunctionComponent = ({ children }) => {
   const [fontsReady, setFontsReady] = useState<string>("LOADING");
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    //TODO: theme should be apllied too!!!!
-  }, [currentTheme]);
 
   const webFontsConfig = {
     google: {
