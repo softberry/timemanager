@@ -136,8 +136,8 @@ const EditContact: FunctionComponent<IEditContactProps> = ({
     nSQL("contactsTable")
       .query("upsert", clonedContactData)
       .exec()
-      .then((/*current: [IContactsTableModel]*/) => {
-        onComplete();
+      .then((current: [IContactsTableModel]) => {
+        onComplete(current[0]);
       });
   }
 

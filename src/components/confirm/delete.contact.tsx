@@ -28,10 +28,28 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const ConfirmDeleteContactFooter = ({
+const ConfirmDeleteContactBody: FunctionComponent<IConfirmDeleteContact> = ({
+  contact,
+}) => {
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+  return (
+    <>
+      <div className={styles[`Content-${theme}`]}>
+        Are you sure to delete&nbsp;
+        <strong>
+          {contact.name} {contact.surname}
+        </strong>
+        ?
+      </div>
+    </>
+  );
+};
+
+const ConfirmDeleteContactFooter: FunctionComponent<IConfirmDeleteContact> = ({
   contact,
   dialogId,
-}: IConfirmDeleteContact): ReactElement => {
+}): ReactElement => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -117,29 +135,12 @@ const ConfirmDeleteContactFooter = ({
       <Button
         icon={IconNameEnums.CLEAR}
         type={ButtonTypeEnums.WARNING}
-        align={ButtonAlignmentEnums.INLINE}
+        align={ButtonAlignmentEnums.RIGHT}
         onClick={onDeleteButtonSubmit.bind({}, contact.id)}
         isDisabled={false}
       >
         Delete
       </Button>
-    </>
-  );
-};
-const ConfirmDeleteContactBody: FunctionComponent<IConfirmDeleteContact> = ({
-  contact,
-}) => {
-  const theme = useTheme();
-  const styles = useThemeStyle(stylesMap);
-  return (
-    <>
-      <div className={styles[`Content-${theme}`]}>
-        Are you sure to delete&nbsp;
-        <strong>
-          {contact.name} {contact.surname}
-        </strong>
-        ?
-      </div>
     </>
   );
 };

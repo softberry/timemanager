@@ -106,11 +106,12 @@ const ContactDetails = ({
   return (
     <div className={viewClass}>
       <EditContact
-        contact={contact}
+        contact={currentContact}
         theme={theme}
         styles={styles}
         view={view}
-        onComplete={(): void => {
+        onComplete={(contact: IContactsTableModel): void => {
+          switchView(contact, true);
           setIsReadOnly(true);
         }}
       />

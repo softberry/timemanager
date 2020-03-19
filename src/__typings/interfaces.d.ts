@@ -304,7 +304,7 @@ export interface IEditContactProps {
   /** Inherit styles from parent */
   styles: { [x: string]: string };
   /** Callback function to revert form to it's readonly state*/
-  onComplete: () => void;
+  onComplete: (p: T) => void;
 }
 
 export interface IEditContactFormAction {
