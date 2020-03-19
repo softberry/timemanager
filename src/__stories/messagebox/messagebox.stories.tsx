@@ -46,6 +46,7 @@ function MessageContent({ type }: IMessageContentProps): ReactElement {
             <p>{lorem.sentence()}</p>
           </>
         ),
+        footer: <></>,
         dialogId: uuid(),
         closable: true,
       },

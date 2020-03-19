@@ -57,7 +57,7 @@ const Message = (): ReactElement => {
   if (!messages || messages.length === 0) return <></>;
 
   const dialogContent = messages.map(
-    ({ dialogType, closable, dialogId, caption, body }, index) => {
+    ({ dialogType, closable, dialogId, caption, body, footer }, index) => {
       return (
         <div
           key={index}
@@ -82,7 +82,7 @@ const Message = (): ReactElement => {
           <div className={styles[`Caption-${theme}`]}>{caption}</div>
 
           <div className={styles[`Text-${theme}`]}>{body}</div>
-          <div className={styles[`Footer-${theme}`]}>&nbsp;</div>
+          <div className={styles[`Footer-${theme}`]}>{footer}</div>
         </div>
       );
     }

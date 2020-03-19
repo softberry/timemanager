@@ -1,4 +1,9 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, {
+  useState,
+  useEffect,
+  ReactElement,
+  FunctionComponent,
+} from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
@@ -14,6 +19,7 @@ import {
   ThemeEnums,
   IDatabaseReducer,
   IDialogActionEnums,
+  IconNameEnums,
 } from "../../__typings/interfaces.d";
 import { Checkbox } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
@@ -22,7 +28,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const ConfirmDeleteContactBody = ({
+const ConfirmDeleteContactFooter = ({
   contact,
   dialogId,
 }: IConfirmDeleteContact): ReactElement => {
@@ -99,13 +105,6 @@ const ConfirmDeleteContactBody = ({
 
   return (
     <>
-      <div className={styles[`Content-${theme}`]}>
-        Are you sure to delete&nbsp;
-        <strong>
-          {contact.name} {contact.surname}
-        </strong>
-        ?
-      </div>
       {worklogsCount > 0 && (
         <div className={styles[`Content-${theme}`]}>
           <Checkbox
@@ -114,18 +113,34 @@ const ConfirmDeleteContactBody = ({
           ></Checkbox>
         </div>
       )}
-      <div className={styles[`Footer-${theme}`]}>
-        <Button
-          type={ButtonTypeEnums.SIMPLE}
-          align={ButtonAlignmentEnums.RIGHT}
-          onClick={onDeleteButtonSubmit.bind({}, contact.id)}
-          isDisabled={false}
-        >
-          Delete
-        </Button>
+
+      <Button
+        icon={IconNameEnums.CLEAR}
+        type={ButtonTypeEnums.WARNING}
+        align={ButtonAlignmentEnums.INLINE}
+        onClick={onDeleteButtonSubmit.bind({}, contact.id)}
+        isDisabled={false}
+      >
+        Delete
+      </Button>
+    </>
+  );
+};
+const ConfirmDeleteContactBody: FunctionComponent<IConfirmDeleteContact> = ({
+  contact,
+}) => {
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+  return (
+    <>
+      <div className={styles[`Content-${theme}`]}>
+        Are you sure to delete&nbsp;
+        <strong>
+          {contact.name} {contact.surname}
+        </strong>
+        ?
       </div>
     </>
   );
 };
-
-export default ConfirmDeleteContactBody;
+export { ConfirmDeleteContactBody as default, ConfirmDeleteContactFooter };

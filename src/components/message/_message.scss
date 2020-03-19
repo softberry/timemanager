@@ -4,7 +4,7 @@
   grid-template-areas:
     "icon caption close"
     "text text text"
-    ". . footer";
+    "footer footer footer";
   grid-template-columns: auto 1fr min-content;
   grid-template-rows: max-content max-content;
   padding: rem(0.5) 1 * $font-size;
@@ -82,4 +82,7 @@
 
 .Footer-#{$theme} {
   grid-area: footer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

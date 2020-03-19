@@ -26,7 +26,9 @@ import Input, { MultipleInput } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "@nano-sql/core/lib/utilities";
-import ConfirmDeleteContactBody from "../confirm/delete.contact";
+import ConfirmDeleteContactBody, {
+  ConfirmDeleteContactFooter,
+} from "../confirm/delete.contact";
 function FormData(data: IContactsTableModel): IFormData {
   return {
     name: { value: data.name, valid: false },
@@ -106,6 +108,9 @@ const EditContact: FunctionComponent<IEditContactProps> = ({
         dialogType: DialogTypes.CONFIRM,
         body: (
           <ConfirmDeleteContactBody contact={contact} dialogId={dialogId} />
+        ),
+        footer: (
+          <ConfirmDeleteContactFooter contact={contact} dialogId={dialogId} />
         ),
         dialogId,
         closable: true,

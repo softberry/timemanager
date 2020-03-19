@@ -186,6 +186,7 @@ export interface IMessage {
   dialogType: DialogTypes;
   caption?: string;
   body: object;
+  footer: object;
   closable?: boolean;
   dialogId: string;
   // key: number;
