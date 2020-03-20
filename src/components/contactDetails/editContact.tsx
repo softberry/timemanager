@@ -1,10 +1,4 @@
-import React, {
-  useReducer,
-  FunctionComponent,
-  useEffect,
-  useState,
-  MouseEvent,
-} from "react";
+import React, { useReducer, FunctionComponent, useEffect, useState, MouseEvent } from "react";
 import {
   IContactsTableModel,
   IInputCallback,
@@ -26,9 +20,7 @@ import Input, { MultipleInput } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "@nano-sql/core/lib/utilities";
-import ConfirmDeleteContactBody, {
-  ConfirmDeleteContactFooter,
-} from "../confirm/delete.contact";
+import ConfirmDeleteContactBody, { ConfirmDeleteContactFooter } from "../confirm/delete.contact";
 function FormData(data: IContactsTableModel): IFormData {
   return {
     name: { value: data.name, valid: false },
@@ -45,35 +37,19 @@ function FormData(data: IContactsTableModel): IFormData {
 /**
  *
  */
-const EditContact: FunctionComponent<IEditContactProps> = ({
-  contact,
-  theme,
-  styles,
-  view,
-  onComplete,
-}) => {
+const EditContact: FunctionComponent<IEditContactProps> = ({ contact, theme, styles, view, onComplete }) => {
   const isNewContact = contact.id === NewEntryEnums.NEW_CONTACT_ID;
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const dispatch = useDispatch();
   const [isFormValid, setIsFormValid] = useState(false);
-  function editContactFormReducer(
-    state: IFormData,
-    action: IEditContactFormAction
-  ): IFormData {
+  function editContactFormReducer(state: IFormData, action: IEditContactFormAction): IFormData {
     return { ...state, ...action.data };
   }
 
-  const [contactForm, updateContactForm] = useReducer(
-    editContactFormReducer,
-    FormData(contact)
-  );
+  const [contactForm, updateContactForm] = useReducer(editContactFormReducer, FormData(contact));
 
   function inputCallbackHandler(inputEl: IInputCallback): void {
-    if (
-      inputEl.value === contactForm[inputEl.name].value &&
-      inputEl.valid === contactForm[inputEl.name].valid
-    )
-      return;
+    if (inputEl.value === contactForm[inputEl.name].value && inputEl.valid === contactForm[inputEl.name].valid) return;
     const action: IEditContactFormAction = {
       type: "UPDATE",
       data: {
@@ -85,8 +61,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({
 
   function multiInputCallbackHandler(inputEl: IMultiInputCallback): void {
     if (
-      JSON.stringify(inputEl.value) ===
-        JSON.stringify(contactForm[inputEl.name].value) &&
+      JSON.stringify(inputEl.value) === JSON.stringify(contactForm[inputEl.name].value) &&
       inputEl.valid === contactForm[inputEl.name].valid
     ) {
       return;
@@ -106,12 +81,8 @@ const EditContact: FunctionComponent<IEditContactProps> = ({
       message: {
         caption: "Want to delete?",
         dialogType: DialogTypes.CONFIRM,
-        body: (
-          <ConfirmDeleteContactBody contact={contact} dialogId={dialogId} />
-        ),
-        footer: (
-          <ConfirmDeleteContactFooter contact={contact} dialogId={dialogId} />
-        ),
+        body: <ConfirmDeleteContactBody contact={contact} dialogId={dialogId} />,
+        footer: <ConfirmDeleteContactFooter contact={contact} dialogId={dialogId} />,
         dialogId,
         closable: true,
       },
@@ -119,9 +90,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({
     dispatch(dialog);
   }
 
-  function saveContactDetailsToDatabase(
-    e: MouseEvent<HTMLButtonElement>
-  ): void {
+  function saveContactDetailsToDatabase(e: MouseEvent<HTMLButtonElement>): void {
     e.currentTarget.focus(); // remove focus from last form element to avoid any delayed function calls (Input on blur)
     const clonedContactData: IContactsTableModel = Object.assign({}, contact);
     if (contact.id === NewEntryEnums.NEW_CONTACT_ID) {
@@ -137,7 +106,10 @@ const EditContact: FunctionComponent<IEditContactProps> = ({
       .query("upsert", clonedContactData)
       .exec()
       .then((current: [IContactsTableModel]) => {
-        onComplete(current[0]);
+        window.setTimeout(() => {
+          // wait shortly before chaning state to avoid update on unmounted element (<Input onBlur />)
+          onComplete(current[0]);
+        }, 300);
       });
   }
 

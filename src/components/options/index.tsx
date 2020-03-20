@@ -1,10 +1,4 @@
-import React, {
-  ReactElement,
-  useContext,
-  FunctionComponent,
-  useEffect,
-  useState,
-} from "react";
+import React, { ReactElement, useContext, FunctionComponent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { RadioGroup, Radio } from "../../__ui/formElements";
@@ -43,24 +37,15 @@ const Options: FunctionComponent = (): ReactElement => {
   });
 
   const updateTheme = (t: string): void => {
-    (t === ThemeEnums.DEFAULT_THEME || t === ThemeEnums.OCEAN_THEME) &&
-      setSelectedTheme(t);
+    (t === ThemeEnums.DEFAULT_THEME || t === ThemeEnums.OCEAN_THEME) && setSelectedTheme(t);
   };
   return (
     <section className={viewClass}>
       <div>Theme</div>
       <div>
         <RadioGroup onChange={updateTheme}>
-          <Radio
-            label="Default"
-            value={ThemeEnums.DEFAULT_THEME}
-            checked={theme === ThemeEnums.DEFAULT_THEME}
-          />
-          <Radio
-            label="Ocean"
-            value={ThemeEnums.OCEAN_THEME}
-            checked={theme === ThemeEnums.OCEAN_THEME}
-          />
+          <Radio label="Default" value={ThemeEnums.DEFAULT_THEME} checked={theme === ThemeEnums.DEFAULT_THEME} />
+          <Radio label="Ocean" value={ThemeEnums.OCEAN_THEME} checked={theme === ThemeEnums.OCEAN_THEME} />
         </RadioGroup>
       </div>
     </section>

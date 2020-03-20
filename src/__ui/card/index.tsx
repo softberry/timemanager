@@ -35,9 +35,7 @@ const CardFooter: FunctionComponent = ({ children }) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
-  return (
-    <div className={styles[`CardFooter-${theme}-${view}`]}>{children}</div>
-  );
+  return <div className={styles[`CardFooter-${theme}-${view}`]}>{children}</div>;
 };
 
 export { Card as default, CardTitle, CardBody, CardFooter };

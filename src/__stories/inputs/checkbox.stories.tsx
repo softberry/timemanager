@@ -10,12 +10,7 @@ export default {
 
 const checkBoxes = new Array(3).fill("").map((chk: string, i: number) => {
   return (
-    <Checkbox
-      key={i}
-      checked={random.boolean()}
-      label={lorem.words(4)}
-      onChange={onChangeHandler}
-    >
+    <Checkbox key={i} checked={random.boolean()} label={lorem.words(4)} onChange={onChangeHandler}>
       <span>{lorem.paragraph()}</span>
     </Checkbox>
   );

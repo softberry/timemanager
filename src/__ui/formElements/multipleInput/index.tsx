@@ -1,9 +1,4 @@
-import React, {
-  FunctionComponent,
-  useReducer,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { FunctionComponent, useReducer, useEffect, useMemo } from "react";
 
 import {
   IconNameEnums,
@@ -27,10 +22,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 //TODO: move these interfaces to interfaces.d.ts
 
-function formReducer(
-  state: IMultiInputProps,
-  action: IMultiInputActions
-): IMultiInputProps {
+function formReducer(state: IMultiInputProps, action: IMultiInputActions): IMultiInputProps {
   switch (action.type) {
     case "ADD":
       return {
@@ -43,9 +35,7 @@ function formReducer(
     case "REMOVE":
       if (action.index === undefined) return state;
       if (state.values[action.index] === action.value) {
-        state.values = state.values.filter(
-          (v: string, i: number) => v !== action.value
-        );
+        state.values = state.values.filter((v: string, i: number) => v !== action.value);
       }
 
       return {
@@ -94,9 +84,7 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
   const memoizedCallbackData = useMemo(() => {
     return {
       name: form.name,
-      valid: form.valid.reduce(
-        (prev: boolean, cur: boolean) => prev === true && cur === true
-      ),
+      valid: form.valid.reduce((prev: boolean, cur: boolean) => prev === true && cur === true),
       value: form.values,
       hash: form.hash,
     };
@@ -126,12 +114,7 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
       {form.values.map((value: string, i: number) => (
         <div key={i} className={styles.InputWrapper}>
           <div className={styles["InputWrapper-input"]}>
-            <Input
-              {...form.defaultProps}
-              name={`${i}`}
-              value={value}
-              infoCallback={updateForm}
-            />
+            <Input {...form.defaultProps} name={`${i}`} value={value} infoCallback={updateForm} />
           </div>
           <div className={styles["InputWrapper-icon"]}>
             <Button

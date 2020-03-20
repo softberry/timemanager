@@ -1,7 +1,4 @@
-import {
-  IDatabaseState,
-  DatabaseActionEnums,
-} from "../../__typings/interfaces.d";
+import { IDatabaseState, DatabaseActionEnums } from "../../__typings/interfaces.d";
 
 function db(
   state: IDatabaseState = {

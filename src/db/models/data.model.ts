@@ -1,9 +1,4 @@
-import {
-  InanoSQLTableConfig,
-  InanoSQLInstance,
-  InanoSQLQuery,
-  InanoSQLDataModel,
-} from "@nano-sql/core/lib/interfaces";
+import { InanoSQLTableConfig, InanoSQLInstance, InanoSQLQuery, InanoSQLDataModel } from "@nano-sql/core/lib/interfaces";
 import { NewEntryEnums } from "../../__typings/interfaces.d";
 
 /**
@@ -95,10 +90,7 @@ const workTable: InanoSQLTableConfig = {
       args: {
         "contactID:uuid": {},
       },
-      call: (
-        db: InanoSQLInstance,
-        args: { contactID: string }
-      ): InanoSQLQuery => {
+      call: (db: InanoSQLInstance, args: { contactID: string }): InanoSQLQuery => {
         const work = {
           name: "New Work Log",
           contactID: args.contactID,
@@ -115,10 +107,7 @@ const workTable: InanoSQLTableConfig = {
       args: {
         "contactID:uuid": {},
       },
-      call: (
-        db: InanoSQLInstance,
-        args: { contactID: string }
-      ): InanoSQLQuery => {
+      call: (db: InanoSQLInstance, args: { contactID: string }): InanoSQLQuery => {
         return db
           .query("select")
           .where(["contactID", "=", args.contactID])

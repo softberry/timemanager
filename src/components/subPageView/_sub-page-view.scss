@@ -52,16 +52,10 @@
 
 .Content-#{$theme} {
   &--primary {
-    @include content(
-      color-palette("primary", "simple", "background"),
-      color-palette("primary", "simple", "text")
-    );
+    @include content(color-palette("primary", "simple", "background"), color-palette("primary", "simple", "text"));
   }
   &--secondary {
-    @include content(
-      color-palette("secondary", "main", "background"),
-      color-palette("secondary", "main", "text")
-    );
+    @include content(color-palette("secondary", "main", "background"), color-palette("secondary", "main", "text"));
   }
 }
 

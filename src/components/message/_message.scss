@@ -37,16 +37,10 @@
   &__ERROR,
   &__CONFIRM {
     &--primary {
-      @include dialog(
-        color-palette("primary", "simple", "background"),
-        color-palette("primary", "simple", "text")
-      );
+      @include dialog(color-palette("primary", "simple", "background"), color-palette("primary", "simple", "text"));
     }
     &--secondary {
-      @include dialog(
-        color-palette("secondary", "simple", "background"),
-        color-palette("secondary", "simple", "text")
-      );
+      @include dialog(color-palette("secondary", "simple", "background"), color-palette("secondary", "simple", "text"));
     }
   }
 }

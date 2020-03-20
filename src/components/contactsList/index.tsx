@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  ReactElement,
-  ReactFragment,
-} from "react";
+import React, { useState, useEffect, useContext, ReactElement, ReactFragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
@@ -43,9 +37,7 @@ const ContactsList = (): ReactElement => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const WorkLogBadgeFromID = ({
-    contactID,
-  }: IWorklogBadgeProp): ReactElement => {
+  const WorkLogBadgeFromID = ({ contactID }: IWorklogBadgeProp): ReactElement => {
     const [queried, setQueried] = useState(false);
     const [count, setCount] = useState(0);
     const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
@@ -106,11 +98,7 @@ const ContactsList = (): ReactElement => {
       <List>
         {contacts.map(
           (item: IContactsTableModel, key: number): ReactFragment => (
-            <Link
-              to={`/contact/details/${item.id}`}
-              key={key}
-              className={styles[`Contacts-${theme}-${view}-Entry`]}
-            >
+            <Link to={`/contact/details/${item.id}`} key={key} className={styles[`Contacts-${theme}-${view}-Entry`]}>
               <div className={styles[`Contacts-${theme}-${view}-Entry-Item`]}>
                 {item.name} {item.surname}
               </div>

@@ -15,18 +15,9 @@ import { ViewEnums, IStoryPageProps } from "../__typings/interfaces.d";
 
 const store = createStore(rootReducer);
 
-const StoryPage = ({
-  children,
-  viewType = "PrimaryView",
-}: PropsWithChildren<IStoryPageProps>): ReactElement => {
+const StoryPage = ({ children, viewType = "PrimaryView" }: PropsWithChildren<IStoryPageProps>): ReactElement => {
   return (
-    <ViewContext.Provider
-      value={
-        viewType === "PrimaryView"
-          ? ViewEnums.PRIMARY_VIEW
-          : ViewEnums.SECONDARY_VIEW
-      }
-    >
+    <ViewContext.Provider value={viewType === "PrimaryView" ? ViewEnums.PRIMARY_VIEW : ViewEnums.SECONDARY_VIEW}>
       <Provider store={store}>
         <Typography />
         <div className={styles[viewType]}>{children}</div>

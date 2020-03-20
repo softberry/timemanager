@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  useEffect,
-  FunctionComponent,
-} from "react";
+import React, { useState, useContext, useEffect, FunctionComponent } from "react";
 
 import Nav from "../components/nav";
 import Footer from "../components/footer";

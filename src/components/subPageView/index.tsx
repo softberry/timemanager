@@ -30,9 +30,7 @@ function SubPageView(): ReactElement {
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   const dispatch = useDispatch();
-  const subPage: ISubPageState = useSelector(
-    ({ subPage }: ISubPageReducer) => subPage
-  );
+  const subPage: ISubPageState = useSelector(({ subPage }: ISubPageReducer) => subPage);
 
   useEffect(() => {
     if (subPage.type === SubPageActionEnums.OUT) {
@@ -46,13 +44,8 @@ function SubPageView(): ReactElement {
   return (
     <div className={styles[`SubPageView-${theme}`]}>
       <div className={styles[`Backdrop-${theme}`]}></div>
-      <div
-        className={styles[`Content-${theme}--${view}`]}
-        data-hide-subpage={subPage.type === SubPageActionEnums.OUT}
-      >
-        <div className={styles[`Caption-${theme}`]}>
-          {subPage.action.caption}
-        </div>
+      <div className={styles[`Content-${theme}--${view}`]} data-hide-subpage={subPage.type === SubPageActionEnums.OUT}>
+        <div className={styles[`Caption-${theme}`]}>{subPage.action.caption}</div>
         <div
           className={styles[`Close-${theme}`]}
           onClick={(): void => {

@@ -1,11 +1,6 @@
 import React, { useContext, ReactElement } from "react";
 
-import {
-  ITippProps,
-  ThemeEnums,
-  IconSizeEnums,
-  IconNameEnums,
-} from "../../__typings/interfaces.d";
+import { ITippProps, ThemeEnums, IconSizeEnums, IconNameEnums } from "../../__typings/interfaces.d";
 import ViewContext from "../../views/index";
 import { useTheme, useThemeStyle } from "../typography";
 import themeDefault from "./theme-default.module.scss";

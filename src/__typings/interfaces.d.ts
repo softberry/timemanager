@@ -283,10 +283,7 @@ export interface IContactsTableModel {
 
 export interface IReadOnlyContactProps {
   contact: IContactsTableModel;
-  editContactHandler: (
-    contact: IContactsTableModel,
-    readOnly?: boolean
-  ) => void;
+  editContactHandler: (contact: IContactsTableModel, readOnly?: boolean) => void;
 }
 
 export interface IEditContactDispatchState {

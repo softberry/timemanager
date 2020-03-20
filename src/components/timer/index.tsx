@@ -1,10 +1,5 @@
 import React, { useEffect, useState, useContext, ReactElement } from "react";
-import {
-  ICounterTableModel,
-  IDiff,
-  ThemeEnums,
-  IDatabaseReducer,
-} from "../../__typings/interfaces.d";
+import { ICounterTableModel, IDiff, ThemeEnums, IDatabaseReducer } from "../../__typings/interfaces.d";
 
 import { useSelector } from "react-redux";
 import { timeDiff } from "../../lib/counter.helpers";
@@ -94,9 +89,7 @@ export function Timer(): ReactElement {
         .exec()
         .then((current: [ICounterTableModel]) => {
           setTimerActiveState(current[0].active);
-          current[0].active
-            ? setDiff(timeDiff(current[0].start, current[0].current))
-            : clearTimeout(timerID);
+          current[0].active ? setDiff(timeDiff(current[0].start, current[0].current)) : clearTimeout(timerID);
         });
     }, 1000);
     return (): void => {
@@ -115,17 +108,8 @@ export function Timer(): ReactElement {
 
   return (
     <div className={styles[`Timer-${theme}-${view}`]}>
-      <Counter
-        {...diff}
-        counting={timerActiveState}
-        styles={styles}
-        theme={theme}
-      />
-      <StartStopButton
-        onComplete={onCompleteEventHandler}
-        waitForSeconds={3}
-        isTurning={timerActiveState}
-      />
+      <Counter {...diff} counting={timerActiveState} styles={styles} theme={theme} />
+      <StartStopButton onComplete={onCompleteEventHandler} waitForSeconds={3} isTurning={timerActiveState} />
     </div>
   );
 }

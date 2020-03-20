@@ -3,11 +3,7 @@ import Tipp from "../../__ui/tipp";
 import Button from "../../__ui/buttons/button";
 // import Input, { DateTime } from "../../__ui/formElements/index";
 
-import {
-  IconNameEnums,
-  ButtonTypeEnums,
-  ButtonAlignmentEnums,
-} from "../../__typings/interfaces.d";
+import { IconNameEnums, ButtonTypeEnums, ButtonAlignmentEnums } from "../../__typings/interfaces.d";
 
 import { CardTitle } from "../../__ui/card";
 

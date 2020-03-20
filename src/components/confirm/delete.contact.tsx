@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  ReactElement,
-  FunctionComponent,
-} from "react";
+import React, { useState, useEffect, ReactElement, FunctionComponent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
@@ -28,9 +23,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const ConfirmDeleteContactBody: FunctionComponent<IConfirmDeleteContact> = ({
-  contact,
-}) => {
+const ConfirmDeleteContactBody: FunctionComponent<IConfirmDeleteContact> = ({ contact }) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   return (
@@ -46,10 +39,7 @@ const ConfirmDeleteContactBody: FunctionComponent<IConfirmDeleteContact> = ({
   );
 };
 
-const ConfirmDeleteContactFooter: FunctionComponent<IConfirmDeleteContact> = ({
-  contact,
-  dialogId,
-}): ReactElement => {
+const ConfirmDeleteContactFooter: FunctionComponent<IConfirmDeleteContact> = ({ contact, dialogId }): ReactElement => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -86,9 +76,7 @@ const ConfirmDeleteContactFooter: FunctionComponent<IConfirmDeleteContact> = ({
               .where(["id", "=", item.id])
               .exec()
               .then(() => {
-                console.log(
-                  "contactID removed from Work logs of deleted contact!"
-                );
+                console.log("contactID removed from Work logs of deleted contact!");
               });
           });
         });

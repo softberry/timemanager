@@ -67,9 +67,7 @@ function ContactView({ match }: IContactViewProps): ReactElement {
   return (
     <ViewContext.Provider value={ViewEnums.SECONDARY_VIEW}>
       <DefaultLayout>
-        {queryState === "READY" && (
-          <ContactDetails type={match.params.type} contact={table} />
-        )}
+        {queryState === "READY" && <ContactDetails type={match.params.type} contact={table} />}
       </DefaultLayout>
     </ViewContext.Provider>
   );

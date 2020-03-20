@@ -2,15 +2,13 @@ import React, { useState, useEffect, useContext, ReactElement } from "react";
 
 import {
   IContactDetailsComponent,
-  IWorkTableModel,
   IContactsTableModel,
   NewEntryEnums,
   ViewSettingsEnums,
   ThemeEnums,
-  IDatabaseReducer,
 } from "../../__typings/interfaces.d";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import ReadOnlyDetails from "./readOnlyDeatils";
 import EditContact from "./editContact";
 
@@ -24,10 +22,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const ContactDetails = ({
-  contact,
-  type,
-}: IContactDetailsComponent): ReactElement => {
+const ContactDetails = ({ contact, type }: IContactDetailsComponent): ReactElement => {
   const view = useContext(ViewContext);
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [isNewContact, setIsNewContact] = useState(false);
@@ -37,7 +32,6 @@ const ContactDetails = ({
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const viewClass = styles[`ContactDetails-${theme}-${view}`];
 
   function switchView(contact: IContactsTableModel, readOnly?: boolean): void {
@@ -47,20 +41,7 @@ const ContactDetails = ({
     }
   }
 
-  const [fullName, setFullName] = useState(
-    `${currentContact.name} ${currentContact.surname}`
-  );
-
-  // TODO: create custom query to have complete worklog including start/finish times and materials
-  // IWorkTableModel should be returned properly
-  nSQL("workTable")
-    .query("select")
-    .where(["contactID", "=", currentContact.id])
-    .exec()
-    .then((worklogs: [IWorkTableModel]) => {
-      //      dispatch({ type: TYPES.WORKLOGS_UPDATE, worklogs });
-      //TODO: get all worklogs for the current contact and dispatch result , so list of worklogs in this view should always be uptodate
-    });
+  const [fullName, setFullName] = useState(`${currentContact.name} ${currentContact.surname}`);
 
   useEffect(() => {
     if (currentContact.id === null) return;
@@ -83,9 +64,7 @@ const ContactDetails = ({
         title: "Contact Details",
       });
     } else {
-      const EditableDetailTitle = isNewContact
-        ? "Create New Contact"
-        : "Edit Contact Details";
+      const EditableDetailTitle = isNewContact ? "Create New Contact" : "Edit Contact Details";
       dispatch({
         type: ViewSettingsEnums.UPDATE_TITLE,
         title: EditableDetailTitle,
@@ -95,10 +74,7 @@ const ContactDetails = ({
   if (isReadOnly) {
     return (
       <div className={viewClass}>
-        <ReadOnlyDetails
-          contact={currentContact}
-          editContactHandler={switchView}
-        />
+        <ReadOnlyDetails contact={currentContact} editContactHandler={switchView} />
         <WorklogListOfContact {...currentContact} />
       </div>
     );

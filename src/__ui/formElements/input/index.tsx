@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-  ReactElement,
-} from "react";
+import React, { useState, useEffect, useContext, useCallback, ReactElement } from "react";
 import {
   IInputProps,
   IconSizeEnums,
@@ -74,24 +68,11 @@ const Input = ({
         valid: isValid,
         value: val,
       };
-      if (
-        parentState.name === name &&
-        parentState.value === val &&
-        parentState.valid === isValid
-      )
-        return;
+      if (parentState.name === name && parentState.value === val && parentState.valid === isValid) return;
       setParentState(changedValueState);
       infoCallback(changedValueState);
     }
-  }, [
-    isValid,
-    infoCallback,
-    name,
-    val,
-    parentState.name,
-    parentState.valid,
-    parentState.value,
-  ]);
+  }, [isValid, infoCallback, name, val, parentState.name, parentState.valid, parentState.value]);
 
   useEffect(() => {
     return (): void => {
@@ -104,9 +85,7 @@ const Input = ({
       if (required || `${val}`.length > 0) {
         if (validationType === undefined) {
           setErrorBoundry(() => {
-            throw new Error(
-              `Field : "${label}" should be validated. But validationType has not been defined.`
-            );
+            throw new Error(`Field : "${label}" should be validated. But validationType has not been defined.`);
           });
         }
         switch (validationType) {
@@ -142,43 +121,25 @@ const Input = ({
       setIsValid(true);
     }
     updateParentCallback();
-  }, [
-    setIsValid,
-    required,
-    validationType,
-    val,
-    validate,
-    updateParentCallback,
-    label,
-  ]);
+  }, [setIsValid, required, validationType, val, validate, updateParentCallback, label]);
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>): void {
     e.persist();
     const val: string = e.currentTarget.value;
     !hasFocus && setHasFocus(true);
     setVal(val);
-    setLabelType(
-      `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
-    );
+    setLabelType(`${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
   }
 
   function handleOnFocus(e: React.FocusEvent<HTMLInputElement>): void {
     e.persist();
-    setLabelType(
-      `${e.target.value}`.length === 0
-        ? LabelTypeEnums.PLACEHOLDER
-        : LabelTypeEnums.LABEL
-    );
+    setLabelType(`${e.target.value}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
     setHasFocus(true);
     setInputElement(e.target);
   }
 
   function handleOnBlur(e: React.FocusEvent<HTMLInputElement>): void {
-    setLabelType(
-      `${e.target.value}`.length === 0
-        ? LabelTypeEnums.PLACEHOLDER
-        : LabelTypeEnums.LABEL
-    );
+    setLabelType(`${e.target.value}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
 
     timeoutId = window.setTimeout(() => {
       setInputElement(null);
@@ -192,24 +153,15 @@ const Input = ({
   }
   useEffect(() => {
     if (val === null) return;
-    setLabelType(
-      `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
-    );
+    setLabelType(`${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
   }, [val]);
   return (
     <div className={styles[`Input-${theme}-${view}`]} data-valid={isValid}>
-      <label
-        htmlFor={id}
-        className={styles[`Input-${theme}-label`]}
-        data-type={labelType}
-      >
+      <label htmlFor={id} className={styles[`Input-${theme}-label`]} data-type={labelType}>
         {label}
         {required ? "*" : ""}
       </label>
-      <div
-        className={styles[`Input-${theme}-Wrapper`]}
-        data-has-focus={hasFocus}
-      >
+      <div className={styles[`Input-${theme}-Wrapper`]} data-has-focus={hasFocus}>
         <input
           id={id}
           type={type}
@@ -220,10 +172,7 @@ const Input = ({
           className={styles[`Input-${theme}-input`]}
         />
         {hasFocus && `${val}`.length > 0 && (
-          <div
-            className={styles[`Input-${theme}-btn-clear`]}
-            onClick={handleClear}
-          >
+          <div className={styles[`Input-${theme}-btn-clear`]} onClick={handleClear}>
             <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLEAR}</Icon>
           </div>
         )}

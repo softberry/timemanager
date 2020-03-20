@@ -21,10 +21,7 @@ const NavBack = (): ReactElement => {
 
   const disabled = false; //!!(index === 0);
   return (
-    <div
-      className={styles[`HistoryNav-${theme}-Arrow`]}
-      data-disabled={disabled}
-    >
+    <div className={styles[`HistoryNav-${theme}-Arrow`]} data-disabled={disabled}>
       <Icon onClick={history.goBack}>{IconNameEnums.ARROW_BACK}</Icon>
     </div>
   );
@@ -36,10 +33,7 @@ const NavForward = (): ReactElement => {
   const disabled = false; // !!(index + 1 >= length);
 
   return (
-    <div
-      className={styles[`HistoryNav-${theme}-Arrow`]}
-      data-disabled={disabled}
-    >
+    <div className={styles[`HistoryNav-${theme}-Arrow`]} data-disabled={disabled}>
       <Icon onClick={history.goForward}>{IconNameEnums.ARROW_FORWARD}</Icon>
     </div>
   );

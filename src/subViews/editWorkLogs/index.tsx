@@ -39,11 +39,7 @@ function EditWorkLogsForm(): ReactElement {
 
   return (
     <>
-      <WorkLogsTitle
-        name={worklog.name}
-        description={worklog.description}
-        dispatcher={dispatcher}
-      />
+      <WorkLogsTitle name={worklog.name} description={worklog.description} dispatcher={dispatcher} />
       <TimeLogs />
       <MaterialLogs />
 
@@ -83,10 +79,7 @@ const WorklogContext = createContext<IWorklogState>({
 const DispatchContext = createContext((p: IWorklogAction) => {
   // do nothing
 });
-const worklogsReducer = (
-  state: IWorklogState,
-  action: IWorklogAction
-): IWorklogState => {
+const worklogsReducer = (state: IWorklogState, action: IWorklogAction): IWorklogState => {
   switch (action.type) {
     case AddEditWorklogEnums.INIT:
       return { ...state, ...action.data };
@@ -103,10 +96,7 @@ const worklogsReducer = (
   }
 };
 
-const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({
-  contactID,
-  worklogID,
-}) => {
+const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklogID }) => {
   const [worklog, dispatcher] = useReducer(worklogsReducer, {
     id: "",
     name: "",

@@ -16,12 +16,7 @@ const Typography: FunctionComponent = ({ children }) => {
 
   const webFontsConfig = {
     google: {
-      families: [
-        "Allerta Stencil:400",
-        "Exo:300,600",
-        "Dosis:200,600",
-        "Audiowide",
-      ],
+      families: ["Allerta Stencil:400", "Exo:300,600", "Dosis:200,600", "Audiowide"],
     },
     custom: {
       families: ["Material+Icons"],
@@ -64,9 +59,7 @@ const Typography: FunctionComponent = ({ children }) => {
  * @returns Selected theme from store if avaliable, default orherwise
  */
 function useTheme(): ThemeEnums {
-  const theme = useSelector(
-    ({ viewSettings }: IViewStateReducer) => viewSettings.design.theme
-  );
+  const theme = useSelector(({ viewSettings }: IViewStateReducer) => viewSettings.design.theme);
 
   return theme;
 }

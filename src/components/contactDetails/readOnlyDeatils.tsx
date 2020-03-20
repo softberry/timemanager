@@ -9,10 +9,7 @@ import {
 import Card, { CardTitle, CardBody } from "../../__ui/card";
 import Button, { ButtonLink } from "../../__ui/buttons/button";
 
-const ReadOnlyDetails = ({
-  contact,
-  editContactHandler,
-}: IReadOnlyContactProps): ReactElement => {
+const ReadOnlyDetails = ({ contact, editContactHandler }: IReadOnlyContactProps): ReactElement => {
   const { street, zip, city, tel, mobile, mail } = contact;
 
   return (

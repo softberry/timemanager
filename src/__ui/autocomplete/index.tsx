@@ -4,11 +4,7 @@ import Icon from "../../__ui/icon";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
-import {
-  IconNameEnums,
-  INameToValueMap,
-  ThemeEnums,
-} from "../../__typings/interfaces.d";
+import { IconNameEnums, INameToValueMap, ThemeEnums } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views";
 
@@ -32,9 +28,7 @@ const AutoComplete = (): ReactElement => {
     <div className={styles[`AutoComplete-${theme}`]} onFocus={handleAutoFocus}>
       <div className={styles[`AutoComplete-${theme}-inner`]}>
         <input className={styles[`AutoComplete-${theme}-${view}-input`]} />
-        <div
-          className={styles[`AutoComplete-${theme}-${view}-inputSearchIcon`]}
-        >
+        <div className={styles[`AutoComplete-${theme}-${view}-inputSearchIcon`]}>
           <Icon>{IconNameEnums.SEARCH}</Icon>
         </div>
       </div>

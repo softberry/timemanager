@@ -3,12 +3,7 @@ import { Provider, useDispatch } from "react-redux";
 import { TimerAppStore } from "../../App";
 
 import { withKnobs } from "@storybook/addon-knobs";
-import {
-  SubPageActionEnums,
-  ButtonTypeEnums,
-  IconNameEnums,
-  ButtonAlignmentEnums,
-} from "../../__typings/interfaces.d";
+import { SubPageActionEnums, ButtonTypeEnums, IconNameEnums, ButtonAlignmentEnums } from "../../__typings/interfaces.d";
 
 import { lorem } from "faker";
 
@@ -48,9 +43,7 @@ function SubPageStorySample(): ReactElement {
 
   return (
     <div>
-      <p style={{ textAlign: "center" }}>
-        Show a Sub Page View with some dummy content
-      </p>
+      <p style={{ textAlign: "center" }}>Show a Sub Page View with some dummy content</p>
       <Button
         isDisabled={false}
         onClick={showSubPage}

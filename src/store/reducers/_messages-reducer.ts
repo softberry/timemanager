@@ -1,9 +1,4 @@
-import {
-  IMessage,
-  IMessageState,
-  IMessageAction,
-  IDialogActionEnums,
-} from "../../__typings/interfaces.d";
+import { IMessage, IMessageState, IMessageAction, IDialogActionEnums } from "../../__typings/interfaces.d";
 
 /**
  *

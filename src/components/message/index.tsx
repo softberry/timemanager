@@ -21,9 +21,7 @@ stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const Message = (): ReactElement => {
-  const messages: IMessage[] = useSelector(
-    ({ msg }: IMessageReducer) => msg.messages
-  );
+  const messages: IMessage[] = useSelector(({ msg }: IMessageReducer) => msg.messages);
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
@@ -56,37 +54,32 @@ const Message = (): ReactElement => {
   }
   if (!messages || messages.length === 0) return <></>;
 
-  const dialogContent = messages.map(
-    ({ dialogType, closable, dialogId, caption, body, footer }, index) => {
-      return (
-        <div
-          key={index}
-          className={styles[`Dialog-${theme}__${dialogType}--${view}`]}
-          style={{
-            marginLeft: `${index * 0.5}rem`,
-            marginTop: `${index * 0.5}rem`,
-          }}
-        >
-          {closable && (
-            <div
-              className={styles[`Close-${theme}`]}
-              onClick={hideMessage.bind({}, dialogId)}
-            >
-              <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLOSE}</Icon>
-            </div>
-          )}
-          <div className={styles[`Icon-${theme}`]}>
-            <Icon size={IconSizeEnums.SMALL}>{getIcon(dialogType)}</Icon>
+  const dialogContent = messages.map(({ dialogType, closable, dialogId, caption, body, footer }, index) => {
+    return (
+      <div
+        key={index}
+        className={styles[`Dialog-${theme}__${dialogType}--${view}`]}
+        style={{
+          marginLeft: `${index * 0.5}rem`,
+          marginTop: `${index * 0.5}rem`,
+        }}
+      >
+        {closable && (
+          <div className={styles[`Close-${theme}`]} onClick={hideMessage.bind({}, dialogId)}>
+            <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLOSE}</Icon>
           </div>
-
-          <div className={styles[`Caption-${theme}`]}>{caption}</div>
-
-          <div className={styles[`Text-${theme}`]}>{body}</div>
-          <div className={styles[`Footer-${theme}`]}>{footer}</div>
+        )}
+        <div className={styles[`Icon-${theme}`]}>
+          <Icon size={IconSizeEnums.SMALL}>{getIcon(dialogType)}</Icon>
         </div>
-      );
-    }
-  );
+
+        <div className={styles[`Caption-${theme}`]}>{caption}</div>
+
+        <div className={styles[`Text-${theme}`]}>{body}</div>
+        <div className={styles[`Footer-${theme}`]}>{footer}</div>
+      </div>
+    );
+  });
   return <div className={styles[`Message-${theme}`]}>{dialogContent}</div>;
 };
 

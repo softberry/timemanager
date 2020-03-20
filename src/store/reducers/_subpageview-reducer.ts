@@ -1,7 +1,4 @@
-import {
-  SubPageActionEnums,
-  ISubPageState,
-} from "../../__typings/interfaces.d";
+import { SubPageActionEnums, ISubPageState } from "../../__typings/interfaces.d";
 
 function subPageViewReducer(
   state: ISubPageState = {

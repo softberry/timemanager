@@ -17,12 +17,7 @@ const radioGroup = (({ len }): ReactElement[] => {
   return new Array(len).fill("").map(
     (chk: string, i: number): ReactElement => {
       return (
-        <Radio
-          key={i}
-          checked={i === seletcedIndex}
-          label={lorem.words(4)}
-          value={`ABC-${i}`}
-        >
+        <Radio key={i} checked={i === seletcedIndex} label={lorem.words(4)} value={`ABC-${i}`}>
           <span>{lorem.paragraph()}</span>
         </Radio>
       );

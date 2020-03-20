@@ -4,10 +4,7 @@ import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import {
-  IStartStopButtonProps,
-  ThemeEnums,
-} from "../../../__typings/interfaces.d";
+import { IStartStopButtonProps, ThemeEnums } from "../../../__typings/interfaces.d";
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
@@ -31,9 +28,7 @@ const StartStopButton = ({
   const [counter, setCounter] = useState(0);
 
   const [turnWheel, setTurnWheel] = useState<boolean>(isTurning);
-  const strCountDown: string = isCountingDown
-    ? (waitForSeconds - counter).toString()
-    : "";
+  const strCountDown: string = isCountingDown ? (waitForSeconds - counter).toString() : "";
 
   const infoText = `Press and hold the button for ${strCountDown} seconds`;
 
@@ -67,9 +62,7 @@ const StartStopButton = ({
 
   return (
     <div className={styles.ButtonWrapper}>
-      {isCountingDown && (
-        <div className={styles[`PressAndHoldInfo-${theme}`]}>{infoText}</div>
-      )}
+      {isCountingDown && <div className={styles[`PressAndHoldInfo-${theme}`]}>{infoText}</div>}
       <div
         className={stateClass}
         onMouseDown={(): void => {
@@ -87,13 +80,8 @@ const StartStopButton = ({
           setIsCountingDown(false);
         }}
       >
-        {isCountingDown && (
-          <div className={styles[`CountDown-${theme}`]}>{strCountDown}</div>
-        )}
-        <div
-          className={styles[`TimerAnimation-${theme}`]}
-          data-turning={turnWheel ? "yes" : "no"}
-        ></div>
+        {isCountingDown && <div className={styles[`CountDown-${theme}`]}>{strCountDown}</div>}
+        <div className={styles[`TimerAnimation-${theme}`]} data-turning={turnWheel ? "yes" : "no"}></div>
       </div>
     </div>
   );

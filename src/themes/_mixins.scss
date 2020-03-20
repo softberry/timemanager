@@ -82,11 +82,7 @@
   @include materialIcon(3);
 }
 
-@function color-palette(
-  $variantName: "primary",
-  $param: "main",
-  $type: "background"
-) {
+@function color-palette($variantName: "primary", $param: "main", $type: "background") {
   $variant: (
     "primary": $primary-color-pallete,
     "secondary": $secondary-color-pallete,

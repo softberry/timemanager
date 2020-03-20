@@ -1,16 +1,5 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  ReactElement,
-  Children,
-  FunctionComponent,
-} from "react";
-import {
-  IRadioGroupProps,
-  IRadioItemProps,
-  ThemeEnums,
-} from "../../../__typings/interfaces.d";
+import React, { useState, useEffect, useCallback, ReactElement, Children, FunctionComponent } from "react";
+import { IRadioGroupProps, IRadioItemProps, ThemeEnums } from "../../../__typings/interfaces.d";
 
 import Radio from "./radio";
 
@@ -27,10 +16,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  *
  */
 
-const RadioGroup: FunctionComponent<IRadioGroupProps> = ({
-  children,
-  onChange,
-}) => {
+const RadioGroup: FunctionComponent<IRadioGroupProps> = ({ children, onChange }) => {
   const [radioItemsProps, setRadioItemsProps] = useState<IRadioItemProps[]>([]);
   const [selectedItem, setSelectedItem] = useState("");
   const [initialised, setInitialised] = useState(false);

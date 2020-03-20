@@ -1,4 +1,4 @@
-import React, { useContext, ReactElement, useEffect } from "react";
+import React, { useContext, ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import EditWorkLogsForm from "../../subViews/editWorkLogs";
@@ -32,6 +32,8 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
   const styles = useThemeStyle(stylesMap);
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
+  const [contactsWorklogs, setContactsWorklogs] = useState<IWorkTableModel[] | []>([]);
+
   useEffect(() => {
     dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
   });
@@ -51,12 +53,12 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
     dispatch(action);
   }
 
-  nSQL("workDurationTable")
+  nSQL("workTable")
     .query("select")
-    .orderBy(["start ASC"])
+    .where(["contactID", "=", id])
     .exec()
-    .then((list: [IWorkTableModel]) => {
-      // console.log(list);
+    .then((worklogs: [IWorkTableModel]) => {
+      // console.log(worklogs);
     });
 
   return (

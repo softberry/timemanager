@@ -15,9 +15,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 function ViewTitle(): ReactElement {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-  const viewTitle = useSelector(
-    ({ viewSettings }: IViewStateReducer) => viewSettings.title
-  );
+  const viewTitle = useSelector(({ viewSettings }: IViewStateReducer) => viewSettings.title);
 
   return <div className={styles[`ViewTitle-${theme}`]}>{viewTitle}</div>;
 }

@@ -18,11 +18,7 @@ import SettingsView from "./views/options";
 import ContactView from "./views/contact";
 import Message from "./components/message";
 
-import {
-  ThemeEnums,
-  UserInfo,
-  ViewSettingsEnums,
-} from "./__typings/interfaces.d";
+import { ThemeEnums, UserInfo, ViewSettingsEnums } from "./__typings/interfaces.d";
 
 const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -32,9 +28,7 @@ const Page = (): ReactElement => {
   };
 
   const theme = useTheme();
-  const savedTheme =
-    window.localStorage.getItem(UserInfo.SELECTED_THEME) ||
-    ThemeEnums.DEFAULT_THEME;
+  const savedTheme = window.localStorage.getItem(UserInfo.SELECTED_THEME) || ThemeEnums.DEFAULT_THEME;
 
   const dispatch = useDispatch();
   useEffect(() => {

@@ -1,22 +1,8 @@
-import React, {
-  useState,
-  useContext,
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  ReactElement,
-} from "react";
+import React, { useState, useContext, ChangeEvent, useCallback, useEffect, ReactElement } from "react";
 import moment from "moment";
-import {
-  timeDiffToString,
-  correctedTimeFromStep,
-} from "../../../lib/input.helpers";
+import { timeDiffToString, correctedTimeFromStep } from "../../../lib/input.helpers";
 
-import {
-  ThemeEnums,
-  IDateTimeProps,
-  CollapsedState,
-} from "../../../__typings/interfaces.d";
+import { ThemeEnums, IDateTimeProps, CollapsedState } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
@@ -43,9 +29,7 @@ const DateTime = ({
   const styles = useThemeStyle(stylesMap);
   const [isValid, setIsValid] = useState(false);
 
-  const [currentDate, setCurrentDate] = useState(
-    moment(start).format("YYYY-MM-DD")
-  );
+  const [currentDate, setCurrentDate] = useState(moment(start).format("YYYY-MM-DD"));
 
   const [startTime, setStartTime] = useState(moment(start).format("HH:mm"));
   const [finishTime, setEndTime] = useState(moment(finish).format("HH:mm"));
@@ -69,12 +53,9 @@ const DateTime = ({
     }
 
     setIsValid(true);
-    const hoursDiff =
-      finishTimeFromString.diff(startTimeFromString, "hours") * 1;
+    const hoursDiff = finishTimeFromString.diff(startTimeFromString, "hours") * 1;
 
-    const minutesDiff = finishTimeFromString
-      .subtract(hoursDiff, "hours")
-      .diff(startTimeFromString, "minutes");
+    const minutesDiff = finishTimeFromString.subtract(hoursDiff, "hours").diff(startTimeFromString, "minutes");
 
     const minutes = correctedTimeFromStep({
       minutes: minutesDiff,
@@ -83,15 +64,7 @@ const DateTime = ({
     });
 
     return timeDiffToString({ hours: hoursDiff, minutes });
-  }, [
-    startTime,
-    finishTime,
-    currentDate,
-    diffTime,
-    step,
-    infoCallback,
-    isValid,
-  ]);
+  }, [startTime, finishTime, currentDate, diffTime, step, infoCallback, isValid]);
 
   const dateOnChangehandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setCurrentDate(e.target.value);
@@ -99,9 +72,7 @@ const DateTime = ({
   const startTimeOnChangehandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setStartTime(e.target.value);
   };
-  const finishTimeOnChangehandler = (
-    e: ChangeEvent<HTMLInputElement>
-  ): void => {
+  const finishTimeOnChangehandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setEndTime(e.target.value);
   };
 
@@ -112,15 +83,8 @@ const DateTime = ({
   return (
     <div className={styles[`DateTime-${theme}-${view}`]} data-valid={isValid}>
       <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}`]}>
-        <div
-          className={
-            styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Date`]
-          }
-        >
-          <label
-            htmlFor={id.date}
-            className={styles[`DateTime-${theme}-label`]}
-          >
+        <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Date`]}>
+          <label htmlFor={id.date} className={styles[`DateTime-${theme}-label`]}>
             Date
           </label>
           <input
@@ -131,15 +95,8 @@ const DateTime = ({
             onChange={dateOnChangehandler}
           />
         </div>
-        <div
-          className={
-            styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Start`]
-          }
-        >
-          <label
-            htmlFor={id.start}
-            className={styles[`DateTime-${theme}-label`]}
-          >
+        <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Start`]}>
+          <label htmlFor={id.start} className={styles[`DateTime-${theme}-label`]}>
             From
           </label>
           <input
@@ -152,15 +109,8 @@ const DateTime = ({
             onChange={startTimeOnChangehandler}
           />
         </div>
-        <div
-          className={
-            styles[`DateTime-${theme}-Layout-${view}-${collapsed}-End`]
-          }
-        >
-          <label
-            htmlFor={id.finish}
-            className={styles[`DateTime-${theme}-label`]}
-          >
+        <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}-End`]}>
+          <label htmlFor={id.finish} className={styles[`DateTime-${theme}-label`]}>
             Until
           </label>
           <input
@@ -173,24 +123,11 @@ const DateTime = ({
             onChange={finishTimeOnChangehandler}
           />
         </div>
-        <div
-          className={
-            styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Diff`]
-          }
-        >
-          <label
-            htmlFor={id.diff}
-            className={styles[`DateTime-${theme}-label`]}
-          >
+        <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Diff`]}>
+          <label htmlFor={id.diff} className={styles[`DateTime-${theme}-label`]}>
             Time
           </label>
-          <input
-            id={id.diff}
-            type="text"
-            className={styles[`DateTime-${theme}-input`]}
-            value={diffTime}
-            disabled
-          />
+          <input id={id.diff} type="text" className={styles[`DateTime-${theme}-input`]} value={diffTime} disabled />
         </div>
       </div>
     </div>

@@ -9,10 +9,7 @@ import counterModelTables from "./models/data.model";
 
 // Dummy Tables: Feke content using fakersJS used during development
 import { createRandomContacts } from "./_dummy/contacts.dev";
-import {
-  DatabaseActionEnums,
-  IDatabaseReducer,
-} from "../__typings/interfaces.d";
+import { DatabaseActionEnums, IDatabaseReducer } from "../__typings/interfaces.d";
 
 // const isDEV = process.env.NODE_ENV === "development";
 const isPROD = process.env.NODE_ENV === "production";
@@ -66,9 +63,7 @@ const NanoDatabase: FunctionComponent = ({ children }) => {
                   res(3);
                   break;
                 default:
-                  console.log(
-                    `Consider version Upgrade gor nano-SQL from ${prevVersion}`
-                  );
+                  console.log(`Consider version Upgrade gor nano-SQL from ${prevVersion}`);
               }
             });
           },

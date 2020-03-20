@@ -1,9 +1,4 @@
-import React, {
-  useContext,
-  MouseEvent,
-  FunctionComponent,
-  Children,
-} from "react";
+import React, { useContext, MouseEvent, FunctionComponent, Children } from "react";
 import { Link } from "react-router-dom";
 
 import { useTheme, useThemeStyle } from "../../typography";
@@ -49,11 +44,7 @@ const Button: FunctionComponent<IButtonProps> = ({
       >
         <button>
           {icon && <Icon size={IconSizeEnums.SMALL}>{icon}</Icon>}
-          {!iconOnly && (
-            <span className={styles[`Btn-${theme}-${view}--${type}-innerText`]}>
-              {children}
-            </span>
-          )}
+          {!iconOnly && <span className={styles[`Btn-${theme}-${view}--${type}-innerText`]}>{children}</span>}
         </button>
       </div>
     </div>
@@ -74,16 +65,8 @@ const ButtonLink: FunctionComponent<IButtonLinkProps> = ({
   const iconOnly = children === undefined || Children.count(children) === 0;
 
   return (
-    <div
-      className={styles["Button-Container"]}
-      data-align={align}
-      data-icon-only={iconOnly}
-    >
-      <div
-        className={styles[`Btn-${theme}-${view}--${type}`]}
-        data-icon-only={iconOnly}
-        data-disabled={isDisabled}
-      >
+    <div className={styles["Button-Container"]} data-align={align} data-icon-only={iconOnly}>
+      <div className={styles[`Btn-${theme}-${view}--${type}`]} data-icon-only={iconOnly} data-disabled={isDisabled}>
         <Link
           to={href}
           onClick={(event: MouseEvent<HTMLAnchorElement>): void => {

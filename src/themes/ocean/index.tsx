@@ -20,8 +20,7 @@ export default (): ReactElement => {
           caption: "Error loading Webfonts",
           body: (
             <>
-              WebFonts Could not be loaded. Please check your internet
-              connection.
+              WebFonts Could not be loaded. Please check your internet connection.
               <br />
               <a href="/" target="_self">
                 <strong>Reload</strong>

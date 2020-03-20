@@ -8,11 +8,7 @@ import {
 } from "../../__typings/interfaces.d";
 import Card from "../../__ui/card";
 
-function WorkLogsTitle({
-  name,
-  description,
-  dispatcher,
-}: IEditWorkLogTitleProps): ReactElement {
+function WorkLogsTitle({ name, description, dispatcher }: IEditWorkLogTitleProps): ReactElement {
   function dispatchInput(p: IInputCallback): void {
     dispatcher({
       type: AddEditWorklogEnums.TITLE,

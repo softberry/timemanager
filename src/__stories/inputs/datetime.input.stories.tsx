@@ -11,8 +11,7 @@ export default {
   component: DateTime,
   decorators: [withKnobs],
   parameters: {
-    componentSubtitle:
-      "Custom UI - Multi field date and time elements with differenece calculation.",
+    componentSubtitle: "Custom UI - Multi field date and time elements with differenece calculation.",
   },
 };
 
@@ -24,11 +23,7 @@ export const Primary = (): ReactElement => {
         finish={moment().add(16, "minute")}
         step={number("Step", 15)}
         infoCallback={action("Sending current date info to parent")}
-        collapsed={radios(
-          "Collapsed",
-          CollapsedState,
-          CollapsedState.COLLAPSED
-        )}
+        collapsed={radios("Collapsed", CollapsedState, CollapsedState.COLLAPSED)}
       />
     </StoryPage>
   );
@@ -42,11 +37,7 @@ export const Secondary = (): ReactElement => {
         finish={moment().add(16, "minute")}
         step={number("Step", 15)}
         infoCallback={action("Sending current date info to parent")}
-        collapsed={radios(
-          "Collapsed",
-          CollapsedState,
-          CollapsedState.COLLAPSED
-        )}
+        collapsed={radios("Collapsed", CollapsedState, CollapsedState.COLLAPSED)}
       />
     </StoryPage>
   );
