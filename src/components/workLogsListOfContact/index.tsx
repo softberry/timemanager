@@ -17,6 +17,7 @@ import {
   IWorkTableModel,
   SubPageActionEnums,
   IContactsTableModel,
+  ISubPageState,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -36,7 +37,7 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
   });
 
   function createNewWorklogHandler(): void {
-    dispatch({
+    const action: ISubPageState = {
       type: SubPageActionEnums.SHOW,
       action: {
         caption: "New Worklog",
@@ -46,7 +47,8 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
           </>
         ),
       },
-    });
+    };
+    dispatch(action);
   }
 
   nSQL("workDurationTable")

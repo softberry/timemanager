@@ -37,7 +37,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 const Input = ({
   name,
   label,
-  value,
+  value = "",
   type = "text",
   required,
   validate = false,
@@ -48,6 +48,12 @@ const Input = ({
   const stringValueOfField: string = value ? value.toString() : "";
   const [inputElement, setInputElement] = useState<HTMLInputElement | null>();
   const [val, setVal] = useState<string>(stringValueOfField);
+
+  const [parentState, setParentState] = useState<IInputCallback>({
+    name,
+    value,
+    valid: false,
+  });
   const [, setErrorBoundry] = useState();
   const view = useContext(ViewContext);
 
@@ -68,9 +74,24 @@ const Input = ({
         valid: isValid,
         value: val,
       };
+      if (
+        parentState.name === name &&
+        parentState.value === val &&
+        parentState.valid === isValid
+      )
+        return;
+      setParentState(changedValueState);
       infoCallback(changedValueState);
     }
-  }, [isValid, infoCallback, name, val]);
+  }, [
+    isValid,
+    infoCallback,
+    name,
+    val,
+    parentState.name,
+    parentState.valid,
+    parentState.value,
+  ]);
 
   useEffect(() => {
     return (): void => {
@@ -121,7 +142,15 @@ const Input = ({
       setIsValid(true);
     }
     updateParentCallback();
-  }, [setIsValid, required, validationType, val, validate, updateParentCallback, label]);
+  }, [
+    setIsValid,
+    required,
+    validationType,
+    val,
+    validate,
+    updateParentCallback,
+    label,
+  ]);
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>): void {
     e.persist();

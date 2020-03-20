@@ -78,7 +78,7 @@ export interface IInputProps {
   /** Type of input element */
   type: "text" | "number" | "phone" | "mail" | "date" | "time";
   /** Value  of the input field */
-  value?: string | string[] | Date;
+  value?: string; //| string[] | Date;
   /** Define whether this field should have a value */
   required: boolean;
   /** Should be value of field to be validated. */
