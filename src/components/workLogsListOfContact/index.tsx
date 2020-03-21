@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import EditWorkLogsForm from "../../subViews/editWorkLogs";
 import Button from "../../__ui/buttons/button";
-
+import List from "../list";
 import ViewContext from "../../views/index";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -32,7 +32,9 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
   const styles = useThemeStyle(stylesMap);
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
-  const [contactsWorklogs, setContactsWorklogs] = useState<IWorkTableModel[] | []>([]);
+  const [contactsWorklogs, setContactsWorklogs] = useState<IWorkTableModel[]>([
+    { name: "", contactID: "", description: "", id: "", labour: [], materials: [] },
+  ]);
 
   useEffect(() => {
     dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
@@ -53,17 +55,19 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
     dispatch(action);
   }
 
-  nSQL("workTable")
-    .query("select")
-    .where(["contactID", "=", id])
-    .exec()
-    .then((worklogs: [IWorkTableModel]) => {
-      // console.log(worklogs);
-    });
+  useEffect(() => {
+    nSQL("workTable")
+      .query("select")
+      .where(["contactID", "=", id])
+      .exec()
+      .then((worklogs: [IWorkTableModel]) => {
+        setContactsWorklogs(worklogs);
+      });
+  }, [id, nSQL]);
 
   return (
-    <div className={styles[`TimelogList-${theme}-${view}`]}>
-      <div className={styles[`TimelogList-${theme}-${view}-Create-New`]}>
+    <div className={styles[`WorklogsList-${theme}-${view}`]}>
+      <div className={styles[`WorklogsList-${theme}-${view}-Create-New`]}>
         <Button
           icon={IconNameEnums.ADD}
           align={ButtonAlignmentEnums.RIGHT}
@@ -74,6 +78,14 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
           Create Work log
         </Button>
       </div>
+      <List>
+        {contactsWorklogs.map((log, index: number) => (
+          <div key={index}>
+            <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Name`]}>{log.name}</div>
+            <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Description`]}>{log.description}abc</div>
+          </div>
+        ))}
+      </List>
     </div>
   );
 }

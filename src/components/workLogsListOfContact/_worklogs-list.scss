@@ -1,20 +1,28 @@
-@mixin TimelogList() {
+@mixin WorklogsList() {
   @include view;
   &-Create-New {
     margin-bottom: rem(0.5);
   }
+
+  &-ListItem-Name {
+    padding: rem(0.25);
+  }
+  &-ListItem-Description {
+    font-style: italic;
+    font-size: rem(0.75);
+  }
 }
 
-.TimelogList-#{$theme} {
+.WorklogsList-#{$theme} {
   &-primary {
     @include layer-bg("primary");
     @include layer-color("primary");
-    @include TimelogList();
+    @include WorklogsList();
   }
 
   &-secondary {
     @include layer-bg("secondary");
     @include layer-color("secondary");
-    @include TimelogList();
+    @include WorklogsList();
   }
 }
