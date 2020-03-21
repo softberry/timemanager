@@ -75,7 +75,7 @@ const ContactDetails = ({ contact, type }: IContactDetailsComponent): ReactEleme
     return (
       <div className={viewClass}>
         <ReadOnlyDetails contact={currentContact} editContactHandler={switchView} />
-        <WorklogListOfContact {...currentContact} />
+        <WorklogListOfContact contact={currentContact} />
       </div>
     );
   }

@@ -1,87 +1,46 @@
 @import "../form-mixins";
+@mixin date-time($view) {
+  &-#{$view} {
+    &-Caption {
+      display: grid;
+      grid-template-columns: 1fr auto min-content;
+      align-items: center;
+      font-weight: $font-weight-bold;
+    }
 
-@mixin layout($collapsed: false) {
-  @include WidthUp("small") {
-    grid-template-areas:
-      "date start end"
-      "diff diff diff";
-    grid-template-columns: 1fr auto auto;
-
-    @if ($collapsed) {
-      grid-template-areas: "date diff";
-      grid-template-columns: 1fr auto;
-      @include WidthUp("medium") {
-        grid-template-areas: "date start end diff";
-        grid-template-columns: 1fr auto auto auto;
+    &-Data {
+      @include WidthUp("small") {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+      }
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      &[data-toggle="collapsed"] {
+        display: none;
+        @include WidthUp("small") {
+          display: grid;
+        }
       }
     }
-  }
-  display: grid;
-  grid-template-areas:
-    "date start"
-    "diff end";
-  grid-template-columns: min-content auto;
-  @if ($collapsed) {
-    grid-template-areas: "date diff";
-    grid-template-columns: min-content auto;
-  }
 
-  &-Date {
-    grid-area: date;
-  }
-
-  &-Start {
-    grid-area: start;
-    @if ($collapsed) {
-      display: none;
-      @include WidthUp("medium") {
-        display: block;
+    &-Toggle {
+      @include WidthUp("small") {
+        display: none;
       }
     }
-  }
-
-  &-End {
-    grid-area: end;
-    @if ($collapsed) {
-      display: none;
-      @include WidthUp("medium") {
-        display: block;
-      }
-    }
-  }
-
-  &-Diff {
-    grid-area: diff;
   }
 }
 
 .DateTime-#{$theme} {
+  @include date-time("primary");
+  @include date-time("secondary");
   &-primary {
     @include input-wrapper("primary");
   }
 
   &-secondary {
     @include input-wrapper("secondary");
-  }
-
-  &-Layout {
-    &-primary {
-      &-collapsed {
-        @include layout(true);
-      }
-      &-expanded {
-        @include layout(false);
-      }
-    }
-
-    &-secondary {
-      &-collapsed {
-        @include layout(true);
-      }
-      &-expanded {
-        @include layout(false);
-      }
-    }
   }
 
   &-label {

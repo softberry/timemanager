@@ -49,10 +49,13 @@ function SubPageView(): ReactElement {
         <div
           className={styles[`Close-${theme}`]}
           onClick={(): void => {
-            dispatch({
-              type: SubPageActionEnums.OUT,
-              action: { caption: "" },
-            });
+            window.setTimeout((): void => {
+              //
+              dispatch({
+                type: SubPageActionEnums.OUT,
+                action: { caption: "" },
+              });
+            }, 100);
           }}
         >
           <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLOSE}</Icon>

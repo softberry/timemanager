@@ -213,7 +213,7 @@ export interface ISubPageAction {
 
 export interface IEditWorkLogProps {
   contactID: string;
-  worklogID?: string;
+  worklogID: string;
 }
 
 export interface IEditWorkLogTitleProps {
@@ -332,7 +332,9 @@ export interface IWorkDurationTableModel {
   description: string;
   workID: string;
 }
-
+export interface IWorklogsEditProps {
+  contact: IContactsTableModel;
+}
 export interface IMaterialListTableModel {
   id: string;
   items: MaterialItemTableModel[];
@@ -504,6 +506,7 @@ export enum IconNameEnums {
 
 export enum NewEntryEnums {
   NEW_CONTACT_ID = "NEW_CONTACT_ID",
+  NEW_WORKLOG_ID = "NEW_WORKLOG_ID",
 }
 
 export enum AddEditWorklogEnums {

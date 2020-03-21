@@ -1,4 +1,4 @@
-import React, { useContext, ReactElement, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, FunctionComponent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import EditWorkLogsForm from "../../subViews/editWorkLogs";
@@ -16,8 +16,9 @@ import {
   IDatabaseReducer,
   IWorkTableModel,
   SubPageActionEnums,
-  IContactsTableModel,
   ISubPageState,
+  NewEntryEnums,
+  IWorklogsEditProps,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
@@ -25,7 +26,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
+const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }) => {
   const dispatch = useDispatch();
   const view = useContext(ViewContext);
   const theme = useTheme();
@@ -47,7 +48,7 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
         caption: "New Worklog",
         content: (
           <>
-            <EditWorkLogsForm contactID={id} />
+            <EditWorkLogsForm contactID={contact.id} worklogID={NewEntryEnums.NEW_WORKLOG_ID} />
           </>
         ),
       },
@@ -58,12 +59,12 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
   useEffect(() => {
     nSQL("workTable")
       .query("select")
-      .where(["contactID", "=", id])
+      .where(["contactID", "=", contact.id])
       .exec()
       .then((worklogs: [IWorkTableModel]) => {
         setContactsWorklogs(worklogs);
       });
-  }, [id, nSQL]);
+  }, [contact.id, nSQL]);
 
   return (
     <div className={styles[`WorklogsList-${theme}-${view}`]}>
@@ -79,15 +80,18 @@ function WorklogListOfContact({ id }: IContactsTableModel): ReactElement {
         </Button>
       </div>
       <List>
-        {contactsWorklogs.map((log, index: number) => (
-          <div key={index}>
-            <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Name`]}>{log.name}</div>
-            <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Description`]}>{log.description}abc</div>
-          </div>
-        ))}
+        {contactsWorklogs.map(
+          (log, index: number) =>
+            log.id !== NewEntryEnums.NEW_WORKLOG_ID && (
+              <div key={index}>
+                <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Name`]}>{log.name}</div>
+                <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Description`]}>{log.description}abc</div>
+              </div>
+            )
+        )}
       </List>
     </div>
   );
-}
+};
 
 export default WorklogListOfContact;

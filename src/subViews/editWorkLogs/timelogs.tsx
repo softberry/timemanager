@@ -1,7 +1,8 @@
 import React, { ReactElement } from "react";
 import Tipp from "../../__ui/tipp";
 import Button from "../../__ui/buttons/button";
-// import Input, { DateTime } from "../../__ui/formElements/index";
+
+import List from "../../components/list";
 
 import { IconNameEnums, ButtonTypeEnums, ButtonAlignmentEnums } from "../../__typings/interfaces.d";
 
@@ -15,6 +16,8 @@ function TimeLogs({ id = 0 }): ReactElement {
     <>
       <CardTitle>Spent time</CardTitle>
       <Tipp>Add Remove logs that you spend for this assignment here.</Tipp>
+      <List>//TODO: loop through getTimeLogsOfWorklog</List>
+
       <Button
         icon={IconNameEnums.ADD}
         isDisabled={false}

@@ -3,7 +3,7 @@ import { DateTime } from "../../__ui/formElements";
 import StoryPage from "../story-page";
 import { CollapsedState } from "../../__typings/interfaces.d";
 import { action } from "@storybook/addon-actions";
-import { withKnobs, number, radios } from "@storybook/addon-knobs";
+import { withKnobs, number } from "@storybook/addon-knobs";
 import moment from "moment";
 
 export default {
@@ -23,7 +23,7 @@ export const Primary = (): ReactElement => {
         finish={moment().add(16, "minute")}
         step={number("Step", 15)}
         infoCallback={action("Sending current date info to parent")}
-        collapsed={radios("Collapsed", CollapsedState, CollapsedState.COLLAPSED)}
+        collapsed={CollapsedState.COLLAPSED}
       />
     </StoryPage>
   );
@@ -37,7 +37,7 @@ export const Secondary = (): ReactElement => {
         finish={moment().add(16, "minute")}
         step={number("Step", 15)}
         infoCallback={action("Sending current date info to parent")}
-        collapsed={radios("Collapsed", CollapsedState, CollapsedState.COLLAPSED)}
+        collapsed={CollapsedState.COLLAPSED}
       />
     </StoryPage>
   );

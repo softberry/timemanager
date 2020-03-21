@@ -88,17 +88,18 @@ const workTable: InanoSQLTableConfig = {
     {
       name: "createNewWorkLogForContact",
       args: {
+        "id:uuid": {},
         "contactID:uuid": {},
       },
-      call: (db: InanoSQLInstance, args: { contactID: string }): InanoSQLQuery => {
+      call: (db: InanoSQLInstance, args: { contactID: string; id: string }): InanoSQLQuery => {
         const work = {
+          id: args.id,
           name: "New Work Log",
           contactID: args.contactID,
           labour: [],
           materials: [],
           description: "",
         };
-
         return db.query("upsert", work).emit();
       },
     },
@@ -110,7 +111,7 @@ const workTable: InanoSQLTableConfig = {
       call: (db: InanoSQLInstance, args: { contactID: string }): InanoSQLQuery => {
         return db
           .query("select")
-          .where(["contactID", "=", args.contactID])
+          .where([["contactID", "=", args.contactID], "AND", ["id", "!=", NewEntryEnums.NEW_WORKLOG_ID]])
           .emit();
       },
     },

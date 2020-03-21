@@ -1,12 +1,4 @@
-import React, {
-  ReactElement,
-  useReducer,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  FunctionComponent,
-} from "react";
+import React, { ReactElement, useReducer, createContext, useContext, useEffect, FunctionComponent } from "react";
 import Button from "../../__ui/buttons/button";
 
 import {
@@ -102,29 +94,25 @@ const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklog
     name: "",
     description: "",
     valid: false,
-    contactID: "",
+    contactID,
     labour: [],
     materials: [],
   });
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (!isReady) {
-      nSQL("workTable")
-        .presetQuery("createNewWorkLogForContact", {
-          contactID,
-          worklogID,
-        })
-        .exec()
-        .then((logs: IWorkTableModel[]) => {
-          dispatcher({ type: AddEditWorklogEnums.INIT, data: logs[0] });
-          setIsReady(true);
-        });
-    }
-  }, [isReady, contactID, nSQL, worklogID]);
+    nSQL("workTable")
+      .presetQuery("createNewWorkLogForContact", {
+        contactID,
+        id: worklogID,
+      })
+      .exec()
+      .then((logs: IWorkTableModel[]) => {
+        dispatcher({ type: AddEditWorklogEnums.INIT, data: logs[0] });
+      });
+  }, [contactID, nSQL, worklogID]);
 
-  if (!isReady) return <></>;
+  if (worklog.id === "") return <></>;
   return (
     <DispatchContext.Provider value={dispatcher}>
       <WorklogContext.Provider value={worklog}>
@@ -133,10 +121,7 @@ const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklog
     </DispatchContext.Provider>
   );
 };
-export { EditWorkLogs as default, WorklogContext, DispatchContext };
-
-// TODO: - Add Craete time log button in subpage view
-// TODO: -  - Delete time log button in subpage view
+export { EditWorkLogs as default };
 
 // TODO: - Apply finalizes style from time log to materials log
 // TODO: - Save/Update functionality to work log

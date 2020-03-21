@@ -1,13 +1,14 @@
-import React, { useState, useContext, ChangeEvent, useCallback, useEffect, ReactElement } from "react";
+import React, { useState, useContext, ChangeEvent, useEffect, useMemo, FunctionComponent } from "react";
 import moment from "moment";
 import { timeDiffToString, correctedTimeFromStep } from "../../../lib/input.helpers";
 
-import { ThemeEnums, IDateTimeProps, CollapsedState } from "../../../__typings/interfaces.d";
+import { ThemeEnums, IDateTimeProps, CollapsedState, IconNameEnums } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
 import ViewContext from "../../../views";
 import { uuid } from "@nano-sql/core/lib/utilities";
+import Icon from "../../icon";
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -17,17 +18,18 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  * Custom DateTime UI that enables users to define start/ finish time of a work
  * TODO: Implement https://github.com/softberry/timemanager/issues/62
  */
-const DateTime = ({
+const DateTime: FunctionComponent<IDateTimeProps> = ({
   start = moment(),
   finish = moment(),
   step = 15,
   infoCallback,
   collapsed = CollapsedState.COLLAPSED,
-}: IDateTimeProps): ReactElement => {
+}) => {
   const view = useContext(ViewContext);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const [isValid, setIsValid] = useState(false);
+  const [expandCollapse, setExandCollapse] = useState<CollapsedState>(collapsed);
 
   const [currentDate, setCurrentDate] = useState(moment(start).format("YYYY-MM-DD"));
 
@@ -36,7 +38,11 @@ const DateTime = ({
   const [diffTime, setDiffTime] = useState("??:??");
   const id = { date: uuid(), start: uuid(), finish: uuid(), diff: uuid() };
 
-  const diffTimeCallback = useCallback(() => {
+  const toggleCollapse = (): void => {
+    setExandCollapse(expandCollapse === CollapsedState.COLLAPSED ? CollapsedState.EXPANDED : CollapsedState.COLLAPSED);
+  };
+
+  const diffTimeCallback = useMemo(() => {
     const startTimeFromString = moment(`${currentDate} ${startTime}`);
     const finishTimeFromString = moment(`${currentDate} ${finishTime}`);
 
@@ -77,13 +83,20 @@ const DateTime = ({
   };
 
   useEffect(() => {
-    setDiffTime(diffTimeCallback());
+    setDiffTime(diffTimeCallback);
   }, [diffTimeCallback]);
 
   return (
     <div className={styles[`DateTime-${theme}-${view}`]} data-valid={isValid}>
-      <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}`]}>
-        <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Date`]}>
+      <div className={styles[`DateTime-${theme}-${view}-Caption`]}>
+        <span>{currentDate}</span>
+        <span>{diffTime} </span>
+        <div onClick={toggleCollapse} className={styles[`DateTime-${theme}-${view}-Toggle`]}>
+          <Icon>{expandCollapse === CollapsedState.COLLAPSED ? IconNameEnums.ARROW_DOWN : IconNameEnums.ARROW_UP}</Icon>
+        </div>
+      </div>
+      <div className={styles[`DateTime-${theme}-${view}-Data`]} data-toggle={expandCollapse}>
+        <div>
           <label htmlFor={id.date} className={styles[`DateTime-${theme}-label`]}>
             Date
           </label>
@@ -95,7 +108,7 @@ const DateTime = ({
             onChange={dateOnChangehandler}
           />
         </div>
-        <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Start`]}>
+        <div>
           <label htmlFor={id.start} className={styles[`DateTime-${theme}-label`]}>
             From
           </label>
@@ -109,7 +122,7 @@ const DateTime = ({
             onChange={startTimeOnChangehandler}
           />
         </div>
-        <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}-End`]}>
+        <div>
           <label htmlFor={id.finish} className={styles[`DateTime-${theme}-label`]}>
             Until
           </label>
@@ -122,12 +135,6 @@ const DateTime = ({
             max="23:59"
             onChange={finishTimeOnChangehandler}
           />
-        </div>
-        <div className={styles[`DateTime-${theme}-Layout-${view}-${collapsed}-Diff`]}>
-          <label htmlFor={id.diff} className={styles[`DateTime-${theme}-label`]}>
-            Time
-          </label>
-          <input id={id.diff} type="text" className={styles[`DateTime-${theme}-input`]} value={diffTime} disabled />
         </div>
       </div>
     </div>
