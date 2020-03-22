@@ -10,12 +10,12 @@
 
     &-Data {
       @include WidthUp("small") {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr auto;
         grid-template-rows: 1fr;
       }
       display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
       &[data-toggle="collapsed"] {
         display: none;
         @include WidthUp("small") {

@@ -2,13 +2,20 @@ import React, { useState, useContext, ChangeEvent, useEffect, useMemo, FunctionC
 import moment from "moment";
 import { timeDiffToString, correctedTimeFromStep } from "../../../lib/input.helpers";
 
-import { ThemeEnums, IDateTimeProps, CollapsedState, IconNameEnums } from "../../../__typings/interfaces.d";
+import {
+  ThemeEnums,
+  IDateTimeProps,
+  CollapsedState,
+  IconNameEnums,
+  ButtonTypeEnums,
+} from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
 import ViewContext from "../../../views";
 import { uuid } from "@nano-sql/core/lib/utilities";
 import Icon from "../../icon";
+import Button from "../../buttons/button";
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -19,11 +26,13 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  * TODO: Implement https://github.com/softberry/timemanager/issues/62
  */
 const DateTime: FunctionComponent<IDateTimeProps> = ({
+  uniqueId,
   start = moment(),
   finish = moment(),
   step = 15,
   infoCallback,
   collapsed = CollapsedState.COLLAPSED,
+  deleteCallback,
 }) => {
   const view = useContext(ViewContext);
   const theme = useTheme();
@@ -71,6 +80,12 @@ const DateTime: FunctionComponent<IDateTimeProps> = ({
 
     return timeDiffToString({ hours: hoursDiff, minutes });
   }, [startTime, finishTime, currentDate, diffTime, step, infoCallback, isValid]);
+
+  const deleteCallbackHandler = (): void => {
+    if (deleteCallback) {
+      deleteCallback(uniqueId);
+    }
+  };
 
   const dateOnChangehandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setCurrentDate(e.target.value);
@@ -134,6 +149,14 @@ const DateTime: FunctionComponent<IDateTimeProps> = ({
             min={startTime}
             max="23:59"
             onChange={finishTimeOnChangehandler}
+          />
+        </div>
+        <div>
+          <Button
+            type={ButtonTypeEnums.WARNING}
+            icon={IconNameEnums.TRASH}
+            isDisabled={false}
+            onClick={deleteCallbackHandler}
           />
         </div>
       </div>
