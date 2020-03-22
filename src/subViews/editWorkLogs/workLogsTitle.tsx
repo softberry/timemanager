@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { FunctionComponent } from "react";
 import Input from "../../__ui/formElements";
 import {
   ValidationTypeEnums,
@@ -8,7 +8,7 @@ import {
 } from "../../__typings/interfaces.d";
 import Card from "../../__ui/card";
 
-function WorkLogsTitle({ name, description, dispatcher }: IEditWorkLogTitleProps): ReactElement {
+const WorkLogsTitle: FunctionComponent<IEditWorkLogTitleProps> = ({ name, description, dispatcher }) => {
   function dispatchInput(p: IInputCallback): void {
     dispatcher({
       type: AddEditWorklogEnums.TITLE,
@@ -41,6 +41,6 @@ function WorkLogsTitle({ name, description, dispatcher }: IEditWorkLogTitleProps
       </Card>
     </>
   );
-}
+};
 
 export default WorkLogsTitle;

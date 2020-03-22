@@ -41,14 +41,14 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
     dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
   });
 
-  function createNewWorklogHandler(): void {
+  function createNewWorklogHandler(caption: string, worklogID: string): void {
     const action: ISubPageState = {
       type: SubPageActionEnums.SHOW,
       action: {
-        caption: "New Worklog",
+        caption,
         content: (
           <>
-            <EditWorkLogsForm contactID={contact.id} worklogID={NewEntryEnums.NEW_WORKLOG_ID} />
+            <EditWorkLogsForm contactID={contact.id} worklogID={worklogID} />
           </>
         ),
       },
@@ -73,7 +73,9 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
           icon={IconNameEnums.ADD}
           align={ButtonAlignmentEnums.RIGHT}
           isDisabled={false}
-          onClick={createNewWorklogHandler}
+          onClick={(): void => {
+            createNewWorklogHandler("New Worklog", NewEntryEnums.NEW_WORKLOG_ID);
+          }}
           type={ButtonTypeEnums.POISITIVE}
         >
           Create Work log
@@ -83,7 +85,12 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
         {contactsWorklogs.map(
           (log, index: number) =>
             log.id !== NewEntryEnums.NEW_WORKLOG_ID && (
-              <div key={index}>
+              <div
+                key={index}
+                onClick={(): void => {
+                  createNewWorklogHandler("Edit Worklog", log.id);
+                }}
+              >
                 <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Name`]}>{log.name}</div>
                 <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Description`]}>{log.description}abc</div>
               </div>

@@ -1,5 +1,8 @@
 @mixin list-item($variant) {
-  padding: 0 rem(1);
+  @include WidthUp("small") {
+    padding: 0 rem(1);
+  }
+  padding: 0 rem(0.5);
   box-sizing: border-box;
   background-color: rgba(color-palette($variant, "card", "background"), 0.75);
   margin-bottom: 0;
@@ -7,7 +10,7 @@
 }
 
 .List-#{$theme} {
-  height: 100%;
+  // height: 100%;
   &-Item {
     &-primary {
       @include list-item("primary");

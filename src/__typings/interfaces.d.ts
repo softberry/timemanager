@@ -243,6 +243,9 @@ export interface IWorklogInput {
   description?: string;
 }
 
+export interface IEditTimeLogsProps {
+  worklog: IWorkTableModel;
+}
 export interface IDiff {
   hour: number;
   minute: number;

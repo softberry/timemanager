@@ -13,7 +13,7 @@ interface ITimeDiff {
 }
 const timeDiffToString = ({ hours = 0, minutes = 0 }: ITimeDiff): string => {
   const hoursToString = hours > 0 ? `${hours} Hours ` : "";
-  const minutesToString = minutes > 0 ? `${minutes} Minutes` : "";
+  const minutesToString = minutes > 0 ? `${minutes} Minutes` : "0 Minute";
   return `${hoursToString + minutesToString}`;
 };
 export { correctedTimeFromStep, timeDiffToString };

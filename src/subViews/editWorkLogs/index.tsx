@@ -1,4 +1,4 @@
-import React, { ReactElement, useReducer, createContext, useContext, useEffect, FunctionComponent } from "react";
+import React, { useReducer, createContext, useContext, useEffect, FunctionComponent } from "react";
 import Button from "../../__ui/buttons/button";
 
 import {
@@ -18,7 +18,7 @@ import TimeLogs from "./timelogs";
 import MaterialLogs from "./materiallogs";
 import { useSelector } from "react-redux";
 
-function EditWorkLogsForm(): ReactElement {
+const EditWorkLogsForm: FunctionComponent = () => {
   const worklog = useContext(WorklogContext);
   const dispatcher = useContext(DispatchContext);
 
@@ -32,7 +32,7 @@ function EditWorkLogsForm(): ReactElement {
   return (
     <>
       <WorkLogsTitle name={worklog.name} description={worklog.description} dispatcher={dispatcher} />
-      <TimeLogs />
+      <TimeLogs worklog={worklog} />
       <MaterialLogs />
 
       <div>
@@ -57,7 +57,7 @@ function EditWorkLogsForm(): ReactElement {
       </div>
     </>
   );
-}
+};
 
 const WorklogContext = createContext<IWorklogState>({
   id: "",
