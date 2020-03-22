@@ -33,7 +33,7 @@ const EditWorkLogsForm: FunctionComponent = () => {
     <>
       <WorkLogsTitle name={worklog.name} description={worklog.description} dispatcher={dispatcher} />
       <TimeLogs worklog={worklog} />
-      <MaterialLogs />
+      <MaterialLogs worklog={worklog} />
 
       <div>
         <Button

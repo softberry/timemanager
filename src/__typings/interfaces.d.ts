@@ -250,6 +250,10 @@ export interface IWorklogInput {
 export interface IEditTimeLogsProps {
   worklog: IWorkTableModel;
 }
+
+export interface IEditMaterialLogsProps {
+  worklog: IWorkTableModel;
+}
 export interface IDiff {
   hour: number;
   minute: number;
