@@ -122,7 +122,3 @@ const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklog
   );
 };
 export { EditWorkLogs as default };
-
-// TODO: - Apply finalizes style from time log to materials log
-// TODO: - Save/Update functionality to work log
-// TODO: - Delete worklog from the list

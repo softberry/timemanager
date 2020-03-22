@@ -20,8 +20,6 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-//TODO: move these interfaces to interfaces.d.ts
-
 function formReducer(state: IMultiInputProps, action: IMultiInputActions): IMultiInputProps {
   switch (action.type) {
     case "ADD":
