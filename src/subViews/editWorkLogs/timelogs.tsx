@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useCallback } from "react";
 import Tipp from "../../__ui/tipp";
 import Button from "../../__ui/buttons/button";
 
@@ -16,6 +16,7 @@ import {
 import Card, { CardTitle, CardBody, CardFooter } from "../../__ui/card";
 import { DateTime } from "../../__ui/formElements";
 import moment from "moment";
+import { uuid } from "@nano-sql/core/lib/utilities";
 
 const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
   const [timeLogs, setTimelogs] = useState<IWorkDurationTableModel[]>(worklog.labour);
@@ -25,13 +26,21 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
       description: "",
       finish: time,
       start: time,
-      id: "",
+      id: uuid(),
       workID: worklog.id,
     };
 
     setTimelogs([...timeLogs, newTimelog]);
   }
 
+  const deleteTimelogHandler = useCallback(
+    (uid: string) => {
+      console.log(uid);
+      const deletefromlogs = timeLogs.filter(t => t.id !== uid);
+      setTimelogs(deletefromlogs);
+    },
+    [timeLogs]
+  );
   return (
     <Card>
       <CardTitle>Spent time</CardTitle>
@@ -47,6 +56,7 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
           {timeLogs.map((timelog, i) => (
             <div key={i}>
               <DateTime
+                uniqueId={timelog.id}
                 start={moment(timelog.start)}
                 finish={moment(timelog.finish)}
                 step={15}
@@ -54,6 +64,7 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
                   //
                 }}
                 collapsed={CollapsedState.EXPANDED}
+                deleteCallback={deleteTimelogHandler}
               />
             </div>
           ))}

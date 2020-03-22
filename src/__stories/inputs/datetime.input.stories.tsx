@@ -5,6 +5,7 @@ import { CollapsedState } from "../../__typings/interfaces.d";
 import { action } from "@storybook/addon-actions";
 import { withKnobs, number } from "@storybook/addon-knobs";
 import moment from "moment";
+import { uuid } from "@nano-sql/core/lib/utilities";
 
 export default {
   title: "Form Elements/Date Time",
@@ -19,6 +20,7 @@ export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <DateTime
+        uniqueId={uuid()}
         start={moment()}
         finish={moment().add(16, "minute")}
         step={number("Step", 15)}
@@ -33,6 +35,7 @@ export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <DateTime
+        uniqueId={uuid()}
         start={moment()}
         finish={moment().add(16, "minute")}
         step={number("Step", 15)}
