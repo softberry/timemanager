@@ -52,7 +52,7 @@ function TimelogList(): ReactElement {
           align={ButtonAlignmentEnums.RIGHT}
           isDisabled={false}
           onClick={createNewWorklogHandler}
-          type={ButtonTypeEnums.POISITIVE}
+          type={ButtonTypeEnums.POSITIVE}
         >
           Create Work log
         </Button>

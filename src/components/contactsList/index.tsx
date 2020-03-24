@@ -90,7 +90,7 @@ const ContactsList = (): ReactElement => {
           align={ButtonAlignmentEnums.RIGHT}
           isDisabled={false}
           onClick={createContactClickHandler}
-          type={ButtonTypeEnums.POISITIVE}
+          type={ButtonTypeEnums.POSITIVE}
         >
           Create Contact
         </Button>

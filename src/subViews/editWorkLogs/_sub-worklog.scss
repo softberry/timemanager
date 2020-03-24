@@ -95,3 +95,51 @@
     overflow: auto;
   }
 }
+
+.WorkLogItem-#{$theme} {
+  margin-bottom: rem(0.5);
+
+  &-Caption {
+    display: grid;
+    grid-template-areas: "name total ";
+    grid-template-columns: 1fr auto;
+    font-weight: $font-weight-bold;
+    align-items: center;
+
+    &--Name {
+      grid-area: name;
+    }
+    &--Total {
+      grid-area: total;
+    }
+  }
+  &-FormContent {
+    display: grid;
+    grid-template-areas:
+      "name name name arrow"
+      "desc desc desc arrow"
+      "price amount unit arrow";
+    &--Arrow {
+      grid-area: arrow;
+      display: grid;
+      grid-column: 4;
+      grid-row: 1/4;
+      align-content: center;
+    }
+    &--Name {
+      grid-area: name;
+    }
+    &--Desc {
+      grid-area: desc;
+    }
+    &--Price {
+      grid-area: price;
+    }
+    &--Amount {
+      grid-area: amount;
+    }
+    &--Unit {
+      grid-area: unit;
+    }
+  }
+}

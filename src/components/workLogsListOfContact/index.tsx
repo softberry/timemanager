@@ -48,7 +48,7 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
         caption,
         content: (
           <>
-            <EditWorkLogsForm contactID={contact.id} worklogID={worklogID} />
+            <EditWorkLogsForm contactID={contact.id} worklogID={worklogID} theme={theme} styles={styles} />
           </>
         ),
       },
@@ -76,7 +76,7 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
           onClick={(): void => {
             createNewWorklogHandler("New Worklog", NewEntryEnums.NEW_WORKLOG_ID);
           }}
-          type={ButtonTypeEnums.POISITIVE}
+          type={ButtonTypeEnums.POSITIVE}
         >
           Create Work log
         </Button>

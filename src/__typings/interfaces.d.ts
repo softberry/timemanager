@@ -121,13 +121,16 @@ export interface IDateTimeProps {
   /** Increment Steps of work time logs */
   step: number;
   /** Callback function that helps to input validation state to sync with its parent */
-  infoCallback: (DateTimeValue) => void;
+  infoCallback: (DateTimeValue: IDateTimeCallback) => void;
   /** Optional callback function, that informs parent to remove that element*/
   deleteCallback?: (uniqueId) => void;
-  /** Should Element collapsed or Exapnded  */
-  collapsed: CollapsedState;
 }
 
+export interface IDateTimeCallback {
+  start: string;
+  finish: string;
+  valid: boolean;
+}
 /**
  *
  * props for StartStopButton
@@ -218,6 +221,8 @@ export interface ISubPageAction {
 export interface IEditWorkLogProps {
   contactID: string;
   worklogID: string;
+  theme: ThemeEnums;
+  styles: INameToValueMap;
 }
 
 export interface IEditWorkLogTitleProps {
@@ -253,6 +258,8 @@ export interface IEditTimeLogsProps {
 
 export interface IEditMaterialLogsProps {
   worklog: IWorkTableModel;
+  theme: ThemeEnums;
+  styles: INameToValueMap;
 }
 export interface IDiff {
   hour: number;
@@ -261,7 +268,7 @@ export interface IDiff {
 }
 export interface ICounterDiffTime extends IDiff {
   counting?;
-  styles: { [x: string]: string };
+  styles: INameToValueMap;
   theme: ThemeEnums;
 }
 
@@ -310,7 +317,7 @@ export interface IEditContactProps {
   /** Inherit theme from parent */
   theme: ThemeEnums;
   /** Inherit styles from parent */
-  styles: { [x: string]: string };
+  styles: INameToValueMap;
   /** Callback function to revert form to it's readonly state*/
   onComplete: (p: T) => void;
 }
@@ -411,7 +418,7 @@ export interface INavProps {
   goBack?: () => void;
   goForward?: () => void;
   theme: string;
-  styles: { [x: string]: string };
+  styles: INameToValueMap;
 }
 
 export interface IViewState {
@@ -544,7 +551,7 @@ export enum ValidationTypeEnums {
 export enum ButtonTypeEnums {
   SIMPLE = "simple",
   NEGATIVE = "negative",
-  POISITIVE = "positive",
+  POSITIVE = "positive",
   ERROR = "error",
   WARNING = "warning",
 }
@@ -567,9 +574,4 @@ export enum DialogTypes {
   WARNING = "WARNING",
   ERROR = "ERROR",
   CONFIRM = "CONFIRM",
-}
-
-export enum CollapsedState {
-  COLLAPSED = "collapsed",
-  EXPANDED = "expanded",
 }

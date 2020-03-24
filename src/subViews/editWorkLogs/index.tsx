@@ -11,14 +11,27 @@ import {
   AddEditWorklogEnums,
   IWorklogState,
   IWorklogAction,
+  ThemeEnums,
 } from "../../__typings/interfaces.d";
 
 import WorkLogsTitle from "./workLogsTitle";
-import TimeLogs from "./timelogs";
+
 import MaterialLogs from "./materiallogs";
 import { useSelector } from "react-redux";
+import Card, { CardFooter } from "../../__ui/card";
+
+import themeDefault from "./theme-default.module.scss";
+import themeOcean from "./theme-ocean.module.scss";
+import { useTheme, useThemeStyle } from "../../__ui/typography";
+import TimeLogs from "./timeLogs";
+const stylesMap = new Map();
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const EditWorkLogsForm: FunctionComponent = () => {
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+
   const worklog = useContext(WorklogContext);
   const dispatcher = useContext(DispatchContext);
 
@@ -33,28 +46,30 @@ const EditWorkLogsForm: FunctionComponent = () => {
     <>
       <WorkLogsTitle name={worklog.name} description={worklog.description} dispatcher={dispatcher} />
       <TimeLogs worklog={worklog} />
-      <MaterialLogs worklog={worklog} />
+      <MaterialLogs worklog={worklog} theme={theme} styles={styles} />
 
-      <div>
-        <Button
-          icon={IconNameEnums.CLEAR}
-          isDisabled={false}
-          onClick={cancelWorkLogViewHandler}
-          align={ButtonAlignmentEnums.LEFT}
-          type={ButtonTypeEnums.WARNING}
-        >
-          Cancel
-        </Button>
-        <Button
-          icon={IconNameEnums.ADD}
-          isDisabled={!worklog.valid}
-          onClick={saveWorkLogViewHandler}
-          align={ButtonAlignmentEnums.RIGHT}
-          type={ButtonTypeEnums.POISITIVE}
-        >
-          Save
-        </Button>
-      </div>
+      <Card>
+        <CardFooter>
+          <Button
+            icon={IconNameEnums.CLEAR}
+            isDisabled={false}
+            onClick={cancelWorkLogViewHandler}
+            align={ButtonAlignmentEnums.LEFT}
+            type={ButtonTypeEnums.WARNING}
+          >
+            Cancel
+          </Button>
+          <Button
+            icon={IconNameEnums.ADD}
+            isDisabled={!worklog.valid}
+            onClick={saveWorkLogViewHandler}
+            align={ButtonAlignmentEnums.RIGHT}
+            type={ButtonTypeEnums.POSITIVE}
+          >
+            Save
+          </Button>
+        </CardFooter>
+      </Card>
     </>
   );
 };
@@ -88,7 +103,7 @@ const worklogsReducer = (state: IWorklogState, action: IWorklogAction): IWorklog
   }
 };
 
-const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklogID }) => {
+const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklogID, theme, styles }) => {
   const [worklog, dispatcher] = useReducer(worklogsReducer, {
     id: "",
     name: "",

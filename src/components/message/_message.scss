@@ -49,6 +49,7 @@
   grid-area: caption;
   font-weight: 700;
   padding: 0.5 * $font-size;
+  text-transform: capitalize;
 }
 
 .Icon-#{$theme} {

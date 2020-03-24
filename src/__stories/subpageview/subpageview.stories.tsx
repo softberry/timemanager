@@ -47,7 +47,7 @@ function SubPageStorySample(): ReactElement {
       <Button
         isDisabled={false}
         onClick={showSubPage}
-        type={ButtonTypeEnums.POISITIVE}
+        type={ButtonTypeEnums.POSITIVE}
         icon={IconNameEnums.ARROW_FORWARD}
         align={ButtonAlignmentEnums.CENTER}
       ></Button>

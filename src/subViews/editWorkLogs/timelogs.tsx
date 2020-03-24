@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState, useCallback } from "react";
 import Tipp from "../../__ui/tipp";
 import Button from "../../__ui/buttons/button";
+import TimeLogItem from "./timeLogItem";
 
 import List from "../../components/list";
 
@@ -10,17 +11,23 @@ import {
   ButtonAlignmentEnums,
   IEditTimeLogsProps,
   IWorkDurationTableModel,
-  CollapsedState,
+  IMessageAction,
+  IDialogActionEnums,
+  DialogTypes,
 } from "../../__typings/interfaces.d";
 
 import Card, { CardTitle, CardBody, CardFooter } from "../../__ui/card";
 import { DateTime } from "../../__ui/formElements";
+
 import moment from "moment";
 import { uuid } from "@nano-sql/core/lib/utilities";
+import { useDispatch } from "react-redux";
 
 const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
   const [timeLogs, setTimelogs] = useState<IWorkDurationTableModel[]>(worklog.labour);
-  function createTimeLoghandler(): void {
+  const dispatch = useDispatch();
+
+  function createTimeLogHandler(): void {
     const time = new Date();
     const newTimelog: IWorkDurationTableModel = {
       description: "",
@@ -30,12 +37,23 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
       workID: worklog.id,
     };
 
-    setTimelogs([...timeLogs, newTimelog]);
+    const action: IMessageAction = {
+      type: IDialogActionEnums.OPEN,
+      message: {
+        caption: "New Time log",
+        dialogType: DialogTypes.CONFIRM,
+        body: <TimeLogItem timelog={newTimelog} />,
+        footer: <></>,
+        dialogId: uuid(),
+        closable: true,
+      },
+    };
+    dispatch(action);
+    // setTimelogs([...timeLogs, newTimelog]);
   }
 
   const deleteTimelogHandler = useCallback(
     (uid: string) => {
-      console.log(uid);
       const deletefromlogs = timeLogs.filter(t => t.id !== uid);
       setTimelogs(deletefromlogs);
     },
@@ -63,7 +81,6 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
                 infoCallback={(): void => {
                   //
                 }}
-                collapsed={CollapsedState.EXPANDED}
                 deleteCallback={deleteTimelogHandler}
               />
             </div>
@@ -76,7 +93,7 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
           isDisabled={false}
           type={ButtonTypeEnums.SIMPLE}
           align={ButtonAlignmentEnums.STRETCH}
-          onClick={createTimeLoghandler}
+          onClick={createTimeLogHandler}
         >
           Add time log
         </Button>

@@ -3,31 +3,14 @@
   &-#{$view} {
     &-Caption {
       display: grid;
-      grid-template-columns: 1fr auto min-content;
+      grid-template-columns: 1fr auto;
       align-items: center;
       font-weight: $font-weight-bold;
     }
 
     &-Data {
-      @include WidthUp("small") {
-        grid-template-columns: 1fr 1fr 1fr auto;
-        grid-template-rows: 1fr;
-      }
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      &[data-toggle="collapsed"] {
-        display: none;
-        @include WidthUp("small") {
-          display: grid;
-        }
-      }
-    }
-
-    &-Toggle {
-      @include WidthUp("small") {
-        display: none;
-      }
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 }

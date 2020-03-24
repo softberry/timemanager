@@ -232,7 +232,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact, theme, sty
           icon={IconNameEnums.CHECK_CIRCLE}
           align={ButtonAlignmentEnums.INLINE}
           onClick={saveContactDetailsToDatabase}
-          type={ButtonTypeEnums.POISITIVE}
+          type={ButtonTypeEnums.POSITIVE}
           isDisabled={!isFormValid}
         >
           Save
