@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import {
   IWorkDurationTableModel,
   ButtonTypeEnums,
@@ -13,20 +13,38 @@ import moment from "moment";
 
 interface ITimelogItemProps {
   timelog: IWorkDurationTableModel;
+  updateCallback: (log: IWorkDurationTableModel) => void;
 }
-const TimeLogItem: FunctionComponent<ITimelogItemProps> = ({ timelog }) => {
+const TimeLogItem: FunctionComponent<ITimelogItemProps> = ({ timelog, updateCallback }) => {
   const [isValid, setIsValid] = useState(false);
+  const [saveNow, setSaveNow] = useState(false);
+  const [dateTimeLog, setDateTimeLog] = useState<IWorkDurationTableModel>(timelog);
 
+  useEffect(() => {
+    if (saveNow === false || isValid === false) return;
+
+    updateCallback(dateTimeLog);
+  }, [dateTimeLog, isValid, saveNow, updateCallback]);
   return (
     <>
       <DateTime
         uniqueId={timelog.id}
-        start={moment(timelog.start)}
-        finish={moment(timelog.finish)}
+        start={moment(timelog.start).toISOString()}
+        finish={moment(timelog.finish).toISOString()}
         step={15}
-        infoCallback={({ valid }: IDateTimeCallback): void => {
-          if (valid === isValid) return;
-          setIsValid(valid);
+        infoCallback={({ start, finish, valid }: IDateTimeCallback): void => {
+          if (valid !== isValid) {
+            setIsValid(valid);
+          }
+          if (start !== dateTimeLog.start || finish !== dateTimeLog.finish) {
+            setDateTimeLog({
+              start: start,
+              finish: finish,
+              id: timelog.id,
+              workID: timelog.workID,
+              description: timelog.description,
+            });
+          }
         }}
       />
       <div>
@@ -36,7 +54,7 @@ const TimeLogItem: FunctionComponent<ITimelogItemProps> = ({ timelog }) => {
           icon={IconNameEnums.CHECK_CIRCLE}
           isDisabled={!isValid}
           onClick={(): void => {
-            //
+            setSaveNow(true);
           }}
         >
           Add

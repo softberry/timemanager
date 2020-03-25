@@ -1,5 +1,5 @@
 import { uuid } from "@nano-sql/core/lib/utilities";
-import { Moment } from "moment";
+
 import { ReactChildren, ReactNode, ReactChild } from "react";
 import { nSQL as nSQLInterface } from "@nano-sql/core";
 import { RouteComponentProps } from "react-router-dom";
@@ -115,9 +115,9 @@ export interface IDateTimeProps {
   /** uniqe in its first parent, to match correct element for save/remove etc*/
   uniqueId: string;
   /** Start property of a Worklog */
-  start?: Moment;
+  start?: string;
   /** End property of a Worklog */
-  finish?: Moment;
+  finish?: string;
   /** Increment Steps of work time logs */
   step: number;
   /** Callback function that helps to input validation state to sync with its parent */
@@ -247,13 +247,15 @@ export interface IWorklogAction {
 
 export interface IWorklogInput {
   nSQL: nSQLInterface;
-  start: Date;
-  finish: Date;
+  start: string;
+  finish: string;
   description?: string;
 }
 
 export interface IEditTimeLogsProps {
   worklog: IWorkTableModel;
+  theme: ThemeEnums;
+  styles: INameToValueMap;
 }
 
 export interface IEditMaterialLogsProps {
@@ -345,8 +347,8 @@ export interface IWorkTableModel {
 
 export interface IWorkDurationTableModel {
   id: string;
-  start: Date;
-  finish: Date;
+  start: string;
+  finish: string;
   description: string;
   workID: string;
 }

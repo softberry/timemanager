@@ -84,7 +84,6 @@ export function Timer(): ReactElement {
           id: "active-counter-0",
           active: true,
           current: now,
-          // diff: timeDiff(timerActiveState.start, now)
         })
         .exec()
         .then((current: [ICounterTableModel]) => {

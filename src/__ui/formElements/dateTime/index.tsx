@@ -1,6 +1,6 @@
 import React, { useState, useContext, ChangeEvent, useEffect, useMemo, FunctionComponent, useCallback } from "react";
 import moment from "moment";
-import { timeDiffToString, correctedTimeFromStep } from "../../../lib/input.helpers";
+import { timeDiffToString } from "../../../lib/input.helpers";
 
 import { ThemeEnums, IDateTimeProps } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
@@ -37,19 +37,11 @@ const DateTime: FunctionComponent<IDateTimeProps> = ({
   const id = { date: uuid(), start: uuid(), finish: uuid(), diff: uuid() };
 
   const diffTimeMemo = useMemo(() => {
-    const startTimeFromString = moment(`${currentDate} ${startTime}`);
-    const finishTimeFromString = moment(`${currentDate} ${finishTime}`);
-
-    const hoursDiff = finishTimeFromString.diff(startTimeFromString, "hours") * 1;
-
-    const minutesDiff = finishTimeFromString.subtract(hoursDiff, "hours").diff(startTimeFromString, "minutes");
-
-    const minutes = correctedTimeFromStep({
-      minutes: minutesDiff,
+    return timeDiffToString({
+      start: moment(`${currentDate} ${startTime}`).toISOString(),
+      finish: moment(`${currentDate} ${finishTime}`).toISOString(),
       step,
-      immediate: true,
     });
-    return timeDiffToString({ hours: hoursDiff, minutes });
   }, [step, startTime, finishTime, currentDate]);
 
   const validCallback = useCallback(() => {
@@ -85,11 +77,12 @@ const DateTime: FunctionComponent<IDateTimeProps> = ({
   }, [isValid, validCallback]);
 
   useEffect(() => {
-    const startTimeFromString = moment(`${currentDate} ${startTime}`);
-    const finishTimeFromString = moment(`${currentDate} ${finishTime}`);
+    const startTimeFromString = moment(`${currentDate} ${startTime}`).toISOString();
+    const finishTimeFromString = moment(`${currentDate} ${finishTime}`).toISOString();
+
     infoCallback({
-      start: startTimeFromString.toISOString(),
-      finish: finishTimeFromString.toISOString(),
+      start: startTimeFromString,
+      finish: finishTimeFromString,
       valid: isValid,
     });
   }, [currentDate, startTime, finishTime, infoCallback, isValid]);

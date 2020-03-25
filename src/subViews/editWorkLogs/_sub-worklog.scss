@@ -96,6 +96,11 @@
   }
 }
 
+.TimeLogListItem {
+  display: flex;
+  font-weight: $font-weight-bold;
+  justify-content: space-between;
+}
 .WorkLogItem-#{$theme} {
   margin-bottom: rem(0.5);
 

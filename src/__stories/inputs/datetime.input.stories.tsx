@@ -21,8 +21,10 @@ export const Primary = (): ReactElement => {
     <StoryPage viewType="PrimaryView">
       <DateTime
         uniqueId={uuid()}
-        start={moment()}
-        finish={moment().add(16, "minute")}
+        start={moment().toISOString()}
+        finish={moment()
+          .add(16, "minute")
+          .toISOString()}
         step={number("Step", 15)}
         infoCallback={action("Sending current date info to parent")}
       />
@@ -35,8 +37,10 @@ export const Secondary = (): ReactElement => {
     <StoryPage viewType="SecondaryView">
       <DateTime
         uniqueId={uuid()}
-        start={moment()}
-        finish={moment().add(16, "minute")}
+        start={moment().toISOString()}
+        finish={moment()
+          .add(16, "minute")
+          .toISOString()}
         step={number("Step", 15)}
         infoCallback={action("Sending current date info to parent")}
       />

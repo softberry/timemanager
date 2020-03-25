@@ -20,8 +20,6 @@ function dbExists(dbname = "shoplist_local"): boolean {
 }
 
 const NanoDatabase: FunctionComponent = ({ children }) => {
-  // console.log(useSelector(({ db }) => db.db));
-
   const [ready, setReady] = useState<string>("NOT_READY");
   const _nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const dispatch = useDispatch();

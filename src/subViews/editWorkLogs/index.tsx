@@ -45,7 +45,7 @@ const EditWorkLogsForm: FunctionComponent = () => {
   return (
     <>
       <WorkLogsTitle name={worklog.name} description={worklog.description} dispatcher={dispatcher} />
-      <TimeLogs worklog={worklog} />
+      <TimeLogs worklog={worklog} styles={styles} theme={theme} />
       <MaterialLogs worklog={worklog} theme={theme} styles={styles} />
 
       <Card>

@@ -1,4 +1,5 @@
 import { ICorrectedTimeFromStep } from "../__typings/interfaces.d";
+import moment from "moment";
 
 const correctedTimeFromStep = ({ minutes = 0, step = 0, immediate = false }: ICorrectedTimeFromStep): number => {
   const rest = minutes % step;
@@ -8,11 +9,23 @@ const correctedTimeFromStep = ({ minutes = 0, step = 0, immediate = false }: ICo
 };
 
 interface ITimeDiff {
-  hours: number;
-  minutes: number;
+  start: string;
+  finish: string;
+  step: number;
 }
-const timeDiffToString = ({ hours = 0, minutes = 0 }: ITimeDiff): string => {
-  const hoursToString = hours > 0 ? `${hours} Hours ` : "";
+const timeDiffToString = ({ start, finish, step }: ITimeDiff): string => {
+  const mStart = moment(start);
+  const mFinish = moment(finish);
+  const hoursDiff = mFinish.diff(mStart, "hours") * 1;
+
+  const minutesDiff = mFinish.subtract(hoursDiff, "hours").diff(mStart, "minutes");
+
+  const minutes = correctedTimeFromStep({
+    minutes: minutesDiff,
+    step,
+    immediate: true,
+  });
+  const hoursToString = hoursDiff > 0 ? `${hoursDiff} Hours ` : "";
   const minutesToString = minutes > 0 ? `${minutes} Minutes` : "0 Minute";
   return `${hoursToString + minutesToString}`;
 };

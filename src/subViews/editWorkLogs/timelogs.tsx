@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useCallback } from "react";
+import React, { FunctionComponent, useState } from "react";
 import Tipp from "../../__ui/tipp";
 import Button from "../../__ui/buttons/button";
 import TimeLogItem from "./timeLogItem";
@@ -17,22 +17,22 @@ import {
 } from "../../__typings/interfaces.d";
 
 import Card, { CardTitle, CardBody, CardFooter } from "../../__ui/card";
-import { DateTime } from "../../__ui/formElements";
 
 import moment from "moment";
 import { uuid } from "@nano-sql/core/lib/utilities";
 import { useDispatch } from "react-redux";
+import { timeDiffToString } from "../../lib/input.helpers";
 
-const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
+const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog, styles, theme }) => {
   const [timeLogs, setTimelogs] = useState<IWorkDurationTableModel[]>(worklog.labour);
   const dispatch = useDispatch();
-
+  const dialogId = uuid();
   function createTimeLogHandler(): void {
-    const time = new Date();
+    const time = moment();
     const newTimelog: IWorkDurationTableModel = {
       description: "",
-      finish: time,
-      start: time,
+      finish: time.toISOString(),
+      start: time.toISOString(),
       id: uuid(),
       workID: worklog.id,
     };
@@ -42,23 +42,29 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
       message: {
         caption: "New Time log",
         dialogType: DialogTypes.CONFIRM,
-        body: <TimeLogItem timelog={newTimelog} />,
+        body: <TimeLogItem timelog={newTimelog} updateCallback={newTimelogCallback} />,
         footer: <></>,
-        dialogId: uuid(),
+        dialogId,
         closable: true,
       },
     };
     dispatch(action);
-    // setTimelogs([...timeLogs, newTimelog]);
   }
 
-  const deleteTimelogHandler = useCallback(
-    (uid: string) => {
-      const deletefromlogs = timeLogs.filter(t => t.id !== uid);
-      setTimelogs(deletefromlogs);
-    },
-    [timeLogs]
-  );
+  function newTimelogCallback(newlog: IWorkDurationTableModel): void {
+    setTimelogs([...timeLogs, newlog]);
+    const action: IMessageAction = {
+      type: IDialogActionEnums.CLOSE,
+      message: {
+        body: <></>,
+        footer: <></>,
+        dialogType: DialogTypes.INFO,
+        dialogId,
+      },
+    };
+    dispatch(action);
+  }
+
   return (
     <Card>
       <CardTitle>Spent time</CardTitle>
@@ -73,16 +79,17 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog }) => {
         <List>
           {timeLogs.map((timelog, i) => (
             <div key={i}>
-              <DateTime
-                uniqueId={timelog.id}
-                start={moment(timelog.start)}
-                finish={moment(timelog.finish)}
-                step={15}
-                infoCallback={(): void => {
-                  //
-                }}
-                deleteCallback={deleteTimelogHandler}
-              />
+              <div className={styles["TimeLogListItem"]}>
+                <div>{moment(timelog.start).format("ddd, DD MMM YYYY HH:MM")}</div>
+
+                <div>
+                  {timeDiffToString({
+                    start: timelog.start,
+                    finish: timelog.finish,
+                    step: 15,
+                  })}
+                </div>
+              </div>
             </div>
           ))}
         </List>

@@ -30,9 +30,3 @@ const List: FunctionComponent = ({ children }): ReactElement => {
 };
 
 export default List;
-
-// children.map((child: ReactNode, key: number) => (
-//   <div className={styles[`List-${theme}-Item-${view}`]} key={key}>
-//     {child}
-//   </div>
-// ))}
