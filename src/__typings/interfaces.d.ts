@@ -342,7 +342,7 @@ export interface IWorkTableModel {
   name: string;
   description: string;
   labour: IWorkDurationTableModel[];
-  materials: IMaterialListTableModel[];
+  materials: MaterialItemTableModel[];
 }
 
 export interface IWorkDurationTableModel {
@@ -355,18 +355,18 @@ export interface IWorkDurationTableModel {
 export interface IWorklogsEditProps {
   contact: IContactsTableModel;
 }
-export interface IMaterialListTableModel {
-  id: string;
-  items: MaterialItemTableModel[];
-  workID: string;
-}
+// export interface IMaterialListTableModel {
+//   id: string;
+//   items: MaterialItemTableModel[];
+//   workID: string;
+// }
 
 export interface MaterialItemTableModel {
   id: string;
   name: string;
   description: string;
-  price: number;
-  amount: number;
+  price: string;
+  amount: string;
   unit: string;
   materialListID: string;
 }
@@ -548,6 +548,8 @@ export enum ValidationTypeEnums {
   MOBILE = "MOBILE",
   PHONE = "PHONE",
   DATE = "DATE",
+  CURRENCY = "CURRENCY",
+  DECIMAL = "DECIMAL",
 }
 
 export enum ButtonTypeEnums {

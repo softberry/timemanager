@@ -8,32 +8,82 @@ import {
   ButtonAlignmentEnums,
   IconNameEnums,
   IEditMaterialLogsProps,
-  IMaterialListTableModel,
   MaterialItemTableModel,
+  IMessageAction,
+  IDialogActionEnums,
+  DialogTypes,
 } from "../../__typings/interfaces.d";
 import Card, { CardTitle, CardBody, CardFooter } from "../../__ui/card";
 import MaterialLogItem from "./materialLogItem";
 import { uuid } from "@nano-sql/core/lib/utilities";
+import { useDispatch } from "react-redux";
 const MaterialLogs: FunctionComponent<IEditMaterialLogsProps> = ({ worklog, theme, styles }) => {
-  const [materialLogs, setMaterialLogs] = useState<IMaterialListTableModel[]>(worklog.materials);
+  const [materialLogs, setMaterialLogs] = useState<MaterialItemTableModel[]>(worklog.materials);
+  const dispatch = useDispatch();
+  const dialogId = uuid();
+
+  function showEditDialog(item: MaterialItemTableModel, isNew: boolean): void {
+    const action: IMessageAction = {
+      type: IDialogActionEnums.OPEN,
+      message: {
+        caption: isNew ? "New Material" : "Edit Material",
+        dialogType: DialogTypes.CONFIRM,
+        body: (
+          <MaterialLogItem
+            material={item}
+            updateCallback={isNew ? newMateriallogCallback : updateMateriallogCallback}
+            theme={theme}
+            styles={styles}
+          />
+        ),
+        footer: <></>,
+        dialogId,
+        closable: true,
+      },
+    };
+    dispatch(action);
+  }
+  function closeEditDialog(): void {
+    const action: IMessageAction = {
+      type: IDialogActionEnums.CLOSE,
+      message: {
+        body: <></>,
+        footer: <></>,
+        dialogType: DialogTypes.INFO,
+        dialogId,
+      },
+    };
+    dispatch(action);
+  }
+
+  function newMateriallogCallback(newWorklog: MaterialItemTableModel): void {
+    setMaterialLogs([...materialLogs, newWorklog]);
+    closeEditDialog();
+  }
+  function updateMateriallogCallback(updatedWorklog: MaterialItemTableModel): void {
+    const logs = materialLogs.map(log => {
+      return log.id === updatedWorklog.id ? updatedWorklog : log;
+    });
+    setMaterialLogs(logs);
+    closeEditDialog();
+  }
 
   function createMaterialLoghandler(): void {
-    const newMaterialLog: IMaterialListTableModel = {
+    const newMaterialLog: MaterialItemTableModel = {
       id: uuid(),
-      items: [],
-      workID: worklog.id,
+      amount: "",
+      description: "",
+      name: "",
+      price: "",
+      unit: "",
+      materialListID: "",
     };
-    setMaterialLogs([...materialLogs, newMaterialLog]);
+    showEditDialog(newMaterialLog, true);
   }
-  const item: MaterialItemTableModel = {
-    id: "",
-    amount: 99,
-    description: "",
-    name: "",
-    price: 0,
-    unit: "",
-    materialListID: "",
-  };
+
+  function editMaterialLogHandler(item: MaterialItemTableModel): void {
+    showEditDialog(item, false);
+  }
   return (
     <Card>
       <CardTitle>Used Materials</CardTitle>
@@ -43,11 +93,27 @@ const MaterialLogs: FunctionComponent<IEditMaterialLogsProps> = ({ worklog, them
           <Tipp>
             You do not have any material log for this assignment. You can create several material list that you used for
             this assignment here.
-            <br />A material list can contain any number of items adn can be paired with time log.
           </Tipp>
         )}
         <List>
-          <MaterialLogItem item={item} theme={theme} styles={styles} />
+          {materialLogs.map((log, i) => (
+            <div
+              key={i}
+              className={styles["WorkLogs-ListItem"]}
+              onClick={(): void => {
+                editMaterialLogHandler(log);
+              }}
+            >
+              <div className={styles["WorkLogs-ListItem-Name"]}>{log.name}</div>
+              <div className={styles["WorkLogs-ListItem-Amount"]}>
+                {log.amount} {log.unit}{" "}
+              </div>
+              <div className={styles["WorkLogs-ListItem-Total"]}>
+                {window.parseFloat(log.amount) * window.parseFloat(log.price)}
+              </div>
+              <div className={styles["WorkLogs-ListItem-Description"]}>{log.description}</div>
+            </div>
+          ))}
         </List>
       </CardBody>
       <CardFooter>
@@ -58,7 +124,7 @@ const MaterialLogs: FunctionComponent<IEditMaterialLogsProps> = ({ worklog, them
           align={ButtonAlignmentEnums.STRETCH}
           onClick={createMaterialLoghandler}
         >
-          create material list
+          add material
         </Button>
       </CardFooter>
     </Card>

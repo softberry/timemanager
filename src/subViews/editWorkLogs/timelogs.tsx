@@ -37,12 +37,16 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog, styles, them
       workID: worklog.id,
     };
 
+    showEditDialog(newTimelog, true);
+  }
+
+  function showEditDialog(timelog: IWorkDurationTableModel, isNew: boolean): void {
     const action: IMessageAction = {
       type: IDialogActionEnums.OPEN,
       message: {
-        caption: "New Time log",
+        caption: isNew ? "New Time log" : "Edit Time log",
         dialogType: DialogTypes.CONFIRM,
-        body: <TimeLogItem timelog={newTimelog} updateCallback={newTimelogCallback} />,
+        body: <TimeLogItem timelog={timelog} updateCallback={isNew ? newTimelogCallback : updateTimelogCallback} />,
         footer: <></>,
         dialogId,
         closable: true,
@@ -50,9 +54,7 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog, styles, them
     };
     dispatch(action);
   }
-
-  function newTimelogCallback(newlog: IWorkDurationTableModel): void {
-    setTimelogs([...timeLogs, newlog]);
+  function closeEditDialog(): void {
     const action: IMessageAction = {
       type: IDialogActionEnums.CLOSE,
       message: {
@@ -64,7 +66,23 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog, styles, them
     };
     dispatch(action);
   }
+  function updateATimeLogHandler(log: IWorkDurationTableModel): void {
+    showEditDialog(log, false);
+  }
+  function newTimelogCallback(newlog: IWorkDurationTableModel): void {
+    setTimelogs([...timeLogs, newlog]);
 
+    closeEditDialog();
+  }
+
+  function updateTimelogCallback(updatedLog: IWorkDurationTableModel): void {
+    const logs = timeLogs.map(log => {
+      if (log.id === updatedLog.id) return updatedLog;
+      return log;
+    });
+    setTimelogs(logs);
+    closeEditDialog();
+  }
   return (
     <Card>
       <CardTitle>Spent time</CardTitle>
@@ -79,7 +97,12 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog, styles, them
         <List>
           {timeLogs.map((timelog, i) => (
             <div key={i}>
-              <div className={styles["TimeLogListItem"]}>
+              <div
+                className={styles["TimeLogListItem"]}
+                onClick={(): void => {
+                  updateATimeLogHandler(timelog);
+                }}
+              >
                 <div>{moment(timelog.start).format("ddd, DD MMM YYYY HH:MM")}</div>
 
                 <div>

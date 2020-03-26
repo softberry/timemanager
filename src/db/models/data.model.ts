@@ -140,14 +140,14 @@ const workDurationTable: InanoSQLTableConfig = {
 //  Material-List-Table
 //  ID - WORKID - MATERIALID - AMOUNT - PRICE - NOTES
 
-const materialListTable: InanoSQLTableConfig = {
-  name: "materialListTable",
-  model: {
-    "id:uuid": { pk: true },
-    "items:materialItemTable[]": {},
-    "workID:string": {},
-  },
-};
+// const materialListTable: InanoSQLTableConfig = {
+//   name: "materialListTable",
+//   model: {
+//     "id:uuid": { pk: true },
+//     "items:materialItemTable[]": {},
+//     "workID:string": {},
+//   },
+// };
 
 // Material-Item-Table
 // ID - NAME - DESCRIPTION - PRICE - UNIT-NAME(kg, meter, litre etc.)
@@ -195,7 +195,7 @@ const counterModelTables = [
   workTable,
   workDurationTable,
   materialItemTable,
-  materialListTable,
+  // materialListTable,
   materialStockTable,
   unitEnumsTable,
 ];

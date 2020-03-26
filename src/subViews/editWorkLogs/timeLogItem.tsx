@@ -57,7 +57,7 @@ const TimeLogItem: FunctionComponent<ITimelogItemProps> = ({ timelog, updateCall
             setSaveNow(true);
           }}
         >
-          Add
+          Save
         </Button>
       </div>
     </>

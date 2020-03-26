@@ -101,36 +101,17 @@
   font-weight: $font-weight-bold;
   justify-content: space-between;
 }
+
 .WorkLogItem-#{$theme} {
   margin-bottom: rem(0.5);
 
-  &-Caption {
-    display: grid;
-    grid-template-areas: "name total ";
-    grid-template-columns: 1fr auto;
-    font-weight: $font-weight-bold;
-    align-items: center;
-
-    &--Name {
-      grid-area: name;
-    }
-    &--Total {
-      grid-area: total;
-    }
-  }
   &-FormContent {
     display: grid;
     grid-template-areas:
-      "name name name arrow"
-      "desc desc desc arrow"
-      "price amount unit arrow";
-    &--Arrow {
-      grid-area: arrow;
-      display: grid;
-      grid-column: 4;
-      grid-row: 1/4;
-      align-content: center;
-    }
+      "name name name"
+      "desc desc desc"
+      "price amount unit";
+
     &--Name {
       grid-area: name;
     }
@@ -146,5 +127,30 @@
     &--Unit {
       grid-area: unit;
     }
+  }
+}
+.WorkLogs-ListItem {
+  display: grid;
+  grid-template-areas:
+    "name amount total"
+    "description description description";
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr 1fr;
+  &-Name {
+    grid-area: name;
+    font-weight: $font-weight-bold;
+  }
+  &-Description {
+    grid-area: description;
+    font-size: rem(0.75);
+    font-style: italic;
+  }
+  &-Amount {
+    grid-area: amount;
+    text-align: right;
+  }
+  &-Total {
+    grid-area: total;
+    text-align: right;
   }
 }

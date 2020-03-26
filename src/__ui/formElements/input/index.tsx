@@ -20,6 +20,8 @@ import isEmail from "validator/lib/isEmail";
 import isMobilePhone from "validator/lib/isMobilePhone";
 import isPostalCode from "validator/lib/isPostalCode";
 import isNumeric from "validator/lib/isNumeric";
+import isCurrency from "validator/lib/isCurrency";
+import isDecimal from "validator/lib/isDecimal";
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -109,6 +111,14 @@ const Input = ({
           }
           case ValidationTypeEnums.DATE: {
             setIsValid(isPostalCode(`${val}`, "DE"));
+            break;
+          }
+          case ValidationTypeEnums.CURRENCY: {
+            setIsValid(isCurrency(`${val}`));
+            break;
+          }
+          case ValidationTypeEnums.DECIMAL: {
+            setIsValid(isDecimal(`${val}`));
             break;
           }
           default:

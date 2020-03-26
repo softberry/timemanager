@@ -81,5 +81,6 @@
   "lint-staged": {
     "**/*.{ts,tsx}": "eslint --fix",
     "**/*/*.{scss,yml,ts,tsx,js,jsx,json,md}": "prettier --write"
-  }
+  },
+  "license": "MIT"
 }
