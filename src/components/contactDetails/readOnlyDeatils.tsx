@@ -1,18 +1,15 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import {
   IReadOnlyContactProps,
   ButtonAlignmentEnums,
-  IconEnums,
+  IconNameEnums,
   ButtonTypeEnums,
 } from "../../__typings/interfaces.d";
 
 import Card, { CardTitle, CardBody } from "../../__ui/card";
 import Button, { ButtonLink } from "../../__ui/buttons/button";
 
-function ReadOnlyDetails({
-  contact,
-  editContactHandler,
-}: IReadOnlyContactProps) {
+const ReadOnlyDetails = ({ contact, editContactHandler }: IReadOnlyContactProps): ReactElement => {
   const { street, zip, city, tel, mobile, mail } = contact;
 
   return (
@@ -22,8 +19,8 @@ function ReadOnlyDetails({
           {`${contact.name} ${contact.surname}`}
           <Button
             align={ButtonAlignmentEnums.INLINE}
-            icon={IconEnums.EDIT}
-            onClick={() => {
+            icon={IconNameEnums.EDIT}
+            onClick={(): void => {
               editContactHandler(contact, false);
             }}
             type={ButtonTypeEnums.SIMPLE}
@@ -35,12 +32,11 @@ function ReadOnlyDetails({
           {zip} - {city}
         </CardBody>
       </Card>
-
       <Card>
         <CardTitle>
           <ButtonLink
             align={ButtonAlignmentEnums.INLINE}
-            icon={IconEnums.MAIL}
+            icon={IconNameEnums.MAIL}
             href={`mailto:${mail}`}
             type={ButtonTypeEnums.SIMPLE}
             isDisabled={mail === undefined}
@@ -48,7 +44,7 @@ function ReadOnlyDetails({
 
           <ButtonLink
             align={ButtonAlignmentEnums.INLINE}
-            icon={IconEnums.SMART_PHONE}
+            icon={IconNameEnums.SMART_PHONE}
             href={`tel:${mobile}`}
             type={ButtonTypeEnums.SIMPLE}
             isDisabled={mobile === undefined}
@@ -56,7 +52,7 @@ function ReadOnlyDetails({
 
           <ButtonLink
             align={ButtonAlignmentEnums.INLINE}
-            icon={IconEnums.PHONE}
+            icon={IconNameEnums.PHONE}
             href={`tel:${tel}`}
             type={ButtonTypeEnums.SIMPLE}
             isDisabled={tel === undefined}
@@ -65,6 +61,6 @@ function ReadOnlyDetails({
       </Card>
     </>
   );
-}
+};
 
 export default ReadOnlyDetails;

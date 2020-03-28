@@ -1,8 +1,39 @@
+@mixin label() {
+  display: block;
+  position: absolute;
+  font-weight: $font-weight-bold;
+  font-size: 0.75 * $font-size;
+  transition: all 300ms;
+  text-transform: capitalize;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 1;
+
+  &[data-type="PLACEHOLDER"] {
+    font-size: 1 * $font-size;
+    transform: translate(rem(1), 50%);
+    font-weight: $font-weight-normal;
+    opacity: 0.5;
+    padding: rem(0.25) 0;
+    font-style: italic;
+    text-shadow: 0 0px 1px currentColor;
+    width: calc(100% - #{rem(2)});
+  }
+
+  &[data-type="LABEL"] {
+    display: block;
+    position: absolute;
+    margin: 0;
+    font-weight: $font-weight-bold;
+    width: 100%;
+  }
+}
 @mixin form-input() {
   $bg: rgba(0, 0, 0, 0);
 
   &[type="date"],
-  &[type="datetime-local"],
+  &[type="time"],
   &[type="text"],
   &[type="phone"],
   &[type="mail"],
@@ -15,6 +46,16 @@
     &::selection {
       background-color: color-palette("primary", "selected", "background");
     }
+  }
+}
+
+@mixin input-wrapper($variant) {
+  position: relative;
+  border: none;
+  margin-bottom: 0.25 * $font-size;
+  border-bottom: transparent 2px solid;
+  &[data-valid="false"] {
+    border-bottom: color-palette($variant, "error", "background") 2px solid;
   }
 }
 

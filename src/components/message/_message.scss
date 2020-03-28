@@ -4,7 +4,7 @@
   grid-template-areas:
     "icon caption close"
     "text text text"
-    ". . footer";
+    "footer footer footer";
   grid-template-columns: auto 1fr min-content;
   grid-template-rows: max-content max-content;
   padding: rem(0.5) 1 * $font-size;
@@ -37,16 +37,10 @@
   &__ERROR,
   &__CONFIRM {
     &--primary {
-      @include dialog(
-        color-palette("primary", "simple", "background"),
-        color-palette("primary", "simple", "text")
-      );
+      @include dialog(color-palette("primary", "simple", "background"), color-palette("primary", "simple", "text"));
     }
     &--secondary {
-      @include dialog(
-        color-palette("secondary", "simple", "background"),
-        color-palette("secondary", "simple", "text")
-      );
+      @include dialog(color-palette("secondary", "simple", "background"), color-palette("secondary", "simple", "text"));
     }
   }
 }
@@ -55,6 +49,7 @@
   grid-area: caption;
   font-weight: 700;
   padding: 0.5 * $font-size;
+  text-transform: capitalize;
 }
 
 .Icon-#{$theme} {
@@ -76,10 +71,13 @@
   grid-area: text;
   line-height: 1.5 * $font-size;
   overflow-y: scroll;
-  max-height: 8 * $font-size;
+  max-height: 50vh;
   padding-top: 0.5 * $font-size;
 }
 
 .Footer-#{$theme} {
   grid-area: footer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -1,14 +1,9 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Provider, useDispatch } from "react-redux";
 import { TimerAppStore } from "../../App";
 
 import { withKnobs } from "@storybook/addon-knobs";
-import {
-  SubPageViewActionTypes,
-  ButtonTypeEnums,
-  IconEnums,
-  ButtonAlignmentEnums,
-} from "../../__typings/interfaces.d";
+import { SubPageActionEnums, ButtonTypeEnums, IconNameEnums, ButtonAlignmentEnums } from "../../__typings/interfaces.d";
 
 import { lorem } from "faker";
 
@@ -17,7 +12,8 @@ import SubPageView from "../../components/subPageView";
 import StoryPage from "../story-page";
 import Button from "../../__ui/buttons/button";
 
-const notes = require("./notes.md");
+import * as notes from "./notes.md";
+
 export default {
   title: "Sub Page View",
   parameters: {
@@ -27,38 +23,38 @@ export default {
   decorators: [withKnobs],
 };
 
-function SubPageStorySample() {
+function SubPageStorySample(): ReactElement {
   const dispatch = useDispatch();
-  const showSubPage = () => {
+  const showSubPage = (): void => {
     dispatch({
-      type: SubPageViewActionTypes.SHOW,
-      caption: "Subpage Story",
-      content: (
-        <>
-          <p>{lorem.paragraphs(5)}</p>
-          <p>{lorem.paragraphs(5)}</p>
-          <p>{lorem.paragraphs(5)}</p>
-        </>
-      ),
+      type: SubPageActionEnums.SHOW,
+      action: {
+        caption: "Subpage Story",
+        content: (
+          <>
+            <p>{lorem.paragraphs(5)}</p>
+            <p>{lorem.paragraphs(5)}</p>
+            <p>{lorem.paragraphs(5)}</p>
+          </>
+        ),
+      },
     });
   };
 
   return (
     <div>
-      <p style={{ textAlign: "center" }}>
-        Show a Sub Page View with some dummy content
-      </p>
+      <p style={{ textAlign: "center" }}>Show a Sub Page View with some dummy content</p>
       <Button
         isDisabled={false}
         onClick={showSubPage}
-        type={ButtonTypeEnums.POISITIVE}
-        icon={IconEnums.ARROW_FORWARD}
+        type={ButtonTypeEnums.POSITIVE}
+        icon={IconNameEnums.ARROW_FORWARD}
         align={ButtonAlignmentEnums.CENTER}
       ></Button>
     </div>
   );
 }
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <Provider store={TimerAppStore}>
       <StoryPage viewType="PrimaryView">
@@ -69,7 +65,7 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <Provider store={TimerAppStore}>
       <StoryPage viewType="SecondaryView">

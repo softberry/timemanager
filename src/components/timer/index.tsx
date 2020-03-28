@@ -1,9 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import {
-  ICounterTableModel,
-  IDiff,
-  DesignEnums,
-} from "../../__typings/interfaces.d";
+import React, { useEffect, useState, useContext, ReactElement } from "react";
+import { ICounterTableModel, IDiff, ThemeEnums, IDatabaseReducer } from "../../__typings/interfaces.d";
 
 import { useSelector } from "react-redux";
 import { timeDiff } from "../../lib/counter.helpers";
@@ -18,22 +14,22 @@ import { useTheme, useThemeStyle } from "../../__ui/typography";
 import ViewContext from "../../views";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 let timerID: number;
 
-export function Timer(): JSX.Element {
+export function Timer(): ReactElement {
   const view = useContext(ViewContext);
   const [timerActiveState, setTimerActiveState] = useState<boolean>(false);
 
   const [diff, setDiff] = useState<IDiff>(timeDiff(0, 0));
-  const nSQL = useSelector((state: any) => state.db.nSQL);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const startTimer = () => {
+  const startTimer = (): void => {
     const _now = Date.now();
     setTimerActiveState(true);
     nSQL("counterTable")
@@ -48,7 +44,7 @@ export function Timer(): JSX.Element {
         setDiff(timeDiff(current[0].start, current[0].current));
       });
   };
-  const stopTimer = () => {
+  const stopTimer = (): void => {
     setTimerActiveState(false);
     nSQL("counterTable")
       .query("upsert", {
@@ -72,7 +68,7 @@ export function Timer(): JSX.Element {
         }
       })
       .catch((err: Error) => {
-        console.log(err);
+        throw err;
       });
   }, [nSQL, timerActiveState]);
 
@@ -88,17 +84,14 @@ export function Timer(): JSX.Element {
           id: "active-counter-0",
           active: true,
           current: now,
-          // diff: timeDiff(timerActiveState.start, now)
         })
         .exec()
         .then((current: [ICounterTableModel]) => {
           setTimerActiveState(current[0].active);
-          current[0].active
-            ? setDiff(timeDiff(current[0].start, current[0].current))
-            : clearTimeout(timerID);
+          current[0].active ? setDiff(timeDiff(current[0].start, current[0].current)) : clearTimeout(timerID);
         });
     }, 1000);
-    return () => {
+    return (): void => {
       clearTimeout(timerID);
     };
   }, [timerActiveState, nSQL, setDiff, diff]);
@@ -106,24 +99,16 @@ export function Timer(): JSX.Element {
   //TODO: createWorkLogFromCurrentCounter
   // Create new WorkLog when timers stopped #42
   // https://github.com/softberry/timemanager/issues/42
+  // https://github.com/softberry/timemanager/issues/63
 
-  const onCompleteEventHandler = () => {
+  const onCompleteEventHandler = (): void => {
     timerActiveState ? stopTimer() : startTimer();
   };
 
   return (
     <div className={styles[`Timer-${theme}-${view}`]}>
-      <Counter
-        {...diff}
-        counting={timerActiveState}
-        styles={styles}
-        theme={theme}
-      />
-      <StartStopButton
-        onComplete={onCompleteEventHandler}
-        waitForSeconds={3}
-        isTurning={timerActiveState}
-      />
+      <Counter {...diff} counting={timerActiveState} styles={styles} theme={theme} />
+      <StartStopButton onComplete={onCompleteEventHandler} waitForSeconds={3} isTurning={timerActiveState} />
     </div>
   );
 }

@@ -1,18 +1,14 @@
 import { uuid } from "@nano-sql/core/lib/utilities";
 
-export interface IDesignModel {
-  view: string;
-}
+import { ReactChildren, ReactNode, ReactChild } from "react";
+import { nSQL as nSQLInterface } from "@nano-sql/core";
+import { RouteComponentProps } from "react-router-dom";
 
-export interface IDesignActionTypes {
-  type: IDesign;
-  view?: string;
-  theme?: string;
+export interface IStoryPageProps {
+  viewType: string;
 }
-
-export interface ITypographyProps {
-  theme?: string;
-  children?: any;
+export interface INameToValueMap {
+  [key: string]: string | number | Map;
 }
 
 export interface IContactDetailsComponent {
@@ -20,21 +16,27 @@ export interface IContactDetailsComponent {
   contact: IContactsTableModel;
 }
 
-export interface IContactViewProps {
-  match?: any;
+type TRouterProps = {
+  id: string;
+  type: string;
+};
+export interface IContactViewProps extends RouteComponentProps<TRouterProps> {
   children?: ReactNode;
+}
+
+export interface IEditableDetailsProps {
+  contact: IContactsTableModel;
+  updateContact: (contact: IContactsTableModel, readOnly?: boolean) => void;
 }
 
 export interface ICheckBoxComponentProps extends IRadioItemProps {
   /** Value of the check box */
   value?: never;
   /** callback function to be don if checkbox or radio  changes it state */
-  onChange: (checked?: any) => void;
+  onChange: (checked?: boolean) => void;
 }
 
 export interface IRadioItemProps {
-  /** React elements to be rendered in created checkbox or radio */
-  children?: any;
   /** *initial state to be set* */
   checked?: boolean;
   /** label text identifies the checkbox or radio element */
@@ -42,12 +44,12 @@ export interface IRadioItemProps {
   /** value of the radio element, whihc will be assigend to radiogroup when it's selected */
   value: string;
   /** callback function to be don if checkbox or radio  changes it state */
-  onChange?: (checked?: any) => void;
+  onChange?: (val?: string) => void;
 }
 
 export interface IRadioGroupProps {
-  children?: any;
-  onChange: any;
+  children?: ReactNode<IRadioItemProps>;
+  onChange: (t: string | ViewEnums) => void;
 }
 
 export interface IEditableInputProps {
@@ -55,13 +57,13 @@ export interface IEditableInputProps {
   fieldName: keyof IContactsTableModel;
   /** A Contact from Database */
   contact: IContactsTableModel;
-  /** Callback funtion that helps to input validation state to sync with its parent */
-  infoCallback: (returnedValue: IInputCallback) => any;
+  /** Callback function that helps to input validation state to sync with its parent */
+  infoCallback: (returnedValue: IInputCallback) => void;
 }
+
 /** Reaturn value of ``infoCallback`` */
 export interface IInputCallback {
   name: string;
-  uniqueName: string;
   valid: boolean;
   value: string;
 }
@@ -69,24 +71,68 @@ export interface IInputCallback {
 export interface IInputProps {
   /** Name of the input field */
   name: string;
+  /** User freindly name of input element to be used as label text*/
+  label: string;
   /**  */
-  uniqueName: string;
+  // uniqueName: string;
+  /** Type of input element */
+  type: "text" | "number" | "phone" | "mail" | "date" | "time";
   /** Value  of the input field */
-  value?: string | string[] | Date;
+  value?: string; //| string[] | Date;
   /** Define whether this field should have a value */
   required: boolean;
-  /** Set correct validation type */
-  validationType?: ValidationTypeEnums;
   /** Should be value of field to be validated. */
   validate: boolean;
-  /** Callback funtion that helps to input validation state to sync with its parent */
-  infoCallback?: (any) => any;
+  /** Defined the Validation rule which should be applied*/
+  validationType?: ValidationTypeEnums;
+  /** Callback function that helps to input validation state to sync with its parent */
+  infoCallback?: (p: IInputCallback) => void;
 }
 
-// export interface IMultiInputProps extends Omit<IInputProps>, "value" {
-//   values?: string[];
-// }
+export interface IMultiInputProps {
+  name: string;
+  defaultProps: IInputProps;
+  values: string[];
+  valid: boolean[];
+  hash?: string;
+  callback: (p: IMultiInputCallback) => void;
+}
+
+export interface IMultiInputCallback {
+  name: string;
+  value: string[];
+  valid: boolean;
+}
+
+export interface IMultiInputActions {
+  type: string;
+  value?: string;
+  index: number;
+  valid: boolean;
+}
+
+export interface IDateTimeProps {
+  /** uniqe in its first parent, to match correct element for save/remove etc*/
+  uniqueId: string;
+  /** Start property of a Worklog */
+  start?: string;
+  /** End property of a Worklog */
+  finish?: string;
+  /** Increment Steps of work time logs */
+  step: number;
+  /** Callback function that helps to input validation state to sync with its parent */
+  infoCallback: (DateTimeValue: IDateTimeCallback) => void;
+  /** Optional callback function, that informs parent to remove that element*/
+  deleteCallback?: (uniqueId) => void;
+}
+
+export interface IDateTimeCallback {
+  start: string;
+  finish: string;
+  valid: boolean;
+}
 /**
+ *
  * props for StartStopButton
  */
 export interface IStartStopButtonProps {
@@ -99,68 +145,117 @@ export interface IStartStopButtonProps {
 }
 
 export interface IButtonProps {
-  children?: any;
-  icon?: IconEnums;
+  icon?: IconNameEnums;
   align?: ButtonAlignmentEnums;
-  onClick: (e: any) => void;
+  onClick: (e: MouseEvent<HTMLDivElement>) => void;
   type: ButtonTypeEnums;
   isDisabled: boolean;
 }
 
 export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
-  href: any;
+  href: string;
+}
+
+/**
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ * ******************     Store reducers and actions
+ * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ */
+
+export interface IDatabaseReducer {
+  db: IDatabaseState;
+}
+export interface IDatabaseState {
+  type: DatabaseActionEnums;
+  action: IDatabaseAction;
+}
+
+export interface IDatabaseAction {
+  nSQL: nSQLInterface;
+}
+
+export interface IMessageReducer {
+  msg: IMessageState;
+}
+
+export interface IMessageState {
+  messages: IMessage[];
+}
+
+export interface IMessageAction {
+  type: IDialogActionEnums;
+  message: IMessage;
+  dialogId?: number;
 }
 
 export interface IMessage {
-  icon: IconEnums;
-  type: IMessageTypeEnums;
+  // icon: IconNameEnums;
   dialogType: DialogTypes;
   caption?: string;
   body: object;
+  footer: object;
   closable?: boolean;
-  dialogId: any;
-  key: any;
-}
-export interface IDialogBodyProp {
-  type: IMessageTypeEnums | IConfirmTypeEnums | DialogTypes;
-  props: any;
+  dialogId: string;
+  // key: number;
 }
 
-export interface IConfirmDeleteContact extends IMessage {
+export interface IConfirmDeleteContact {
   contact: IContactsTableModel;
+  dialogId: string;
 }
 
-export interface IToolbarButton {
-  type: IconEnums;
-  label?: string;
-  disabled?: boolean;
-  hidden?: boolean;
-  clickAction?: string;
-  styles?: any;
-  theme?: any;
+export interface ISubPageReducer {
+  subPage: ISubPageState;
 }
 
-export interface IToolbarButtonAction extends IToolbarButton {
-  nSQL?: any;
-  contact: any;
+export interface ISubPageState {
+  type: SubPageActionEnums;
+  action: ISubPageAction;
 }
 
-export interface IToolbarButtonState {
-  type: string;
-  contact: any;
+export interface ISubPageAction {
+  caption: string;
+  content?: ReactChild;
 }
-export interface IStateDatabase {
-  type: DatabaseActionEnums;
-  nSQL: any;
+
+export interface IEditWorkLogProps {
+  contactID: string;
+  worklogID: string;
+  updateParentCallback: () => void;
+}
+
+export interface IWorklogBadgeProp {
+  contactID: string;
+}
+export interface IWorklogState extends IWorkTableModel {
+  valid: boolean;
+  reloadKey: string;
+}
+
+export interface IWorklogAction {
+  type: AddEditWorklogEnums;
+  worklog?: IWorkTableModel;
+  labour?: IWorkDurationTableModel[];
+  materials?: MaterialItemTableModel[];
+  input?: IInputCallback;
 }
 
 export interface IWorklogInput {
-  nSQL: any;
-  start: Date;
-  finish: Date;
+  nSQL: nSQLInterface;
+  start: string;
+  finish: string;
   description?: string;
 }
 
+export interface IEditTimeLogsProps {
+  theme: ThemeEnums;
+  styles: INameToValueMap;
+}
+
+export interface IEditMaterialLogsProps {
+  theme: ThemeEnums;
+  styles: INameToValueMap;
+}
 export interface IDiff {
   hour: number;
   minute: number;
@@ -168,8 +263,8 @@ export interface IDiff {
 }
 export interface ICounterDiffTime extends IDiff {
   counting?;
-  styles?: any;
-  theme?: any;
+  styles: INameToValueMap;
+  theme: ThemeEnums;
 }
 
 export interface ICounterDiff {
@@ -187,68 +282,86 @@ export interface ICounterTableModel {
 }
 
 export interface IContactsTableModel {
+  [x: string]: string | string[];
   id: string;
-  name?: string;
-  surname: string;
-  street?: string;
-  zip?: string;
-  city?: string;
-  tel?: string[];
-  mobile?: string[];
-  mail?: string[];
-}
-
-export interface IContactsTableQuerie {
   name: string;
-  args: any;
-  call: any;
+  surname: string;
+  street: string;
+  zip: string;
+  city: string;
+  tel: string[];
+  mobile: string[];
+  mail: string[];
 }
 
 export interface IReadOnlyContactProps {
   contact: IContactsTableModel;
-  editContactHandler: (contact: IContactsTableModel, readOnly?: boolean) => any;
+  editContactHandler: (contact: IContactsTableModel, readOnly?: boolean) => void;
 }
-export interface IworkTableModel {
+
+export interface IEditContactDispatchState {
+  contact: IContactsTableModel;
+  readOnly: boolean;
+}
+
+export interface IEditContactProps {
+  /** Database Object which will be edited*/
+  contact: IContactsTableModel;
+  /** Inherit view from parent*/
+  view: ViewEnums;
+  /** Inherit theme from parent */
+  theme: ThemeEnums;
+  /** Inherit styles from parent */
+  styles: INameToValueMap;
+  /** Callback function to revert form to it's readonly state*/
+  onComplete: (p: T) => void;
+}
+
+export interface IEditContactFormAction {
+  type: string;
+  data: { [key: string]: IFormDataType };
+}
+
+export interface IFormData {
+  [key: string]: IFormDataType;
+}
+export interface IFormDataType {
+  value: string | string[];
+  valid: boolean;
+}
+export interface IWorkTableModel {
   id: string;
   contactID: string;
   name: string;
   description: string;
   labour: IWorkDurationTableModel[];
-  materials: IMaterialListTableModel[];
-}
-
-export interface IworkTableQueryArguments {
-  contactID: string;
-}
-
-export interface IworkTableQuery {
-  name: string;
-  args: any;
-  call: any;
+  materials: MaterialItemTableModel[];
 }
 
 export interface IWorkDurationTableModel {
   id: string;
-  start: Date;
-  finish: Date;
+  start: string;
+  finish: string;
   description: string;
-  workID: string;
+  // workID: string;
 }
-
-export interface IMaterialListTableModel {
-  id: string;
-  items: materialItemTableModel[];
-  workID: string;
+export interface IWorklogsEditProps {
+  contact: IContactsTableModel;
 }
+// export interface IMaterialListTableModel {
+//   id: string;
+//   items: MaterialItemTableModel[];
+//   workID: string;
+// }
 
-export interface materialItemTableModel {
+export interface MaterialItemTableModel {
   id: string;
   name: string;
   description: string;
-  price: number;
-  amount: number;
+  price: string;
+  amount: string;
   unit: string;
-  materialListID: string;
+  // materialListID: string;
 }
 
 export interface IMaterialStockTableModel {
@@ -266,7 +379,7 @@ export interface IUnitEnumsTableModel {
 
 export interface IHeadlineProps {
   /** String, DOM elements React elements those will be rendered in the headline  */
-  children: any;
+  size: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 export interface IHeadlineBuilderProps extends IHeadlineProps {
@@ -276,14 +389,18 @@ export interface IHeadlineBuilderProps extends IHeadlineProps {
 
 /** Material Icon properties */
 export interface IIconProps {
-  children: IconEnums;
-  onClick?: () => any;
-  size?: SizeIconEnums;
+  children: IconNameEnums;
+  onClick?: () => void;
+  size?: IconSizeEnums;
 }
 
 export interface IBadgeProps {
   content: number;
-  view?: string;
+  view?: ViewEnums;
+}
+
+export interface ITippProps {
+  children: ReactChildren | ReactNode;
 }
 
 export interface IWorkListItemEntry {
@@ -291,16 +408,33 @@ export interface IWorkListItemEntry {
   labour: [{}];
   materials: [{}];
 }
-
-export interface ISubpageState {
-  type: SubPageViewActionTypes;
-  caption: string;
-  content?: ReactChild;
+export interface INavProps {
+  length: number;
+  goBack?: () => void;
+  goForward?: () => void;
+  theme: string;
+  styles: INameToValueMap;
 }
 
-export interface IFieldNameToType {
-  type: "text" | "number" | "phone" | "mail" | "datetime-local";
-  validationType: ValidationTypeEnums;
+export interface IViewState {
+  type: ViewSettingsEnums;
+  design: IViewActionTypes;
+  title: string;
+}
+
+export interface IViewStateReducer {
+  viewSettings: IViewState;
+}
+
+export interface IViewActionTypes {
+  view: ViewEnums;
+  theme: ThemeEnums;
+}
+
+export interface ICorrectedTimeFromStep {
+  minutes: number;
+  step: number;
+  immediate: boolean;
 }
 
 /**
@@ -309,35 +443,28 @@ export interface IFieldNameToType {
  * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  */
 export enum DatabaseActionEnums {
+  UNDEFINED_DATABASE = uuid(), // "DATABASE_REGISTER_DATABASE",
   REGISTER_DATABASE = uuid(), // "DATABASE_REGISTER_DATABASE",
 }
-export enum IDesign {
-  VIEW = uuid(),
-  THEME = uuid(),
-}
-export enum SubPageViewActionTypes {
+
+export enum SubPageActionEnums {
   SHOW = uuid(), // "SHOW",
   OUT = uuid(), // "OUT",
   HIDE = uuid(), // "HIDE",
 }
 
 export enum ViewSettingsEnums {
+  UPDATE_THEME = uuid(),
   UPDATE_TITLE = uuid(),
 }
 
-/** Style definition enums of Message boxes*/
-export enum IMessageTypeEnums {
-  INFO = uuid(), //"MESSAGES_INFO",
-  WARNING = uuid(), //"MESSAGES_INFO",
-  ERROR = uuid(), //"MESSAGES_ERROR",
-  HIDE_MESSAGE = uuid(), //"MESSAGES_HIDE_MESSAGE",
-  HIDE_ALL_MESSAGES = uuid(), //"MESSAGES_HIDE_ALL_MESSAGES",
-  DELETE_ALL_MESSAGES = uuid(), //"MESSAGES_DELETE_ALL_MESSAGES",
+export interface IMessageContentProps {
+  type?: IMessageTypeEnums;
 }
 
-/** Confirm dialog box types. Extended to Message box, allows users to make a decision. */
-export enum IConfirmTypeEnums {
-  DELETE_CONTACT = uuid(), //"CONFIRM_DELETE_CONTACT",
+export enum IDialogActionEnums {
+  OPEN = uuid(),
+  CLOSE = uuid(),
 }
 
 /**
@@ -345,18 +472,20 @@ export enum IConfirmTypeEnums {
  * ******************     Enums as Constant Values
  * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  */
-export enum DesignEnums {
-  DEFAULT_THEME = "default",
-  OCEAN_THEME = "ocean",
+export enum ViewEnums {
   PRIMARY_VIEW = "primary",
   SECONDARY_VIEW = "secondary",
+}
+export enum ThemeEnums {
+  DEFAULT_THEME = "default",
+  OCEAN_THEME = "ocean",
 }
 
 export enum UserInfo {
   SELECTED_THEME = "USERSETTINGS_SELECTED_THEME",
 }
 
-export enum IconEnums {
+export enum IconNameEnums {
   ADD = "add",
   ARROW_BACK = "arrow_back",
   ARROW_DOWN = "keyboard_arrow_down",
@@ -390,6 +519,16 @@ export enum IconEnums {
 
 export enum NewEntryEnums {
   NEW_CONTACT_ID = "NEW_CONTACT_ID",
+  NEW_WORKLOG_ID = "NEW_WORKLOG_ID",
+}
+
+export enum AddEditWorklogEnums {
+  INIT = "INIT",
+  TITLE = "TITLE",
+  DESCRIPTION = "DESCRIPTION",
+  TIMELOGS = "TIMELOG",
+  MATERIALS = "MATERIALS",
+  UPDATEPARENT = "UPDATE_PARENT",
 }
 
 /** Input labels can be visually label or placeholder */
@@ -405,12 +544,14 @@ export enum ValidationTypeEnums {
   MOBILE = "MOBILE",
   PHONE = "PHONE",
   DATE = "DATE",
+  CURRENCY = "CURRENCY",
+  DECIMAL = "DECIMAL",
 }
 
 export enum ButtonTypeEnums {
   SIMPLE = "simple",
   NEGATIVE = "negative",
-  POISITIVE = "positive",
+  POSITIVE = "positive",
   ERROR = "error",
   WARNING = "warning",
 }
@@ -422,7 +563,7 @@ export enum ButtonAlignmentEnums {
   INLINE = "inline",
 }
 /** Size enums for Material Icons */
-export enum SizeIconEnums {
+export enum IconSizeEnums {
   SMALL = "SMALL",
   MEDIUM = "MEDIUM",
   LARGE = "LARGE",

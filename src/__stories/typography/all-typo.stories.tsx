@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { lorem } from "faker";
 import { H1, H2, H3, H4, H5, H6 } from "../../__ui/headline";
@@ -13,7 +13,7 @@ export default {
 };
 const sentence = lorem.sentence(5);
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <H1>{sentence}</H1>
@@ -26,7 +26,7 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <H1>{sentence}</H1>

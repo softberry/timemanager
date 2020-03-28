@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, ReactElement } from "react";
 
 import ViewContext from "../../views/index";
 
@@ -8,57 +8,59 @@ import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  ISubpageState,
-  SubPageViewActionTypes,
-  SizeIconEnums,
-  IconEnums,
-  DesignEnums,
+  ISubPageReducer,
+  ISubPageState,
+  SubPageActionEnums,
+  IconSizeEnums,
+  IconNameEnums,
+  ThemeEnums,
 } from "../../__typings/interfaces.d";
 import Icon from "../../__ui/icon";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 /**
  *
  */
 
-function SubPageView() {
+function SubPageView(): ReactElement {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   const dispatch = useDispatch();
-  const subPage: ISubpageState = useSelector(
-    ({ subpageview }: any) => subpageview
-  );
+  const subPage: ISubPageState = useSelector(({ subPage }: ISubPageReducer) => subPage);
 
   useEffect(() => {
-    if (subPage.type === SubPageViewActionTypes.OUT) {
+    if (subPage.type === SubPageActionEnums.OUT) {
       setTimeout(() => {
-        dispatch({ type: SubPageViewActionTypes.HIDE });
+        dispatch({ type: SubPageActionEnums.HIDE });
       }, 280);
     }
   }, [subPage, dispatch]);
 
-  if (subPage.type === SubPageViewActionTypes.HIDE) return <></>;
+  if (subPage.type === SubPageActionEnums.HIDE) return <></>;
   return (
     <div className={styles[`SubPageView-${theme}`]}>
       <div className={styles[`Backdrop-${theme}`]}></div>
-      <div
-        className={styles[`Content-${theme}--${view}`]}
-        data-hide-subpage={subPage.type === SubPageViewActionTypes.OUT}
-      >
-        <div className={styles[`Caption-${theme}`]}>{subPage.caption}</div>
+      <div className={styles[`Content-${theme}--${view}`]} data-hide-subpage={subPage.type === SubPageActionEnums.OUT}>
+        <div className={styles[`Caption-${theme}`]}>{subPage.action.caption}</div>
         <div
           className={styles[`Close-${theme}`]}
-          onClick={() => {
-            dispatch({ type: SubPageViewActionTypes.OUT });
+          onClick={(): void => {
+            window.setTimeout((): void => {
+              //
+              dispatch({
+                type: SubPageActionEnums.OUT,
+                action: { caption: "" },
+              });
+            }, 100);
           }}
         >
-          <Icon size={SizeIconEnums.SMALL}>{IconEnums.CLOSE}</Icon>
+          <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLOSE}</Icon>
         </div>
-        <div className={styles[`Text-${theme}`]}>{subPage.content}</div>
+        <div className={styles[`Text-${theme}`]}>{subPage.action.content}</div>
       </div>
     </div>
   );

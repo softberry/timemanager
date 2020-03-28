@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement, FunctionComponent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";
@@ -11,40 +11,57 @@ import {
   IContactsTableModel,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
-  IMessageTypeEnums,
-  DesignEnums,
+  ThemeEnums,
+  IDatabaseReducer,
+  IDialogActionEnums,
+  IconNameEnums,
 } from "../../__typings/interfaces.d";
 import { Checkbox } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-function ConfirmDeleteContactBody({
-  contact,
-  dialogId,
-}: IConfirmDeleteContact) {
+const ConfirmDeleteContactBody: FunctionComponent<IConfirmDeleteContact> = ({ contact }) => {
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
+  return (
+    <>
+      <div className={styles[`Content-${theme}`]}>
+        Are you sure to delete&nbsp;
+        <strong>
+          {contact.name} {contact.surname}
+        </strong>
+        ?
+      </div>
+    </>
+  );
+};
+
+const ConfirmDeleteContactFooter: FunctionComponent<IConfirmDeleteContact> = ({ contact, dialogId }): ReactElement => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
-  const nSQL = useSelector((state: any) => state.db.nSQL);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const [worklogsCount, setWorklogsCount] = useState(-1);
   const [deleteWorklogsToo, setDeleteWorklogsToo] = useState(false);
-  function checkBoxOnChangeHandler(checked: boolean) {
+  function checkBoxOnChangeHandler(checked = false): void {
     setDeleteWorklogsToo(checked);
   }
 
-  function onDeleteButtonSubmit(nSQL: any, id: string) {
+  function onDeleteButtonSubmit(id: string): void {
     if (deleteWorklogsToo) {
       nSQL("workTable")
         .query("delete")
         .where(["contactID", "=", id])
         .exec()
-        .then(() => {});
+        .then(() => {
+          console.log("Worklogs of Contact deleted!");
+        });
     } else {
       nSQL("workTable")
         .query("select")
@@ -58,7 +75,9 @@ function ConfirmDeleteContactBody({
               })
               .where(["id", "=", item.id])
               .exec()
-              .then(() => {});
+              .then(() => {
+                console.log("contactID removed from Work logs of deleted contact!");
+              });
           });
         });
     }
@@ -70,10 +89,12 @@ function ConfirmDeleteContactBody({
       .then(() => {
         history.push("/contacts");
       })
-      .catch((err: any) => {});
+      .catch((err: Error) => {
+        console.log("Contact deleted!");
+      });
     dispatch({
-      type: IMessageTypeEnums.HIDE_MESSAGE,
-      dialogId: dialogId,
+      type: IDialogActionEnums.CLOSE,
+      message: { dialogId: dialogId },
     });
   }
 
@@ -90,13 +111,6 @@ function ConfirmDeleteContactBody({
 
   return (
     <>
-      <div className={styles[`Content-${theme}`]}>
-        Are you sure to delete&nbsp;
-        <strong>
-          {contact.name} {contact.surname}
-        </strong>
-        ?
-      </div>
       {worklogsCount > 0 && (
         <div className={styles[`Content-${theme}`]}>
           <Checkbox
@@ -105,18 +119,17 @@ function ConfirmDeleteContactBody({
           ></Checkbox>
         </div>
       )}
-      <div className={styles[`Footer-${theme}`]}>
-        <Button
-          type={ButtonTypeEnums.SIMPLE}
-          align={ButtonAlignmentEnums.RIGHT}
-          onClick={onDeleteButtonSubmit.bind({}, nSQL, contact.id)}
-          isDisabled={false}
-        >
-          Delete
-        </Button>
-      </div>
+
+      <Button
+        icon={IconNameEnums.CLEAR}
+        type={ButtonTypeEnums.WARNING}
+        align={ButtonAlignmentEnums.RIGHT}
+        onClick={onDeleteButtonSubmit.bind({}, contact.id)}
+        isDisabled={false}
+      >
+        Delete
+      </Button>
     </>
   );
-}
-
-export default ConfirmDeleteContactBody;
+};
+export { ConfirmDeleteContactBody as default, ConfirmDeleteContactFooter };

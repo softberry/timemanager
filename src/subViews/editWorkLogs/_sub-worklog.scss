@@ -1,0 +1,156 @@
+@mixin itemBox($area) {
+  @include WidthUp("small") {
+    padding: rem(0.5) 1 * $font-size;
+  }
+  text-align: left;
+  padding: 0.5 * $font-size;
+  line-height: 1.5;
+  grid-area: $area;
+}
+
+.WorkLogs-#{$theme} {
+  @include WidthUp("small") {
+    margin-bottom: 1 * $font-size;
+  }
+  display: grid;
+  grid-template-columns: 1fr max-content max-content min-content;
+
+  margin-bottom: 0.5 * $font-size;
+  background-color: white;
+
+  grid-template-areas:
+    "name time material icon"
+    "form form form form";
+
+  &-Title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &-Name {
+    @include itemBox(name);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-Time {
+    @include itemBox(time);
+  }
+  &-Icon {
+    @include itemBox(icon);
+  }
+  &-Material {
+    @include itemBox(material);
+    text-align: center;
+  }
+
+  &-EditForm {
+    @include itemBox(form);
+    @include WidthUp("small") {
+      grid-template-areas:
+        "form-name form-name"
+        "form-description form-description"
+        "form-times form-materials";
+    }
+    overflow: hidden;
+    animation: showFormContent 200ms linear;
+    box-shadow: inset 0 4px 4px -4px #ccc;
+    display: grid;
+
+    grid-template-areas:
+      "form-name"
+      "form-description"
+      "form-times"
+      "form-materials";
+
+    &-Title {
+      display: grid;
+      grid-template-columns: 1fr 2 * $font-size;
+      font-weight: 600;
+    }
+
+    &-Name {
+      grid-area: form-name;
+    }
+    &-Description {
+      grid-area: form-description;
+    }
+    &-Times {
+      grid-area: form-times;
+    }
+    &-Materials {
+      grid-area: form-materials;
+    }
+  }
+}
+
+@keyframes showFormContent {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: auto;
+    overflow: auto;
+  }
+}
+
+.TimeLogListItem {
+  display: flex;
+  font-weight: $font-weight-bold;
+  justify-content: space-between;
+}
+
+.WorkLogItem-#{$theme} {
+  margin-bottom: rem(0.5);
+
+  &-FormContent {
+    display: grid;
+    grid-template-areas:
+      "name name name"
+      "desc desc desc"
+      "price amount unit";
+
+    &--Name {
+      grid-area: name;
+    }
+    &--Desc {
+      grid-area: desc;
+    }
+    &--Price {
+      grid-area: price;
+    }
+    &--Amount {
+      grid-area: amount;
+    }
+    &--Unit {
+      grid-area: unit;
+    }
+  }
+}
+.WorkLogs-ListItem {
+  display: grid;
+  grid-template-areas:
+    "name amount total"
+    "description description description";
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr 1fr;
+  &-Name {
+    grid-area: name;
+    font-weight: $font-weight-bold;
+  }
+  &-Description {
+    grid-area: description;
+    font-size: rem(0.75);
+    font-style: italic;
+  }
+  &-Amount {
+    grid-area: amount;
+    text-align: right;
+  }
+  &-Total {
+    grid-area: total;
+    text-align: right;
+  }
+}

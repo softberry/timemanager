@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement, PropsWithChildren } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import "@csstools/normalize.css";
@@ -11,25 +11,19 @@ import Typography from "../__ui/typography";
 import rootReducer from "../store/reducers";
 
 import styles from "./default.module.scss";
-import { DesignEnums } from "../__typings/interfaces.d";
+import { ViewEnums, IStoryPageProps } from "../__typings/interfaces.d";
 
 const store = createStore(rootReducer);
 
-function StoryPage({ children, viewType = "PrimaryView" }: any) {
+const StoryPage = ({ children, viewType = "PrimaryView" }: PropsWithChildren<IStoryPageProps>): ReactElement => {
   return (
-    <ViewContext.Provider
-      value={
-        viewType === "PrimaryView"
-          ? DesignEnums.PRIMARY_VIEW
-          : DesignEnums.SECONDARY_VIEW
-      }
-    >
+    <ViewContext.Provider value={viewType === "PrimaryView" ? ViewEnums.PRIMARY_VIEW : ViewEnums.SECONDARY_VIEW}>
       <Provider store={store}>
         <Typography />
         <div className={styles[viewType]}>{children}</div>
       </Provider>
     </ViewContext.Provider>
   );
-}
+};
 
 export default StoryPage;

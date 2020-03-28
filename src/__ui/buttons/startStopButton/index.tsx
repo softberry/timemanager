@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import {
-  IStartStopButtonProps,
-  DesignEnums,
-} from "../../../__typings/interfaces.d";
+import { IStartStopButtonProps, ThemeEnums } from "../../../__typings/interfaces.d";
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 /**
  * Special button delays onclick event for a given time.
@@ -18,11 +15,11 @@ stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
  * craftmen must keep button
  * at least given `waitForSeconds` of time.
  */
-function StartStopButton({
+const StartStopButton = ({
   onComplete,
   waitForSeconds = 3,
   isTurning = false,
-}: IStartStopButtonProps) {
+}: IStartStopButtonProps): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -31,9 +28,7 @@ function StartStopButton({
   const [counter, setCounter] = useState(0);
 
   const [turnWheel, setTurnWheel] = useState<boolean>(isTurning);
-  let strCountDown: string = isCountingDown
-    ? (waitForSeconds - counter).toString()
-    : "";
+  const strCountDown: string = isCountingDown ? (waitForSeconds - counter).toString() : "";
 
   const infoText = `Press and hold the button for ${strCountDown} seconds`;
 
@@ -44,7 +39,7 @@ function StartStopButton({
   }, [isTurning, turnWheel]);
 
   useEffect(() => {
-    let intervalId: number = -1;
+    let intervalId = -1;
     if (isCountingDown) {
       if (waitForSeconds > counter) {
         intervalId = window.setTimeout(() => {
@@ -67,36 +62,29 @@ function StartStopButton({
 
   return (
     <div className={styles.ButtonWrapper}>
-      {isCountingDown && (
-        <div className={styles[`PressAndHoldInfo-${theme}`]}>{infoText}</div>
-      )}
+      {isCountingDown && <div className={styles[`PressAndHoldInfo-${theme}`]}>{infoText}</div>}
       <div
         className={stateClass}
-        onMouseDown={() => {
+        onMouseDown={(): void => {
           setCounter(0);
           setIsCountingDown(true);
         }}
-        onMouseUp={() => {
+        onMouseUp={(): void => {
           setIsCountingDown(false);
         }}
-        onTouchStart={() => {
+        onTouchStart={(): void => {
           setCounter(0);
           setIsCountingDown(true);
         }}
-        onTouchEnd={() => {
+        onTouchEnd={(): void => {
           setIsCountingDown(false);
         }}
       >
-        {isCountingDown && (
-          <div className={styles[`CountDown-${theme}`]}>{strCountDown}</div>
-        )}
-        <div
-          className={styles[`TimerAnimation-${theme}`]}
-          data-turning={turnWheel ? "yes" : "no"}
-        ></div>
+        {isCountingDown && <div className={styles[`CountDown-${theme}`]}>{strCountDown}</div>}
+        <div className={styles[`TimerAnimation-${theme}`]} data-turning={turnWheel ? "yes" : "no"}></div>
       </div>
     </div>
   );
-}
+};
 
 export default StartStopButton;

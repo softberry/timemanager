@@ -11,3 +11,14 @@
     }
   }
 }
+
+.InputWrapper {
+  display: flex;
+  align-items: center;
+  &-input {
+    flex-grow: 1;
+  }
+  &-icon {
+    flex-shrink: 1;
+  }
+}

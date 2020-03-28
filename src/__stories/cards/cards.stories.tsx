@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { lorem } from "faker";
 import Card, { CardTitle, CardBody, CardFooter } from "../../__ui/card";
@@ -6,7 +6,7 @@ import Button from "../../__ui/buttons/button";
 import StoryPage from "../story-page";
 import { action } from "@storybook/addon-actions";
 
-import { IconEnums, ButtonTypeEnums } from "../../__typings/interfaces.d";
+import { IconNameEnums, ButtonTypeEnums } from "../../__typings/interfaces.d";
 export default {
   title: "Cards",
   parameters: {
@@ -15,7 +15,7 @@ export default {
   },
 };
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <Card>
@@ -23,13 +23,13 @@ export const Primary = () => {
         <CardBody>{lorem.paragraphs(2)}</CardBody>
         <CardFooter>
           <Button
-            icon={IconEnums.ADD}
+            icon={IconNameEnums.ADD}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}
           />
           <Button
-            icon={IconEnums.ADD}
+            icon={IconNameEnums.ADD}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}
@@ -37,7 +37,7 @@ export const Primary = () => {
             {lorem.words(4)}
           </Button>
           <Button
-            icon={IconEnums.ADD}
+            icon={IconNameEnums.ADD}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}
@@ -45,7 +45,7 @@ export const Primary = () => {
             {lorem.words(4)}
           </Button>
           <Button
-            icon={IconEnums.ADD}
+            icon={IconNameEnums.ADD}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}
@@ -58,20 +58,20 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <Card>
         <CardTitle>
           {lorem.words(3)}
           <Button
-            icon={IconEnums.CLOSE}
+            icon={IconNameEnums.CLOSE}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}
           />
           <Button
-            icon={IconEnums.CLOSE}
+            icon={IconNameEnums.CLOSE}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}
@@ -80,13 +80,13 @@ export const Secondary = () => {
         <CardBody>{lorem.paragraphs(2)}</CardBody>
         <CardFooter>
           <Button
-            icon={IconEnums.ADD}
+            icon={IconNameEnums.ADD}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}
           />
           <Button
-            icon={IconEnums.ADD}
+            icon={IconNameEnums.ADD}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}
@@ -94,7 +94,7 @@ export const Secondary = () => {
             {lorem.words(4)}
           </Button>
           <Button
-            icon={IconEnums.ADD}
+            icon={IconNameEnums.ADD}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}
@@ -102,7 +102,7 @@ export const Secondary = () => {
             {lorem.words(4)}
           </Button>
           <Button
-            icon={IconEnums.ADD}
+            icon={IconNameEnums.ADD}
             isDisabled={false}
             onClick={action("button-click")}
             type={ButtonTypeEnums.SIMPLE}

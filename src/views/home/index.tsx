@@ -1,18 +1,21 @@
-import React from "react";
+import React, { ReactElement, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import DefaultLayout from "../../layout/layout.default";
 import Timer from "../../components/timer";
 
 import ViewContext from "../index";
-import { ViewSettingsEnums, DesignEnums } from "../../__typings/interfaces.d";
+import { ViewSettingsEnums, ViewEnums } from "../../__typings/interfaces.d";
 
-function HomeView() {
+function HomeView(): ReactElement {
   const dispatch = useDispatch();
-  dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "" });
+
+  useEffect(() => {
+    dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "" });
+  });
 
   return (
-    <ViewContext.Provider value={DesignEnums.PRIMARY_VIEW}>
+    <ViewContext.Provider value={ViewEnums.PRIMARY_VIEW}>
       <DefaultLayout>
         <Timer />
       </DefaultLayout>

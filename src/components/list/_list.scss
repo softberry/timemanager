@@ -1,43 +1,22 @@
-@mixin ListItem($variant) {
-  display: grid;
-  align-items: center;
-  grid-template-areas: "list-item-contact badge";
-  grid-template-columns: auto min-content;
-  padding: 2px 0;
-  background-color: rgba(#fff, 0.75);
+@mixin list-item($variant) {
+  @include WidthUp("small") {
+    padding: 0 rem(1);
+  }
+  padding: 0 rem(0.5);
+  box-sizing: border-box;
+  background-color: rgba(color-palette($variant, "card", "background"), 0.75);
   margin-bottom: 0;
-  box-shadow: 1px 1px 1px 0px
-    darken(color-palette($variant, "main", "background"), 24%);
-
-  &-Contact {
-    line-height: 2.5;
-    padding: 0 1 * $font-size;
-    box-sizing: border-box;
-  }
-
-  &-Contact {
-    grid-area: list-item-contact;
-    overflow: hidden;
-    position: relative;
-    padding: 0 1 * $font-size;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  &-Badge {
-    grid-area: badge;
-  }
+  border-bottom: rgba(color-palette($variant, "card", "text"), 0.2) 1px solid;
 }
 
 .List-#{$theme} {
-  height: 100%;
-}
-
-.ListItem-#{$theme} {
-  &-primary {
-    @include ListItem("primary");
-  }
-  &-secondary {
-    @include ListItem("secondary");
+  // height: 100%;
+  &-Item {
+    &-primary {
+      @include list-item("primary");
+    }
+    &-secondary {
+      @include list-item("secondary");
+    }
   }
 }

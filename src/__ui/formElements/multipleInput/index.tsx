@@ -1,12 +1,13 @@
-import React, { useState, useCallback } from "react";
+import React, { FunctionComponent, useReducer, useEffect, useMemo } from "react";
 
 import {
-  IInputProps,
-  IconEnums,
+  IconNameEnums,
   ButtonTypeEnums,
   ButtonAlignmentEnums,
   IInputCallback,
-  DesignEnums,
+  ThemeEnums,
+  IMultiInputProps,
+  IMultiInputActions,
 } from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -14,101 +15,131 @@ import themeOcean from "./theme-ocean.module.scss";
 
 import Button from "../../buttons/button";
 import Input from "../index";
+
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-/** render All input elements from the list of values  */
-function AllInputs({
-  name,
-  value = [],
-  required,
-  validate,
-  infoCallback,
-}: IInputProps): any {
-  const valuesArray: string[] = Array.isArray(value) ? value : [];
-  const InputElements = valuesArray.map((val, keyIndex) => {
-    const field: IInputProps = {
-      name: `${name}`,
-      uniqueName: `${name}-${keyIndex}`,
-      value: val,
-      required,
-      validate,
-      infoCallback,
-    };
+function formReducer(state: IMultiInputProps, action: IMultiInputActions): IMultiInputProps {
+  switch (action.type) {
+    case "ADD":
+      return {
+        ...state,
+        hash: JSON.stringify(state),
+        values: [...state.values, ""],
+        valid: [...state.valid, false],
+      };
 
-    return (
-      <div key={keyIndex}>
-        <Input {...field} />
-      </div>
-    );
-  });
+    case "REMOVE":
+      if (action.index === undefined) return state;
+      if (state.values[action.index] === action.value) {
+        state.values = state.values.filter((v: string, i: number) => v !== action.value);
+      }
 
-  return InputElements;
+      return {
+        ...state,
+        hash: JSON.stringify(state),
+      };
+    case "EDIT":
+      if (action.index < 0) return state;
+      state.values[action.index] = action?.value || "";
+      state.valid[action.index] = action.valid;
+
+      return {
+        ...state,
+        hash: JSON.stringify(state),
+      };
+    default: {
+      return { ...state };
+    }
+  }
 }
 
 /** Creates a group of input elements, which behaves like an  independent form element.
  * Children inputs inherits valid and required props from ``MultipleInput``.
  * As long as all child elements passes validations test, ``MultipleInput`` will be valid.
  */
-function MultipleInput(props: IInputProps): any {
+const MultipleInput: FunctionComponent<IMultiInputProps> = ({
+  name,
+  defaultProps,
+  values,
+  valid,
+  hash = "",
+  callback,
+}) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-  const [inputProps, setInputProps] = useState({
-    ...props,
-    infoCallback: multifieldInfoCallback,
+
+  const [form, disatchForm] = useReducer(formReducer, {
+    name,
+    defaultProps,
+    values,
+    valid,
+    hash,
+    callback,
   });
 
-  const fieldState = new Map();
-  const [childrenInputsState, setChildrenInputsState] = useState(fieldState);
+  const memoizedCallbackData = useMemo(() => {
+    return {
+      name: form.name,
+      valid: form.valid.reduce((prev: boolean, cur: boolean) => prev === true && cur === true),
+      value: form.values,
+      hash: form.hash,
+    };
+  }, [form.name, form.values, form.valid, form.hash]);
 
-  function multifieldInfoCallback(returnedValue: IInputCallback) {
-    const { name, uniqueName, value, valid } = returnedValue;
-
-    const updatedFieldState = childrenInputsState;
-    updatedFieldState.set(uniqueName, { valid, value, name });
-    setChildrenInputsState(updatedFieldState);
-    memoizedMultiFieldValidState();
+  function addNewFieldHandler(): void {
+    disatchForm({ type: "ADD", index: -1, valid: false });
   }
 
-  const memoizedMultiFieldValidState = useCallback(() => {
-    if (typeof props.infoCallback === "function") {
-      const valid =
-        Array.from(childrenInputsState.values()).filter(
-          ({ valid }) => valid === false
-        ).length === 0;
-      const extractValueArray = Array.from(childrenInputsState.values()).map(
-        ({ value }) => value
-      );
-      const filteredValue = extractValueArray.filter(v => v.length > 0);
-
-      props.infoCallback({ ...props, value: filteredValue, valid });
+  function removeField(index: number, value: string): void {
+    if (form.values[index] === value) {
+      disatchForm({ type: "REMOVE", index, value, valid: false });
     }
-  }, [childrenInputsState, props]);
-
-  function addNewFieldHandler() {
-    const values: string[] = Array.isArray(inputProps.value)
-      ? inputProps.value
-      : [""];
-    setInputProps({ ...inputProps, value: [...values, ""] });
   }
 
+  function updateForm(p: IInputCallback): void {
+    const index = parseInt(p.name);
+    if (form.values[index] === p.value && form.valid[index] === p.valid) return;
+
+    disatchForm({ type: "EDIT", index, value: p.value, valid: p.valid });
+  }
+  useEffect(() => {
+    callback(memoizedCallbackData);
+  }, [callback, memoizedCallbackData, form.hash]);
   return (
     <div className={styles[`MultipleInputContainer-${theme}`]}>
-      <AllInputs {...inputProps} />
+      {form.values.map((value: string, i: number) => (
+        <div key={i} className={styles.InputWrapper}>
+          <div className={styles["InputWrapper-input"]}>
+            <Input {...form.defaultProps} name={`${i}`} value={value} infoCallback={updateForm} />
+          </div>
+          <div className={styles["InputWrapper-icon"]}>
+            <Button
+              onClick={(): void => {
+                removeField(i, value);
+              }}
+              icon={IconNameEnums.TRASH}
+              align={ButtonAlignmentEnums.INLINE}
+              isDisabled={false}
+              type={ButtonTypeEnums.WARNING}
+            ></Button>
+          </div>
+        </div>
+      ))}
       <div className={styles[`MultipleInputContainer-${theme}-add-new`]}>
         <Button
-          icon={IconEnums.ADD}
+          icon={IconNameEnums.ADD}
           type={ButtonTypeEnums.SIMPLE}
           onClick={addNewFieldHandler}
           isDisabled={false}
           align={ButtonAlignmentEnums.STRETCH}
         >
-          New {props.name} field
+          {`New ${defaultProps.label} field`}
         </Button>
       </div>
     </div>
   );
-}
+};
 
 export default MultipleInput;

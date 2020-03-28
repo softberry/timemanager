@@ -1,10 +1,10 @@
-import React from "react";
-import Typography from "./__ui/typography";
+import React, { ReactElement, useEffect } from "react";
+import Typography, { useTheme } from "./__ui/typography";
 import NanoDataBase from "./db";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { Provider, useSelector, useDispatch } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 
 import rootReducer from "./store/reducers";
 
@@ -12,31 +12,35 @@ import "./index.scss";
 
 import Home from "./views/home";
 import ContactsListView from "./views/contactslist";
-import WorklogsListView from "./views/worklogs";
-import SettingsView from "./views/settings";
+import TimelogsListView from "./views/timelogs";
+import SettingsView from "./views/options";
 //---
 import ContactView from "./views/contact";
 import Message from "./components/message";
 
-import { IDesign, DesignEnums, UserInfo } from "./__typings/interfaces.d";
+import { ThemeEnums, UserInfo, ViewSettingsEnums } from "./__typings/interfaces.d";
 
 const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
 
-function Page() {
-  document.oncontextmenu = function() {
+const Page = (): ReactElement => {
+  document.oncontextmenu = (): boolean => {
     return false;
   };
-  const theme = useSelector((state: any) => state.design.theme);
-  const savedTheme =
-    window.localStorage.getItem(UserInfo.SELECTED_THEME) ||
-    DesignEnums.DEFAULT_THEME;
+
+  const theme = useTheme();
+  const savedTheme = window.localStorage.getItem(UserInfo.SELECTED_THEME) || ThemeEnums.DEFAULT_THEME;
+
   const dispatch = useDispatch();
-  if (theme !== savedTheme) {
-    dispatch({
-      type: IDesign.THEME,
-      theme: savedTheme,
-    });
-  }
+  useEffect(() => {
+    if (theme !== savedTheme) {
+      dispatch({
+        type: ViewSettingsEnums.UPDATE_THEME,
+        design: {
+          theme: savedTheme,
+        },
+      });
+    }
+  }, [dispatch, theme, savedTheme]);
 
   return (
     <Router>
@@ -45,8 +49,8 @@ function Page() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/contacts" component={ContactsListView} />
-            <Route exact path="/worklogs" component={WorklogsListView} />
-            <Route exact path="/settings" component={SettingsView} />
+            <Route exact path="/worklogs" component={TimelogsListView} />
+            <Route exact path="/options" component={SettingsView} />
             <Route exact path="/contact/:type/:id" component={ContactView} />
           </Switch>
         </NanoDataBase>
@@ -54,13 +58,14 @@ function Page() {
       </Typography>
     </Router>
   );
-}
+};
 
-function App() {
+const App = (): ReactElement => {
   return (
     <Provider store={TimerAppStore}>
       <Page />
     </Provider>
   );
-}
+};
+
 export { App as default, TimerAppStore };

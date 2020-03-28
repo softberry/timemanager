@@ -1,4 +1,4 @@
-import { InanoSQLTableConfig } from "@nano-sql/core/lib/interfaces";
+import { InanoSQLTableConfig, InanoSQLInstance, InanoSQLQuery, InanoSQLDataModel } from "@nano-sql/core/lib/interfaces";
 import { NewEntryEnums } from "../../__typings/interfaces.d";
 
 /**
@@ -58,8 +58,15 @@ const contactsTable: InanoSQLTableConfig = {
   queries: [
     {
       name: "createNewEmptyUserEntryForEdit",
-      args: {},
-      call: (db: any, args: any) => {
+      // args: {},
+      call: (
+        db: InanoSQLInstance,
+        args?:
+          | string
+          | {
+              [colAndType: string]: InanoSQLDataModel;
+            }
+      ): InanoSQLQuery => {
         return db.query("upsert", { id: NewEntryEnums.NEW_CONTACT_ID }).emit();
       },
     },
@@ -73,36 +80,38 @@ const workTable: InanoSQLTableConfig = {
     "id:uuid": { pk: true },
     "contactID:string": { notNull: true },
     "name:string": {},
-    "labour:string[]": {}, // workDurationTable
-    "materials:string[]": {}, // materialItemTable
+    "labour:any[]": {
+      notNull: false,
+      model: {
+        "id:uuid": { pk: true },
+        "start:string": {},
+        "finish:string": {},
+        "description:string": {},
+      },
+    }, // workDurationTable
+    "materials:any[]": {
+      model: {
+        "id:uuid": { pk: true },
+        "name:string": { notNull: true },
+        "description:string": {},
+        "price:float": {},
+        "amount:float": {},
+        "unit:string": { default: "n/a" },
+        // "materialListID:string": {},
+      },
+    }, // materialItemTable
     "description:string": {},
   },
   queries: [
-    {
-      name: "createNewWorkLogForContact",
-      args: {
-        "contactID:uuid": {},
-      },
-      call: (db: any, args: any) => {
-        const work = {
-          name: "New Work Log",
-          contactID: args.contactID,
-          labour: [],
-          materials: [],
-          description: "",
-        };
-        return db.query("upsert", work).emit();
-      },
-    },
     {
       name: "getWorkLogsOfContact",
       args: {
         "contactID:uuid": {},
       },
-      call: (db: any, args: any) => {
+      call: (db: InanoSQLInstance, args: { contactID: string }): InanoSQLQuery => {
         return db
           .query("select")
-          .where(["contactID", "=", args.contactID])
+          .where([["contactID", "=", args.contactID], "AND", ["id", "!=", NewEntryEnums.NEW_WORKLOG_ID]])
           .emit();
       },
     },
@@ -131,14 +140,14 @@ const workDurationTable: InanoSQLTableConfig = {
 //  Material-List-Table
 //  ID - WORKID - MATERIALID - AMOUNT - PRICE - NOTES
 
-const materialListTable: InanoSQLTableConfig = {
-  name: "materialListTable",
-  model: {
-    "id:uuid": { pk: true },
-    "items:materialItemTable[]": {},
-    "workID:string": {},
-  },
-};
+// const materialListTable: InanoSQLTableConfig = {
+//   name: "materialListTable",
+//   model: {
+//     "id:uuid": { pk: true },
+//     "items:materialItemTable[]": {},
+//     "workID:string": {},
+//   },
+// };
 
 // Material-Item-Table
 // ID - NAME - DESCRIPTION - PRICE - UNIT-NAME(kg, meter, litre etc.)
@@ -152,7 +161,7 @@ const materialItemTable: InanoSQLTableConfig = {
     "price:float": {},
     "amount:float": {},
     "unit:string": { default: "n/a" },
-    "materialListID:string": {},
+    // "materialListID:string": {},
   },
 };
 
@@ -186,7 +195,7 @@ const counterModelTables = [
   workTable,
   workDurationTable,
   materialItemTable,
-  materialListTable,
+  // materialListTable,
   materialStockTable,
   unitEnumsTable,
 ];

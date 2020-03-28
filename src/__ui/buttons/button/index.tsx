@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, MouseEvent, FunctionComponent, Children } from "react";
 import { Link } from "react-router-dom";
 
 import { useTheme, useThemeStyle } from "../../typography";
@@ -7,32 +7,32 @@ import themeOcean from "./theme-ocean.module.scss";
 
 import Icon from "../../icon";
 import {
-  SizeIconEnums,
+  IconSizeEnums,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
   IButtonProps,
   IButtonLinkProps,
-  DesignEnums,
+  ThemeEnums,
 } from "../../../__typings/interfaces.d";
 import ViewContext from "../../../views";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-function Button({
+const Button: FunctionComponent<IButtonProps> = ({
   children,
   icon,
   onClick,
   align = undefined,
   type = ButtonTypeEnums.SIMPLE,
   isDisabled = true,
-}: IButtonProps) {
+}) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
-  const iconOnly = children === undefined || children.toString().length === 0;
-  const clickHandler = isDisabled ? () => {} : onClick;
+  const iconOnly = children === undefined || Children.count(children) === 0;
+  const clickHandler = isDisabled ? (): boolean => false : onClick;
 
   return (
     <div className={styles["Button-Container"]} data-align={align}>
@@ -43,53 +43,41 @@ function Button({
         data-disabled={isDisabled}
       >
         <button>
-          {icon && <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>}
-          {!iconOnly && (
-            <span className={styles[`Btn-${theme}-${view}--${type}-innerText`]}>
-              {children}
-            </span>
-          )}
+          {icon && <Icon size={IconSizeEnums.SMALL}>{icon}</Icon>}
+          {!iconOnly && <span className={styles[`Btn-${theme}-${view}--${type}-innerText`]}>{children}</span>}
         </button>
       </div>
     </div>
   );
-}
+};
 
-function ButtonLink({
+const ButtonLink: FunctionComponent<IButtonLinkProps> = ({
   children,
   icon,
   href,
   align = ButtonAlignmentEnums.CENTER,
   type = ButtonTypeEnums.SIMPLE,
   isDisabled = true,
-}: IButtonLinkProps) {
+}) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
-  const iconOnly = children === undefined || children.toString().length === 0;
+  const iconOnly = children === undefined || Children.count(children) === 0;
 
   return (
-    <div
-      className={styles["Button-Container"]}
-      data-align={align}
-      data-icon-only={iconOnly}
-    >
-      <div
-        className={styles[`Btn-${theme}-${view}--${type}`]}
-        data-icon-only={iconOnly}
-        data-disabled={isDisabled}
-      >
+    <div className={styles["Button-Container"]} data-align={align} data-icon-only={iconOnly}>
+      <div className={styles[`Btn-${theme}-${view}--${type}`]} data-icon-only={iconOnly} data-disabled={isDisabled}>
         <Link
           to={href}
-          onClick={e => {
-            isDisabled && e.preventDefault();
+          onClick={(event: MouseEvent<HTMLAnchorElement>): void => {
+            isDisabled && event.preventDefault();
           }}
         >
-          {icon && <Icon size={SizeIconEnums.SMALL}>{icon}</Icon>}
+          {icon && <Icon size={IconSizeEnums.SMALL}>{icon}</Icon>}
           <span>{children}</span>
         </Link>
       </div>
     </div>
   );
-}
+};
 export { Button as default, ButtonLink };

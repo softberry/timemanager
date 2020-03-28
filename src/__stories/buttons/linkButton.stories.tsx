@@ -1,17 +1,13 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { withKnobs } from "@storybook/addon-knobs";
 import { select, text, boolean } from "@storybook/addon-knobs";
 
 import { ButtonLink } from "../../__ui/buttons/button";
-import {
-  IconEnums,
-  ButtonTypeEnums,
-  ButtonAlignmentEnums,
-} from "../../__typings/interfaces.d";
+import { IconNameEnums, ButtonTypeEnums, ButtonAlignmentEnums } from "../../__typings/interfaces.d";
 
 import StoryPage from "../story-page";
-const notes = require("./notes.md");
+import * as notes from "./notes.md";
 
 export default {
   title: "Form Elements/Buttons/Link Buttons",
@@ -22,22 +18,14 @@ export default {
   },
 };
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <Router>
         <ButtonLink
-          icon={select("Icons", Object.values(IconEnums), IconEnums.ADD)}
-          type={select(
-            "Button Types",
-            Object.values(ButtonTypeEnums),
-            ButtonTypeEnums.SIMPLE
-          )}
-          align={select(
-            "Alignment",
-            Object.values(ButtonAlignmentEnums),
-            ButtonAlignmentEnums.CENTER
-          )}
+          icon={select("Icons", Object.values(IconNameEnums), IconNameEnums.ADD)}
+          type={select("Button Types", Object.values(ButtonTypeEnums), ButtonTypeEnums.SIMPLE)}
+          align={select("Alignment", Object.values(ButtonAlignmentEnums), ButtonAlignmentEnums.CENTER)}
           isDisabled={Boolean(boolean("Disabled", false))}
           href="/"
         >
@@ -48,22 +36,14 @@ export const Primary = () => {
   );
 };
 
-export const Secondary = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <Router>
         <ButtonLink
-          icon={select("Icons", Object.values(IconEnums), IconEnums.ADD)}
-          type={select(
-            "Button Types",
-            Object.values(ButtonTypeEnums),
-            ButtonTypeEnums.SIMPLE
-          )}
-          align={select(
-            "Alignment",
-            Object.values(ButtonAlignmentEnums),
-            ButtonAlignmentEnums.CENTER
-          )}
+          icon={select("Icons", Object.values(IconNameEnums), IconNameEnums.ADD)}
+          type={select("Button Types", Object.values(ButtonTypeEnums), ButtonTypeEnums.SIMPLE)}
+          align={select("Alignment", Object.values(ButtonAlignmentEnums), ButtonAlignmentEnums.CENTER)}
           isDisabled={Boolean(boolean("Disabled", false))}
           href="/"
         >

@@ -1,16 +1,15 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import Autocomplete from "../../__ui/autocomplete";
 
 import StoryPage from "../story-page";
-import { DesignEnums } from "../../__typings/interfaces.d";
 
 export default {
   title: "Autocomplete",
   component: Autocomplete,
 };
 
-export const Primary = function() {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <div
@@ -21,12 +20,12 @@ export const Primary = function() {
           justifyContent: "center",
         }}
       >
-        <Autocomplete variant={DesignEnums.PRIMARY_VIEW} />
+        <Autocomplete />
       </div>
     </StoryPage>
   );
 };
-export const secondary = function() {
+export const secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <div
@@ -37,7 +36,7 @@ export const secondary = function() {
           justifyContent: "center",
         }}
       >
-        <Autocomplete variant={DesignEnums.SECONDARY_VIEW} />
+        <Autocomplete />
       </div>
     </StoryPage>
   );

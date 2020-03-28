@@ -1,0 +1,24 @@
+@mixin tipp() {
+  border-radius: rem(0.25);
+  display: flex;
+  align-content: center;
+  padding: 0.25em 0.5em;
+  margin-bottom: rem(0.5);
+  font-size: rem(0.75);
+  opacity: 0.9;
+  font-style: italic;
+
+  &-Content {
+    display: block;
+    align-self: center;
+  }
+}
+
+.Tipp-#{$theme} {
+  &-primary {
+    @include tipp();
+  }
+  &-secondary {
+    @include tipp();
+  }
+}

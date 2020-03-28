@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, ReactElement, ReactFragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+
 import List from "../list";
 import Button from "../../__ui/buttons/button";
+import Badge from "../../__ui/badge";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -11,28 +13,56 @@ import {
   IContactsTableModel,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
-  IconEnums,
+  IconNameEnums,
   NewEntryEnums,
   ViewSettingsEnums,
-  DesignEnums,
+  ThemeEnums,
+  IDatabaseReducer,
+  IWorklogBadgeProp,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
 
 const stylesMap = new Map();
-stylesMap.set(DesignEnums.OCEAN_THEME, themeOcean);
-stylesMap.set(DesignEnums.DEFAULT_THEME, themeDefault);
+stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
+stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-function ContactsList() {
+const ContactsList = (): ReactElement => {
   const view = useContext(ViewContext);
-  const nSQL = useSelector((state: any) => state.db.nSQL);
-  const [ready, setReady] = useState(false);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
+
   const [contacts, setContacts] = useState<IContactsTableModel[]>([]);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const dispatch = useDispatch();
   const history = useHistory();
-  const createContactClickHandler = () => {
+
+  const WorkLogBadgeFromID = ({ contactID }: IWorklogBadgeProp): ReactElement => {
+    const [queried, setQueried] = useState(false);
+    const [count, setCount] = useState(0);
+    const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
+
+    useEffect(() => {
+      if (typeof nSQL !== "function" || queried) return;
+      setQueried(true);
+      nSQL("workTable")
+        .presetQuery("getWorkLogsOfContact", { contactID })
+        .exec()
+        .then((logs: []) => {
+          setCount(logs.length);
+        })
+        .catch((err: Error) => {
+          throw err;
+        });
+    }, [nSQL, contactID, queried]);
+    useEffect(() => {
+      if (count === 0) return;
+    }, [count]);
+
+    return <>{count > 0 && <Badge content={count} view={view} />}</>;
+  };
+
+  const createContactClickHandler = (): void => {
     nSQL("contactsTable")
       .presetQuery("createNewEmptyUserEntryForEdit")
       .exec()
@@ -48,32 +78,41 @@ function ContactsList() {
       .exec()
       .then((list: [IContactsTableModel]) => {
         setContacts(list);
-        setReady(true);
       });
   }, [nSQL]);
 
   useEffect(() => {
-    if (!ready) return;
-  }, [ready]);
-
-  dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Contacts" });
+    dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Contacts" });
+  });
 
   return (
     <div className={styles[`Contacts-${theme}-${view}`]}>
       <div className={styles[`Contacts-${theme}-${view}-Create-New`]}>
         <Button
-          icon={IconEnums.ADD}
+          icon={IconNameEnums.ADD}
           align={ButtonAlignmentEnums.RIGHT}
           isDisabled={false}
           onClick={createContactClickHandler}
-          type={ButtonTypeEnums.POISITIVE}
+          type={ButtonTypeEnums.POSITIVE}
         >
           Create Contact
         </Button>
       </div>
-
-      <List title="Contacts" list={contacts} type="CONTACTS_LIST" view={view} />
+      <List>
+        {contacts.map(
+          (item: IContactsTableModel, key: number): ReactFragment => (
+            <Link to={`/contact/details/${item.id}`} key={key} className={styles[`Contacts-${theme}-${view}-Entry`]}>
+              <div className={styles[`Contacts-${theme}-${view}-Entry-Item`]}>
+                {item.name} {item.surname}
+              </div>
+              <div className={styles[`Contacts-${theme}-${view}-Entry-Badge`]}>
+                <WorkLogBadgeFromID contactID={item.id} />
+              </div>
+            </Link>
+          )
+        )}
+      </List>
     </div>
   );
-}
+};
 export default ContactsList;

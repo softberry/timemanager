@@ -1,7 +1,32 @@
-@mixin contacts() {
+@mixin contactEntry($variant) {
+  display: grid;
+  align-items: center;
+  grid-template-areas: "list-item-contact badge";
+  grid-template-columns: auto min-content;
+  padding: rem(0.5) 0;
+
+  &-Item {
+    grid-area: list-item-contact;
+    overflow: hidden;
+    position: relative;
+    padding: 0 1 * $font-size;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+@mixin contacts($variant) {
   @include view;
   &-Create-New {
     margin-bottom: rem(0.5);
+  }
+
+  &-Entry {
+    @include contactEntry($variant);
+
+    &-Badge {
+      grid-area: badge;
+    }
   }
 }
 
@@ -9,12 +34,12 @@
   &-primary {
     @include layer-bg("primary");
     @include layer-color("primary");
-    @include contacts();
+    @include contacts("primary");
   }
 
   &-secondary {
     @include layer-bg("secondary");
     @include layer-color("secondary");
-    @include contacts();
+    @include contacts("secondary");
   }
 }

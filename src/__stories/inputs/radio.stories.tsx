@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import RadioGroup from "../../__ui/formElements/radiogroup/radio-group";
 import Radio from "../../__ui/formElements/radiogroup/radio";
 import StoryPage from "../story-page";
@@ -12,27 +12,24 @@ export default {
   },
 };
 
-const radioGroup = (({ len }) => {
+const radioGroup = (({ len }): ReactElement[] => {
   const seletcedIndex = random.number({ min: 0, max: len });
-  return new Array(len).fill("").map((chk, i) => {
-    return (
-      <Radio
-        key={i}
-        checked={i === seletcedIndex}
-        label={lorem.words(4)}
-        value={`ABC-${i}`}
-      >
-        <span>{lorem.paragraph()}</span>
-      </Radio>
-    );
-  });
+  return new Array(len).fill("").map(
+    (chk: string, i: number): ReactElement => {
+      return (
+        <Radio key={i} checked={i === seletcedIndex} label={lorem.words(4)} value={`ABC-${i}`}>
+          <span>{lorem.paragraph()}</span>
+        </Radio>
+      );
+    }
+  );
 })({ len: 3 });
 
-export const Primary = function() {
+export const Primary = function(): ReactElement {
   return (
     <StoryPage viewType="PrimaryView">
       <RadioGroup
-        onChange={(val: any) => {
+        onChange={(val: string | number): void => {
           console.log("PrimaryView RadioGroup[1] value", val);
         }}
       >
@@ -40,7 +37,7 @@ export const Primary = function() {
       </RadioGroup>
       <hr />
       <RadioGroup
-        onChange={(val: any) => {
+        onChange={(val: string | number): void => {
           console.log("PrimaryView RadioGroup[2] value", val);
         }}
       >
@@ -50,11 +47,11 @@ export const Primary = function() {
   );
 };
 
-export const secondary = function() {
+export const Secondary = function(): ReactElement {
   return (
     <StoryPage viewType="SecondaryView">
       <RadioGroup
-        onChange={(val: string) => {
+        onChange={(val: string | number): void => {
           console.log("SecondaryView RadioGroup[1] value", val);
         }}
       >

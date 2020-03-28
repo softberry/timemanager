@@ -1,44 +1,32 @@
-import {
-  ValidationTypeEnums,
-  IFieldNameToType,
-} from "../__typings/interfaces.d";
+import { ICorrectedTimeFromStep } from "../__typings/interfaces.d";
+import moment from "moment";
 
-const Text: IFieldNameToType = {
-  type: "text",
-  validationType: ValidationTypeEnums.TEXT,
+const correctedTimeFromStep = ({ minutes = 0, step = 0, immediate = false }: ICorrectedTimeFromStep): number => {
+  const rest = minutes % step;
+  const increaseImmediately = rest === 0 ? 0 : 1;
+  const increaseAfter = rest >= 0 ? 0 : 1;
+  return minutes - rest + (immediate ? increaseImmediately : increaseAfter) * step;
 };
 
-const DateTimeLocal: IFieldNameToType = {
-  type: "datetime-local",
-  validationType: ValidationTypeEnums.DATE,
-};
-const Phone: IFieldNameToType = {
-  type: "phone",
-  validationType: ValidationTypeEnums.PHONE,
-};
-const Mail: IFieldNameToType = {
-  type: "mail",
-  validationType: ValidationTypeEnums.MAIL,
-};
-
-const fieldNameToTypeMap = new Map();
-
-fieldNameToTypeMap.set("name", Text);
-fieldNameToTypeMap.set("surname", Text);
-fieldNameToTypeMap.set("street", Text);
-fieldNameToTypeMap.set("city", Text);
-fieldNameToTypeMap.set("zip", Text);
-fieldNameToTypeMap.set("tel", Phone);
-fieldNameToTypeMap.set("mobile", Phone);
-fieldNameToTypeMap.set("mail", Mail);
-
-fieldNameToTypeMap.set("start", DateTimeLocal);
-fieldNameToTypeMap.set("finsih", DateTimeLocal);
-
-function fieldNameToType(fieldName: string) {
-  if (fieldNameToTypeMap.has(fieldName))
-    return fieldNameToTypeMap.get(fieldName);
-  return Text;
+interface ITimeDiff {
+  start: string;
+  finish: string;
+  step: number;
 }
+const timeDiffToString = ({ start, finish, step }: ITimeDiff): string => {
+  const mStart = moment(start);
+  const mFinish = moment(finish);
+  const hoursDiff = mFinish.diff(mStart, "hours") * 1;
 
-export { fieldNameToType as default };
+  const minutesDiff = mFinish.subtract(hoursDiff, "hours").diff(mStart, "minutes");
+
+  const minutes = correctedTimeFromStep({
+    minutes: minutesDiff,
+    step,
+    immediate: true,
+  });
+  const hoursToString = hoursDiff > 0 ? `${hoursDiff} Hours ` : "";
+  const minutesToString = minutes > 0 ? `${minutes} Minutes` : "0 Minute";
+  return `${hoursToString + minutesToString}`;
+};
+export { correctedTimeFromStep, timeDiffToString };

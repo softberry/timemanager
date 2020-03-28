@@ -1,0 +1,36 @@
+@import "../form-mixins";
+@mixin date-time($view) {
+  &-#{$view} {
+    &-Caption {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      font-weight: $font-weight-bold;
+    }
+
+    &-Data {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+
+.DateTime-#{$theme} {
+  @include date-time("primary");
+  @include date-time("secondary");
+  &-primary {
+    @include input-wrapper("primary");
+  }
+
+  &-secondary {
+    @include input-wrapper("secondary");
+  }
+
+  &-label {
+    @include label();
+  }
+
+  &-input {
+    @include form-input();
+  }
+}

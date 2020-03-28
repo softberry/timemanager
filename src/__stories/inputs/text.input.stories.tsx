@@ -1,7 +1,8 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import Input from "../../__ui/formElements";
 import StoryPage from "../story-page";
 import { name, address } from "faker";
+import { ValidationTypeEnums } from "../../__typings/interfaces.d";
 
 export default {
   title: "Form Elements/Input",
@@ -11,58 +12,70 @@ export default {
   },
 };
 
-export const Primary = () => {
+export const Primary = (): ReactElement => {
   return (
     <StoryPage viewType="PrimaryView">
       <Input
         name="name"
-        uniqueName="name"
+        label="name"
+        type="text"
         value={name.firstName()}
         required={true}
         validate={true}
-      ></Input>
+        validationType={ValidationTypeEnums.TEXT}
+      />
       <Input
         name="surname"
-        uniqueName="Surname"
+        label="surname"
+        type="text"
         value={name.lastName()}
         required={false}
         validate={true}
-      ></Input>
+        validationType={ValidationTypeEnums.TEXT}
+      />
       <Input
         name="city"
-        uniqueName="City"
+        label="city"
+        type="text"
         value={address.city()}
         required={false}
         validate={true}
-      ></Input>
+        validationType={ValidationTypeEnums.TEXT}
+      />
     </StoryPage>
   );
 };
 
-export const secondary: any = () => {
+export const Secondary = (): ReactElement => {
   return (
     <StoryPage viewType="SecondaryView">
       <Input
         name="name"
-        uniqueName="name"
+        label="name"
+        type="text"
         value={name.firstName()}
         required={true}
         validate={true}
-      ></Input>
+        validationType={ValidationTypeEnums.TEXT}
+      />
       <Input
         name="surname"
-        uniqueName="Surname"
+        label="surname"
+        type="text"
         value={name.lastName()}
         required={false}
         validate={true}
-      ></Input>
+        validationType={ValidationTypeEnums.TEXT}
+      />
       <Input
         name="city"
-        uniqueName="City"
+        label="city"
+        type="text"
         value={address.city()}
         required={false}
         validate={true}
-      ></Input>
+        validationType={ValidationTypeEnums.TEXT}
+      />
     </StoryPage>
   );
 };
