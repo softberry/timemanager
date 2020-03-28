@@ -82,5 +82,8 @@
     "**/*.{ts,tsx}": "eslint --fix",
     "**/*/*.{scss,yml,ts,tsx,js,jsx,json,md}": "prettier --write"
   },
+  "resolutions": {
+    "@babel/preset-env": "7.9.0"
+  },
   "license": "MIT"
 }
