@@ -19,8 +19,8 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  */
 const DateTime: FunctionComponent<IDateTimeProps> = ({
   uniqueId,
-  start = moment(),
-  finish = moment(),
+  start = moment().toISOString(),
+  finish = moment().toISOString(),
   step = 15,
   infoCallback,
 }) => {

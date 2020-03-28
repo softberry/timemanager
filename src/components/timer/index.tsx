@@ -68,7 +68,7 @@ export function Timer(): ReactElement {
         }
       })
       .catch((err: Error) => {
-        console.log(err);
+        throw err;
       });
   }, [nSQL, timerActiveState]);
 

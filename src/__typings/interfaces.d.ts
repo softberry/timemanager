@@ -221,15 +221,7 @@ export interface ISubPageAction {
 export interface IEditWorkLogProps {
   contactID: string;
   worklogID: string;
-  theme: ThemeEnums;
-  styles: INameToValueMap;
-}
-
-export interface IEditWorkLogTitleProps {
-  name: string;
-  description?: string;
-  valid?: boolean;
-  dispatcher: (p: IWorklogAction) => void;
+  updateParentCallback: () => void;
 }
 
 export interface IWorklogBadgeProp {
@@ -237,11 +229,14 @@ export interface IWorklogBadgeProp {
 }
 export interface IWorklogState extends IWorkTableModel {
   valid: boolean;
+  reloadKey: string;
 }
 
 export interface IWorklogAction {
   type: AddEditWorklogEnums;
-  data?: IWorkTableModel;
+  worklog?: IWorkTableModel;
+  labour?: IWorkDurationTableModel[];
+  materials?: MaterialItemTableModel[];
   input?: IInputCallback;
 }
 
@@ -253,13 +248,11 @@ export interface IWorklogInput {
 }
 
 export interface IEditTimeLogsProps {
-  worklog: IWorkTableModel;
   theme: ThemeEnums;
   styles: INameToValueMap;
 }
 
 export interface IEditMaterialLogsProps {
-  worklog: IWorkTableModel;
   theme: ThemeEnums;
   styles: INameToValueMap;
 }
@@ -350,7 +343,7 @@ export interface IWorkDurationTableModel {
   start: string;
   finish: string;
   description: string;
-  workID: string;
+  // workID: string;
 }
 export interface IWorklogsEditProps {
   contact: IContactsTableModel;
@@ -368,7 +361,7 @@ export interface MaterialItemTableModel {
   price: string;
   amount: string;
   unit: string;
-  materialListID: string;
+  // materialListID: string;
 }
 
 export interface IMaterialStockTableModel {
@@ -533,6 +526,9 @@ export enum AddEditWorklogEnums {
   INIT = "INIT",
   TITLE = "TITLE",
   DESCRIPTION = "DESCRIPTION",
+  TIMELOGS = "TIMELOG",
+  MATERIALS = "MATERIALS",
+  UPDATEPARENT = "UPDATE_PARENT",
 }
 
 /** Input labels can be visually label or placeholder */

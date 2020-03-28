@@ -7,23 +7,28 @@ import {
   IconNameEnums,
   IEditWorkLogProps,
   IDatabaseReducer,
-  IWorkTableModel,
   AddEditWorklogEnums,
   IWorklogState,
   IWorklogAction,
   ThemeEnums,
+  ISubPageState,
+  SubPageActionEnums,
+  NewEntryEnums,
+  IWorkTableModel,
 } from "../../__typings/interfaces.d";
 
 import WorkLogsTitle from "./workLogsTitle";
 
 import MaterialLogs from "./materiallogs";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Card, { CardFooter } from "../../__ui/card";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import TimeLogs from "./timelogs";
+import { uuid } from "@nano-sql/core/lib/utilities";
+
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
@@ -31,22 +36,44 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 const EditWorkLogsForm: FunctionComponent = () => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
+  const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
+  const dispatch = useDispatch();
 
   const worklog = useContext(WorklogContext);
   const dispatcher = useContext(DispatchContext);
-
+  //TODO: update (parent) list of worklogs in readonly conact details page
   const cancelWorkLogViewHandler = (): void => {
-    //TODO: to be done
+    const action: ISubPageState = {
+      type: SubPageActionEnums.OUT,
+      action: {
+        caption: "",
+        content: <></>,
+      },
+    };
+    dispatch(action);
   };
   const saveWorkLogViewHandler = (): void => {
-    //TODO: to be done
+    nSQL("workTable")
+      .query("upsert", worklog)
+      .exec()
+      .then((m: IWorkTableModel) => {
+        dispatcher({
+          type: AddEditWorklogEnums.UPDATEPARENT,
+        });
+      })
+      .catch((err: Error) => {
+        throw err;
+      })
+      .finally(() => {
+        setTimeout(cancelWorkLogViewHandler, 100);
+      });
   };
 
   return (
     <>
-      <WorkLogsTitle name={worklog.name} description={worklog.description} dispatcher={dispatcher} />
-      <TimeLogs worklog={worklog} styles={styles} theme={theme} />
-      <MaterialLogs worklog={worklog} theme={theme} styles={styles} />
+      <WorkLogsTitle />
+      <TimeLogs styles={styles} theme={theme} />
+      <MaterialLogs theme={theme} styles={styles} />
 
       <Card>
         <CardFooter>
@@ -82,28 +109,35 @@ const WorklogContext = createContext<IWorklogState>({
   labour: [],
   materials: [],
   valid: false,
+  reloadKey: uuid(),
 });
 const DispatchContext = createContext((p: IWorklogAction) => {
   // do nothing
 });
-const worklogsReducer = (state: IWorklogState, action: IWorklogAction): IWorklogState => {
-  switch (action.type) {
-    case AddEditWorklogEnums.INIT:
-      return { ...state, ...action.data };
-    case AddEditWorklogEnums.TITLE:
-      return {
-        ...state,
-        name: action.input?.value || "",
-        valid: action.input?.valid || false,
-      };
-    case AddEditWorklogEnums.DESCRIPTION:
-      return { ...state, description: action.input?.value || "" };
-    default:
-      return state;
-  }
-};
 
-const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklogID, theme, styles }) => {
+const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklogID, updateParentCallback }) => {
+  const worklogsReducer = (state: IWorklogState, action: IWorklogAction): IWorklogState => {
+    switch (action.type) {
+      case AddEditWorklogEnums.INIT:
+        return { ...state, ...action.worklog };
+      case AddEditWorklogEnums.TITLE:
+        return {
+          ...state,
+          name: action.input?.value || "",
+          valid: action.input?.valid || false,
+        };
+      case AddEditWorklogEnums.DESCRIPTION:
+        return { ...state, description: action.input?.value || "" };
+      case AddEditWorklogEnums.TIMELOGS:
+        return { ...state, labour: action?.labour || [] };
+      case AddEditWorklogEnums.MATERIALS:
+        return { ...state, materials: action?.materials || [] };
+      case AddEditWorklogEnums.UPDATEPARENT:
+        return { ...state, reloadKey: uuid() };
+      default:
+        return { ...state };
+    }
+  };
   const [worklog, dispatcher] = useReducer(worklogsReducer, {
     id: "",
     name: "",
@@ -112,21 +146,39 @@ const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklog
     contactID,
     labour: [],
     materials: [],
+    reloadKey: uuid(),
   });
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
   useEffect(() => {
-    nSQL("workTable")
-      .presetQuery("createNewWorkLogForContact", {
-        contactID,
-        id: worklogID,
-      })
-      .exec()
-      .then((logs: IWorkTableModel[]) => {
-        dispatcher({ type: AddEditWorklogEnums.INIT, data: logs[0] });
+    if (worklogID === NewEntryEnums.NEW_WORKLOG_ID) {
+      dispatcher({
+        type: AddEditWorklogEnums.INIT,
+        worklog: {
+          id: worklogID,
+          contactID,
+          name: "",
+          description: "",
+          labour: [],
+          materials: [],
+        },
       });
-  }, [contactID, nSQL, worklogID]);
-
+    } else {
+      nSQL("workTable")
+        .query("select")
+        .where(["id", "=", worklogID])
+        .exec()
+        .then((w: IWorkTableModel[]) => {
+          dispatcher({
+            type: AddEditWorklogEnums.INIT,
+            worklog: w[0],
+          });
+        });
+    }
+  }, [contactID, worklogID, nSQL]);
+  useEffect(() => {
+    updateParentCallback();
+  }, [worklog.reloadKey, updateParentCallback]);
   if (worklog.id === "") return <></>;
   return (
     <DispatchContext.Provider value={dispatcher}>
@@ -136,4 +188,4 @@ const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklog
     </DispatchContext.Provider>
   );
 };
-export { EditWorkLogs as default };
+export { EditWorkLogs as default, WorklogContext, DispatchContext };

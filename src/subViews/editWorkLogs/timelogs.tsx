@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useContext, useEffect } from "react";
 import Tipp from "../../__ui/tipp";
 import Button from "../../__ui/buttons/button";
 import TimeLogItem from "./timeLogItem";
@@ -14,6 +14,7 @@ import {
   IMessageAction,
   IDialogActionEnums,
   DialogTypes,
+  AddEditWorklogEnums,
 } from "../../__typings/interfaces.d";
 
 import Card, { CardTitle, CardBody, CardFooter } from "../../__ui/card";
@@ -23,8 +24,14 @@ import { uuid } from "@nano-sql/core/lib/utilities";
 import { useDispatch } from "react-redux";
 import { timeDiffToString } from "../../lib/input.helpers";
 
-const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog, styles, theme }) => {
+import { WorklogContext, DispatchContext } from "./index";
+
+const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ styles, theme }) => {
+  const worklog = useContext(WorklogContext);
+  const dispatcher = useContext(DispatchContext);
+
   const [timeLogs, setTimelogs] = useState<IWorkDurationTableModel[]>(worklog.labour);
+
   const dispatch = useDispatch();
   const dialogId = uuid();
   function createTimeLogHandler(): void {
@@ -34,7 +41,6 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog, styles, them
       finish: time.toISOString(),
       start: time.toISOString(),
       id: uuid(),
-      workID: worklog.id,
     };
 
     showEditDialog(newTimelog, true);
@@ -71,7 +77,6 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog, styles, them
   }
   function newTimelogCallback(newlog: IWorkDurationTableModel): void {
     setTimelogs([...timeLogs, newlog]);
-
     closeEditDialog();
   }
 
@@ -83,6 +88,11 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ worklog, styles, them
     setTimelogs(logs);
     closeEditDialog();
   }
+
+  useEffect(() => {
+    dispatcher({ type: AddEditWorklogEnums.TIMELOGS, labour: timeLogs });
+  }, [dispatcher, timeLogs]);
+
   return (
     <Card>
       <CardTitle>Spent time</CardTitle>

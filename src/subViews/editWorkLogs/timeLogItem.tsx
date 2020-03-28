@@ -41,7 +41,6 @@ const TimeLogItem: FunctionComponent<ITimelogItemProps> = ({ timelog, updateCall
               start: start,
               finish: finish,
               id: timelog.id,
-              workID: timelog.workID,
               description: timelog.description,
             });
           }

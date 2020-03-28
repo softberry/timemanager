@@ -1,19 +1,31 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import Input from "../../__ui/formElements";
-import {
-  ValidationTypeEnums,
-  AddEditWorklogEnums,
-  IEditWorkLogTitleProps,
-  IInputCallback,
-} from "../../__typings/interfaces.d";
+import { ValidationTypeEnums, AddEditWorklogEnums, IInputCallback } from "../../__typings/interfaces.d";
 import Card from "../../__ui/card";
+import { WorklogContext, DispatchContext } from "./index";
 
-const WorkLogsTitle: FunctionComponent<IEditWorkLogTitleProps> = ({ name, description, dispatcher }) => {
+const WorkLogsTitle: FunctionComponent = () => {
+  const worklog = useContext(WorklogContext);
+  const dispatcher = useContext(DispatchContext);
+  const { name, description } = worklog;
+
   function dispatchInput(p: IInputCallback): void {
-    dispatcher({
-      type: AddEditWorklogEnums.TITLE,
-      input: p,
-    });
+    switch (p.name) {
+      case "name":
+        dispatcher({
+          type: AddEditWorklogEnums.TITLE,
+          input: p,
+        });
+        break;
+
+      case "description":
+        dispatcher({
+          type: AddEditWorklogEnums.DESCRIPTION,
+          input: p,
+        });
+        break;
+      default:
+    }
   }
 
   return (

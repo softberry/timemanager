@@ -80,29 +80,29 @@ const workTable: InanoSQLTableConfig = {
     "id:uuid": { pk: true },
     "contactID:string": { notNull: true },
     "name:string": {},
-    "labour:string[]": {}, // workDurationTable
-    "materials:string[]": {}, // materialItemTable
+    "labour:any[]": {
+      notNull: false,
+      model: {
+        "id:uuid": { pk: true },
+        "start:string": {},
+        "finish:string": {},
+        "description:string": {},
+      },
+    }, // workDurationTable
+    "materials:any[]": {
+      model: {
+        "id:uuid": { pk: true },
+        "name:string": { notNull: true },
+        "description:string": {},
+        "price:float": {},
+        "amount:float": {},
+        "unit:string": { default: "n/a" },
+        // "materialListID:string": {},
+      },
+    }, // materialItemTable
     "description:string": {},
   },
   queries: [
-    {
-      name: "createNewWorkLogForContact",
-      args: {
-        "id:uuid": {},
-        "contactID:uuid": {},
-      },
-      call: (db: InanoSQLInstance, args: { contactID: string; id: string }): InanoSQLQuery => {
-        const work = {
-          id: args.id,
-          name: "New Work Log",
-          contactID: args.contactID,
-          labour: [],
-          materials: [],
-          description: "",
-        };
-        return db.query("upsert", work).emit();
-      },
-    },
     {
       name: "getWorkLogsOfContact",
       args: {
@@ -161,7 +161,7 @@ const materialItemTable: InanoSQLTableConfig = {
     "price:float": {},
     "amount:float": {},
     "unit:string": { default: "n/a" },
-    "materialListID:string": {},
+    // "materialListID:string": {},
   },
 };
 

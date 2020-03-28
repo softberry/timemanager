@@ -50,6 +50,9 @@ const ContactsList = (): ReactElement => {
         .exec()
         .then((logs: []) => {
           setCount(logs.length);
+        })
+        .catch((err: Error) => {
+          throw err;
         });
     }, [nSQL, contactID, queried]);
     useEffect(() => {

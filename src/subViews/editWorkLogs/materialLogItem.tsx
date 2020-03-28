@@ -54,7 +54,6 @@ const MaterialLogItem: FunctionComponent<MaterialLogItemProps> = ({ material, up
       price: false,
       amount: false,
       unit: false,
-      materialListID: true,
     },
   });
 

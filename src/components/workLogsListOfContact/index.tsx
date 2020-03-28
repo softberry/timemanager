@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, FunctionComponent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import EditWorkLogsForm from "../../subViews/editWorkLogs";
+import EditWorkLogs from "../../subViews/editWorkLogs";
 import Button from "../../__ui/buttons/button";
 import List from "../list";
 import ViewContext from "../../views/index";
@@ -21,6 +21,7 @@ import {
   IWorklogsEditProps,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
+import { uuid } from "@nano-sql/core/lib/utilities";
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -33,6 +34,7 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
   const styles = useThemeStyle(stylesMap);
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
+  const [shouldUpdate, setShouldUpdate] = useState(uuid());
   const [contactsWorklogs, setContactsWorklogs] = useState<IWorkTableModel[]>([
     { name: "", contactID: "", description: "", id: "", labour: [], materials: [] },
   ]);
@@ -48,23 +50,31 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
         caption,
         content: (
           <>
-            <EditWorkLogsForm contactID={contact.id} worklogID={worklogID} theme={theme} styles={styles} />
+            <EditWorkLogs
+              contactID={contact.id}
+              worklogID={worklogID}
+              updateParentCallback={updateParentCallbackHandler}
+            />
           </>
         ),
       },
     };
     dispatch(action);
   }
-
+  function updateParentCallbackHandler(): void {
+    setShouldUpdate(uuid());
+  }
   useEffect(() => {
     nSQL("workTable")
-      .query("select")
-      .where(["contactID", "=", contact.id])
+      .presetQuery("getWorkLogsOfContact", { contactID: contact.id })
       .exec()
       .then((worklogs: [IWorkTableModel]) => {
         setContactsWorklogs(worklogs);
+      })
+      .catch((err: Error) => {
+        throw err;
       });
-  }, [contact.id, nSQL]);
+  }, [contact.id, nSQL, shouldUpdate]);
 
   return (
     <div className={styles[`WorklogsList-${theme}-${view}`]}>
@@ -82,20 +92,17 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
         </Button>
       </div>
       <List>
-        {contactsWorklogs.map(
-          (log, index: number) =>
-            log.id !== NewEntryEnums.NEW_WORKLOG_ID && (
-              <div
-                key={index}
-                onClick={(): void => {
-                  createNewWorklogHandler("Edit Worklog", log.id);
-                }}
-              >
-                <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Name`]}>{log.name}</div>
-                <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Description`]}>{log.description}abc</div>
-              </div>
-            )
-        )}
+        {contactsWorklogs.map((log, index: number) => (
+          <div
+            key={index}
+            onClick={(): void => {
+              createNewWorklogHandler("Edit Worklog", log.id);
+            }}
+          >
+            <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Name`]}>{log.name}</div>
+            <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Description`]}>{log.description} &nbsp;</div>
+          </div>
+        ))}
       </List>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useContext, useEffect } from "react";
 import Button from "../../__ui/buttons/button";
 import Tipp from "../../__ui/tipp";
 import List from "../../components/list";
@@ -12,12 +12,18 @@ import {
   IMessageAction,
   IDialogActionEnums,
   DialogTypes,
+  AddEditWorklogEnums,
 } from "../../__typings/interfaces.d";
 import Card, { CardTitle, CardBody, CardFooter } from "../../__ui/card";
 import MaterialLogItem from "./materialLogItem";
 import { uuid } from "@nano-sql/core/lib/utilities";
 import { useDispatch } from "react-redux";
-const MaterialLogs: FunctionComponent<IEditMaterialLogsProps> = ({ worklog, theme, styles }) => {
+
+import { WorklogContext, DispatchContext } from "./index";
+
+const MaterialLogs: FunctionComponent<IEditMaterialLogsProps> = ({ theme, styles }) => {
+  const worklog = useContext(WorklogContext);
+  const dispatcher = useContext(DispatchContext);
   const [materialLogs, setMaterialLogs] = useState<MaterialItemTableModel[]>(worklog.materials);
   const dispatch = useDispatch();
   const dialogId = uuid();
@@ -76,7 +82,6 @@ const MaterialLogs: FunctionComponent<IEditMaterialLogsProps> = ({ worklog, them
       name: "",
       price: "",
       unit: "",
-      materialListID: "",
     };
     showEditDialog(newMaterialLog, true);
   }
@@ -84,6 +89,13 @@ const MaterialLogs: FunctionComponent<IEditMaterialLogsProps> = ({ worklog, them
   function editMaterialLogHandler(item: MaterialItemTableModel): void {
     showEditDialog(item, false);
   }
+  useEffect(() => {
+    dispatcher({
+      type: AddEditWorklogEnums.MATERIALS,
+      materials: materialLogs,
+    });
+  }, [dispatcher, materialLogs]);
+
   return (
     <Card>
       <CardTitle>Used Materials</CardTitle>
