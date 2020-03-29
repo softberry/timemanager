@@ -28,5 +28,9 @@ $bg-active: rgba(125, 125, 125, 0.125);
 
   &-btn-clear {
     align-self: center;
+    opacity: 0;
+    &[data-has-focus="true"] {
+      opacity: 1;
+    }
   }
 }

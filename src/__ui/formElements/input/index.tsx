@@ -44,7 +44,7 @@ const Input = ({
   const stringValueOfField: string = value ? value.toString() : "";
   const [inputElement, setInputElement] = useState<HTMLInputElement | null>();
   const [val, setVal] = useState<string>(stringValueOfField);
-
+  const [onBlurTimeStamp, setOnBlurTimeStamp] = useState(0);
   const [parentState, setParentState] = useState<IInputCallback>({
     name,
     value,
@@ -147,11 +147,15 @@ const Input = ({
 
     setInputElement(null);
     setHasFocus(false);
+    setOnBlurTimeStamp(Date.now());
   }
 
   function handleClear(e: React.MouseEvent<HTMLDivElement>): void {
     inputElement && inputElement.focus && inputElement.focus();
-    setVal("");
+
+    if (Date.now() - onBlurTimeStamp < 300) {
+      setVal("");
+    }
   }
   useEffect(() => {
     if (val === null) return;
@@ -173,8 +177,8 @@ const Input = ({
           onBlur={handleOnBlur}
           className={styles[`Input-${theme}-input`]}
         />
-        {hasFocus && `${val}`.length > 0 && (
-          <div className={styles[`Input-${theme}-btn-clear`]} onClick={handleClear}>
+        {`${val}`.length > 0 && (
+          <div className={styles[`Input-${theme}-btn-clear`]} onClick={handleClear} data-has-focus={hasFocus}>
             <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLEAR}</Icon>
           </div>
         )}
