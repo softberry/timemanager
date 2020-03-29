@@ -61,7 +61,7 @@ const Input = ({
 
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-  let timeoutId = -1;
+  // let timeoutId = -1;
 
   const updateParentCallback = useCallback(() => {
     if (typeof infoCallback === "function") {
@@ -75,12 +75,6 @@ const Input = ({
       infoCallback(changedValueState);
     }
   }, [isValid, infoCallback, name, val, parentState.name, parentState.valid, parentState.value]);
-
-  useEffect(() => {
-    return (): void => {
-      clearTimeout(timeoutId);
-    };
-  }, [timeoutId, hasFocus]);
 
   useEffect(() => {
     if (validate) {
@@ -151,10 +145,8 @@ const Input = ({
   function handleOnBlur(e: React.FocusEvent<HTMLInputElement>): void {
     setLabelType(`${e.target.value}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
 
-    timeoutId = window.setTimeout(() => {
-      setInputElement(null);
-      setHasFocus(false);
-    }, 300);
+    setInputElement(null);
+    setHasFocus(false);
   }
 
   function handleClear(e: React.MouseEvent<HTMLDivElement>): void {
