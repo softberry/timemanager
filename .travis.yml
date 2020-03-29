@@ -3,7 +3,7 @@
 os: linux
 language: node_js
 node_js:
-  - "12"
+  - "12.16.1"
 before_install:
   - yarn global add @storybook/cli
 install:
