@@ -53,6 +53,9 @@ const EditWorkLogsForm: FunctionComponent = () => {
     dispatch(action);
   };
   const saveWorkLogViewHandler = (): void => {
+    if (worklog.id === NewEntryEnums.NEW_WORKLOG_ID) {
+      delete worklog.id;
+    }
     nSQL("workTable")
       .query("upsert", worklog)
       .exec()

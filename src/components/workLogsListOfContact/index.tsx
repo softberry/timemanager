@@ -75,7 +75,6 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
         throw err;
       });
   }, [contact.id, nSQL, shouldUpdate]);
-
   return (
     <div className={styles[`WorklogsList-${theme}-${view}`]}>
       <div className={styles[`WorklogsList-${theme}-${view}-Create-New`]}>
