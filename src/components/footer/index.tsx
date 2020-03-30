@@ -24,6 +24,7 @@ const Footer: FunctionComponent = (): ReactElement => {
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >
         <Icon>{IconNameEnums.TIMER}</Icon>
+        <div className={styles[`Footer-${theme}-Label`]}>Timer</div>
       </NavLink>
       <NavLink
         to="/contacts"
@@ -31,6 +32,7 @@ const Footer: FunctionComponent = (): ReactElement => {
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >
         <Icon>{IconNameEnums.CONTACTS}</Icon>
+        <div className={styles[`Footer-${theme}-Label`]}>Contacts</div>
       </NavLink>
       <NavLink
         to="/worklogs"
@@ -38,6 +40,7 @@ const Footer: FunctionComponent = (): ReactElement => {
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >
         <Icon>{IconNameEnums.CALENDAR}</Icon>
+        <div className={styles[`Footer-${theme}-Label`]}>Calendar</div>
       </NavLink>
       <NavLink
         to="/options"
@@ -45,6 +48,7 @@ const Footer: FunctionComponent = (): ReactElement => {
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >
         <Icon>{IconNameEnums.SETTINGS}</Icon>
+        <div className={styles[`Footer-${theme}-Label`]}>Settings</div>
       </NavLink>
     </section>
   );

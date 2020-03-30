@@ -25,7 +25,7 @@
   padding: rem(1) rem(0.25);
 }
 @mixin card-footer($variant, $type) {
-  border-top: 2px inset;
+  // border-top: 2px inset;
   padding: rem(0.5) 0;
   display: flex;
   justify-content: space-between;
