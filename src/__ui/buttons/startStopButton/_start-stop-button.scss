@@ -29,15 +29,15 @@ $base-size: $font-size;
 
     display: block;
     position: absolute;
-    content: "brightness_7";
-    transform: translate(-30%, 40%);
+    content: "settings";
+    transform: translate(-30%, 25%);
     position: absolute;
   }
   &:after {
     @include materialIcon(6);
     display: block;
     position: absolute;
-    content: "brightness_7";
+    content: "settings";
     position: absolute;
     transform: translate(73%, 22%);
   }
@@ -101,10 +101,10 @@ $base-size: $font-size;
 
 @keyframes activeGearBig {
   0% {
-    transform: translate(-30%, 40%) rotate(0deg);
+    transform: translate(-30%, 25%) rotate(0deg);
   }
   100% {
-    transform: translate(-30%, 40%) rotate(180deg);
+    transform: translate(-30%, 25%) rotate(180deg);
   }
 }
 
