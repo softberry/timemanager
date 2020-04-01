@@ -49,12 +49,12 @@ function TimelogList(): ReactElement {
       <div className={styles[`TimelogList-${theme}-${view}-Create-New`]}>
         <Button
           icon={IconNameEnums.ADD}
-          align={ButtonAlignmentEnums.RIGHT}
+          align={ButtonAlignmentEnums.STRETCH}
           isDisabled={false}
           onClick={createNewWorklogHandler}
           type={ButtonTypeEnums.POSITIVE}
         >
-          Create Work log
+          Create Time log
         </Button>
       </div>
     </div>

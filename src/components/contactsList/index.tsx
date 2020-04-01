@@ -90,7 +90,7 @@ const ContactsList = (): ReactElement => {
       <div className={styles[`Contacts-${theme}-${view}-Create-New`]}>
         <Button
           icon={IconNameEnums.ADD}
-          align={ButtonAlignmentEnums.RIGHT}
+          align={ButtonAlignmentEnums.STRETCH}
           isDisabled={false}
           onClick={createContactClickHandler}
           type={ButtonTypeEnums.POSITIVE}
