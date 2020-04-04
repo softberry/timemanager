@@ -97,9 +97,10 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
   });
 
   const memoizedCallbackData = useMemo(() => {
+    const valid = form.valid.reduce((prev: boolean, cur: boolean) => prev === true && cur === true);
     return {
       name: form.name,
-      valid: form.valid.reduce((prev: boolean, cur: boolean) => prev === true && cur === true),
+      valid,
       value: form.values,
       hash: form.hash,
     };
@@ -131,12 +132,7 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
         return (
           <div key={i} className={styles.InputWrapper}>
             <div className={styles["InputWrapper-input"]}>
-              <Input
-                {...form.defaultProps}
-                name={`${form.defaultProps.name}-${i}`}
-                value={value}
-                infoCallback={updateForm}
-              />
+              <Input {...form.defaultProps} name={`${i}`} value={value} infoCallback={updateForm} />
             </div>
             <div className={styles["InputWrapper-icon"]}>
               <Button

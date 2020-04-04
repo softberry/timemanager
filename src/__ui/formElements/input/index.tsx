@@ -65,12 +65,12 @@ const Input = ({
 
   const updateParentCallback = useCallback(() => {
     if (typeof infoCallback === "function") {
+      if (parentState.name === name && parentState.value === val && parentState.valid === isValid) return;
       const changedValueState: IInputCallback = {
         name,
         valid: isValid,
         value: val,
       };
-      if (parentState.name === name && parentState.value === val && parentState.valid === isValid) return;
       setParentState(changedValueState);
       infoCallback(changedValueState);
     }
