@@ -22,33 +22,50 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 function formReducer(state: IMultiInputProps, action: IMultiInputActions): IMultiInputProps {
   switch (action.type) {
-    case "ADD":
-      return {
+    case "ADD": {
+      const newState = {
         ...state,
-        hash: JSON.stringify(state),
         values: [...state.values, ""],
         valid: [...state.valid, false],
       };
-
-    case "REMOVE":
+      return {
+        ...newState,
+        hash: JSON.stringify(newState),
+      };
+    }
+    case "REMOVE": {
       if (action.index === undefined) return state;
-      if (state.values[action.index] === action.value) {
-        state.values = state.values.filter((v: string, i: number) => v !== action.value);
-      }
 
+      const newState =
+        state.values.length === 1
+          ? {
+              ...state,
+              values: [""],
+              valid: [false],
+            }
+          : {
+              ...state,
+              values: state.values.filter((v: string, i: number) => i !== action.index),
+              valid: state.valid.filter((v: boolean, i: number) => i !== action.index),
+            };
       return {
-        ...state,
-        hash: JSON.stringify(state),
+        ...newState,
+        hash: JSON.stringify(newState),
       };
-    case "EDIT":
+    }
+    case "EDIT": {
       if (action.index < 0) return state;
-      state.values[action.index] = action?.value || "";
-      state.valid[action.index] = action.valid;
+      const newState = {
+        ...state,
+        values: state.values.map((val, i) => (i === action.index ? action?.value || "" : val)),
+        valid: state.valid.map((val, i) => (i === action.index ? action.valid : val)),
+      };
 
       return {
-        ...state,
-        hash: JSON.stringify(state),
+        ...newState,
+        hash: JSON.stringify(newState),
       };
+    }
     default: {
       return { ...state };
     }
@@ -107,26 +124,34 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
   useEffect(() => {
     callback(memoizedCallbackData);
   }, [callback, memoizedCallbackData, form.hash]);
+
   return (
     <div className={styles[`MultipleInputContainer-${theme}`]}>
-      {form.values.map((value: string, i: number) => (
-        <div key={i} className={styles.InputWrapper}>
-          <div className={styles["InputWrapper-input"]}>
-            <Input {...form.defaultProps} name={`${i}`} value={value} infoCallback={updateForm} />
+      {form.values.map((value: string, i: number) => {
+        return (
+          <div key={i} className={styles.InputWrapper}>
+            <div className={styles["InputWrapper-input"]}>
+              <Input
+                {...form.defaultProps}
+                name={`${form.defaultProps.name}-${i}`}
+                value={value}
+                infoCallback={updateForm}
+              />
+            </div>
+            <div className={styles["InputWrapper-icon"]}>
+              <Button
+                onClick={(): void => {
+                  removeField(i, value);
+                }}
+                icon={IconNameEnums.TRASH}
+                align={ButtonAlignmentEnums.INLINE}
+                isDisabled={false}
+                type={ButtonTypeEnums.WARNING}
+              ></Button>
+            </div>
           </div>
-          <div className={styles["InputWrapper-icon"]}>
-            <Button
-              onClick={(): void => {
-                removeField(i, value);
-              }}
-              icon={IconNameEnums.TRASH}
-              align={ButtonAlignmentEnums.INLINE}
-              isDisabled={false}
-              type={ButtonTypeEnums.WARNING}
-            ></Button>
-          </div>
-        </div>
-      ))}
+        );
+      })}
       <div className={styles[`MultipleInputContainer-${theme}-add-new`]}>
         <Button
           icon={IconNameEnums.ADD}

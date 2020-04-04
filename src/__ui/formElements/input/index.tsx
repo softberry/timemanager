@@ -41,7 +41,7 @@ const Input = ({
   infoCallback,
 }: IInputProps): ReactElement => {
   const id = uuid();
-  const stringValueOfField: string = value ? value.toString() : "";
+  const stringValueOfField: string = value?.toString() || "";
   const [inputElement, setInputElement] = useState<HTMLInputElement | null>();
   const [val, setVal] = useState<string>(stringValueOfField);
   const [onBlurTimeStamp, setOnBlurTimeStamp] = useState(0);
@@ -75,6 +75,10 @@ const Input = ({
       infoCallback(changedValueState);
     }
   }, [isValid, infoCallback, name, val, parentState.name, parentState.valid, parentState.value]);
+
+  useEffect(() => {
+    setVal(value);
+  }, [value]);
 
   useEffect(() => {
     if (validate) {
@@ -129,10 +133,9 @@ const Input = ({
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>): void {
     e.persist();
-    const val: string = e.currentTarget.value;
     !hasFocus && setHasFocus(true);
-    setVal(val);
-    setLabelType(`${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
+    setVal(e.currentTarget.value);
+    setLabelType(`${e.currentTarget.value}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
   }
 
   function handleOnFocus(e: React.FocusEvent<HTMLInputElement>): void {
@@ -161,6 +164,7 @@ const Input = ({
     if (val === null) return;
     setLabelType(`${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
   }, [val]);
+
   return (
     <div className={styles[`Input-${theme}-${view}`]} data-valid={isValid}>
       <label htmlFor={id} className={styles[`Input-${theme}-label`]} data-type={labelType}>
@@ -170,6 +174,7 @@ const Input = ({
       <div className={styles[`Input-${theme}-Wrapper`]} data-has-focus={hasFocus}>
         <input
           id={id}
+          name={name}
           type={type}
           value={val}
           onChange={handleOnChange}
