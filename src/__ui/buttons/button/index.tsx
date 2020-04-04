@@ -31,7 +31,7 @@ const Button: FunctionComponent<IButtonProps> = ({
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
-  const iconOnly = children === undefined || Children.count(children) === 0;
+  const iconOnly = children === undefined || Children.count(children) === 0 || children === "";
   const clickHandler = isDisabled ? (): boolean => false : onClick;
 
   return (
@@ -62,7 +62,7 @@ const ButtonLink: FunctionComponent<IButtonLinkProps> = ({
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
-  const iconOnly = children === undefined || Children.count(children) === 0;
+  const iconOnly = children === undefined || Children.count(children) === 0 || children === "";
 
   return (
     <div className={styles["Button-Container"]} data-align={align} data-icon-only={iconOnly}>
@@ -74,7 +74,7 @@ const ButtonLink: FunctionComponent<IButtonLinkProps> = ({
           }}
         >
           {icon && <Icon size={IconSizeEnums.SMALL}>{icon}</Icon>}
-          <span>{children}</span>
+          {!iconOnly && <span>{children}</span>}
         </Link>
       </div>
     </div>
