@@ -3,7 +3,7 @@ import React, { ReactElement } from "react";
 import { MultipleInput } from "../../__ui/formElements";
 
 import StoryPage from "../story-page";
-import { phone } from "faker";
+import { internet } from "faker";
 import { ValidationTypeEnums, IInputProps, IMultiInputCallback } from "../../__typings/interfaces.d";
 
 export default {
@@ -21,7 +21,7 @@ const defaultProps: IInputProps = {
   validate: true,
   validationType: ValidationTypeEnums.MAIL,
 };
-const values = [phone.phoneNumber(), phone.phoneNumber(), phone.phoneNumber()];
+const values = [internet.email(), internet.email(), internet.email()];
 const valids = [false, false, false];
 
 export const Primary = (): ReactElement => {
