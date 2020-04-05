@@ -1,20 +1,30 @@
-@mixin TimelogList() {
+@mixin Appointments() {
   @include view;
   &-Create-New {
     margin-bottom: rem(0.5);
   }
+
+  &-Content {
+    position: relative;
+  }
+
+  &-Type {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
 
-.TimelogList-#{$theme} {
+.Appointments-#{$theme} {
   &-primary {
     @include layer-bg("primary");
     @include layer-color("primary");
-    @include TimelogList();
+    @include Appointments();
   }
 
   &-secondary {
     @include layer-bg("secondary");
     @include layer-color("secondary");
-    @include TimelogList();
+    @include Appointments();
   }
 }

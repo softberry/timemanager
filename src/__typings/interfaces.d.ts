@@ -113,7 +113,7 @@ export interface IMultiInputActions {
 
 export interface IDateTimeProps {
   /** uniqe in its first parent, to match correct element for save/remove etc*/
-  uniqueId: string;
+  // uniqueId: string;
   /** Start property of a Worklog */
   start?: string;
   /** End property of a Worklog */
@@ -343,16 +343,19 @@ export interface IWorkDurationTableModel {
   start: string;
   finish: string;
   description: string;
-  // workID: string;
 }
 export interface IWorklogsEditProps {
   contact: IContactsTableModel;
 }
-// export interface IMaterialListTableModel {
-//   id: string;
-//   items: MaterialItemTableModel[];
-//   workID: string;
-// }
+
+export interface IAppointmentsTableModel {
+  id: string;
+  start: string;
+  finish: string;
+  description: string;
+  contactID: string;
+  type: "TIMELOG" | "APPOINTMENT";
+}
 
 export interface MaterialItemTableModel {
   id: string;
@@ -492,6 +495,8 @@ export enum IconNameEnums {
   ARROW_FORWARD = "arrow_forward",
   ARROW_UP = "keyboard_arrow_up",
   BLANK = "blank",
+  BOOKMARK = "bookmark",
+  BOOKMARK_BORDER = "bookmark_border",
   CALENDAR = "date_range",
   CHECK_CIRCLE = "check_circle",
   CHECKBOX_OFF = "check_box_outline_blank",

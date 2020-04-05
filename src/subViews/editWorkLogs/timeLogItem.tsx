@@ -28,7 +28,6 @@ const TimeLogItem: FunctionComponent<ITimelogItemProps> = ({ timelog, updateCall
   return (
     <>
       <DateTime
-        uniqueId={timelog.id}
         start={moment(timelog.start).toISOString()}
         finish={moment(timelog.finish).toISOString()}
         step={15}

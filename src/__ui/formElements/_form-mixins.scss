@@ -39,7 +39,10 @@
   &[type="mail"],
   &[type="zip"],
   &[type="number"] {
-    padding: $font-size;
+    @include WidthUp("small") {
+      padding: rem(1);
+    }
+    padding: rem(0.5);
     font-family: $font-default;
     font-size: $font-size;
     background-color: $bg;

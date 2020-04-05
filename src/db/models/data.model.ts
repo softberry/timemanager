@@ -133,7 +133,8 @@ const workDurationTable: InanoSQLTableConfig = {
       default: new Date(Date.now()).toISOString(),
     },
     "description:string": {},
-    "workID:string": {},
+    "contactID:string": {},
+    "type:string": {},
   },
 };
 

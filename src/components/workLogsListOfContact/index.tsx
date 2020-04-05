@@ -40,7 +40,7 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
   ]);
 
   useEffect(() => {
-    dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
+    dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Contact Details" });
   });
 
   function createNewWorklogHandler(caption: string, worklogID: string): void {
@@ -80,7 +80,7 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
       <div className={styles[`WorklogsList-${theme}-${view}-Create-New`]}>
         <Button
           icon={IconNameEnums.ADD}
-          align={ButtonAlignmentEnums.RIGHT}
+          align={ButtonAlignmentEnums.STRETCH}
           isDisabled={false}
           onClick={(): void => {
             createNewWorklogHandler("New Worklog", NewEntryEnums.NEW_WORKLOG_ID);

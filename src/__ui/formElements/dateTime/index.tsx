@@ -18,7 +18,6 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  * TODO: Implement https://github.com/softberry/timemanager/issues/62
  */
 const DateTime: FunctionComponent<IDateTimeProps> = ({
-  uniqueId,
   start = moment().toISOString(),
   finish = moment().toISOString(),
   step = 15,
