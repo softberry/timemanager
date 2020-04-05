@@ -235,7 +235,7 @@ export interface IWorklogState extends IWorkTableModel {
 export interface IWorklogAction {
   type: AddEditWorklogEnums;
   worklog?: IWorkTableModel;
-  labour?: IWorkDurationTableModel[];
+  labour?: ICalendarTableModel[];
   materials?: MaterialItemTableModel[];
   input?: IInputCallback;
 }
@@ -334,11 +334,11 @@ export interface IWorkTableModel {
   contactID: string;
   name: string;
   description: string;
-  labour: IWorkDurationTableModel[];
+  labour: ICalendarTableModel[];
   materials: MaterialItemTableModel[];
 }
 
-export interface IWorkDurationTableModel {
+export interface ICalendarTableModel {
   id: string;
   start: string;
   finish: string;

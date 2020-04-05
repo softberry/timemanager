@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import {
-  IWorkDurationTableModel,
+  ICalendarTableModel,
   ButtonTypeEnums,
   ButtonAlignmentEnums,
   IconNameEnums,
@@ -12,13 +12,13 @@ import Button from "../../__ui/buttons/button";
 import moment from "moment";
 
 interface ITimelogItemProps {
-  timelog: IWorkDurationTableModel;
-  updateCallback: (log: IWorkDurationTableModel) => void;
+  timelog: ICalendarTableModel;
+  updateCallback: (log: ICalendarTableModel) => void;
 }
 const TimeLogItem: FunctionComponent<ITimelogItemProps> = ({ timelog, updateCallback }) => {
   const [isValid, setIsValid] = useState(false);
   const [saveNow, setSaveNow] = useState(false);
-  const [dateTimeLog, setDateTimeLog] = useState<IWorkDurationTableModel>(timelog);
+  const [dateTimeLog, setDateTimeLog] = useState<ICalendarTableModel>(timelog);
 
   useEffect(() => {
     if (saveNow === false || isValid === false) return;

@@ -1,26 +1,6 @@
 import { InanoSQLTableConfig, InanoSQLInstance, InanoSQLQuery, InanoSQLDataModel } from "@nano-sql/core/lib/interfaces";
 import { NewEntryEnums } from "../../__typings/interfaces.d";
 
-/**
- * Contact-Table
- * ID - NAME - SURNAME - STREET+NO - ZIP - CITY - TEL[+] - MOBILE[+] - MAIL[+]
- * ***********************************************************************
- * Work-Table
- * ID - CONTACTID - DESCRIPTION
- * ***********************************************************************
- * Work-Duration-Table
- * ID - WORKID - START-TIMESTAMP - FINISHED-TIMESTAMP - DESCRIPTION
- * ***********************************************************************
- * Material-List-Table
- * ID - WORKID - MATERIALID - AMOUNT - NOTES - PRICE
- * ***********************************************************************
- * Material-Item-Table
- * ID - NAME - DESCRIPTION - PRICE - UNIT-NAME(kg, meter, litre etc.)
- * ***********************************************************************
- * UNIT-ENUMS
- * - NAME -
- */
-
 const counterTable: InanoSQLTableConfig = {
   name: "counterTable",
   model: {
@@ -88,7 +68,7 @@ const workTable: InanoSQLTableConfig = {
         "finish:string": {},
         "description:string": {},
       },
-    }, // workDurationTable
+    }, // calendarTable
     "materials:any[]": {
       model: {
         "id:uuid": { pk: true },
@@ -118,10 +98,9 @@ const workTable: InanoSQLTableConfig = {
   ],
 };
 
-//  Work-Duration-Table
 //  ID - WORKID - START-TIMESTAMP - FINISHED-TIMESTAMP - DESCRIPTION
-const workDurationTable: InanoSQLTableConfig = {
-  name: "workDurationTable",
+const calendarTable: InanoSQLTableConfig = {
+  name: "calendarTable",
   model: {
     "id:uuid": { pk: true },
     "start:date": {
@@ -194,9 +173,8 @@ const counterModelTables = [
   counterTable,
   contactsTable,
   workTable,
-  workDurationTable,
+  calendarTable,
   materialItemTable,
-  // materialListTable,
   materialStockTable,
   unitEnumsTable,
 ];

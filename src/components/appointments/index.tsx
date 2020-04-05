@@ -55,7 +55,7 @@ function Appointments(): ReactElement {
   }
 
   useEffect(() => {
-    nSQL("workDurationTable")
+    nSQL("calendarTable")
       .query("select")
       .orderBy(["start ASC"])
       .exec()
