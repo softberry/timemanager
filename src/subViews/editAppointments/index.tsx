@@ -6,7 +6,7 @@ const EditAppointment: FunctionComponent = () => {
   return (
     <>
       <div>
-        <Input name="contactName" label="Select contact" type="text" required={true} validate={false} />
+        <Input name="contactName" label="Contact Name" type="text" required={true} validate={true} />
 
         <DateTime
           step={15}

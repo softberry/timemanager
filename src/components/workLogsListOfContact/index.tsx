@@ -19,6 +19,7 @@ import {
   ISubPageState,
   NewEntryEnums,
   IWorklogsEditProps,
+  PresetQueryEnums,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { uuid } from "@nano-sql/core/lib/utilities";
@@ -66,7 +67,7 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
   }
   useEffect(() => {
     nSQL("workTable")
-      .presetQuery("getWorkLogsOfContact", { contactID: contact.id })
+      .presetQuery(PresetQueryEnums.getWorkLogsOfContact, { contactID: contact.id })
       .exec()
       .then((worklogs: [IWorkTableModel]) => {
         setContactsWorklogs(worklogs);

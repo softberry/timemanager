@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback, ReactElement } from "react";
+import React, { useState, useEffect, useContext, useCallback, FunctionComponent } from "react";
 import {
   IInputProps,
   IconSizeEnums,
@@ -22,6 +22,7 @@ import isPostalCode from "validator/lib/isPostalCode";
 import isNumeric from "validator/lib/isNumeric";
 import isCurrency from "validator/lib/isCurrency";
 import isDecimal from "validator/lib/isDecimal";
+import SuggestionList from "../suggestion/suggestionList";
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -30,7 +31,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 /**
  * Input element:
  */
-const Input = ({
+const Input: FunctionComponent<IInputProps> = ({
   name,
   label,
   value = "",
@@ -39,7 +40,8 @@ const Input = ({
   validate = false,
   validationType,
   infoCallback,
-}: IInputProps): ReactElement => {
+  suggestionTable,
+}) => {
   const id = uuid();
   const stringValueOfField: string = value?.toString() || "";
   const [inputElement, setInputElement] = useState<HTMLInputElement | null>();
@@ -52,16 +54,14 @@ const Input = ({
   });
   const [, setErrorBoundry] = useState();
   const view = useContext(ViewContext);
+  const theme = useTheme();
+  const styles = useThemeStyle(stylesMap);
 
   const [hasFocus, setHasFocus] = useState<boolean>(false);
   const [labelType, setLabelType] = useState<LabelTypeEnums>(
     `${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL
   );
   const [isValid, setIsValid] = useState<boolean>(true);
-
-  const theme = useTheme();
-  const styles = useThemeStyle(stylesMap);
-  // let timeoutId = -1;
 
   const updateParentCallback = useCallback(() => {
     if (typeof infoCallback === "function") {
@@ -119,6 +119,10 @@ const Input = ({
             setIsValid(isDecimal(`${val}`));
             break;
           }
+          case ValidationTypeEnums.SUGGESTION: {
+            console.log("get validation from SuggestionList");
+            break;
+          }
           default:
             setIsValid(`${val}`.length > 0);
         }
@@ -160,6 +164,11 @@ const Input = ({
       setVal("");
     }
   }
+
+  function handleOnSuggestionSelected(): void {
+    //
+  }
+
   useEffect(() => {
     if (val === null) return;
     setLabelType(`${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
@@ -181,11 +190,15 @@ const Input = ({
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
           className={styles[`Input-${theme}-input`]}
+          autoComplete="off"
         />
         {`${val}`.length > 0 && (
           <div className={styles[`Input-${theme}-btn-clear`]} onClick={handleClear} data-has-focus={hasFocus}>
             <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLEAR}</Icon>
           </div>
+        )}
+        {suggestionTable && (
+          <SuggestionList query={val} table={suggestionTable} onSelect={handleOnSuggestionSelected} />
         )}
       </div>
     </div>
@@ -193,3 +206,7 @@ const Input = ({
 };
 
 export default Input;
+
+/**
+ *
+ */

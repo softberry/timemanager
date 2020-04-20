@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { useState, useEffect, FunctionComponent } from "react";
 
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -15,11 +15,11 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  * craftmen must keep button
  * at least given `waitForSeconds` of time.
  */
-const StartStopButton = ({
+const StartStopButton: FunctionComponent<IStartStopButtonProps> = ({
   onComplete,
   waitForSeconds = 3,
   isTurning = false,
-}: IStartStopButtonProps): ReactElement => {
+}) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 

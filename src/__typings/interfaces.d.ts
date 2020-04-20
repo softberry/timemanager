@@ -87,6 +87,8 @@ export interface IInputProps {
   validationType?: ValidationTypeEnums;
   /** Callback function that helps to input validation state to sync with its parent */
   infoCallback?: (p: IInputCallback) => void;
+  /** if suggestion needed, define suggestionPresetQueryName  */
+  suggestionTable?: PresetSuggestionEnums;
 }
 
 export interface IMultiInputProps {
@@ -131,6 +133,13 @@ export interface IDateTimeCallback {
   finish: string;
   valid: boolean;
 }
+
+export interface ISuggestionListProps {
+  query: string;
+  table: PresetSuggestionEnums;
+  onSelect: () => void;
+}
+
 /**
  *
  * props for StartStopButton
@@ -398,7 +407,9 @@ export interface IIconProps {
 }
 
 export interface IBadgeProps {
+  /** Content of the badge as Number*/
   content: number;
+  /** selected view */
   view?: ViewEnums;
 }
 
@@ -551,6 +562,7 @@ export enum ValidationTypeEnums {
   DATE = "DATE",
   CURRENCY = "CURRENCY",
   DECIMAL = "DECIMAL",
+  SUGGESTION = "SUGGESTION",
 }
 
 export enum ButtonTypeEnums {
@@ -579,4 +591,13 @@ export enum DialogTypes {
   WARNING = "WARNING",
   ERROR = "ERROR",
   CONFIRM = "CONFIRM",
+}
+export enum PresetQueryEnums {
+  contactsSuggestion = "contactsSuggestion",
+  createNewEmptyUserEntryForEdit = "createNewEmptyUserEntryForEdit",
+  getWorkLogsOfContact = "getWorkLogsOfContact",
+}
+
+export enum PresetSuggestionEnums {
+  contactsSuggestion = "contactsSuggestion",
 }

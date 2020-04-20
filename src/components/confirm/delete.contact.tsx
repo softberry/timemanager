@@ -15,6 +15,7 @@ import {
   IDatabaseReducer,
   IDialogActionEnums,
   IconNameEnums,
+  PresetQueryEnums,
 } from "../../__typings/interfaces.d";
 import { Checkbox } from "../../__ui/formElements";
 import Button from "../../__ui/buttons/button";
@@ -99,7 +100,7 @@ const ConfirmDeleteContactFooter: FunctionComponent<IConfirmDeleteContact> = ({ 
   }
 
   nSQL("workTable")
-    .presetQuery("getWorkLogsOfContact", { contactID: contact.id })
+    .presetQuery(PresetQueryEnums.getWorkLogsOfContact, { contactID: contact.id })
     .exec()
     .then((logs: []) => {
       setWorklogsCount(logs.length);

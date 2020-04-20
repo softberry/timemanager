@@ -1,4 +1,5 @@
 import React, { ReactElement, PropsWithChildren } from "react";
+import NanoDataBase from "../db";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import "@csstools/normalize.css";
@@ -19,9 +20,12 @@ const StoryPage = ({ children, viewType = "PrimaryView" }: PropsWithChildren<ISt
   return (
     <ViewContext.Provider value={viewType === "PrimaryView" ? ViewEnums.PRIMARY_VIEW : ViewEnums.SECONDARY_VIEW}>
       <Provider store={store}>
-        <Typography />
-        <div className={styles[viewType]}>{children}</div>
+        <NanoDataBase>
+          <Typography />
+          <div className={styles[viewType]}>{children}</div>
+        </NanoDataBase>
       </Provider>
+      e>
     </ViewContext.Provider>
   );
 };

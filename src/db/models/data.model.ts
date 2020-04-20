@@ -1,5 +1,5 @@
 import { InanoSQLTableConfig, InanoSQLInstance, InanoSQLQuery, InanoSQLDataModel } from "@nano-sql/core/lib/interfaces";
-import { NewEntryEnums } from "../../__typings/interfaces.d";
+import { NewEntryEnums, PresetQueryEnums } from "../../__typings/interfaces.d";
 
 const counterTable: InanoSQLTableConfig = {
   name: "counterTable",
@@ -37,8 +37,7 @@ const contactsTable: InanoSQLTableConfig = {
   },
   queries: [
     {
-      name: "createNewEmptyUserEntryForEdit",
-      // args: {},
+      name: PresetQueryEnums.createNewEmptyUserEntryForEdit,
       call: (
         db: InanoSQLInstance,
         args?:
@@ -48,6 +47,19 @@ const contactsTable: InanoSQLTableConfig = {
             }
       ): InanoSQLQuery => {
         return db.query("upsert", { id: NewEntryEnums.NEW_CONTACT_ID }).emit();
+      },
+    },
+    {
+      name: "contactsSuggestion",
+      args: {
+        "query:string": {},
+      },
+      call: (db: InanoSQLInstance, args: { query: string }): InanoSQLQuery => {
+        return db
+          .query("select")
+          .where([["name", "LIKE", `%${args.query}%`], "OR", ["surname", "LIKE", `%${args.query}%`]])
+          .orderBy(["name DESC", "surname DESC"])
+          .emit();
       },
     },
   ],
@@ -84,7 +96,7 @@ const workTable: InanoSQLTableConfig = {
   },
   queries: [
     {
-      name: "getWorkLogsOfContact",
+      name: PresetQueryEnums.getWorkLogsOfContact,
       args: {
         "contactID:uuid": {},
       },
@@ -98,7 +110,6 @@ const workTable: InanoSQLTableConfig = {
   ],
 };
 
-//  ID - WORKID - START-TIMESTAMP - FINISHED-TIMESTAMP - DESCRIPTION
 const calendarTable: InanoSQLTableConfig = {
   name: "calendarTable",
   model: {
@@ -116,21 +127,6 @@ const calendarTable: InanoSQLTableConfig = {
     "type:string": {},
   },
 };
-
-//  Material-List-Table
-//  ID - WORKID - MATERIALID - AMOUNT - PRICE - NOTES
-
-// const materialListTable: InanoSQLTableConfig = {
-//   name: "materialListTable",
-//   model: {
-//     "id:uuid": { pk: true },
-//     "items:materialItemTable[]": {},
-//     "workID:string": {},
-//   },
-// };
-
-// Material-Item-Table
-// ID - NAME - DESCRIPTION - PRICE - UNIT-NAME(kg, meter, litre etc.)
 
 const materialItemTable: InanoSQLTableConfig = {
   name: "materialItemTable",
