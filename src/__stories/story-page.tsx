@@ -25,7 +25,6 @@ const StoryPage = ({ children, viewType = "PrimaryView" }: PropsWithChildren<ISt
           <div className={styles[viewType]}>{children}</div>
         </NanoDataBase>
       </Provider>
-      e>
     </ViewContext.Provider>
   );
 };
