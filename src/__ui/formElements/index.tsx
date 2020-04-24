@@ -1,8 +1,7 @@
 import Input from "./input";
 import MultipleInput from "./multipleInput";
 import Checkbox from "./checkbox/checkbox";
-import RadioGroup from "./radiogroup/radio-group";
-import RadioItem from "./radiogroup/radio-item";
+import { RadioGroup, RadioItem } from "./radiogroup";
 import DateTime from "./dateTime";
 import Suggestion from "./suggestion";
 
