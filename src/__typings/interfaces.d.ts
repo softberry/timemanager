@@ -281,16 +281,6 @@ export interface IUnitEnumsTableModel {
   name: string;
 }
 
-export interface IHeadlineProps {
-  /** String, DOM elements React elements those will be rendered in the headline  */
-  size: 1 | 2 | 3 | 4 | 5 | 6;
-}
-
-export interface IHeadlineBuilderProps extends IHeadlineProps {
-  /** Size of Headline elements valid values are 1-6 */
-  size: number;
-}
-
 /** Material Icon properties */
 export interface IIconProps {
   children: IconNameEnums;
