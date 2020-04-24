@@ -406,13 +406,6 @@ export interface IIconProps {
   size?: IconSizeEnums;
 }
 
-export interface IBadgeProps {
-  /** Content of the badge as Number*/
-  content: number;
-  /** selected view */
-  view?: ViewEnums;
-}
-
 export interface ITippProps {
   children: ReactChildren | ReactNode;
 }
