@@ -32,8 +32,9 @@ const NanoDatabase: FC = ({ children }) => {
 
   useEffect(() => {
     if (ready === "NOT_READY" && dbExists()) {
-      setReady("GETTING_READY");
-      nSQL("contactsTable").query("select").exec();
+      nSQL().useDatabase("shoplist_local");
+
+      setReady("READY");
       return;
     } else if (ready === "NOT_READY") {
       setReady("GETTING_READY");
