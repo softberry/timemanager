@@ -19,6 +19,7 @@ import {
   ThemeEnums,
   IDatabaseReducer,
   IWorklogBadgeProp,
+  PresetQueryEnums,
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
@@ -46,7 +47,7 @@ const ContactsList = (): ReactElement => {
       if (typeof nSQL !== "function" || queried) return;
       setQueried(true);
       nSQL("workTable")
-        .presetQuery("getWorkLogsOfContact", { contactID })
+        .presetQuery(PresetQueryEnums.getWorkLogsOfContact, { contactID })
         .exec()
         .then((logs: []) => {
           setCount(logs.length);
@@ -64,7 +65,7 @@ const ContactsList = (): ReactElement => {
 
   const createContactClickHandler = (): void => {
     nSQL("contactsTable")
-      .presetQuery("createNewEmptyUserEntryForEdit")
+      .presetQuery(PresetQueryEnums.createNewEmptyUserEntryForEdit)
       .exec()
       .then((row: []) => {
         history.push(`/contact/edit/${NewEntryEnums.NEW_CONTACT_ID}`);

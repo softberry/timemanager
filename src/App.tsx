@@ -12,7 +12,7 @@ import "./index.scss";
 
 import Home from "./views/home";
 import ContactsListView from "./views/contactslist";
-import TimelogsListView from "./views/timelogs";
+import CalendarView from "./views/calendar";
 import SettingsView from "./views/options";
 //---
 import ContactView from "./views/contact";
@@ -49,7 +49,7 @@ const Page = (): ReactElement => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/contacts" component={ContactsListView} />
-            <Route exact path="/worklogs" component={TimelogsListView} />
+            <Route exact path="/worklogs" component={CalendarView} />
             <Route exact path="/options" component={SettingsView} />
             <Route exact path="/contact/:type/:id" component={ContactView} />
           </Switch>

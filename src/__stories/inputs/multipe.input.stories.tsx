@@ -4,7 +4,9 @@ import { MultipleInput } from "../../__ui/formElements";
 
 import StoryPage from "../story-page";
 import { internet } from "faker";
-import { ValidationTypeEnums, IInputProps, IMultiInputCallback } from "../../__typings/interfaces.d";
+import { ValidationTypeEnums } from "../../__typings/interfaces.d";
+import { IInputProps } from "../../__ui/formElements/input";
+import { IMultiInputCallback } from "../../__ui/formElements/multipleInput";
 
 export default {
   title: "Form Elements/Multiple Input",

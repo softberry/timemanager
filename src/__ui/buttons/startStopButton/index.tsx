@@ -1,13 +1,26 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { useState, useEffect, FC } from "react";
 
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import { IStartStopButtonProps, ThemeEnums } from "../../../__typings/interfaces.d";
+import { ThemeEnums } from "../../../__typings/interfaces.d";
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
+
+/**
+ *
+ * props for StartStopButton
+ */
+export interface IStartStopButtonProps {
+  /** Apply animation on button if true */
+  isTurning?: boolean;
+  /** Delayed click function. This callback will  be called on delay time is up*/
+  onComplete: () => void;
+  /** time to be delayed befor calling the complete event */
+  waitForSeconds?: number;
+}
 
 /**
  * Special button delays onclick event for a given time.
@@ -15,11 +28,11 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  * craftmen must keep button
  * at least given `waitForSeconds` of time.
  */
-const StartStopButton = ({
+const StartStopButton: FC<IStartStopButtonProps> = ({
   onComplete,
   waitForSeconds = 3,
   isTurning = false,
-}: IStartStopButtonProps): ReactElement => {
+}: IStartStopButtonProps) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 

@@ -1,13 +1,14 @@
 import React, { ReactElement } from "react";
 
 import { lorem } from "faker";
-import { H1, H2, H3, H4, H5, H6 } from "../../__ui/headline";
+import HeadLine, { H1, H2, H3, H4, H5, H6 } from "../../__ui/headline";
 import StoryPage from "../story-page";
 
 export default {
-  title: "Typographie /Headlines /All (h1- h6)",
+  title: "Typographie / Headlines",
   parameters: {
-    component: H1,
+    component: HeadLine,
+    subcomponents: { H1, H2, H3, H4, H5, H6 },
     componentSubtitle: "Headline",
   },
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, FunctionComponent } from "react";
+import React, { useContext, useEffect, useState, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import EditWorkLogs from "../../subViews/editWorkLogs";
@@ -19,6 +19,7 @@ import {
   ISubPageState,
   NewEntryEnums,
   IWorklogsEditProps,
+  PresetQueryEnums,
 } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { uuid } from "@nano-sql/core/lib/utilities";
@@ -27,7 +28,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }) => {
+const WorklogListOfContact: FC<IWorklogsEditProps> = ({ contact }) => {
   const dispatch = useDispatch();
   const view = useContext(ViewContext);
   const theme = useTheme();
@@ -40,7 +41,7 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
   ]);
 
   useEffect(() => {
-    dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "All Worklogs" });
+    dispatch({ type: ViewSettingsEnums.UPDATE_TITLE, title: "Contact Details" });
   });
 
   function createNewWorklogHandler(caption: string, worklogID: string): void {
@@ -66,7 +67,7 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
   }
   useEffect(() => {
     nSQL("workTable")
-      .presetQuery("getWorkLogsOfContact", { contactID: contact.id })
+      .presetQuery(PresetQueryEnums.getWorkLogsOfContact, { contactID: contact.id })
       .exec()
       .then((worklogs: [IWorkTableModel]) => {
         setContactsWorklogs(worklogs);
@@ -80,7 +81,7 @@ const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }
       <div className={styles[`WorklogsList-${theme}-${view}-Create-New`]}>
         <Button
           icon={IconNameEnums.ADD}
-          align={ButtonAlignmentEnums.RIGHT}
+          align={ButtonAlignmentEnums.STRETCH}
           isDisabled={false}
           onClick={(): void => {
             createNewWorklogHandler("New Worklog", NewEntryEnums.NEW_WORKLOG_ID);

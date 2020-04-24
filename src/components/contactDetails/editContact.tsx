@@ -1,8 +1,7 @@
-import React, { useReducer, FunctionComponent, useEffect, useState, MouseEvent } from "react";
+import React, { useReducer, FC, useEffect, useState, MouseEvent } from "react";
 import {
   IContactsTableModel,
   IInputCallback,
-  IMultiInputCallback,
   ValidationTypeEnums,
   IFormData,
   IEditContactProps,
@@ -21,6 +20,7 @@ import Button from "../../__ui/buttons/button";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "@nano-sql/core/lib/utilities";
 import ConfirmDeleteContactBody, { ConfirmDeleteContactFooter } from "../confirm/delete.contact";
+import { IMultiInputCallback } from "../../__ui/formElements/multipleInput";
 function FormData(data: IContactsTableModel): IFormData {
   return {
     name: { value: data.name, valid: false },
@@ -37,7 +37,7 @@ function FormData(data: IContactsTableModel): IFormData {
 /**
  *
  */
-const EditContact: FunctionComponent<IEditContactProps> = ({ contact, theme, styles, view, onComplete }) => {
+const EditContact: FC<IEditContactProps> = ({ contact, theme, styles, view, onComplete }) => {
   const isNewContact = contact.id === NewEntryEnums.NEW_CONTACT_ID;
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const dispatch = useDispatch();
@@ -90,7 +90,7 @@ const EditContact: FunctionComponent<IEditContactProps> = ({ contact, theme, sty
     dispatch(dialog);
   }
 
-  function saveContactDetailsToDatabase(e: MouseEvent<HTMLButtonElement>): void {
+  function saveContactDetailsToDatabase(e: MouseEvent<HTMLDivElement>): void {
     e.currentTarget.focus(); // remove focus from last form element to avoid any delayed function calls (Input on blur)
     const clonedContactData: IContactsTableModel = Object.assign({}, contact);
     if (contact.id === NewEntryEnums.NEW_CONTACT_ID) {

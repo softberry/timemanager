@@ -1,15 +1,24 @@
-import React, { FunctionComponent } from "react";
+import React, { FC, ReactNode } from "react";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
-import { IHeadlineBuilderProps, ThemeEnums } from "../../__typings/interfaces.d";
+import { ThemeEnums } from "../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
+export interface IHeadlineProps {
+  children: ReactNode;
+  /** String, DOM elements React elements those will be rendered in the headline  */
+  size: 1 | 2 | 3 | 4 | 5 | 6;
+}
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const Headline: FunctionComponent<IHeadlineBuilderProps> = ({ children, size }) => {
+/**
+ * This a constructor component for all headlines 1-6. No need to use this component directly in app.
+ * Use simple like this : ``<H1>text</H1> or <H2>text</H2>`` and so on.
+ */
+const Headline: FC<IHeadlineProps> = ({ children, size }: IHeadlineProps) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -25,42 +34,42 @@ const Headline: FunctionComponent<IHeadlineBuilderProps> = ({ children, size }) 
   );
 };
 
-const H1: FunctionComponent = ({ children = <></> }) => {
+const H1: FC = ({ children }) => {
   return (
     <>
       <Headline size={1}>{children}</Headline>
     </>
   );
 };
-const H2: FunctionComponent = ({ children }) => {
+const H2: FC = ({ children }) => {
   return (
     <>
       <Headline size={2}>{children}</Headline>
     </>
   );
 };
-const H3: FunctionComponent = ({ children }) => {
+const H3: FC = ({ children }) => {
   return (
     <>
       <Headline size={3}>{children}</Headline>
     </>
   );
 };
-const H4: FunctionComponent = ({ children }) => {
+const H4: FC = ({ children }) => {
   return (
     <>
       <Headline size={4}>{children}</Headline>
     </>
   );
 };
-const H5: FunctionComponent = ({ children }) => {
+const H5: FC = ({ children }) => {
   return (
     <>
       <Headline size={5}>{children}</Headline>
     </>
   );
 };
-const H6: FunctionComponent = ({ children }) => {
+const H6: FC = ({ children }) => {
   return (
     <>
       <Headline size={6}>{children}</Headline>

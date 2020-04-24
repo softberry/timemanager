@@ -1,0 +1,35 @@
+@mixin Suggestion($view) {
+  &-Wrapper {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(100%);
+  }
+
+  &-List {
+    background-color: color-palette($view, "main", "background");
+    color: color-palette($view, "main", "text");
+    transition: height 300ms;
+    box-shadow: 0 1px 4px 0 lighten(color-palette($view, "main", "background"), $amount: 20);
+    border-radius: 0 0 rem(0.25) rem(0.25);
+  }
+
+  &-ListItem {
+    padding: rem(0.5);
+    &:not(:last-of-type) {
+      border-bottom: 1px solid darken(color-palette($view, "main", "text"), $amount: 50);
+    }
+  }
+}
+
+.Suggestion-#{$theme} {
+  &-primary {
+    @include Suggestion("primary");
+  }
+
+  &-secondary {
+    @include Suggestion("secondary");
+  }
+}

@@ -39,9 +39,13 @@
   &[type="mail"],
   &[type="zip"],
   &[type="number"] {
-    padding: $font-size;
+    @include WidthUp("small") {
+      padding: rem(1);
+      font-size: rem(1);
+    }
+    padding: rem(0.5);
+    font-size: rem(0.85);
     font-family: $font-default;
-    font-size: $font-size;
     background-color: $bg;
     &::selection {
       background-color: color-palette("primary", "selected", "background");

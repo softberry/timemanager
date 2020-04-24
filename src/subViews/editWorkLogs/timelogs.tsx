@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useContext, useEffect } from "react";
+import React, { FC, useState, useContext, useEffect } from "react";
 import Tipp from "../../__ui/tipp";
 import Button from "../../__ui/buttons/button";
 import TimeLogItem from "./timeLogItem";
@@ -10,7 +10,7 @@ import {
   ButtonTypeEnums,
   ButtonAlignmentEnums,
   IEditTimeLogsProps,
-  IWorkDurationTableModel,
+  ICalendarTableModel,
   IMessageAction,
   IDialogActionEnums,
   DialogTypes,
@@ -26,17 +26,17 @@ import { timeDiffToString } from "../../lib/input.helpers";
 
 import { WorklogContext, DispatchContext } from "./index";
 
-const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ styles, theme }) => {
+const TimeLogs: FC<IEditTimeLogsProps> = ({ styles, theme }) => {
   const worklog = useContext(WorklogContext);
   const dispatcher = useContext(DispatchContext);
 
-  const [timeLogs, setTimelogs] = useState<IWorkDurationTableModel[]>(worklog.labour);
+  const [timeLogs, setTimelogs] = useState<ICalendarTableModel[]>(worklog.labour);
 
   const dispatch = useDispatch();
   const dialogId = uuid();
   function createTimeLogHandler(): void {
     const time = moment();
-    const newTimelog: IWorkDurationTableModel = {
+    const newTimelog: ICalendarTableModel = {
       description: "",
       finish: time.toISOString(),
       start: time.toISOString(),
@@ -46,7 +46,7 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ styles, theme }) => {
     showEditDialog(newTimelog, true);
   }
 
-  function showEditDialog(timelog: IWorkDurationTableModel, isNew: boolean): void {
+  function showEditDialog(timelog: ICalendarTableModel, isNew: boolean): void {
     const action: IMessageAction = {
       type: IDialogActionEnums.OPEN,
       message: {
@@ -72,15 +72,15 @@ const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ styles, theme }) => {
     };
     dispatch(action);
   }
-  function updateATimeLogHandler(log: IWorkDurationTableModel): void {
+  function updateATimeLogHandler(log: ICalendarTableModel): void {
     showEditDialog(log, false);
   }
-  function newTimelogCallback(newlog: IWorkDurationTableModel): void {
+  function newTimelogCallback(newlog: ICalendarTableModel): void {
     setTimelogs([...timeLogs, newlog]);
     closeEditDialog();
   }
 
-  function updateTimelogCallback(updatedLog: IWorkDurationTableModel): void {
+  function updateTimelogCallback(updatedLog: ICalendarTableModel): void {
     const logs = timeLogs.map(log => {
       if (log.id === updatedLog.id) return updatedLog;
       return log;

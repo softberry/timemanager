@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import AutoComplete from "../../__ui/autocomplete";
 
 import ViewTitle from "../viewTitle";
@@ -14,7 +14,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const Nav: FunctionComponent = () => {
+const Nav: FC = () => {
   const history = useHistory();
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);

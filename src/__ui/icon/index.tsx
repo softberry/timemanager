@@ -1,15 +1,19 @@
-import React, { ReactElement } from "react";
+import React, { FC } from "react";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 
-import { IIconProps, IconSizeEnums, IconNameEnums, ThemeEnums } from "../../__typings/interfaces.d";
+import { IconSizeEnums, IconNameEnums, ThemeEnums } from "../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../typography";
-
+export interface IIconProps {
+  children: IconNameEnums;
+  onClick?: () => void;
+  size?: IconSizeEnums;
+}
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const Icon = ({ children, size = IconSizeEnums.MEDIUM, ...rest }: IIconProps): ReactElement => {
+const Icon: FC<IIconProps> = ({ children, size = IconSizeEnums.MEDIUM, ...rest }: IIconProps) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, FunctionComponent, useEffect, useState } from "react";
+import React, { ReactElement, useContext, FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { RadioGroup, Radio } from "../../__ui/formElements";
@@ -14,7 +14,7 @@ const stylesMap = new Map();
 
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
-const Options: FunctionComponent = (): ReactElement => {
+const Options: FC = (): ReactElement => {
   const view = useContext(ViewContext);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);

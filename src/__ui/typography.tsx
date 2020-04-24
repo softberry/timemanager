@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from "react";
+import React, { useState, FC } from "react";
 import {
   INameToValueMap,
   DialogTypes,
@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import webfontloader from "webfontloader";
 
-const Typography: FunctionComponent = ({ children }) => {
+const Typography: FC = ({ children }) => {
   const [fontsReady, setFontsReady] = useState<string>("LOADING");
   const dispatch = useDispatch();
 

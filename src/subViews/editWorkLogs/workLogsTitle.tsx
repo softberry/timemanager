@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useContext } from "react";
+import React, { FC, useContext } from "react";
 import Input from "../../__ui/formElements";
 import { ValidationTypeEnums, AddEditWorklogEnums, IInputCallback } from "../../__typings/interfaces.d";
 import Card from "../../__ui/card";
 import { WorklogContext, DispatchContext } from "./index";
 
-const WorkLogsTitle: FunctionComponent = () => {
+const WorkLogsTitle: FC = () => {
   const worklog = useContext(WorklogContext);
   const dispatcher = useContext(DispatchContext);
   const { name, description } = worklog;

@@ -1,6 +1,6 @@
 import { uuid } from "@nano-sql/core/lib/utilities";
 
-import { ReactChildren, ReactNode, ReactChild } from "react";
+import { ReactNode, ReactChild } from "react";
 import { nSQL as nSQLInterface } from "@nano-sql/core";
 import { RouteComponentProps } from "react-router-dom";
 
@@ -29,29 +29,6 @@ export interface IEditableDetailsProps {
   updateContact: (contact: IContactsTableModel, readOnly?: boolean) => void;
 }
 
-export interface ICheckBoxComponentProps extends IRadioItemProps {
-  /** Value of the check box */
-  value?: never;
-  /** callback function to be don if checkbox or radio  changes it state */
-  onChange: (checked?: boolean) => void;
-}
-
-export interface IRadioItemProps {
-  /** *initial state to be set* */
-  checked?: boolean;
-  /** label text identifies the checkbox or radio element */
-  label: string;
-  /** value of the radio element, whihc will be assigend to radiogroup when it's selected */
-  value: string;
-  /** callback function to be don if checkbox or radio  changes it state */
-  onChange?: (val?: string) => void;
-}
-
-export interface IRadioGroupProps {
-  children?: ReactNode<IRadioItemProps>;
-  onChange: (t: string | ViewEnums) => void;
-}
-
 export interface IEditableInputProps {
   /** Name of the Input element, which must be uniqe in its parent */
   fieldName: keyof IContactsTableModel;
@@ -68,92 +45,16 @@ export interface IInputCallback {
   value: string;
 }
 
-export interface IInputProps {
-  /** Name of the input field */
-  name: string;
-  /** User freindly name of input element to be used as label text*/
-  label: string;
-  /**  */
-  // uniqueName: string;
-  /** Type of input element */
-  type: "text" | "number" | "phone" | "mail" | "date" | "time";
-  /** Value  of the input field */
-  value?: string; //| string[] | Date;
-  /** Define whether this field should have a value */
-  required: boolean;
-  /** Should be value of field to be validated. */
-  validate: boolean;
-  /** Defined the Validation rule which should be applied*/
-  validationType?: ValidationTypeEnums;
-  /** Callback function that helps to input validation state to sync with its parent */
-  infoCallback?: (p: IInputCallback) => void;
-}
-
-export interface IMultiInputProps {
-  name: string;
-  defaultProps: IInputProps;
-  values: string[];
-  valid: boolean[];
-  hash?: string;
-  callback: (p: IMultiInputCallback) => void;
-}
-
-export interface IMultiInputCallback {
-  name: string;
-  value: string[];
-  valid: boolean;
-}
-
-export interface IMultiInputActions {
-  type: string;
-  value?: string;
-  index: number;
-  valid: boolean;
-}
-
-export interface IDateTimeProps {
-  /** uniqe in its first parent, to match correct element for save/remove etc*/
-  uniqueId: string;
-  /** Start property of a Worklog */
-  start?: string;
-  /** End property of a Worklog */
-  finish?: string;
-  /** Increment Steps of work time logs */
-  step: number;
-  /** Callback function that helps to input validation state to sync with its parent */
-  infoCallback: (DateTimeValue: IDateTimeCallback) => void;
-  /** Optional callback function, that informs parent to remove that element*/
-  deleteCallback?: (uniqueId) => void;
-}
-
 export interface IDateTimeCallback {
   start: string;
   finish: string;
   valid: boolean;
 }
-/**
- *
- * props for StartStopButton
- */
-export interface IStartStopButtonProps {
-  /** Apply animation on button if true */
-  isTurning?: boolean;
-  /** Delayed click function. This callback will  be called on delay time is up*/
-  onComplete: () => void;
-  /** time to be delayed befor calling the complete event */
-  waitForSeconds?: number;
-}
 
-export interface IButtonProps {
-  icon?: IconNameEnums;
-  align?: ButtonAlignmentEnums;
-  onClick: (e: MouseEvent<HTMLDivElement>) => void;
-  type: ButtonTypeEnums;
-  isDisabled: boolean;
-}
-
-export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
-  href: string;
+export interface ISuggestionListProps {
+  query: string;
+  table: PresetSuggestionEnums;
+  onSelect: () => void;
 }
 
 /**
@@ -235,7 +136,7 @@ export interface IWorklogState extends IWorkTableModel {
 export interface IWorklogAction {
   type: AddEditWorklogEnums;
   worklog?: IWorkTableModel;
-  labour?: IWorkDurationTableModel[];
+  labour?: ICalendarTableModel[];
   materials?: MaterialItemTableModel[];
   input?: IInputCallback;
 }
@@ -334,25 +235,28 @@ export interface IWorkTableModel {
   contactID: string;
   name: string;
   description: string;
-  labour: IWorkDurationTableModel[];
+  labour: ICalendarTableModel[];
   materials: MaterialItemTableModel[];
 }
 
-export interface IWorkDurationTableModel {
+export interface ICalendarTableModel {
   id: string;
   start: string;
   finish: string;
   description: string;
-  // workID: string;
 }
 export interface IWorklogsEditProps {
   contact: IContactsTableModel;
 }
-// export interface IMaterialListTableModel {
-//   id: string;
-//   items: MaterialItemTableModel[];
-//   workID: string;
-// }
+
+export interface IAppointmentsTableModel {
+  id: string;
+  start: string;
+  finish: string;
+  description: string;
+  contactID: string;
+  type: "TIMELOG" | "APPOINTMENT";
+}
 
 export interface MaterialItemTableModel {
   id: string;
@@ -377,31 +281,7 @@ export interface IUnitEnumsTableModel {
   name: string;
 }
 
-export interface IHeadlineProps {
-  /** String, DOM elements React elements those will be rendered in the headline  */
-  size: 1 | 2 | 3 | 4 | 5 | 6;
-}
-
-export interface IHeadlineBuilderProps extends IHeadlineProps {
-  /** Size of Headline elements valid values are 1-6 */
-  size: number;
-}
-
 /** Material Icon properties */
-export interface IIconProps {
-  children: IconNameEnums;
-  onClick?: () => void;
-  size?: IconSizeEnums;
-}
-
-export interface IBadgeProps {
-  content: number;
-  view?: ViewEnums;
-}
-
-export interface ITippProps {
-  children: ReactChildren | ReactNode;
-}
 
 export interface IWorkListItemEntry {
   name: string;
@@ -492,6 +372,8 @@ export enum IconNameEnums {
   ARROW_FORWARD = "arrow_forward",
   ARROW_UP = "keyboard_arrow_up",
   BLANK = "blank",
+  BOOKMARK = "bookmark",
+  BOOKMARK_BORDER = "bookmark_border",
   CALENDAR = "date_range",
   CHECK_CIRCLE = "check_circle",
   CHECKBOX_OFF = "check_box_outline_blank",
@@ -546,6 +428,7 @@ export enum ValidationTypeEnums {
   DATE = "DATE",
   CURRENCY = "CURRENCY",
   DECIMAL = "DECIMAL",
+  SUGGESTION = "SUGGESTION",
 }
 
 export enum ButtonTypeEnums {
@@ -574,4 +457,13 @@ export enum DialogTypes {
   WARNING = "WARNING",
   ERROR = "ERROR",
   CONFIRM = "CONFIRM",
+}
+export enum PresetQueryEnums {
+  contactsSuggestion = "contactsSuggestion",
+  createNewEmptyUserEntryForEdit = "createNewEmptyUserEntryForEdit",
+  getWorkLogsOfContact = "getWorkLogsOfContact",
+}
+
+export enum PresetSuggestionEnums {
+  contactsSuggestion = "contactsSuggestion",
 }

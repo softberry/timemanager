@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactElement } from "react";
+import React, { FC, ReactElement } from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "../../__ui/icon";
 
@@ -11,7 +11,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const Footer: FunctionComponent = (): ReactElement => {
+const Footer: FC = (): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 

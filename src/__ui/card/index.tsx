@@ -1,4 +1,4 @@
-import React, { useContext, FunctionComponent, ReactElement } from "react";
+import React, { useContext, FC } from "react";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -10,28 +10,28 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const Card: FunctionComponent = ({ children }): ReactElement => {
+const Card: FC = ({ children }) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   return <div className={styles[`Card-${theme}-${view}`]}>{children}</div>;
 };
 
-const CardTitle: FunctionComponent = ({ children }): ReactElement => {
+const CardTitle: FC = ({ children }) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   return <div className={styles[`CardTitle-${theme}-${view}`]}>{children}</div>;
 };
 
-const CardBody: FunctionComponent = ({ children }): ReactElement => {
+const CardBody: FC = ({ children }) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
   return <div className={styles[`CardBody-${theme}-${view}`]}>{children}</div>;
 };
 
-const CardFooter: FunctionComponent = ({ children }) => {
+const CardFooter: FC = ({ children }) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
