@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useCallback, ReactElement, Children, FunctionComponent } from "react";
-import { IRadioGroupProps, IRadioItemProps, ThemeEnums } from "../../../__typings/interfaces.d";
+import React, { useState, useEffect, useCallback, Children, FC, ReactNode } from "react";
+import { ThemeEnums, ViewEnums } from "../../../__typings/interfaces.d";
 
-import Radio from "./radio";
+import { RadioItem, IRadioItemProps } from "./radio-item";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useThemeStyle } from "../../typography";
+export interface IRadioGroupProps {
+  children?: ReactNode;
+  onChange: (t: string | ViewEnums) => void;
+}
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -16,7 +20,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  *
  */
 
-const RadioGroup: FunctionComponent<IRadioGroupProps> = ({ children, onChange }) => {
+export const RadioGroup: FC<IRadioGroupProps> = ({ children, onChange }: IRadioGroupProps) => {
   const [radioItemsProps, setRadioItemsProps] = useState<IRadioItemProps[]>([]);
   const [selectedItem, setSelectedItem] = useState("");
   const [initialised, setInitialised] = useState(false);
@@ -34,14 +38,14 @@ const RadioGroup: FunctionComponent<IRadioGroupProps> = ({ children, onChange })
     setSelectedItem(val.toString());
   };
   useEffect(() => {
-    const values = Children.map(children, child => child.props.value);
+    if (Children.count(children) === 0) return;
+    const values = Children.map(children, child => React.isValidElement(child) && child.props.value) || [];
     let selecteds = 0;
     Children.forEach(children, child => {
-      if (child.props.checked === true) selecteds++;
+      if (React.isValidElement(child) && child.props.checked === true) selecteds++;
     });
-    // (child: ReactElement) => child.props.checked === true
 
-    if (values.length !== children.length) {
+    if (values.length !== Children.count(children)) {
       setIsValid("Each Radio in RadioGroup must have a 'value'!");
       return;
     }
@@ -60,18 +64,21 @@ const RadioGroup: FunctionComponent<IRadioGroupProps> = ({ children, onChange })
   }, [isValid]);
 
   useEffect(() => {
-    if (!initialised && radioItemsProps.length === 0 && children.length > 0) {
-      const propsList = Children.map(children, (child: ReactElement) => {
-        const { children, label, checked, value } = child.props;
-        if (checked) {
-          setSelectedItem(value);
-        }
-        return {
-          children,
-          label,
-          value,
-        };
-      });
+    if (Children.count(children) === 0) return;
+    if (!initialised && radioItemsProps.length === 0 && Children.count(children) > 0) {
+      const propsList =
+        Children.map(children, (child: ReactNode) => {
+          if (!React.isValidElement(child)) return;
+          const { children, label, checked, value } = child.props;
+          if (checked) {
+            setSelectedItem(value);
+          }
+          return {
+            children,
+            label,
+            value,
+          };
+        }) || [];
       setRadioItemsProps(propsList);
       setInitialised(true);
     }
@@ -86,7 +93,7 @@ const RadioGroup: FunctionComponent<IRadioGroupProps> = ({ children, onChange })
       <div className={styles.RadioGroup} data-value={selectedItem}>
         {radioItemsProps.map((props: IRadioItemProps, keyIndex: number) => {
           return (
-            <Radio
+            <RadioItem
               key={keyIndex}
               {...props}
               checked={selectedItem === props.value}
@@ -98,5 +105,3 @@ const RadioGroup: FunctionComponent<IRadioGroupProps> = ({ children, onChange })
     </>
   );
 };
-
-export default RadioGroup;

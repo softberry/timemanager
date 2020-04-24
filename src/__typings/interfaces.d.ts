@@ -29,22 +29,6 @@ export interface IEditableDetailsProps {
   updateContact: (contact: IContactsTableModel, readOnly?: boolean) => void;
 }
 
-export interface IRadioItemProps {
-  /** *initial state to be set* */
-  checked?: boolean;
-  /** label text identifies the checkbox or radio element */
-  label: string;
-  /** value of the radio element, whihc will be assigend to radiogroup when it's selected */
-  value: string;
-  /** callback function to be don if checkbox or radio  changes it state */
-  onChange?: (val?: string) => void;
-}
-
-export interface IRadioGroupProps {
-  children?: ReactNode<IRadioItemProps>;
-  onChange: (t: string | ViewEnums) => void;
-}
-
 export interface IEditableInputProps {
   /** Name of the Input element, which must be uniqe in its parent */
   fieldName: keyof IContactsTableModel;
