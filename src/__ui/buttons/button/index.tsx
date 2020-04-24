@@ -1,4 +1,4 @@
-import React, { useContext, MouseEvent, FunctionComponent, Children } from "react";
+import React, { useContext, MouseEvent, FunctionComponent, Children, ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 import { useTheme, useThemeStyle } from "../../typography";
@@ -10,11 +10,22 @@ import {
   IconSizeEnums,
   ButtonAlignmentEnums,
   ButtonTypeEnums,
-  IButtonProps,
-  IButtonLinkProps,
   ThemeEnums,
+  IconNameEnums,
 } from "../../../__typings/interfaces.d";
 import ViewContext from "../../../views";
+
+interface IButtonProps {
+  children: ReactNode;
+  icon?: IconNameEnums;
+  align?: ButtonAlignmentEnums;
+  onClick: (e: MouseEvent<HTMLDivElement>) => void;
+  type: ButtonTypeEnums;
+  isDisabled: boolean;
+}
+export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
+  href: string;
+}
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -27,7 +38,7 @@ const Button: FunctionComponent<IButtonProps> = ({
   align = undefined,
   type = ButtonTypeEnums.SIMPLE,
   isDisabled = true,
-}) => {
+}: IButtonProps) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);
@@ -58,7 +69,7 @@ const ButtonLink: FunctionComponent<IButtonLinkProps> = ({
   align = ButtonAlignmentEnums.CENTER,
   type = ButtonTypeEnums.SIMPLE,
   isDisabled = true,
-}) => {
+}: IButtonLinkProps) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const view = useContext(ViewContext);

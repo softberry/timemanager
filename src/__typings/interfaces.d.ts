@@ -153,18 +153,6 @@ export interface IStartStopButtonProps {
   waitForSeconds?: number;
 }
 
-export interface IButtonProps {
-  icon?: IconNameEnums;
-  align?: ButtonAlignmentEnums;
-  onClick: (e: MouseEvent<HTMLDivElement>) => void;
-  type: ButtonTypeEnums;
-  isDisabled: boolean;
-}
-
-export interface IButtonLinkProps extends Omit<IButtonProps, "onClick"> {
-  href: string;
-}
-
 /**
  * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  * ******************     Store reducers and actions
