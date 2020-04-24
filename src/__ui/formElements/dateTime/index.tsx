@@ -2,12 +2,27 @@ import React, { useState, useContext, ChangeEvent, useEffect, useMemo, FunctionC
 import moment from "moment";
 import { timeDiffToString } from "../../../lib/input.helpers";
 
-import { ThemeEnums, IDateTimeProps } from "../../../__typings/interfaces.d";
+import { ThemeEnums, IDateTimeCallback } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../typography";
 import ViewContext from "../../../views";
 import { uuid } from "@nano-sql/core/lib/utilities";
+
+export interface IDateTimeProps {
+  /** uniqe in its first parent, to match correct element for save/remove etc*/
+  // uniqueId: string;
+  /** Start property of a Worklog */
+  start?: string;
+  /** End property of a Worklog */
+  finish?: string;
+  /** Increment Steps of work time logs */
+  step: number;
+  /** Callback function that helps to input validation state to sync with its parent */
+  infoCallback: (DateTimeValue: IDateTimeCallback) => void;
+  /** Optional callback function, that informs parent to remove that element*/
+  deleteCallback?: (uniqueId: string) => void;
+}
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -22,7 +37,7 @@ const DateTime: FunctionComponent<IDateTimeProps> = ({
   finish = moment().toISOString(),
   step = 15,
   infoCallback,
-}) => {
+}: IDateTimeProps) => {
   const view = useContext(ViewContext);
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);

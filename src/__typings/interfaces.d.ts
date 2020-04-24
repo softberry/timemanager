@@ -106,21 +106,6 @@ export interface IMultiInputActions {
   valid: boolean;
 }
 
-export interface IDateTimeProps {
-  /** uniqe in its first parent, to match correct element for save/remove etc*/
-  // uniqueId: string;
-  /** Start property of a Worklog */
-  start?: string;
-  /** End property of a Worklog */
-  finish?: string;
-  /** Increment Steps of work time logs */
-  step: number;
-  /** Callback function that helps to input validation state to sync with its parent */
-  infoCallback: (DateTimeValue: IDateTimeCallback) => void;
-  /** Optional callback function, that informs parent to remove that element*/
-  deleteCallback?: (uniqueId) => void;
-}
-
 export interface IDateTimeCallback {
   start: string;
   finish: string;
