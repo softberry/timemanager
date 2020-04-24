@@ -16,11 +16,17 @@ stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 interface ISuggestionProps {
+  /** Name of the suggestion field */
   name: string;
+  /** Label of the suggestion (input) field  */
   label: string;
+  /** Type of Suggestion, which decides to data table to be searched for */
   type: "contact";
+  /** is Field required */
   required: boolean;
+  /** Sould be validated */
   validate: boolean;
+  /** Callback Function to be called on selection event */
   onSelectCallback: (selectedEntry: IContactsTableModel) => void;
 }
 
@@ -44,7 +50,7 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   required,
   validate,
   onSelectCallback,
-}) => {
+}: ISuggestionProps) => {
   function suggestedEntryReducer(state: ISuggestionState, action: ISuggestionAction): ISuggestionState {
     switch (action.type) {
       case "SET":
