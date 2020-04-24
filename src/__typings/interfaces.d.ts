@@ -282,11 +282,6 @@ export interface IUnitEnumsTableModel {
 }
 
 /** Material Icon properties */
-export interface IIconProps {
-  children: IconNameEnums;
-  onClick?: () => void;
-  size?: IconSizeEnums;
-}
 
 export interface ITippProps {
   children: ReactChildren | ReactNode;
