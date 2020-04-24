@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext, useCallback, FunctionComponent } from "react";
 import {
-  IInputProps,
   IconSizeEnums,
   LabelTypeEnums,
   IconNameEnums,
   ValidationTypeEnums,
   IInputCallback,
   ThemeEnums,
+  PresetSuggestionEnums,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
@@ -23,7 +23,28 @@ import isNumeric from "validator/lib/isNumeric";
 import isCurrency from "validator/lib/isCurrency";
 import isDecimal from "validator/lib/isDecimal";
 import SuggestionList from "../suggestion/suggestionList";
-
+export interface IInputProps {
+  /** Name of the input field */
+  name: string;
+  /** User freindly name of input element to be used as label text*/
+  label: string;
+  /**  */
+  // uniqueName: string;
+  /** Type of input element */
+  type: "text" | "number" | "phone" | "mail" | "date" | "time";
+  /** Value  of the input field */
+  value?: string; //| string[] | Date;
+  /** Define whether this field should have a value */
+  required: boolean;
+  /** Should be value of field to be validated. */
+  validate: boolean;
+  /** Defined the Validation rule which should be applied*/
+  validationType?: ValidationTypeEnums;
+  /** Callback function that helps to input validation state to sync with its parent */
+  infoCallback?: (p: IInputCallback) => void;
+  /** if suggestion needed, define suggestionPresetQueryName  */
+  suggestionTable?: PresetSuggestionEnums;
+}
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
@@ -41,7 +62,7 @@ const Input: FunctionComponent<IInputProps> = ({
   validationType,
   infoCallback,
   suggestionTable,
-}) => {
+}: IInputProps) => {
   const id = uuid();
   const stringValueOfField: string = value?.toString() || "";
   const [inputElement, setInputElement] = useState<HTMLInputElement | null>();

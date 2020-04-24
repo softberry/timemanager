@@ -6,8 +6,6 @@ import {
   ButtonAlignmentEnums,
   IInputCallback,
   ThemeEnums,
-  IMultiInputProps,
-  IMultiInputActions,
 } from "../../../__typings/interfaces.d";
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -15,6 +13,29 @@ import themeOcean from "./theme-ocean.module.scss";
 
 import Button from "../../buttons/button";
 import Input from "../index";
+import { IInputProps } from "../input";
+
+export interface IMultiInputProps {
+  name: string;
+  defaultProps: IInputProps;
+  values: string[];
+  valid: boolean[];
+  hash?: string;
+  callback: (p: IMultiInputCallback) => void;
+}
+
+export interface IMultiInputCallback {
+  name: string;
+  value: string[];
+  valid: boolean;
+}
+
+export interface IMultiInputActions {
+  type: string;
+  value?: string;
+  index: number;
+  valid: boolean;
+}
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -83,7 +104,7 @@ const MultipleInput: FunctionComponent<IMultiInputProps> = ({
   valid,
   hash = "",
   callback,
-}) => {
+}: IMultiInputProps) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 

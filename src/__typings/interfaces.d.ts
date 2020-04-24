@@ -61,51 +61,6 @@ export interface IInputCallback {
   value: string;
 }
 
-export interface IInputProps {
-  /** Name of the input field */
-  name: string;
-  /** User freindly name of input element to be used as label text*/
-  label: string;
-  /**  */
-  // uniqueName: string;
-  /** Type of input element */
-  type: "text" | "number" | "phone" | "mail" | "date" | "time";
-  /** Value  of the input field */
-  value?: string; //| string[] | Date;
-  /** Define whether this field should have a value */
-  required: boolean;
-  /** Should be value of field to be validated. */
-  validate: boolean;
-  /** Defined the Validation rule which should be applied*/
-  validationType?: ValidationTypeEnums;
-  /** Callback function that helps to input validation state to sync with its parent */
-  infoCallback?: (p: IInputCallback) => void;
-  /** if suggestion needed, define suggestionPresetQueryName  */
-  suggestionTable?: PresetSuggestionEnums;
-}
-
-export interface IMultiInputProps {
-  name: string;
-  defaultProps: IInputProps;
-  values: string[];
-  valid: boolean[];
-  hash?: string;
-  callback: (p: IMultiInputCallback) => void;
-}
-
-export interface IMultiInputCallback {
-  name: string;
-  value: string[];
-  valid: boolean;
-}
-
-export interface IMultiInputActions {
-  type: string;
-  value?: string;
-  index: number;
-  valid: boolean;
-}
-
 export interface IDateTimeCallback {
   start: string;
   finish: string;
