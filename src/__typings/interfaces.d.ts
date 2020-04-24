@@ -141,19 +141,6 @@ export interface ISuggestionListProps {
 }
 
 /**
- *
- * props for StartStopButton
- */
-export interface IStartStopButtonProps {
-  /** Apply animation on button if true */
-  isTurning?: boolean;
-  /** Delayed click function. This callback will  be called on delay time is up*/
-  onComplete: () => void;
-  /** time to be delayed befor calling the complete event */
-  waitForSeconds?: number;
-}
-
-/**
  * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  * ******************     Store reducers and actions
  * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
