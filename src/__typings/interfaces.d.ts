@@ -1,6 +1,6 @@
 import { uuid } from "@nano-sql/core/lib/utilities";
 
-import { ReactChildren, ReactNode, ReactChild } from "react";
+import { ReactNode, ReactChild } from "react";
 import { nSQL as nSQLInterface } from "@nano-sql/core";
 import { RouteComponentProps } from "react-router-dom";
 
@@ -282,10 +282,6 @@ export interface IUnitEnumsTableModel {
 }
 
 /** Material Icon properties */
-
-export interface ITippProps {
-  children: ReactChildren | ReactNode;
-}
 
 export interface IWorkListItemEntry {
   name: string;
