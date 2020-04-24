@@ -16,7 +16,7 @@ import {
 import ViewContext from "../../../views";
 
 interface IButtonProps {
-  children: ReactNode;
+  children?: ReactNode;
   icon?: IconNameEnums;
   align?: ButtonAlignmentEnums;
   onClick: (e: MouseEvent<HTMLDivElement>) => void;

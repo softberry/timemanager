@@ -9,7 +9,7 @@ stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 export interface ICheckBoxComponentProps {
-  children: ReactNode;
+  children?: ReactNode;
   /** *initial state to be set* */
   checked?: boolean;
   /** label text identifies the checkbox or radio element */
