@@ -29,13 +29,6 @@ export interface IEditableDetailsProps {
   updateContact: (contact: IContactsTableModel, readOnly?: boolean) => void;
 }
 
-export interface ICheckBoxComponentProps extends IRadioItemProps {
-  /** Value of the check box */
-  value?: never;
-  /** callback function to be don if checkbox or radio  changes it state */
-  onChange: (checked?: boolean) => void;
-}
-
 export interface IRadioItemProps {
   /** *initial state to be set* */
   checked?: boolean;
