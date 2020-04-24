@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import { IconSizeEnums, IconNameEnums, ThemeEnums } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -27,7 +27,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  *
  */
 
-export const RadioItem: FunctionComponent<IRadioItemProps> = ({
+export const RadioItem: FC<IRadioItemProps> = ({
   children,
   label = "",
   onChange = (): boolean => false,

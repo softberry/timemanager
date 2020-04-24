@@ -1,4 +1,4 @@
-import React, { useReducer, FunctionComponent, useEffect, useState, MouseEvent } from "react";
+import React, { useReducer, FC, useEffect, useState, MouseEvent } from "react";
 import {
   IContactsTableModel,
   IInputCallback,
@@ -37,7 +37,7 @@ function FormData(data: IContactsTableModel): IFormData {
 /**
  *
  */
-const EditContact: FunctionComponent<IEditContactProps> = ({ contact, theme, styles, view, onComplete }) => {
+const EditContact: FC<IEditContactProps> = ({ contact, theme, styles, view, onComplete }) => {
   const isNewContact = contact.id === NewEntryEnums.NEW_CONTACT_ID;
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const dispatch = useDispatch();

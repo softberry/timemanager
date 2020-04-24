@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useReducer, useEffect, useMemo } from "react";
+import React, { FC, useReducer, useEffect, useMemo } from "react";
 
 import {
   IconNameEnums,
@@ -97,7 +97,7 @@ function formReducer(state: IMultiInputProps, action: IMultiInputActions): IMult
  * Children inputs inherits valid and required props from ``MultipleInput``.
  * As long as all child elements passes validations test, ``MultipleInput`` will be valid.
  */
-const MultipleInput: FunctionComponent<IMultiInputProps> = ({
+const MultipleInput: FC<IMultiInputProps> = ({
   name,
   defaultProps,
   values,

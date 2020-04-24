@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, FunctionComponent } from "react";
+import React, { useState, useContext, useEffect, FC } from "react";
 
 import Nav from "../components/nav";
 import Footer from "../components/footer";
@@ -16,7 +16,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const DefaultLayout: FunctionComponent = ({ children }) => {
+const DefaultLayout: FC = ({ children }) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const [slideIn, setSlideIn] = useState(false);

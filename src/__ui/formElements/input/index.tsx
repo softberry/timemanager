@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback, FunctionComponent } from "react";
+import React, { useState, useEffect, useContext, useCallback, FC } from "react";
 import {
   IconSizeEnums,
   LabelTypeEnums,
@@ -52,7 +52,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 /**
  * Input element:
  */
-const Input: FunctionComponent<IInputProps> = ({
+const Input: FC<IInputProps> = ({
   name,
   label,
   value = "",

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Loading from "../components/loading";
@@ -19,7 +19,7 @@ function dbExists(dbname = "shoplist_local"): boolean {
   return dbList.includes(dbname);
 }
 
-const NanoDatabase: FunctionComponent = ({ children }) => {
+const NanoDatabase: FC = ({ children }) => {
   const [ready, setReady] = useState<string>("NOT_READY");
   const _nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
   const dispatch = useDispatch();
@@ -33,9 +33,7 @@ const NanoDatabase: FunctionComponent = ({ children }) => {
   useEffect(() => {
     if (ready === "NOT_READY" && dbExists()) {
       setReady("GETTING_READY");
-      nSQL("contactsTable")
-        .query("select")
-        .exec();
+      nSQL("contactsTable").query("select").exec();
       return;
     } else if (ready === "NOT_READY") {
       setReady("GETTING_READY");

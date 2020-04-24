@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import {
   ICalendarTableModel,
   ButtonTypeEnums,
@@ -15,7 +15,7 @@ interface ITimelogItemProps {
   timelog: ICalendarTableModel;
   updateCallback: (log: ICalendarTableModel) => void;
 }
-const TimeLogItem: FunctionComponent<ITimelogItemProps> = ({ timelog, updateCallback }) => {
+const TimeLogItem: FC<ITimelogItemProps> = ({ timelog, updateCallback }) => {
   const [isValid, setIsValid] = useState(false);
   const [saveNow, setSaveNow] = useState(false);
   const [dateTimeLog, setDateTimeLog] = useState<ICalendarTableModel>(timelog);

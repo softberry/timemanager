@@ -1,4 +1,4 @@
-import React, { FunctionComponent, createContext, useReducer, useEffect } from "react";
+import React, { FC, createContext, useReducer, useEffect } from "react";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -43,7 +43,7 @@ const SuggestionDispatcher = createContext((p: ISuggestionAction) => {
   //
 });
 
-const Suggestion: FunctionComponent<ISuggestionProps> = ({
+const Suggestion: FC<ISuggestionProps> = ({
   name,
   label,
   type,

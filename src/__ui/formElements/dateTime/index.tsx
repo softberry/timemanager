@@ -1,4 +1,4 @@
-import React, { useState, useContext, ChangeEvent, useEffect, useMemo, FunctionComponent, useCallback } from "react";
+import React, { useState, useContext, ChangeEvent, useEffect, useMemo, FC, useCallback } from "react";
 import moment from "moment";
 import { timeDiffToString } from "../../../lib/input.helpers";
 
@@ -32,7 +32,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  * Custom DateTime UI that enables users to define start/ finish time of a work
  * TODO: Implement https://github.com/softberry/timemanager/issues/62
  */
-const DateTime: FunctionComponent<IDateTimeProps> = ({
+const DateTime: FC<IDateTimeProps> = ({
   start = moment().toISOString(),
   finish = moment().toISOString(),
   step = 15,

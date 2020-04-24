@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useContext, useEffect } from "react";
+import React, { FC, useState, useContext, useEffect } from "react";
 import Button from "../../__ui/buttons/button";
 import Tipp from "../../__ui/tipp";
 import List from "../../components/list";
@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 
 import { WorklogContext, DispatchContext } from "./index";
 
-const MaterialLogs: FunctionComponent<IEditMaterialLogsProps> = ({ theme, styles }) => {
+const MaterialLogs: FC<IEditMaterialLogsProps> = ({ theme, styles }) => {
   const worklog = useContext(WorklogContext);
   const dispatcher = useContext(DispatchContext);
   const [materialLogs, setMaterialLogs] = useState<MaterialItemTableModel[]>(worklog.materials);

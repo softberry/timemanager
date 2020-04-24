@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -18,7 +18,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const SuggestionList: FunctionComponent<ISuggestionListProps> = ({ query, table }) => {
+const SuggestionList: FC<ISuggestionListProps> = ({ query, table }) => {
   const dispatchSuggestion = useContext(SuggestionDispatcher);
   const view = useContext(ViewContext);
   const theme = useTheme();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FunctionComponent } from "react";
+import React, { useState, useEffect, FC } from "react";
 
 import { useTheme, useThemeStyle } from "../../typography";
 import themeDefault from "./theme-default.module.scss";
@@ -28,7 +28,7 @@ export interface IStartStopButtonProps {
  * craftmen must keep button
  * at least given `waitForSeconds` of time.
  */
-const StartStopButton: FunctionComponent<IStartStopButtonProps> = ({
+const StartStopButton: FC<IStartStopButtonProps> = ({
   onComplete,
   waitForSeconds = 3,
   isTurning = false,

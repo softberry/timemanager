@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from "react";
+import React, { FC } from "react";
 
 import Input, { DateTime } from "../../__ui/formElements";
 
-const EditAppointment: FunctionComponent = () => {
+const EditAppointment: FC = () => {
   return (
     <>
       <div>

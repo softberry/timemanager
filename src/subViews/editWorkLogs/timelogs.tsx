@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useContext, useEffect } from "react";
+import React, { FC, useState, useContext, useEffect } from "react";
 import Tipp from "../../__ui/tipp";
 import Button from "../../__ui/buttons/button";
 import TimeLogItem from "./timeLogItem";
@@ -26,7 +26,7 @@ import { timeDiffToString } from "../../lib/input.helpers";
 
 import { WorklogContext, DispatchContext } from "./index";
 
-const TimeLogs: FunctionComponent<IEditTimeLogsProps> = ({ styles, theme }) => {
+const TimeLogs: FC<IEditTimeLogsProps> = ({ styles, theme }) => {
   const worklog = useContext(WorklogContext);
   const dispatcher = useContext(DispatchContext);
 

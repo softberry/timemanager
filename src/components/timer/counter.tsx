@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from "react";
+import React, { FC } from "react";
 import { ICounterDiffTime } from "../../__typings/interfaces.d";
 
 import { twoDigit } from "../../lib/counter.helpers";
 
-const Counter: FunctionComponent<ICounterDiffTime> = ({ hour, minute, second, counting = false, styles, theme }) => {
+const Counter: FC<ICounterDiffTime> = ({ hour, minute, second, counting = false, styles, theme }) => {
   const beatClass = [styles[`Beats-${theme}`]];
   counting && beatClass.push(styles[`beats-${theme}`]);
   const containerOpacity = { opacity: counting ? 1 : 0.05 };

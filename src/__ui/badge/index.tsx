@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FC } from "react";
 
 import { ViewEnums, ThemeEnums } from "../../__typings/interfaces.d";
 
@@ -19,7 +19,7 @@ export interface IBadgeProps {
 /**
  * Simple badge, shows number as content in list items.
  */
-const Badge: FunctionComponent<IBadgeProps> = ({ content, view = ViewEnums.PRIMARY_VIEW }: IBadgeProps) => {
+const Badge: FC<IBadgeProps> = ({ content, view = ViewEnums.PRIMARY_VIEW }: IBadgeProps) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   return <div className={styles[`Badge-${theme}-${view}`]}>{content}</div>;

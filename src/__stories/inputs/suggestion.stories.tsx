@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FC } from "react";
 import Suggestion from "../../__ui/formElements/suggestion";
 import StoryPage from "../story-page";
 
@@ -10,7 +10,7 @@ export default {
   },
 };
 
-export const Primary: FunctionComponent = function () {
+export const Primary: FC = function () {
   return (
     <StoryPage viewType="PrimaryView">
       <Suggestion
@@ -27,6 +27,6 @@ export const Primary: FunctionComponent = function () {
   );
 };
 
-export const Secondary: FunctionComponent = function () {
+export const Secondary: FC = function () {
   return <StoryPage viewType="SecondaryView"></StoryPage>;
 };

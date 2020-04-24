@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useReducer, useEffect } from "react";
+import React, { FC, useState, useReducer, useEffect } from "react";
 import {
   MaterialItemTableModel,
   ThemeEnums,
@@ -41,7 +41,7 @@ function materialDataReducer(state: MaterialLogItemState, action: MaterialLogIte
   });
   return newState;
 }
-const MaterialLogItem: FunctionComponent<MaterialLogItemProps> = ({ material, updateCallback, theme, styles }) => {
+const MaterialLogItem: FC<MaterialLogItemProps> = ({ material, updateCallback, theme, styles }) => {
   const [isValid, setIsValid] = useState(false);
   const [saveNow, setSaveNow] = useState(false);
   const [materialData, dispatch] = useReducer(materialDataReducer, {

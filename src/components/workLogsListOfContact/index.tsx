@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, FunctionComponent } from "react";
+import React, { useContext, useEffect, useState, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import EditWorkLogs from "../../subViews/editWorkLogs";
@@ -28,7 +28,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const WorklogListOfContact: FunctionComponent<IWorklogsEditProps> = ({ contact }) => {
+const WorklogListOfContact: FC<IWorklogsEditProps> = ({ contact }) => {
   const dispatch = useDispatch();
   const view = useContext(ViewContext);
   const theme = useTheme();

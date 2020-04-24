@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useContext, useEffect, FunctionComponent } from "react";
+import React, { useReducer, createContext, useContext, useEffect, FC } from "react";
 import Button from "../../__ui/buttons/button";
 
 import {
@@ -33,7 +33,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const EditWorkLogsForm: FunctionComponent = () => {
+const EditWorkLogsForm: FC = () => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
@@ -118,7 +118,7 @@ const DispatchContext = createContext((p: IWorklogAction) => {
   // do nothing
 });
 
-const EditWorkLogs: FunctionComponent<IEditWorkLogProps> = ({ contactID, worklogID, updateParentCallback }) => {
+const EditWorkLogs: FC<IEditWorkLogProps> = ({ contactID, worklogID, updateParentCallback }) => {
   const worklogsReducer = (state: IWorklogState, action: IWorklogAction): IWorklogState => {
     switch (action.type) {
       case AddEditWorklogEnums.INIT:

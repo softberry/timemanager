@@ -1,4 +1,4 @@
-import React, { useContext, MouseEvent, FunctionComponent, Children, ReactNode } from "react";
+import React, { useContext, MouseEvent, FC, Children, ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 import { useTheme, useThemeStyle } from "../../typography";
@@ -31,7 +31,7 @@ const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
-const Button: FunctionComponent<IButtonProps> = ({
+const Button: FC<IButtonProps> = ({
   children,
   icon,
   onClick,
@@ -62,7 +62,7 @@ const Button: FunctionComponent<IButtonProps> = ({
   );
 };
 
-const ButtonLink: FunctionComponent<IButtonLinkProps> = ({
+const ButtonLink: FC<IButtonLinkProps> = ({
   children,
   icon,
   href,

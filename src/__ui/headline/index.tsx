@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 import { ThemeEnums } from "../../__typings/interfaces.d";
@@ -18,7 +18,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
  * This a constructor component for all headlines 1-6. No need to use this component directly in app.
  * Use simple like this : ``<H1>text</H1> or <H2>text</H2>`` and so on.
  */
-const Headline: FunctionComponent<IHeadlineProps> = ({ children, size }: IHeadlineProps) => {
+const Headline: FC<IHeadlineProps> = ({ children, size }: IHeadlineProps) => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
 
@@ -34,42 +34,42 @@ const Headline: FunctionComponent<IHeadlineProps> = ({ children, size }: IHeadli
   );
 };
 
-const H1: FunctionComponent = ({ children }) => {
+const H1: FC = ({ children }) => {
   return (
     <>
       <Headline size={1}>{children}</Headline>
     </>
   );
 };
-const H2: FunctionComponent = ({ children }) => {
+const H2: FC = ({ children }) => {
   return (
     <>
       <Headline size={2}>{children}</Headline>
     </>
   );
 };
-const H3: FunctionComponent = ({ children }) => {
+const H3: FC = ({ children }) => {
   return (
     <>
       <Headline size={3}>{children}</Headline>
     </>
   );
 };
-const H4: FunctionComponent = ({ children }) => {
+const H4: FC = ({ children }) => {
   return (
     <>
       <Headline size={4}>{children}</Headline>
     </>
   );
 };
-const H5: FunctionComponent = ({ children }) => {
+const H5: FC = ({ children }) => {
   return (
     <>
       <Headline size={5}>{children}</Headline>
     </>
   );
 };
-const H6: FunctionComponent = ({ children }) => {
+const H6: FC = ({ children }) => {
   return (
     <>
       <Headline size={6}>{children}</Headline>
