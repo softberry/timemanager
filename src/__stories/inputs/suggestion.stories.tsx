@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import Suggestion from "../../__ui/formElements/suggestion";
+
 import StoryPage from "../story-page";
+import { PresetSuggestionEnums } from "../../__typings/interfaces.d";
 
 export default {
   title: "Form Elements/Suggestion",
@@ -16,7 +18,7 @@ export const Primary: FC = function () {
       <Suggestion
         name="contactSuggestion"
         label="Contact Name"
-        type="contact"
+        type={[PresetSuggestionEnums.CONTACT]}
         required={true}
         validate={true}
         onSelectCallback={(p): void => {

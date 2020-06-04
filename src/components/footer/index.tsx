@@ -6,6 +6,7 @@ import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 import { IconNameEnums, ThemeEnums } from "../../__typings/interfaces.d";
+import { useTranslation } from "react-i18next";
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -14,7 +15,7 @@ stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 const Footer: FC = (): ReactElement => {
   const theme = useTheme();
   const styles = useThemeStyle(stylesMap);
-
+  const { t } = useTranslation();
   return (
     <section className={styles[`Footer-${theme}`]}>
       <NavLink
@@ -24,7 +25,7 @@ const Footer: FC = (): ReactElement => {
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >
         <Icon>{IconNameEnums.TIMER}</Icon>
-        <div className={styles[`Footer-${theme}-Label`]}>Timer</div>
+        <div className={styles[`Footer-${theme}-Label`]}>{t("Timer")}</div>
       </NavLink>
       <NavLink
         to="/contacts"
@@ -32,7 +33,7 @@ const Footer: FC = (): ReactElement => {
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >
         <Icon>{IconNameEnums.CONTACTS}</Icon>
-        <div className={styles[`Footer-${theme}-Label`]}>Contacts</div>
+        <div className={styles[`Footer-${theme}-Label`]}>{t("Contacts")}</div>
       </NavLink>
       <NavLink
         to="/worklogs"
@@ -40,7 +41,7 @@ const Footer: FC = (): ReactElement => {
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >
         <Icon>{IconNameEnums.CALENDAR}</Icon>
-        <div className={styles[`Footer-${theme}-Label`]}>Calendar</div>
+        <div className={styles[`Footer-${theme}-Label`]}>{t("Calendar")}</div>
       </NavLink>
       <NavLink
         to="/options"
@@ -48,7 +49,7 @@ const Footer: FC = (): ReactElement => {
         activeClassName={styles[`Footer-${theme}-Button-ActiveLink`]}
       >
         <Icon>{IconNameEnums.SETTINGS}</Icon>
-        <div className={styles[`Footer-${theme}-Label`]}>Settings</div>
+        <div className={styles[`Footer-${theme}-Label`]}>{t("Settings")}</div>
       </NavLink>
     </section>
   );

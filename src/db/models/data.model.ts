@@ -1,5 +1,5 @@
 import { InanoSQLTableConfig, InanoSQLInstance, InanoSQLQuery, InanoSQLDataModel } from "@nano-sql/core/lib/interfaces";
-import { NewEntryEnums, PresetQueryEnums } from "../../__typings/interfaces.d";
+import { NewEntryEnums, PresetQueryEnums, PresetSuggestionEnums } from "../../__typings/interfaces.d";
 
 const counterTable: InanoSQLTableConfig = {
   name: "counterTable",
@@ -50,7 +50,7 @@ const contactsTable: InanoSQLTableConfig = {
       },
     },
     {
-      name: "contactsSuggestion",
+      name: PresetSuggestionEnums.CONTACT,
       args: {
         "query:string": {},
       },

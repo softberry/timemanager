@@ -9,6 +9,7 @@ import { Provider, useDispatch } from "react-redux";
 import rootReducer from "./store/reducers";
 
 import "./index.scss";
+import "./i18n";
 
 import Home from "./views/home";
 import ContactsListView from "./views/contactslist";

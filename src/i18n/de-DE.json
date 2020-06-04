@@ -1,0 +1,28 @@
+{
+  "de": {
+    "translation": {
+      "Contacts": "Kontakte",
+      "Timer": "Timer",
+      "Calendar": "Kalendar",
+      "Settings": "Einstellungen",
+      "Create Contact": "Neue Kontakt",
+      "Name": "Vorname",
+      "Surname": "Name",
+      "Street": "Straße",
+      "City": "Stadt",
+      "Zip": "PLZ",
+      "Telephone": "Telefon",
+      "Mobile Phone": "Mobil",
+      "Mail": "Mail",
+      "Save": "Speichern",
+      "Create Worklog": "Neue Auftrag",
+      "Worklog Name": "Auftrag Name",
+      "Spent time": "Zeiterfassung",
+      "Worklog Description": "Auftragsbeschreibung",
+      "You do not have any time log for this assignment. You can Add or Remove logs that you spend for this assignment here.": "Sie haben keine Zeiterfassung für diese Auftrag. Erstellen Sie jetzt hier.",
+      "Add time log": "Zeiterfassung",
+      "Used Materials": "Materialien",
+      "You do not have any material log for this assignment. You can create several material list that you used for this assignment here.": "Sie haben keine Material für diese AUftrag. Erstellen Sie jetzt hier."
+    }
+  }
+}

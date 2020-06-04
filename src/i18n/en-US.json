@@ -1,0 +1,28 @@
+{
+  "en": {
+    "translation": {
+      "Contacts": "Contacts",
+      "Timer": "Timer",
+      "Calendar": "Calendar",
+      "Settings": "Settings",
+      "Create Contact": "Create Contact",
+      "Name": "Name",
+      "Surname": "Surname",
+      "Street": "Street",
+      "City": "City",
+      "Zip": "Zip",
+      "Telephone": "Telephone",
+      "Mobile Phone": "Mobile Phone",
+      "Mail": "Mail",
+      "Save": "Save",
+      "Create Worklog": "Create Worklog",
+      "Worklog Name": "Worklog Name",
+      "Spent time": "Spent time",
+      "Worklog Description": "Worklog Description",
+      "You do not have any time log for this assignment. You can Add or Remove logs that you spend for this assignment here.": "You do not have any time log for this assignment. You can Add or Remove logs that you spend for this assignment here.",
+      "Add time log": "Add time log",
+      "Used Materials": "Used Materials",
+      "You do not have any material log for this assignment. You can create several material list that you used for this assignment here.": "You do not have any material log for this assignment. You can create several material list that you used for this assignment here."
+    }
+  }
+}

@@ -23,12 +23,14 @@ import {
 } from "../../__typings/interfaces.d";
 
 import ViewContext from "../../views/index";
+import { useTranslation } from "react-i18next";
 
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
 stylesMap.set(ThemeEnums.DEFAULT_THEME, themeDefault);
 
 const ContactsList = (): ReactElement => {
+  const { t } = useTranslation();
   const view = useContext(ViewContext);
   const nSQL = useSelector(({ db }: IDatabaseReducer) => db.action.nSQL);
 
@@ -96,7 +98,7 @@ const ContactsList = (): ReactElement => {
           onClick={createContactClickHandler}
           type={ButtonTypeEnums.POSITIVE}
         >
-          Create Contact
+          {t("Create Contact")}
         </Button>
       </div>
       <List>

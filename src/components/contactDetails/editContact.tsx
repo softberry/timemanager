@@ -96,7 +96,7 @@ const EditContact: FC<IEditContactProps> = ({ contact, theme, styles, view, onCo
     if (contact.id === NewEntryEnums.NEW_CONTACT_ID) {
       delete clonedContactData.id;
     }
-    Object.keys(clonedContactData).forEach((key: string, index: number) => {
+    Object.keys(clonedContactData).forEach(key => {
       if (key !== "id") {
         clonedContactData[key] = contactForm[key].value;
       }

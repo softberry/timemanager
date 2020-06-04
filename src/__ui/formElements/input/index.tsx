@@ -6,7 +6,6 @@ import {
   ValidationTypeEnums,
   IInputCallback,
   ThemeEnums,
-  PresetSuggestionEnums,
 } from "../../../__typings/interfaces.d";
 import Icon from "../../../__ui/icon";
 
@@ -42,8 +41,6 @@ export interface IInputProps {
   validationType?: ValidationTypeEnums;
   /** Callback function that helps to input validation state to sync with its parent */
   infoCallback?: (p: IInputCallback) => void;
-  /** if suggestion needed, define suggestionPresetQueryName  */
-  suggestionTable?: PresetSuggestionEnums;
 }
 const stylesMap = new Map();
 stylesMap.set(ThemeEnums.OCEAN_THEME, themeOcean);
@@ -61,7 +58,6 @@ const Input: FC<IInputProps> = ({
   validate = false,
   validationType,
   infoCallback,
-  suggestionTable,
 }: IInputProps) => {
   const id = uuid();
   const stringValueOfField: string = value?.toString() || "";
@@ -186,10 +182,6 @@ const Input: FC<IInputProps> = ({
     }
   }
 
-  function handleOnSuggestionSelected(): void {
-    //
-  }
-
   useEffect(() => {
     if (val === null) return;
     setLabelType(`${val}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
@@ -218,9 +210,8 @@ const Input: FC<IInputProps> = ({
             <Icon size={IconSizeEnums.SMALL}>{IconNameEnums.CLEAR}</Icon>
           </div>
         )}
-        {suggestionTable && (
-          <SuggestionList query={val} table={suggestionTable} onSelect={handleOnSuggestionSelected} />
-        )}
+
+        <SuggestionList query={val} />
       </div>
     </div>
   );

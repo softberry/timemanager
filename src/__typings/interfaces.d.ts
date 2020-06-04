@@ -53,8 +53,6 @@ export interface IDateTimeCallback {
 
 export interface ISuggestionListProps {
   query: string;
-  table: PresetSuggestionEnums;
-  onSelect: () => void;
 }
 
 /**
@@ -183,7 +181,7 @@ export interface ICounterTableModel {
 }
 
 export interface IContactsTableModel {
-  [x: string]: string | string[];
+  [x: string]: string | string[]; // FIXME: Remove this generic parameter.
   id: string;
   name: string;
   surname: string;
@@ -463,7 +461,7 @@ export enum PresetQueryEnums {
   createNewEmptyUserEntryForEdit = "createNewEmptyUserEntryForEdit",
   getWorkLogsOfContact = "getWorkLogsOfContact",
 }
-
+/** Preset query names for suggestion results*/
 export enum PresetSuggestionEnums {
-  contactsSuggestion = "contactsSuggestion",
+  CONTACT = "CONTACT_SUGGESTION",
 }

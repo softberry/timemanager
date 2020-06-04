@@ -21,7 +21,7 @@ interface ISuggestionProps {
   /** Label of the suggestion (input) field  */
   label: string;
   /** Type of Suggestion, which decides to data table to be searched for */
-  type: "contact";
+  type: PresetSuggestionEnums[];
   /** is Field required */
   required: boolean;
   /** Sould be validated */
@@ -30,15 +30,27 @@ interface ISuggestionProps {
   onSelectCallback: (selectedEntry: IContactsTableModel) => void;
 }
 
+/*
+  <Suggestion />
+  uses <Input /> component internally. <Input /> component contains <SuggestionList />
+  which listens SuggestionContext and renders itself if hasList parameter is true.
+
+*/
+
 interface ISuggestionState {
-  value: string;
+  hasList: boolean;
+  target?: { [PresetSuggestionEnums: string]: boolean };
+  value?: string;
+  required?: boolean;
+  validate?: boolean;
 }
+
 interface ISuggestionAction {
   type: "SET" | "RESET";
   data?: IContactsTableModel;
   value: string;
 }
-const SuggestionContext = createContext<ISuggestionState>({ value: "" });
+const SuggestionContext = createContext<ISuggestionState>({ hasList: false });
 const SuggestionDispatcher = createContext((p: ISuggestionAction) => {
   //
 });
@@ -55,6 +67,7 @@ const Suggestion: FC<ISuggestionProps> = ({
     switch (action.type) {
       case "SET":
         if (!action.data) return state;
+        onSelectCallback(action.data);
         return {
           ...state,
           value: `${action.data.name} ${action.data.surname}`,
@@ -63,18 +76,28 @@ const Suggestion: FC<ISuggestionProps> = ({
         return {
           ...state,
         };
+      default:
+        return { ...state };
     }
-    return { ...state, ...action };
   }
 
-  const [suggesttedEntry, dispatchSuggestedEntry] = useReducer(suggestedEntryReducer, { value: "" });
+  const [suggesttedEntry, dispatchSuggestedEntry] = useReducer(suggestedEntryReducer, { hasList: false });
 
   useEffect(() => {
     console.log(suggesttedEntry);
   }, [suggesttedEntry]);
 
   return (
-    <SuggestionContext.Provider value={{ value: "" }}>
+    <SuggestionContext.Provider
+      value={{
+        hasList: true,
+        target: {
+          [PresetSuggestionEnums.CONTACT]: true,
+        },
+        required,
+        validate,
+      }}
+    >
       <SuggestionDispatcher.Provider value={dispatchSuggestedEntry}>
         <Input
           name={name}
@@ -84,7 +107,6 @@ const Suggestion: FC<ISuggestionProps> = ({
           validate={true}
           value={suggesttedEntry.value}
           validationType={ValidationTypeEnums.SUGGESTION}
-          suggestionTable={PresetSuggestionEnums.contactsSuggestion}
         />
       </SuggestionDispatcher.Provider>
     </SuggestionContext.Provider>
@@ -92,3 +114,4 @@ const Suggestion: FC<ISuggestionProps> = ({
 };
 
 export { Suggestion as default, SuggestionContext, SuggestionDispatcher };
+export * from "./suggestionList";
