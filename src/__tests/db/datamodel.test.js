@@ -1,5 +1,5 @@
 import { nSQL } from "@nano-sql/core";
-import counterModelTables from "../../db/models/counter.model";
+import counterModelTables from "../../db/models/data.model";
 const materialItemTable = {
   name: "materialitem",
   description: "aciklama",
@@ -35,16 +35,6 @@ describe("Delay Bar ", () => {
       .exec()
       .then(m => {
         expect(m[0].name).toBe("materialitem");
-      });
-  });
-
-  test("Create Material List Table", async () => {
-    expect.assertions(1);
-    return nSQL("materialListTable")
-      .query("upsert", materialListTable)
-      .exec()
-      .then(m => {
-        expect("materialitem").toBe("materialitem");
       });
   });
 });

@@ -49,7 +49,7 @@ export const SuggestionList: FC<ISuggestionListProps> = ({ query }) => {
   interface ISuggestionListResults {
     [PresetSuggestionEnums.CONTACT]?: IContactsTableModel[];
   }
-  const [, dispatchResultsList] = useReducer(resultsDispatch, {});
+  const [resultsList, dispatchResultsList] = useReducer(resultsDispatch, {});
 
   console.log("ctxSuggestion:", ctxSuggestion);
   const suggestionTableMap = new Map();
@@ -97,6 +97,7 @@ export const SuggestionList: FC<ISuggestionListProps> = ({ query }) => {
                 {data.name}, {data.surname}
               </div>
             ))}
+            <div>{resultsList}</div>
           </div>
         </div>
       </div>
