@@ -1,4 +1,4 @@
-import { useContext, FC, ReactElement } from "react";
+import { useContext, FC, ReactElement, Children } from "react";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
@@ -19,7 +19,7 @@ const List: FC = ({ children }): ReactElement => {
     <>
       <section className={styles[`List-${theme}`]}>
         {children &&
-          React.Children.map(children, (child, key) => (
+          Children.map(children, (child, key) => (
             <div className={styles[`List-${theme}-Item-${view}`]} key={key}>
               {child}
             </div>

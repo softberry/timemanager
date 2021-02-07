@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback, FC } from "react";
+import { useState, useEffect, useContext, useCallback, FC, ChangeEvent, FocusEvent, MouseEvent } from "react";
 import {
   IconSizeEnums,
   LabelTypeEnums,
@@ -156,21 +156,21 @@ const Input: FC<IInputProps> = ({
     updateParentCallback();
   }, [setIsValid, required, validationType, val, validate, updateParentCallback, label]);
 
-  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>): void {
+  function handleOnChange(e: ChangeEvent<HTMLInputElement>): void {
     e.persist();
     !hasFocus && setHasFocus(true);
     setVal(e.currentTarget.value);
     setLabelType(`${e.currentTarget.value}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
   }
 
-  function handleOnFocus(e: React.FocusEvent<HTMLInputElement>): void {
+  function handleOnFocus(e: FocusEvent<HTMLInputElement>): void {
     e.persist();
     setLabelType(`${e.target.value}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
     setHasFocus(true);
     setInputElement(e.target);
   }
 
-  function handleOnBlur(e: React.FocusEvent<HTMLInputElement>): void {
+  function handleOnBlur(e: FocusEvent<HTMLInputElement>): void {
     setLabelType(`${e.target.value}`.length === 0 ? LabelTypeEnums.PLACEHOLDER : LabelTypeEnums.LABEL);
 
     setInputElement(null);
@@ -178,7 +178,7 @@ const Input: FC<IInputProps> = ({
     setOnBlurTimeStamp(Date.now());
   }
 
-  function handleClear(e: React.MouseEvent<HTMLDivElement>): void {
+  function handleClear(e: MouseEvent<HTMLDivElement>): void {
     inputElement && inputElement.focus && inputElement.focus();
 
     if (Date.now() - onBlurTimeStamp < 300) {
