@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import DefaultLayout from "../../layout/layout.default";
@@ -7,7 +7,7 @@ import Timer from "../../components/timer";
 import ViewContext from "../index";
 import { ViewSettingsEnums, ViewEnums } from "../../__typings/interfaces.d";
 
-const HomeView: React.FC = () => {
+const HomeView: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {

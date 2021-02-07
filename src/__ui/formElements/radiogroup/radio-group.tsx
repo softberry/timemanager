@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, Children, FC, ReactNode } from "react";
+import { isValidElement, useState, useEffect, useCallback, Children, FC, ReactNode } from "react";
 import { ThemeEnums, ViewEnums } from "../../../__typings/interfaces.d";
 
 import { RadioItem, IRadioItemProps } from "./radio-item";
@@ -39,10 +39,10 @@ export const RadioGroup: FC<IRadioGroupProps> = ({ children, onChange }: IRadioG
   };
   useEffect(() => {
     if (Children.count(children) === 0) return;
-    const values = Children.map(children, child => React.isValidElement(child) && child.props.value) || [];
+    const values = Children.map(children, child => isValidElement(child) && child.props.value) || [];
     let selecteds = 0;
     Children.forEach(children, child => {
-      if (React.isValidElement(child) && child.props.checked === true) selecteds++;
+      if (isValidElement(child) && child.props.checked === true) selecteds++;
     });
 
     if (values.length !== Children.count(children)) {
@@ -68,7 +68,7 @@ export const RadioGroup: FC<IRadioGroupProps> = ({ children, onChange }: IRadioG
     if (!initialised && radioItemsProps.length === 0 && Children.count(children) > 0) {
       const propsList =
         Children.map(children, (child: ReactNode) => {
-          if (!React.isValidElement(child)) return;
+          if (!isValidElement(child)) return;
           const { children, label, checked, value } = child.props;
           if (checked) {
             setSelectedItem(value);
