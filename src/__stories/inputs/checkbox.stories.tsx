@@ -1,9 +1,9 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import Checkbox from "../../__ui/formElements/checkbox/checkbox";
 import StoryPage from "../story-page";
 import { lorem, random } from "faker";
 
-export default {
+const story = {
   title: "Form Elements/Checkbox",
   component: Checkbox,
 };
@@ -26,3 +26,4 @@ export const Primary = (): ReactElement => {
 export const secondary = (): ReactElement => {
   return <StoryPage viewType="SecondaryView">{checkBoxes}</StoryPage>;
 };
+export { story as default };

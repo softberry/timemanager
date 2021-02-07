@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useContext, useEffect, FC } from "react";
+import { useReducer, createContext, useContext, useEffect, FC } from "react";
 import Button from "../../__ui/buttons/button";
 
 import {

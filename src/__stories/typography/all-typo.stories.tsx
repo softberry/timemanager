@@ -1,10 +1,10 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import { lorem } from "faker";
 import HeadLine, { H1, H2, H3, H4, H5, H6 } from "../../__ui/headline";
 import StoryPage from "../story-page";
 
-export default {
+const story = {
   title: "Typographie / Headlines",
   parameters: {
     component: HeadLine,
@@ -39,3 +39,5 @@ export const Secondary = (): ReactElement => {
     </StoryPage>
   );
 };
+
+export { story as default };

@@ -1,6 +1,6 @@
 import { uuid } from "@nano-sql/core/lib/utilities";
 
-import { ReactNode, ReactChild } from "react";
+import { ReactNode, ReactChild, ReactElement } from "react";
 import { nSQL as nSQLInterface } from "@nano-sql/core";
 import { RouteComponentProps } from "react-router-dom";
 
@@ -93,8 +93,8 @@ export interface IMessage {
   // icon: IconNameEnums;
   dialogType: DialogTypes;
   caption?: string;
-  body: object;
-  footer: object;
+  body: ReactElement;
+  footer: ReactElement;
   closable?: boolean;
   dialogId: string;
   // key: number;
@@ -231,7 +231,7 @@ export interface IFormDataType {
   valid: boolean;
 }
 export interface IWorkTableModel {
-  id: string;
+  id?: string;
   contactID: string;
   name: string;
   description: string;
@@ -283,11 +283,11 @@ export interface IUnitEnumsTableModel {
 
 /** Material Icon properties */
 
-export interface IWorkListItemEntry {
-  name: string;
-  labour: [{}];
-  materials: [{}];
-}
+// export interface IWorkListItemEntry {
+//   name: string;
+//   labour: Record<string, any>[];
+//   materials: Record<string, any>[];
+// }
 export interface INavProps {
   length: number;
   goBack?: () => void;

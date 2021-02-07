@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import { MultipleInput } from "../../__ui/formElements";
 
@@ -8,7 +8,7 @@ import { ValidationTypeEnums } from "../../__typings/interfaces.d";
 import { IInputProps } from "../../__ui/formElements/input";
 import { IMultiInputCallback } from "../../__ui/formElements/multipleInput";
 
-export default {
+const story = {
   title: "Form Elements/Multiple Input",
   component: MultipleInput,
   parameters: {
@@ -57,3 +57,4 @@ export const Secondary = (): ReactElement => {
     </StoryPage>
   );
 };
+export { story as default };

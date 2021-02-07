@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 import { ViewEnums, ThemeEnums } from "../../__typings/interfaces.d";
 

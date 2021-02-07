@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactElement, FC } from "react";
+import { useState, useEffect, ReactElement, FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useHistory } from "react-router-dom";

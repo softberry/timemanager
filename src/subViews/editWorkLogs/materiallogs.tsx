@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext, useEffect } from "react";
+import { FC, useState, useContext, useEffect } from "react";
 import Button from "../../__ui/buttons/button";
 import Tipp from "../../__ui/tipp";
 import List from "../../components/list";

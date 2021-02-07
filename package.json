@@ -2,24 +2,30 @@
   "name": "timemanager",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
   "dependencies": {
-    "@csstools/normalize.css": "^10.1.0",
+    "@csstools/normalize.css": "^11.0.1",
     "@nano-sql/core": "^2.3.7",
-    "@storybook/react": "^5.3.18",
+    "@storybook/react": "^6.1.17",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.0",
     "loadsh": "^0.0.4",
-    "moment": "^2.24.0",
-    "node-sass": "^4.12.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "moment": "^2.29.1",
+    "node-sass": "^5.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "4.0.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.4",
+    "ts-loader": "^8.0.15",
+    "typescript": "^4.1.2",
     "validator": "^13.0.0",
+    "web-vitals": "^1.0.1",
     "webfontloader": "^1.6.28"
   },
   "scripts": {
@@ -31,6 +37,12 @@
     "prettify:write": "prettier --write \"./**/*/*{.scss,.yml,.ts,.tsx,.js,.jsx,.json,.md}\"",
     "prettify:check": "prettier --check \"./**/*/*{.scss,.yml,.ts,.tsx,.js,.jsx,.json,.md}\"",
     "eslint-fix": "eslint \"**/*{.tsx,.ts}\" --fix"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -45,31 +57,27 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.3.18",
-    "@storybook/addon-docs": "^5.3.18",
-    "@storybook/addon-knobs": "^5.3.18",
-    "@storybook/addon-notes": "^5.3.18",
-    "@storybook/preset-create-react-app": "^2.1.1",
-    "@types/faker": "^4.1.8",
-    "@types/jest": "^25.1.5",
-    "@types/node": "^13.11.0",
-    "@types/react": "^16.9.32",
-    "@types/react-dom": "^16.9.6",
-    "@types/react-redux": "^7.1.5",
-    "@types/react-router-dom": "^5.1.3",
-    "@types/validator": "^12.0.1",
+    "@storybook/addon-actions": "^6.1.17",
+    "@storybook/addon-docs": "^6.1.17",
+    "@storybook/addon-knobs": "^6.1.17",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@types/faker": "^5.1.6",
+    "@types/node": "^14.14.25",
+    "@types/react-redux": "^7.1.16",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/validator": "^13.1.3",
     "@types/webfontloader": "^1.6.29",
-    "@typescript-eslint/eslint-plugin": "^2.26.0",
-    "@typescript-eslint/parser": "^2.26.0",
-    "eslint": "^6.8.0",
-    "eslint-config-react-app": "^5.2.0",
-    "faker": "^4.1.0",
-    "fork-ts-checker-webpack-plugin": "^4.0.5",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "eslint": "^7.19.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-react": "^7.22.0",
+    "faker": "^5.3.1",
+    "fork-ts-checker-webpack-plugin": "^6.1.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.1",
     "prettier": "^2.0.2",
-    "react-docgen-typescript-loader": "^3.7.2",
-    "redux-devtools": "^3.5.0"
+    "react-docgen-typescript-loader": "^3.7.2"
   },
   "husky": {
     "hooks": {
@@ -81,7 +89,7 @@
     "**/*/*.{scss,yml,ts,tsx,js,jsx,json,md}": "prettier --write"
   },
   "resolutions": {
-    "@babel/preset-env": "^7.9.0"
+    "@babel/preset-env": "^7.12.13"
   },
   "license": "MIT"
 }

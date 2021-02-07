@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, FC } from "react";
+import { useContext, useEffect, useState, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import EditWorkLogs from "../../subViews/editWorkLogs";
@@ -96,7 +96,7 @@ const WorklogListOfContact: FC<IWorklogsEditProps> = ({ contact }) => {
           <div
             key={index}
             onClick={(): void => {
-              createNewWorklogHandler("Edit Worklog", log.id);
+              log.id && createNewWorklogHandler("Edit Worklog", log.id);
             }}
           >
             <div className={styles[`WorklogsList-${theme}-${view}-ListItem-Name`]}>{log.name}</div>

@@ -1,4 +1,4 @@
-import React, { FC, createContext, useReducer, useEffect } from "react";
+import { FC, createContext, useReducer, useEffect } from "react";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";

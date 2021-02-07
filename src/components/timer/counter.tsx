@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { ICounterDiffTime } from "../../__typings/interfaces.d";
 
 import { twoDigit } from "../../lib/counter.helpers";

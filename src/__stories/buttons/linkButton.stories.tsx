@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { withKnobs } from "@storybook/addon-knobs";
 import { select, text, boolean } from "@storybook/addon-knobs";
@@ -9,7 +9,7 @@ import { IconNameEnums, ButtonTypeEnums, ButtonAlignmentEnums } from "../../__ty
 import StoryPage from "../story-page";
 import * as notes from "./notes.md";
 
-export default {
+const story = {
   title: "Form Elements/Buttons/Link Buttons",
   component: ButtonLink,
   decorators: [withKnobs],
@@ -60,3 +60,4 @@ Primary.story = {
 Secondary.story = {
   parameters: { notes },
 };
+export { story as default };

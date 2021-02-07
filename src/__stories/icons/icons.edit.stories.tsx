@@ -1,10 +1,10 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import Icon from "../../__ui/icon";
 import StoryPage from "../story-page";
 
 import { IconSizeEnums, IconNameEnums } from "../../__typings/interfaces.d";
-export default {
+const story = {
   title: "Icons Set / Edit",
   parameters: {
     component: Icon,
@@ -31,3 +31,4 @@ export const Secondary = (): ReactElement => {
     </StoryPage>
   );
 };
+export { story as default };

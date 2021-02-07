@@ -1,9 +1,9 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import StartStopButton from "../../__ui/buttons/startStopButton";
 import StoryPage from "../story-page";
 
-export default {
+const story = {
   title: "Form Elements/Buttons/Start Stop Button/Turning",
   component: StartStopButton,
   parameters: {
@@ -36,3 +36,4 @@ export const Secondary = (): ReactElement => {
     </StoryPage>
   );
 };
+export { story as default };

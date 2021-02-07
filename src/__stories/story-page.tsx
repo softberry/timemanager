@@ -1,4 +1,4 @@
-import React, { ReactElement, PropsWithChildren } from "react";
+import { ReactElement, PropsWithChildren } from "react";
 import NanoDataBase from "../db";
 import { Provider } from "react-redux";
 import { createStore } from "redux";

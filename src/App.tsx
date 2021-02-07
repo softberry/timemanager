@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from "react";
+import { useEffect, FC } from "react";
 import Typography, { useTheme } from "./__ui/typography";
 import NanoDataBase from "./db";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
@@ -22,7 +22,7 @@ import { ThemeEnums, UserInfo, ViewSettingsEnums } from "./__typings/interfaces.
 
 const TimerAppStore = createStore(rootReducer, applyMiddleware(thunk));
 
-const Page = (): ReactElement => {
+const Page: FC = () => {
   document.oncontextmenu = (): boolean => {
     return false;
   };
@@ -60,7 +60,7 @@ const Page = (): ReactElement => {
   );
 };
 
-const App = (): ReactElement => {
+const App: FC = () => {
   return (
     <Provider store={TimerAppStore}>
       <Page />

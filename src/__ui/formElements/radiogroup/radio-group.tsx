@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, Children, FC, ReactNode } from "react";
+import { useState, useEffect, useCallback, Children, FC, ReactNode } from "react";
 import { ThemeEnums, ViewEnums } from "../../../__typings/interfaces.d";
 
 import { RadioItem, IRadioItemProps } from "./radio-item";

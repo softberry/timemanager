@@ -1,4 +1,5 @@
-import React, { useEffect, useState, ReactElement } from "react";
+// --- //
+import { useEffect, useState, ReactElement } from "react";
 import {
   IContactViewProps,
   IContactsTableModel,
