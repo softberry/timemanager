@@ -23,7 +23,7 @@ import Button from "../../__ui/buttons/button";
 
 import * as notes from "./notes.md";
 import { uuid } from "@nano-sql/core/lib/utilities";
-export default {
+const story = {
   title: "Message Box",
   parameters: {
     component: Message,
@@ -140,3 +140,4 @@ Primary.story = {
 Secondary.story = {
   parameters: { notes },
 };
+export { story as default };

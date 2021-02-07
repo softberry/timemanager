@@ -4,7 +4,7 @@ import Autocomplete from "../../__ui/autocomplete";
 
 import StoryPage from "../story-page";
 
-export default {
+const story = {
   title: "Autocomplete",
   component: Autocomplete,
 };
@@ -41,3 +41,4 @@ export const secondary = (): ReactElement => {
     </StoryPage>
   );
 };
+export { story as default };

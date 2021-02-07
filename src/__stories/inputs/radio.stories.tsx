@@ -4,7 +4,7 @@ import { RadioGroup, RadioItem } from "../../__ui/formElements/radiogroup";
 import StoryPage from "../story-page";
 import { lorem } from "faker";
 
-export default {
+export const story = {
   title: "Form Elements/Radio Group",
   component: RadioGroup,
   subcomponents: { RadioItem },
@@ -57,3 +57,4 @@ export const Secondary = function (): ReactElement {
     </StoryPage>
   );
 };
+export { story as default };

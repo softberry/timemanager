@@ -5,7 +5,7 @@ import Badge from "../../__ui/badge";
 import StoryPage from "../story-page";
 import { ViewEnums } from "../../__typings/interfaces.d";
 
-export default {
+const story = {
   title: "Badges",
   parameters: {
     component: Badge,
@@ -29,3 +29,4 @@ export const Secondary = (): ReactElement => {
     </StoryPage>
   );
 };
+export { story as default };

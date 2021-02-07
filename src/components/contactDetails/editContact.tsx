@@ -92,7 +92,7 @@ const EditContact: FC<IEditContactProps> = ({ contact, theme, styles, view, onCo
 
   function saveContactDetailsToDatabase(e: MouseEvent<HTMLDivElement>): void {
     e.currentTarget.focus(); // remove focus from last form element to avoid any delayed function calls (Input on blur)
-    const clonedContactData: IContactsTableModel = Object.assign({}, contact);
+    const clonedContactData: Partial<IContactsTableModel> = Object.assign({}, contact);
     if (contact.id === NewEntryEnums.NEW_CONTACT_ID) {
       delete clonedContactData.id;
     }

@@ -14,7 +14,7 @@ import Button from "../../__ui/buttons/button";
 
 import * as notes from "./notes.md";
 
-export default {
+const story = {
   title: "Sub Page View",
   parameters: {
     component: SubPageView,
@@ -82,3 +82,5 @@ Primary.story = {
 Secondary.story = {
   parameters: { notes },
 };
+
+export { story as default };

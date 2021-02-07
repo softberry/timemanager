@@ -7,7 +7,7 @@ import StoryPage from "../story-page";
 import { action } from "@storybook/addon-actions";
 
 import { IconNameEnums, ButtonTypeEnums } from "../../__typings/interfaces.d";
-export default {
+const story = {
   title: "Cards",
   parameters: {
     component: Card,
@@ -114,3 +114,5 @@ export const Secondary = (): ReactElement => {
     </StoryPage>
   );
 };
+
+export { story as default };

@@ -9,7 +9,7 @@ import { IconNameEnums, ButtonTypeEnums, ButtonAlignmentEnums } from "../../__ty
 import StoryPage from "../story-page";
 import * as notes from "./notes.md";
 
-export default {
+const story = {
   title: "Form Elements/Buttons/Link Buttons",
   component: ButtonLink,
   decorators: [withKnobs],
@@ -60,3 +60,4 @@ Primary.story = {
 Secondary.story = {
   parameters: { notes },
 };
+export { story as default };

@@ -9,7 +9,7 @@ import { IconNameEnums, ButtonTypeEnums, ButtonAlignmentEnums } from "../../__ty
 import { withKnobs, select, text, boolean } from "@storybook/addon-knobs";
 
 import * as notes from "./notes.md";
-export default {
+const story = {
   title: "Form Elements/Buttons/Standart Buttons",
   component: Button,
   decorators: [withKnobs],
@@ -56,3 +56,5 @@ Primary.story = {
 Secondary.story = {
   parameters: { notes },
 };
+
+export { story as default };

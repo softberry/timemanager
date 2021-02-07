@@ -4,7 +4,7 @@ import StoryPage from "../story-page";
 import { name, address } from "faker";
 import { ValidationTypeEnums } from "../../__typings/interfaces.d";
 
-export default {
+export const story = {
   title: "Form Elements/Input",
   component: Input,
   parameters: {
@@ -79,3 +79,4 @@ export const Secondary = (): ReactElement => {
     </StoryPage>
   );
 };
+export { story as default };
