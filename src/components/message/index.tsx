@@ -1,4 +1,4 @@
-import React, { useContext, ReactElement } from "react";
+import { useContext, ReactElement } from "react";
 import {
   IMessage,
   IconSizeEnums,

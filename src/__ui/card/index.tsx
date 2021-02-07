@@ -1,4 +1,4 @@
-import React, { useContext, FC } from "react";
+import { useContext, FC } from "react";
 
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";

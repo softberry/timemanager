@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, FocusEvent } from "react";
+import { ReactElement, useContext, FocusEvent } from "react";
 import Icon from "../../__ui/icon";
 
 import { useTheme, useThemeStyle } from "../../__ui/typography";

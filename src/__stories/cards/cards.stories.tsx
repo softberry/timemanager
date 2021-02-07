@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import { lorem } from "faker";
 import Card, { CardTitle, CardBody, CardFooter } from "../../__ui/card";

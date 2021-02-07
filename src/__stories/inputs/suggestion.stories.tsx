@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Suggestion from "../../__ui/formElements/suggestion";
 import StoryPage from "../story-page";
 

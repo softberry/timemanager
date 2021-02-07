@@ -1,5 +1,3 @@
-import React from "react";
-
 import Appointments from "../../components/appointments";
 import DefaultLayout from "../../layout/layout.default";
 import ViewContext from "../index";

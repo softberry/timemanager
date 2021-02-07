@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from "react";
+import { useEffect, FC } from "react";
 import Typography, { useTheme } from "./__ui/typography";
 import NanoDataBase from "./db";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import Input from "../../__ui/formElements";
 import StoryPage from "../story-page";
 import { name, address } from "faker";

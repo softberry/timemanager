@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { MemoryRouter as Router } from "react-router-dom";
 import { withKnobs } from "@storybook/addon-knobs";
 import { select, text, boolean } from "@storybook/addon-knobs";

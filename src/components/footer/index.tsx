@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react";
+import { FC, ReactElement } from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "../../__ui/icon";
 

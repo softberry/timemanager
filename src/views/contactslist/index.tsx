@@ -1,4 +1,3 @@
-import React from "react";
 import DefaultLayout from "../../layout/layout.default";
 import ContactsList from "../../components/contactsList";
 import ViewContext from "../index";

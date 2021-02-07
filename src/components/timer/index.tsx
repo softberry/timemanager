@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, ReactElement } from "react";
+import { useEffect, useState, useContext, ReactElement } from "react";
 import { ICounterTableModel, IDiff, ThemeEnums, IDatabaseReducer } from "../../__typings/interfaces.d";
 
 import { useSelector } from "react-redux";

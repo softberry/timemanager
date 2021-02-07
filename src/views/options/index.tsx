@@ -1,4 +1,3 @@
-import React from "react";
 import Opions from "../../components/options";
 import DefaultLayout from "../../layout/layout.default";
 import ViewContext from "../index";

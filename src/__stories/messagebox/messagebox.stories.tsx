@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Provider, useDispatch } from "react-redux";
 import { TimerAppStore } from "../../App";
 import { withKnobs } from "@storybook/addon-knobs";

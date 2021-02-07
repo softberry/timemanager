@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import StartStopButton from "../../__ui/buttons/startStopButton";
 import StoryPage from "../story-page";

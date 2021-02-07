@@ -1,4 +1,4 @@
-import React, { useContext, FC, ReactNode } from "react";
+import { useContext, FC, ReactNode } from "react";
 
 import { ThemeEnums, IconSizeEnums, IconNameEnums } from "../../__typings/interfaces.d";
 import ViewContext from "../../views/index";

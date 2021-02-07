@@ -1,4 +1,4 @@
-import React, { useContext, MouseEvent, FC, Children, ReactNode } from "react";
+import { useContext, MouseEvent, FC, Children, ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 import { useTheme, useThemeStyle } from "../../typography";

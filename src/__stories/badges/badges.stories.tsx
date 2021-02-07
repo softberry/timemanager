@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import { random } from "faker";
 import Badge from "../../__ui/badge";

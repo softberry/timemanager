@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";
 

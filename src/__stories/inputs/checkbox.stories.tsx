@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import Checkbox from "../../__ui/formElements/checkbox/checkbox";
 import StoryPage from "../story-page";
 import { lorem, random } from "faker";

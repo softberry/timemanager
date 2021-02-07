@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, ReactElement } from "react";
+import { useState, useEffect, useContext, ReactElement } from "react";
 
 import {
   IContactDetailsComponent,

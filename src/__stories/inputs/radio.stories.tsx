@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { RadioGroup, RadioItem } from "../../__ui/formElements/radiogroup";
 
 import StoryPage from "../story-page";

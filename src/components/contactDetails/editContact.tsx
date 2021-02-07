@@ -1,4 +1,4 @@
-import React, { useReducer, FC, useEffect, useState, MouseEvent } from "react";
+import { useReducer, FC, useEffect, useState, MouseEvent } from "react";
 import {
   IContactsTableModel,
   IInputCallback,

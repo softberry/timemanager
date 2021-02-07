@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 import { lorem } from "faker";
 import HeadLine, { H1, H2, H3, H4, H5, H6 } from "../../__ui/headline";

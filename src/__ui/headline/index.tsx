@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { useTheme, useThemeStyle } from "../../__ui/typography";
 
 import { ThemeEnums } from "../../__typings/interfaces.d";

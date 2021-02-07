@@ -1,4 +1,4 @@
-import React, { useState, useCallback, FC, ReactNode } from "react";
+import { useState, useCallback, FC, ReactNode } from "react";
 import { IconSizeEnums, IconNameEnums, ThemeEnums } from "../../../__typings/interfaces.d";
 import themeDefault from "./theme-default.module.scss";
 import themeOcean from "./theme-ocean.module.scss";

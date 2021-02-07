@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, ReactElement } from "react";
+import { useContext, useEffect, ReactElement } from "react";
 
 import ViewContext from "../../views/index";
 

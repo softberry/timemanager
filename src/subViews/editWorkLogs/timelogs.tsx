@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext, useEffect } from "react";
+import { FC, useState, useContext, useEffect } from "react";
 import Tipp from "../../__ui/tipp";
 import Button from "../../__ui/buttons/button";
 import TimeLogItem from "./timeLogItem";
