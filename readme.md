@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/softberry/timemanager.svg?branch=develop)](https://travis-ci.org/softberry/timemanager)
 
+[Preview](https://timerapp.emresakarya.com/)
+
 ## Under Development
 
 **This project is still in early phase of development and not suitable for production.**
