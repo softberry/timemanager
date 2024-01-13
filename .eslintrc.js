@@ -1,3 +1,4 @@
+/*
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
@@ -10,3 +11,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": 2,
   },
 };
+  
+*/
+
+module.exports={}
